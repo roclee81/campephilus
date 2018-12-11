@@ -22,7 +22,7 @@ public class R extends HashMap<String, Object> {
     }
 
     public static R error() {
-        return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
+        return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "Unknown exception, please contact administrator");
     }
 
     public static R error(String msg) {
