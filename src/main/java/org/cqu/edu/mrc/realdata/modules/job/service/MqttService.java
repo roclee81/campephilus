@@ -12,13 +12,13 @@ package org.cqu.edu.mrc.realdata.modules.job.service;
 public interface MqttService {
 
     /**
-     *
-     * @param macAddress
+     * 通过MAC地址订阅Topic
+     * @param macAddress MAC地址,例如：E0D55E227B92
      */
     void subscribe(String macAddress);
 
     /**
-     *
+     * 开始连接Mqtt服务器，开始的时候将订阅了一个公共的Topic
      */
     void startConnectMqttService();
 }
