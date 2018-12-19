@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientDO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,17 +9,10 @@ import org.springframework.stereotype.Repository;
  *
  * @author lx
  * @version V1.0
- * @date 2018/12/11 17:24
+ * @date 2018/12/19 20:46
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
 @Repository
-public interface PatientRepository extends MongoRepository<PatientDO, String> {
-
-    /**
-     *
-     * @param patientId
-     * @return
-     */
-    PatientDO findPatientDOByPatientId(String patientId);
+public interface PreoperativePatientRepository extends MongoRepository<PreoperativePatientDO, Long> {
 }
