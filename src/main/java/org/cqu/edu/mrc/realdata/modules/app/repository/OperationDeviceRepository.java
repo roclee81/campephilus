@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.repository;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -27,39 +28,45 @@ public interface OperationDeviceRepository extends MongoRepository<OperationDevi
 
     /**
      * @param macAddress
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByCollectorMacAddress(String macAddress);
+    Page<OperationDeviceDO> findOperationDeviceDOSByCollectorMacAddress(String macAddress, Pageable pageable);
 
     /**
      * @param operationHospitalCode
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode);
+    Page<OperationDeviceDO> findOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable);
 
     /**
      * @param operationStartTimeBefore
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore);
+    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
 
     /**
      * @param operationStartTimeAfter
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter);
+    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
 
     /**
      * @param operationStartTimeBefore
      * @param operationStartTimeAfter
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter);
+    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
 
     /**
      * @param operationTimeBefore
      * @param operationTimeAfter
+     * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter);
+    Page<OperationDeviceDO> findOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 }

@@ -22,7 +22,6 @@ public class OperationMarkDO {
     /**
      * 编号 MongoDB自动生成
      */
-    @Id
     private String id;
 
     /**

@@ -24,7 +24,6 @@ public class PostoperativePatientDO {
     /**
      * 病人ID
      */
-    @Id
     private Integer patientId;
 
     /**

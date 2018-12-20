@@ -24,7 +24,6 @@ public class OperationDeviceDO {
     /**
      * 手术顺序号
      */
-    @Id
     private Integer operationNumber;
 
     /**

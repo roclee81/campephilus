@@ -23,7 +23,6 @@ public class PreoperativePatientDO {
     /**
      * 病人ID
      */
-    @Id
     private Integer patientId;
 
     /**

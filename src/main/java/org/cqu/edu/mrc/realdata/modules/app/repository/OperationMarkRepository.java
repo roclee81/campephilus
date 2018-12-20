@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.repository;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,33 +22,38 @@ public interface OperationMarkRepository extends MongoRepository<OperationMarkDO
 
     /**
      * @param operationNumber
+     * @param pageable
      * @return
      */
-    Page<OperationMarkDO> findOperationMarkDOSByOperationNumber(Integer operationNumber);
+    Page<OperationMarkDO> findOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * @param operationNumber
      * @param markType
+     * @param pageable
      * @return
      */
-    Page<OperationMarkDO> findOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType);
+    Page<OperationMarkDO> findOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
 
     /**
      * @param markTimeBefore
+     * @param pageable
      * @return
      */
-    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBefore(Date markTimeBefore);
+    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
 
     /**
      * @param markTimeAfter
+     * @param pageable
      * @return
      */
-    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeAfter(Date markTimeAfter);
+    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
 
     /**
      * @param markTimeBefore
      * @param markTimeAfter
+     * @param pageable
      * @return
      */
-    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter);
+    Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
 }
