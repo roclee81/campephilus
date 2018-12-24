@@ -1,10 +1,8 @@
 package org.cqu.edu.mrc.realdata.modules.app.dataobject;
 
-import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
 import java.util.Date;
 import java.util.Map;
 
@@ -19,7 +17,7 @@ import java.util.Map;
  */
 @Document
 @Data
-public class OperationDeviceDO {
+public class OperationDeviceInformationDO {
 
     /**
      * 手术顺序号

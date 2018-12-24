@@ -37,14 +37,30 @@ public class DeviceRepositoryImpl implements DeviceRepository {
     }
 
     @Override
-    public Page<DeviceDO> findDeviceDOSByUOperationNumber(String deviceId, int operationNumber, Pageable pageable) {
+    public Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
         Query query = Query.query(Criteria.where("operationNumber").is(operationNumber));
         query.with(pageable);
+        return getDeviceDOS(query, deviceId, pageable);
+    }
+
+    @Override
+    public Page<DeviceDO> findDeviceDOSByDeviceId(String deviceId, Pageable pageable) {
+        Query query = Query.query(Criteria.where(""));
+        query.with(pageable);
+        return getDeviceDOS(query, deviceId, pageable);
+    }
+
+    private Page<DeviceDO> getDeviceDOS(Query query, String deviceId, Pageable pageable) {
         // 查询总数
         int count = (int) mongoOperations.count(query, DeviceDO.class, deviceId);
         List<DeviceDO> deviceDOList = mongoOperations.find(query, DeviceDO.class, deviceId);
-        System.out.println(deviceDOList);
         return PageableExecutionUtils.getPage(deviceDOList, pageable, () -> count);
+    }
+
+    @Override
+    public Page<DeviceDO> findDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+        //TODO 不好实现
+        return null;
     }
 
     @Override

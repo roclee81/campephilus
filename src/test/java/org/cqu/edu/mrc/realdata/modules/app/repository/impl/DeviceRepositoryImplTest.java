@@ -1,9 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
-import org.cqu.edu.mrc.realdata.modules.app.repository.DeviceRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +37,9 @@ public class DeviceRepositoryImplTest {
     }
 
     @Test
-    public void findDeviceDOSByUOperationNumber() {
+    public void findDeviceDOSByOperationNumber() {
         PageRequest request = PageRequest.of(0, 100);
-        Page<DeviceDO> result = deviceRepository.findDeviceDOSByUOperationNumber("test", 1, request);
+        Page<DeviceDO> result = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber("test", 1, request);
         Assert.assertTrue(result.getTotalElements() > 0);
     }
 

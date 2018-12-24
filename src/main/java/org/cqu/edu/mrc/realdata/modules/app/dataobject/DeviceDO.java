@@ -4,7 +4,8 @@ import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,5 +46,15 @@ public class DeviceDO {
      * 仪器输出数据 仪器输出数据
      */
     private Map deviceData;
+
+    public DeviceDO() {
+    }
+
+    public DeviceDO(Integer operationNumber, Integer deviceDataNumber, Date updateTime, Map deviceData) {
+        this.operationNumber = operationNumber;
+        this.deviceDataNumber = deviceDataNumber;
+        this.updateTime = updateTime;
+        this.deviceData = deviceData;
+    }
 
 }

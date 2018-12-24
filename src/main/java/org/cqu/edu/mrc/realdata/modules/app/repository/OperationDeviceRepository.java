@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceInformationDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -18,41 +18,42 @@ import java.util.Date;
  * Description:
  */
 @Repository
-public interface OperationDeviceRepository extends MongoRepository<OperationDeviceDO, Integer> {
+public interface OperationDeviceRepository extends MongoRepository<OperationDeviceInformationDO, Integer> {
 
     /**
      * @param operationNumber
      * @return
      */
-    OperationDeviceDO findOperationDeviceDOByOperationNumber(Integer operationNumber);
+    OperationDeviceInformationDO findOperationDeviceInformationDOSByOperationNumber(Integer operationNumber);
 
     /**
      * @param macAddress
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByCollectorMacAddress(String macAddress, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByCollectorMacAddress(String macAddress, Pageable pageable);
 
     /**
      * @param operationHospitalCode
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable);
 
     /**
+     *
      * @param operationStartTimeBefore
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
 
     /**
      * @param operationStartTimeAfter
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
 
     /**
      * @param operationStartTimeBefore
@@ -60,7 +61,7 @@ public interface OperationDeviceRepository extends MongoRepository<OperationDevi
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
 
     /**
      * @param operationTimeBefore
@@ -68,5 +69,5 @@ public interface OperationDeviceRepository extends MongoRepository<OperationDevi
      * @param pageable
      * @return
      */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+    Page<OperationDeviceInformationDO> findOperationDeviceInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 }

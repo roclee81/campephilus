@@ -2,7 +2,7 @@
 
 ## enum code
 * UNKNOWN_ERROR(-1,"未知错误"),
-* DEVICE_REGISTER(199, "注册),
+* DEVICE_REGISTER(199, "注册"),
 * REGISTER_SUCCESS(200, "开机注册成功"),
 * OPERATION_READY(151,"准备要开始新的手术，获取opn"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
@@ -27,7 +27,7 @@
 * OPERATION_MARK(171,"是手术过程中的标记数据"),
 * OPERATION_MARK_SUCCESS(172,"该条过程中的标记数据收到"),
 * OPERATION_MARK_END(173, "手术过程中的标记数据发送结束"),
-* OPERATION_MARK_END_SUCCESS(174, "手术过程中的标记数据发送结束收到),
+* OPERATION_MARK_END_SUCCESS(174, "手术过程中的标记数据发送结束收到"),
 
 ## Topic规则
 * 采集器设备信息上传

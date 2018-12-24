@@ -27,13 +27,33 @@ public interface DeviceRepository {
     void save(DeviceDO deviceDO, String deviceId);
 
     /**
-     * 通过唯一的手术顺序号查询数据
+     * 通过唯一的手术顺序号和设备号查询数据
      *
+     * @param deviceId        设备的ID
      * @param operationNumber 手术顺序号唯一
      * @param pageable        分页信息
      * @return
      */
-    Page<DeviceDO> findDeviceDOSByUOperationNumber(String deviceId, int operationNumber, Pageable pageable);
+    Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
+
+    /**
+     * 通过设备ID获取该设备的所有数据
+     *
+     * @param deviceId 设备ID
+     * @param pageable 分页信息
+     * @return
+     */
+    Page<DeviceDO> findDeviceDOSByDeviceId(String deviceId, Pageable pageable);
+
+
+    /**
+     * 通过手术号查询该手术所有的仪器数据
+     *
+     * @param operationNumber 手术号
+     * @param pageable        分页信息
+     * @return
+     */
+    Page<DeviceDO> findDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 得到指定仪器id的数据条数
