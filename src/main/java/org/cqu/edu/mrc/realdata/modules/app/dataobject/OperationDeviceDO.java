@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Document
 @Data
-public class OperationDeviceInformationDO {
+public class OperationDeviceDO {
 
     /**
      * 手术顺序号
@@ -32,7 +32,7 @@ public class OperationDeviceInformationDO {
     /**
      * 进行手术的所在医院代码 采用国家医院代码,这个需要手术标记人员手动输入
      */
-    private Integer operationHospitalCode;
+    private String operationHospitalCode;
 
     /**
      * 手术开始时间
@@ -54,5 +54,13 @@ public class OperationDeviceInformationDO {
      */
     private Map deviceInformation;
 
-
+    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Date operationTime, Map deviceInformation) {
+        this.operationNumber = operationNumber;
+        this.collectorMacAddress = collectorMacAddress;
+        this.operationHospitalCode = operationHospitalCode;
+        this.operationStartTime = operationStartTime;
+        this.operationEndTime = operationEndTime;
+        this.operationTime = operationTime;
+        this.deviceInformation = deviceInformation;
+    }
 }

@@ -11,6 +11,23 @@ package org.cqu.edu.mrc.realdata.common.constant;
  */
 public class DataConstants {
 
-    public static final String DEVICE_ID = "deviceID";
+    public static final String DEVICE_ID = "deviceId";
+
+    public static final String DEVICE_DATA_NUMBER = "deviceDataNumber";
+
+    public static final String DEVICE_DATA = "deviceData";
+
+    public static final String MAC = "mac";
+
+    public static final String OPERATION_NUMBER = "opn";
+
+    public static final String DATA_MAP = "data";
+
+    public static final String HOSPITAL_CODE = "hospitalCode";
+
+    public static final String OPERATION_START_TIME = "operationStartTime";
+
+    public static final String DEVICE_INFORMATION = "deviceInformation";
+
 
 }

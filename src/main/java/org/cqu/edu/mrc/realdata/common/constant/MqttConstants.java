@@ -25,7 +25,7 @@ public class MqttConstants {
 
     public static final String TOPIC_TYPE_SYSTEM = "/sys";
 
-    public static final String TOPIC_TYPE_DATA = "/data";
+    public static final String TOPIC_TYPE_DATA = "/dataMap";
 
     public static final String MESSAGE_TYPE_EVENT = "/event";
 

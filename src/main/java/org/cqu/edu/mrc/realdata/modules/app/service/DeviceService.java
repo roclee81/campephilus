@@ -49,5 +49,5 @@ public interface DeviceService {
      * @param parseDataDTO 初次解析的数据
      * @return 存储完成返回true，对数据解析失败返回false
      */
-    boolean saveDeviceDO(ParseDataDTO parseDataDTO)
+    boolean saveDeviceDO(ParseDataDTO parseDataDTO);
 }

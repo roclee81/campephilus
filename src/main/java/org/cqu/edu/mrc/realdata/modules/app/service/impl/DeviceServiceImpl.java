@@ -1,9 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
-import com.google.gson.Gson;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
-import org.cqu.edu.mrc.realdata.modules.app.dto.MedicalDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.DeviceRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.DeviceService;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.Map;
 
@@ -59,45 +56,44 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public boolean saveDeviceDO(ParseDataDTO parseDataDTO) {
         if (null == parseDataDTO) {
-
-            Map deviceData;
-            Integer operationNumber;
-            String macAddress;
-            Integer deviceDataNumber;
-            try {
-                deviceData = parseDataDTO.getData();
-                operationNumber = parseDataDTO.getOperationNumber();
-                macAddress = parseDataDTO.getMacAddress();
-                deviceDataNumber = deviceData.get("")
-            } catch (NullPointerException exception) {
-                return false;
-            }
-
-
-            DeviceDO deviceDO = new DeviceDO(operationNumber,);
-            deviceDO.setUpdateTime(new Date());
-
-            //
-            if (null == parseDataDTO.getOperationNumber()) {
-                return false;
-            }
-            deviceDO.setOperationNumber(parseDataDTO.getOperationNumber());
-
-            // 检查是否有deviceId,没有直接返回
-            String deviceId;
-            if (deviceData.containsKey(DataConstants.DEVICE_ID)) {
-                deviceId = (String) deviceData.get(DataConstants.DEVICE_ID);
-            } else {
-                return false;
-            }
-
-            Map data;
-            if (deviceData.containsKey(DataConstants.))
-
-                this.saveDeviceDO(deviceDO, deviceId);
+            return false;
+        }
+        Map<String, Object> dataMap;
+        Integer operationNumber;
+        // 检查是否有operationNumber,dataMap,macAddress没有直接返回false
+        try {
+            dataMap = parseDataDTO.getDataMap();
+            operationNumber = parseDataDTO.getOperationNumber();
+        } catch (NullPointerException exception) {
+            return false;
         }
 
+        // 检查是否有deviceId,没有直接返回false
+        String deviceId;
+        if (dataMap.containsKey(DataConstants.DEVICE_ID)) {
+            deviceId = (String) dataMap.get(DataConstants.DEVICE_ID);
+        } else {
+            return false;
+        }
 
+        // 检查是否有deviceDataNumber,没有直接返回false
+        int deviceDataNumber;
+        if (dataMap.containsKey(DataConstants.DEVICE_DATA_NUMBER)) {
+            deviceDataNumber = Integer.parseInt((String) dataMap.get(DataConstants.DEVICE_DATA_NUMBER));
+        } else {
+            return false;
+        }
+
+        // 检查是否有deviceDataNumber,没有直接返回false
+        Map deviceData;
+        if (dataMap.containsKey(DataConstants.DEVICE_DATA)) {
+            deviceData = (Map) dataMap.get(DataConstants.DEVICE_DATA);
+        } else {
+            return false;
+        }
+
+        DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, new Date(), deviceData);
+        this.saveDeviceDO(deviceDO, deviceId);
         return true;
     }
 }

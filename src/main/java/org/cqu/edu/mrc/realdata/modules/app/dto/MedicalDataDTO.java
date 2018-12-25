@@ -21,5 +21,5 @@ public class MedicalDataDTO {
      */
     private Integer code;
 
-    private Map msg;
+    private Map<String, Object> msg;
 }

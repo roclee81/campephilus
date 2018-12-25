@@ -34,12 +34,12 @@ public class ParseDataDTO {
     /**
      * 数据Map
      */
-    private Map data;
+    private Map dataMap;
 
-    public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, Map data) {
+    public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, Map dataMap) {
         this.code = code;
         this.macAddress = macAddress;
         this.operationNumber = operationNumber;
-        this.data = data;
+        this.dataMap = dataMap;
     }
 }

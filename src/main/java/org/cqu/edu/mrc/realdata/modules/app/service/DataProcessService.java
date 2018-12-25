@@ -23,9 +23,11 @@ public interface DataProcessService {
     MedicalDataDTO parseJson(String jsonBuffer);
 
     /**
+     * 通过解析Code判断请求方式并回复
+     * 处理一个大型的分支，目前没有想到有什么其余的方式写该方法
      *
-     * @param medicalDataDTO
-     * @return
+     * @param medicalDataDTO 接收的DTO
+     * @return 按通讯规约返回Code
      */
     Integer processCode(MedicalDataDTO medicalDataDTO);
 

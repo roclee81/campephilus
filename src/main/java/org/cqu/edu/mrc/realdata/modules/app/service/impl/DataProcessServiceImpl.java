@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.common.enums.MqttEnum;
 import org.cqu.edu.mrc.realdata.modules.app.dto.MedicalDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
@@ -53,38 +54,60 @@ public class DataProcessServiceImpl implements DataProcessService {
     @Override
     public Integer processCode(MedicalDataDTO medicalDataDTO) {
 
-        if (null == medicalDataDTO) {
+        if (null == medicalDataDTO || null == medicalDataDTO.getCode()) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
 
         ParseDataDTO parseDataDTO = processMsg(medicalDataDTO);
 
-        if (null == parseDataDTO){
+        if (null == parseDataDTO) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
 
-        Integer code = parseDataDTO.getCode();
+        int code = parseDataDTO.getCode();
 
-        if (MqttEnum.DATA_FORMAT_ERROR.getCode().equals(code)) {
-            return code + 1;
+        // 接收数据存储的结果
+        boolean result = false;
+
+        // 手术过程设备信息
+        if (MqttEnum.OPERATION_DEVICE.getCode().equals(code)) {
+            result = operationDeviceService.saveOperationDeviceDO(parseDataDTO);
         }
 
+        // 处理传输的医疗仪器数据的情况
         if (MqttEnum.DEVICE_DATA.getCode().equals(code)) {
-            deviceService.saveDeviceDO(parseDataDTO);
-            return code + 1;
+            result = deviceService.saveDeviceDO(parseDataDTO);
         }
 
-        return 0;
+        if (result) {
+            return MqttEnum.DATA_FORMAT_ERROR.getCode();
+        }
+
+        return code + 1;
     }
 
+    /**
+     * 对接收到的实体类MedicalDataDTO进行第一步解析
+     *
+     * @param medicalDataDTO 接收到的实体类
+     * @return 初次解析后的实体类
+     */
     private ParseDataDTO processMsg(MedicalDataDTO medicalDataDTO) {
         try {
-            Map map = medicalDataDTO.getMsg();
-            String macAddress = map.containsKey("mac") ? (String) map.get("mac") : null;
-            Integer operationNumber = map.containsKey("opn") ? (Integer) map.get("opn") : null;
-            Map data = map.containsKey("data") ? (Map) map.get("data") : null;
-            return new ParseDataDTO(medicalDataDTO.getCode(), macAddress, operationNumber, data);
-        } catch (ClassCastException | NullPointerException exception) {
+            Map<String, Object> msg = medicalDataDTO.getMsg();
+
+            // 检查mac字段，如何没有直接返回null
+            String macAddress;
+            if (msg.containsKey(DataConstants.MAC)) {
+                macAddress = (String) msg.get(DataConstants.MAC);
+            } else {
+                return null;
+            }
+
+            int operationNumber = (int) (double) msg.getOrDefault(DataConstants.OPERATION_NUMBER, 0.0);
+            Map dataMap = (Map) msg.getOrDefault(DataConstants.DATA_MAP, new HashMap<>(16));
+            return new ParseDataDTO(medicalDataDTO.getCode(), macAddress, operationNumber, dataMap);
+        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             return null;
         }
     }

@@ -1,6 +1,9 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceInformationDO;
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationDeviceRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * realdata
@@ -30,37 +34,81 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
     }
 
     @Override
-    public OperationDeviceInformationDO getOperationDeviceInformationDOSByOperationNumber(Integer operationNumber) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationNumber(operationNumber);
+    public void saveOperationDeviceDO(OperationDeviceDO operationDeviceDO) {
+        operationDeviceRepository.save(operationDeviceDO);
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByCollectorMacAddress(String macAddress, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByCollectorMacAddress(macAddress, pageable);
+    public boolean saveOperationDeviceDO(ParseDataDTO parseDataDTO) {
+        if (null == parseDataDTO) {
+            return false;
+        }
+
+        Map<String, Object> dataMap;
+        Integer operationNumber;
+        String macAddress;
+        // 检查是否有operationNumber,dataMap,macAddress没有直接返回false
+        try {
+            dataMap = parseDataDTO.getDataMap();
+            operationNumber = parseDataDTO.getOperationNumber();
+            macAddress = parseDataDTO.getMacAddress();
+        } catch (NullPointerException exception) {
+            return false;
+        }
+
+        // 检查是否有operationHospitalCode,没有直接返回false
+        String operationHospitalCode;
+        if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
+            operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
+        } else {
+            return false;
+        }
+
+        // 检查是否有deviceInformation,没有直接返回false
+        Map deviceInformation;
+        if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
+            deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
+        } else {
+            return false;
+        }
+
+        OperationDeviceDO operationDeviceDO = new OperationDeviceDO(operationNumber, macAddress, operationHospitalCode, new Date(), null, null, deviceInformation);
+        this.saveOperationDeviceDO(operationDeviceDO);
+        return true;
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationHospitalCode(operationHospitalCode, pageable);
+    public OperationDeviceDO getOperationDeviceDOSByOperationNumber(Integer operationNumber) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationNumber(operationNumber);
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationStartTimeBefore(operationStartTimeBefore, pageable);
+    public Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String macAddress, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByCollectorMacAddress(macAddress, pageable);
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationStartTimeAfter(operationStartTimeAfter, pageable);
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationHospitalCode(operationHospitalCode, pageable);
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationStartTimeBefore(operationStartTimeBefore, pageable);
     }
 
     @Override
-    public Page<OperationDeviceInformationDO> getOperationDeviceInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationStartTimeAfter(operationStartTimeAfter, pageable);
+    }
+
+    @Override
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+    }
+
+    @Override
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
     }
 }
