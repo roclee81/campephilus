@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.service;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -43,4 +44,10 @@ public interface DeviceService {
      */
     void saveDeviceDO(DeviceDO deviceDO, String deviceId);
 
+    /**
+     * 存储数据
+     * @param parseDataDTO 初次解析的数据
+     * @return 存储完成返回true，对数据解析失败返回false
+     */
+    boolean saveDeviceDO(ParseDataDTO parseDataDTO)
 }

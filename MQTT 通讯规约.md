@@ -4,6 +4,12 @@
 * UNKNOWN_ERROR(-1,"未知错误"),
 * DEVICE_REGISTER(199, "注册"),
 * REGISTER_SUCCESS(200, "开机注册成功"),
+
+* DATA_FORMAT_ERROR(-2,"数据格式错误"),
+
+
+
+
 * OPERATION_READY(151,"准备要开始新的手术，获取opn"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
 * OPERATION_DEVICE_READY(153,"准备开始发送手术设备信息"),
@@ -115,16 +121,16 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 * #### 发送手术设备数据`Topic:/medical/sys/E0D55E227B92/event/update`
 ```
 {
-    "code": 155,
-    "meg": {
-        "mac": "mac",
-        "opn": "opn",
-        "historyCode": "historyCode",
-        "operationStartTime": "operationStartTime",
-        "deviceInformation": {
-        
-        }
-    }
+	"code": 155,
+	"meg": {
+		"mac": "mac",
+		"opn": "opn",
+		"data": {
+			"historyCode": "historyCode",
+			"operationStartTime": "operationStartTime",
+			"deviceInformation": {}
+		}
+	}
 }
 ```
 
@@ -187,15 +193,18 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 * #### 上传病人数据`Topic:medical/data/E0D55E227B92/patient/post`
 ```
 {
-    "code": 161,
-    "meg": {
-        "mac": "mac",
-        "opn": "opn",       
-        "patientInfo": {
-            "patientId": "value",
-            "patientData": "value"
-        }
-    }
+	"code": 161,
+	"meg": {
+		"mac": "mac",
+		"opn": "opn",
+		"data": {
+			"patientInfo": {
+				"patientId": "value",
+				"patientData": "value"
+			}
+		}
+
+	}
 }
 ```
 * #### 接收到该条病人数据`Topic:medical/data/E0D55E227B92/patient/post`
@@ -262,7 +271,9 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
         "opn": "opn",
         "data": {
             "deviceId": "value",
-            "deviceData": "value"
+            "deviceData": {
+                "number": "1"
+            }
         }
     }
 }
@@ -330,7 +341,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "msg": {
         "mac": "mac",
         "opn": "opn",
-        "data": "",
+        "data": {}
     }
 }
 ```

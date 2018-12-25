@@ -20,7 +20,7 @@ import java.util.Date;
  * Description:
  */
 @Service
-public class OperationMarkServiceImpl implements OperationMarkService {.
+public class OperationMarkServiceImpl implements OperationMarkService {
 
 
     private final OperationMarkRepository operationMarkRepository;

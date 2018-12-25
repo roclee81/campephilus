@@ -1,11 +1,9 @@
 package org.cqu.edu.mrc.realdata.modules.app.dataobject;
 
-import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

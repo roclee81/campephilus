@@ -21,8 +21,5 @@ public class MedicalDataDTO {
      */
     private Integer code;
 
-    /**
-     * 数据Map
-     */
     private Map msg;
 }
