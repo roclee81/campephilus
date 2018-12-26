@@ -1,6 +1,11 @@
 package org.cqu.edu.mrc.realdata.modules.app.service;
 
 
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * realdata
  *
@@ -11,4 +16,25 @@ package org.cqu.edu.mrc.realdata.modules.app.service;
  * Description:
  */
 public interface PreoperativePatientService {
+
+    /**
+     *
+     * @param preoperativePatientDO
+     */
+    void savePreoperativePatientDO(PreoperativePatientDO preoperativePatientDO);
+
+    /**
+     *
+     * @param patientId
+     * @param pageable
+     * @return
+     */
+    Page<PreoperativePatientDO> getPreoperativePatientDOSByPatientId(String patientId, Pageable pageable);
+
+    /**
+     *
+     * @param parseDataDTO
+     * @return
+     */
+    boolean savePreoperativePatientDO(ParseDataDTO parseDataDTO);
 }

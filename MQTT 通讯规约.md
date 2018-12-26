@@ -79,6 +79,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 151,
     "msg": {
         "mac": "mac"
+        "opn": 0        
     }
 }
 ```
@@ -89,7 +90,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 152
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -100,7 +101,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 153,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0,
         }
     }
 }
@@ -112,7 +113,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 154,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
         }
     }
 }
@@ -124,7 +125,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	"code": 155,
 	"msg": {
 		"mac": "mac",
-		"opn": "opn",
+		"opn": 0,
 		"data": {
 			"historyCode": 0147,
 			"deviceInformation": {}
@@ -139,7 +140,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 156,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -150,7 +151,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 157,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -161,7 +162,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 158,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -173,7 +174,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 159,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -184,7 +185,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 160,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -195,14 +196,11 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	"code": 161,
 	"msg": {
 		"mac": "mac",
-		"opn": "opn",
+		"opn": 0,
 		"data": {
-			"patientInfo": {
-				"patientId": "value",
-				"patientData": "value"
-			}
+			"patientId": "value",
+			"patientData": "value"
 		}
-
 	}
 }
 ```
@@ -212,7 +210,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 162,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -223,7 +221,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 163,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -234,7 +232,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 164,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -245,7 +243,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 165,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -256,7 +254,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 166,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -267,7 +265,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 167,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0,
         "data": {
             "deviceId": "value",
             "deviceDataNumber": "",
@@ -284,7 +282,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 168,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -295,7 +293,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 169,
     "msg": {  
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -306,7 +304,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 170,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -317,7 +315,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 171,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -328,7 +326,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 172,
     "msg": {
         "mac": "mac",
-        "opn": "opn"
+        "opn": 0
     }
 }
 ```
@@ -339,7 +337,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 173,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0,
         "data": {}
     }
 }
@@ -351,7 +349,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 174,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0,
     }
 }
 ```
@@ -362,7 +360,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 175,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0
     }
 }
 ```
@@ -373,7 +371,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 176,
     "msg": {
         "mac": "mac",
-        "opn": "opn",
+        "opn": 0
     }
 }
 ```

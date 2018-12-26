@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationDeviceRepository;
@@ -44,31 +43,27 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
             return false;
         }
 
-        Map<String, Object> dataMap;
-        Integer operationNumber;
-        String macAddress;
-        // 检查是否有operationNumber,dataMap,macAddress没有直接返回false
-        try {
-            dataMap = parseDataDTO.getDataMap();
-            operationNumber = parseDataDTO.getOperationNumber();
-            macAddress = parseDataDTO.getMacAddress();
-        } catch (NullPointerException exception) {
-            return false;
-        }
+        Map dataMap = parseDataDTO.getDataMap();
+        int operationNumber = parseDataDTO.getOperationNumber();
+        String macAddress = parseDataDTO.getMacAddress();
 
-        // 检查是否有operationHospitalCode,没有直接返回false
-        String operationHospitalCode;
-        if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
-            operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
-        } else {
-            return false;
-        }
-
-        // 检查是否有deviceInformation,没有直接返回false
         Map deviceInformation;
-        if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
-            deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
-        } else {
+        String operationHospitalCode;
+        try {
+            // 检查是否有operationHospitalCode,没有直接返回false
+            if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
+                operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
+            } else {
+                return false;
+            }
+
+            // 检查是否有deviceInformation,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
+                deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
+            } else {
+                return false;
+            }
+        } catch (ClassCastException | NullPointerException exception) {
             return false;
         }
 

@@ -29,5 +29,8 @@ public class DataConstants {
 
     public static final String DEVICE_INFORMATION = "deviceInformation";
 
+    public static final String PATIENT_ID = "patientId";
+
+    public static final String PATIENT_DATA = "patientData";
 
 }

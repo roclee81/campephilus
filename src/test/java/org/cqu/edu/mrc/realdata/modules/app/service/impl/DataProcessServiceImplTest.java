@@ -42,8 +42,14 @@ public class DataProcessServiceImplTest {
 //        MedicalDataDTO medicalDataDTO3 = dataProcessService.parseJson("{\"msg\":{\"mac\":\"mac\",\"opn\":1}}");
 //        dataProcessService.processCode(medicalDataDTO3);
 
-        MedicalDataDTO medicalDataDTO4 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"opn\":2,\"data\":{\"hospitalCode\":\"165065\",\"deviceInformation\":{}}}}");
-        dataProcessService.processCode(medicalDataDTO4);
+//        MedicalDataDTO medicalDataDTO4 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"opn\":2,\"data\":{\"hospitalCode\":\"165065\",\"deviceInformation\":{}}}}");
+//        dataProcessService.processCode(medicalDataDTO4);
+
+//        MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":{}}}}");
+//        dataProcessService.processCode(medicalDataDTO5);
+
+                MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":\"data\"}}}");
+        dataProcessService.processCode(medicalDataDTO5);
 
     }
 }

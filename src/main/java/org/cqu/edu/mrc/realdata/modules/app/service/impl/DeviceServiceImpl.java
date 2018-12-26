@@ -58,37 +58,36 @@ public class DeviceServiceImpl implements DeviceService {
         if (null == parseDataDTO) {
             return false;
         }
-        Map<String, Object> dataMap;
-        Integer operationNumber;
-        // 检查是否有operationNumber,dataMap,macAddress没有直接返回false
-        try {
-            dataMap = parseDataDTO.getDataMap();
-            operationNumber = parseDataDTO.getOperationNumber();
-        } catch (NullPointerException exception) {
-            return false;
-        }
 
-        // 检查是否有deviceId,没有直接返回false
-        String deviceId;
-        if (dataMap.containsKey(DataConstants.DEVICE_ID)) {
-            deviceId = (String) dataMap.get(DataConstants.DEVICE_ID);
-        } else {
-            return false;
-        }
+        Map dataMap = parseDataDTO.getDataMap();
+        int operationNumber = parseDataDTO.getOperationNumber();
 
-        // 检查是否有deviceDataNumber,没有直接返回false
         int deviceDataNumber;
-        if (dataMap.containsKey(DataConstants.DEVICE_DATA_NUMBER)) {
-            deviceDataNumber = Integer.parseInt((String) dataMap.get(DataConstants.DEVICE_DATA_NUMBER));
-        } else {
-            return false;
-        }
-
-        // 检查是否有deviceDataNumber,没有直接返回false
+        String deviceId;
         Map deviceData;
-        if (dataMap.containsKey(DataConstants.DEVICE_DATA)) {
-            deviceData = (Map) dataMap.get(DataConstants.DEVICE_DATA);
-        } else {
+
+        try {
+            // 检查是否有deviceId,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DEVICE_ID)) {
+                deviceId = (String) dataMap.get(DataConstants.DEVICE_ID);
+            } else {
+                return false;
+            }
+
+            // 检查是否有deviceDataNumber,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DEVICE_DATA_NUMBER)) {
+                deviceDataNumber = Integer.parseInt((String) dataMap.get(DataConstants.DEVICE_DATA_NUMBER));
+            } else {
+                return false;
+            }
+
+            // 检查是否有deviceDataNumber,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DEVICE_DATA)) {
+                deviceData = (Map) dataMap.get(DataConstants.DEVICE_DATA);
+            } else {
+                return false;
+            }
+        } catch (ClassCastException | NullPointerException exception) {
             return false;
         }
 

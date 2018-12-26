@@ -1,6 +1,9 @@
 package org.cqu.edu.mrc.realdata.common.utils;
 
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+
 import java.lang.reflect.Field;
+import java.util.Map;
 
 /**
  * @author Vinicolor
@@ -61,4 +64,5 @@ public class BeanUtil {
         }
         return true;
     }
+
 }

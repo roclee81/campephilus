@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface PostoperativePatientRepository extends MongoRepository<PostoperativePatientDO, Integer> {
+public interface PostoperativePatientRepository extends MongoRepository<PostoperativePatientDO, String> {
 }

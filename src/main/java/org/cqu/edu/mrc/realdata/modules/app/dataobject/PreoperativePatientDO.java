@@ -9,7 +9,8 @@ import java.util.Map;
 
 /**
  * realdata
- *术前患者数据
+ * 术前患者数据
+ *
  * @author lx
  * @version V1.0
  * @date 2018/12/19 20:41
@@ -21,9 +22,14 @@ import java.util.Map;
 public class PreoperativePatientDO {
 
     /**
+     * Mongo自动生成的ID
+     */
+    private String id;
+
+    /**
      * 病人ID
      */
-    private Integer patientId;
+    private String patientId;
 
     /**
      * 数据采集器MAC地址
@@ -34,11 +40,6 @@ public class PreoperativePatientDO {
      * 手术顺序号 手术的顺序号，唯一
      */
     private Integer operationNumber;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 
     /**
      * 更新时间
@@ -52,15 +53,26 @@ public class PreoperativePatientDO {
 
     /**
      * 存放基本数据信息 "msg": {
-     *         "stage": "pre",
-     *         "hospital code": "hospital code",
-     *         "state": "state",
-     *         "type": "type"
-     *     },
+     * "stage": "pre",
+     * "hospital code": "hospital code",
+     * "state": "state",
+     * "type": "type"
+     * },
+     * 用于评分等环节，目前未使用
      */
     private Map meg;
     /**
      * 患者基本信息
      */
     private Map patientData;
+
+    public PreoperativePatientDO(String patientId, String collectorMacAddress, Integer operationNumber, Date updateTime, Integer creatorId, Map meg, Map patientData) {
+        this.patientId = patientId;
+        this.collectorMacAddress = collectorMacAddress;
+        this.operationNumber = operationNumber;
+        this.updateTime = updateTime;
+        this.creatorId = creatorId;
+        this.meg = meg;
+        this.patientData = patientData;
+    }
 }

@@ -28,24 +28,20 @@ public class DataProcessServiceImpl implements DataProcessService {
     private final DeviceServiceImpl deviceService;
     private final OperationMarkServiceImpl operationMarkService;
     private final OperationDeviceServiceImpl operationDeviceService;
-
-    private static Gson gson;
-
-    static {
-        gson = new Gson();
-    }
+    private final PreoperativePatientServiceImpl preoperativePatientService;
 
     @Autowired
-    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationDeviceServiceImpl operationDeviceService) {
+    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationDeviceServiceImpl operationDeviceService, PreoperativePatientServiceImpl preoperativePatientService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationDeviceService = operationDeviceService;
+        this.preoperativePatientService = preoperativePatientService;
     }
 
     @Override
     public MedicalDataDTO parseJson(String jsonBuffer) {
         try {
-            return gson.fromJson(jsonBuffer, MedicalDataDTO.class);
+            return new Gson().fromJson(jsonBuffer, MedicalDataDTO.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             return null;
         }
@@ -79,6 +75,11 @@ public class DataProcessServiceImpl implements DataProcessService {
             result = deviceService.saveDeviceDO(parseDataDTO);
         }
 
+        // 处理上传的患者数据的情况
+        if (MqttEnum.PATIENT_INFO.getCode().equals(code)) {
+            result = preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
+        }
+
         if (result) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
@@ -104,8 +105,17 @@ public class DataProcessServiceImpl implements DataProcessService {
                 return null;
             }
 
-            int operationNumber = (int) (double) msg.getOrDefault(DataConstants.OPERATION_NUMBER, 0.0);
+            // 检查operationNumber字段，如何没有直接返回null
+            int operationNumber;
+            if (msg.containsKey(DataConstants.OPERATION_NUMBER)) {
+                operationNumber = (int) (double) msg.get(DataConstants.OPERATION_NUMBER);
+            } else {
+                return null;
+            }
+
+            // 该Map可以为空
             Map dataMap = (Map) msg.getOrDefault(DataConstants.DATA_MAP, new HashMap<>(16));
+
             return new ParseDataDTO(medicalDataDTO.getCode(), macAddress, operationNumber, dataMap);
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             return null;

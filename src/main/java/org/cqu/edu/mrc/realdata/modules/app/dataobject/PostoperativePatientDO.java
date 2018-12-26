@@ -22,6 +22,11 @@ import java.util.Map;
 public class PostoperativePatientDO {
 
     /**
+     * Mongo自动生成
+     */
+    private String id;
+
+    /**
      * 病人ID
      */
     private Integer patientId;
