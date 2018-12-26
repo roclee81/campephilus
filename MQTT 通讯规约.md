@@ -334,12 +334,16 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 * #### 手术中的标记信息`Topic:/medical/data/E0D55E227B92/operation/mark/post`
 ```
 {
-    "code": 173,
-    "msg": {
-        "mac": "mac",
-        "opn": 0,
-        "data": {}
-    }
+	"code": 173,
+	"msg": {
+		"mac": "mac",
+		"opn": 0,
+		"data": {
+			"markNumber": 1,
+			"markType": 1,
+			"markMessage": {}
+		}
+	}
 }
 ```
 

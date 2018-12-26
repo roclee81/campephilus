@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * realdata
@@ -18,7 +19,7 @@ import java.util.Date;
 @Document
 @Data
 public class OperationMarkDO {
-    
+
     /**
      * 编号 MongoDB自动生成
      */
@@ -42,10 +43,18 @@ public class OperationMarkDO {
     /**
      * 手术标记信息 手术标记信息
      */
-    private String markMessage;
+    private Map markMessage;
 
     /**
      * 数据标记时间
      */
     private Date markTime;
+
+    public OperationMarkDO(Integer operationNumber, Integer markNumber, Integer markType, Map markMessage, Date markTime) {
+        this.operationNumber = operationNumber;
+        this.markNumber = markNumber;
+        this.markType = markType;
+        this.markMessage = markMessage;
+        this.markTime = markTime;
+    }
 }

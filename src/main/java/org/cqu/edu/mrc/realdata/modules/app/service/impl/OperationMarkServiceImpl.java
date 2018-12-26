@@ -1,6 +1,9 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationMarkRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * realdata
@@ -42,7 +46,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
 
     @Override
     public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
-        return operationMarkRepository.findOperationMarkDOSByMarkTimeBefore(markTimeBefore,pageable);
+        return operationMarkRepository.findOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
     }
 
     @Override
@@ -53,5 +57,52 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
+    }
+
+    @Override
+    public void saveOperationMarkDO(OperationMarkDO operationMarkDO) {
+        operationMarkRepository.save(operationMarkDO);
+    }
+
+    @Override
+    public boolean saveOperationMarkDO(ParseDataDTO parseDataDTO) {
+        if (null == parseDataDTO) {
+            return false;
+        }
+
+        Map dataMap = parseDataDTO.getDataMap();
+        int operationNumber = parseDataDTO.getOperationNumber();
+
+        int markNumber, markType;
+        Map deviceData;
+
+        try {
+            // 检查是否有markNumber,没有直接返回false
+            if (dataMap.containsKey(DataConstants.MARK_NUMBER)) {
+                markNumber = (int) (double) dataMap.get(DataConstants.MARK_NUMBER);
+            } else {
+                return false;
+            }
+
+            // 检查是否有markType,没有直接返回false
+            if (dataMap.containsKey(DataConstants.MARK_TYPE)) {
+                markType = (int) (double) dataMap.get(DataConstants.MARK_TYPE);
+            } else {
+                return false;
+            }
+
+            // 检查是否有deviceDataNumber,没有直接返回false
+            if (dataMap.containsKey(DataConstants.MARK_MESSAGE)) {
+                deviceData = (Map) dataMap.get(DataConstants.MARK_MESSAGE);
+            } else {
+                return false;
+            }
+        } catch (ClassCastException | NullPointerException exception) {
+            return false;
+        }
+
+        OperationMarkDO operationMarkDO = new OperationMarkDO(operationNumber, markNumber, markType, deviceData, new Date());
+        this.saveOperationMarkDO(operationMarkDO);
+        return true;
     }
 }

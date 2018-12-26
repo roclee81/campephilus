@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.service;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -56,4 +57,17 @@ public interface OperationMarkService {
      * @return
      */
     Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
+
+    /**
+     * @param operationMarkDO
+     */
+    void saveOperationMarkDO(OperationMarkDO operationMarkDO);
+
+    /**
+     *
+     * @param parseDataDTO
+     * @return
+     */
+    boolean saveOperationMarkDO(ParseDataDTO parseDataDTO);
+
 }

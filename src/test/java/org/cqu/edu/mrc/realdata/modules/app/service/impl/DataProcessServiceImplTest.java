@@ -48,7 +48,10 @@ public class DataProcessServiceImplTest {
 //        MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":{}}}}");
 //        dataProcessService.processCode(medicalDataDTO5);
 
-                MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":\"data\"}}}");
+//        MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":\"data\"}}}");
+//        dataProcessService.processCode(medicalDataDTO5);
+
+        MedicalDataDTO medicalDataDTO5 = dataProcessService.parseJson("{\"code\":173,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"markNumber\":1,\"markType\":1,\"markMessage\":{}}}}");
         dataProcessService.processCode(medicalDataDTO5);
 
     }

@@ -80,6 +80,11 @@ public class DataProcessServiceImpl implements DataProcessService {
             result = preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
         }
 
+        // 处理上传的手术过程中标记的情况
+        if (MqttEnum.OPERATION_MARK.getCode().equals(code)) {
+            result = operationMarkService.saveOperationMarkDO(parseDataDTO);
+        }
+
         if (result) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
@@ -89,6 +94,7 @@ public class DataProcessServiceImpl implements DataProcessService {
 
     /**
      * 对接收到的实体类MedicalDataDTO进行第一步解析
+     * 缺少mac、operationNumber字段直接返回null
      *
      * @param medicalDataDTO 接收到的实体类
      * @return 初次解析后的实体类

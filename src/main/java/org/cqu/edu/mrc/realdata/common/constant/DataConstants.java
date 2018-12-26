@@ -33,4 +33,11 @@ public class DataConstants {
 
     public static final String PATIENT_DATA = "patientData";
 
+    public static final String MARK_NUMBER = "markNumber";
+
+    public static final String MARK_TYPE = "markType";
+
+    public static final String MARK_MESSAGE = "markMessage";
+
+
 }
