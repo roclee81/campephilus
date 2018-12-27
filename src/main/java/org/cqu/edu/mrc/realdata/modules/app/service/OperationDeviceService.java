@@ -19,13 +19,11 @@ import java.util.Date;
 public interface OperationDeviceService {
 
     /**
-     *
      * @param operationDeviceDO
      */
     void saveOperationDeviceDO(OperationDeviceDO operationDeviceDO);
 
     /**
-     *
      * @param parseDataDTO
      * @return
      */

@@ -39,6 +39,8 @@ public interface DeviceService {
     Page<DeviceDO> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
+     * 根据设备Id存储数据
+     *
      * @param deviceDO
      * @param deviceId
      */
@@ -46,6 +48,7 @@ public interface DeviceService {
 
     /**
      * 存储数据
+     *
      * @param parseDataDTO 初次解析的数据
      * @return 存储完成返回true，对数据解析失败返回false
      */

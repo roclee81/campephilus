@@ -20,6 +20,11 @@ import java.util.Map;
 public class OperationDeviceDO {
 
     /**
+     * Mongo自动生成
+     */
+    private Integer id;
+
+    /**
      * 手术顺序号
      */
     private Integer operationNumber;

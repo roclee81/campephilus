@@ -4,6 +4,7 @@ import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientIdOperationNumberD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,11 +16,9 @@ import org.springframework.stereotype.Repository;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Repository
-public interface PatientIdOperationNumberRepository extends MongoRepository<PatientIdOperationNumberDO, String> {
+public interface PatientIdOperationNumberRepository {
 
     /**
-     *
      * @param patientId
      * @param pageable
      * @return
@@ -27,10 +26,21 @@ public interface PatientIdOperationNumberRepository extends MongoRepository<Pati
     Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(Integer patientId, Pageable pageable);
 
     /**
-     *
      * @param operationNumber
      * @param pageable
      * @return
      */
     Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOByOperationNumber(Integer operationNumber, Pageable pageable);
+
+
+    /**
+     * @param patientIdOperationNumberDO
+     */
+    void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO);
+
+    /**
+     *
+     * @return
+     */
+    Integer countAll();
 }

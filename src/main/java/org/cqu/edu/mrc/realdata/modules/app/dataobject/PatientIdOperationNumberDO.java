@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * realdata
@@ -17,7 +18,7 @@ import javax.persistence.Id;
 @Document
 @Data
 public class PatientIdOperationNumberDO {
-    
+
     /**
      * Mongo自动生成,唯一
      */
@@ -26,6 +27,12 @@ public class PatientIdOperationNumberDO {
      * 病人Id
      */
     private Integer patientId;
+
+    /**
+     * 数据创建时间
+     */
+    private Date gmtCreate;
+
     /**
      * 手术顺序号
      */
