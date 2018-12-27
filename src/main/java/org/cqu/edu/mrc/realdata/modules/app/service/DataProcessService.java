@@ -34,4 +34,12 @@ public interface DataProcessService {
      */
     Integer processCode(MedicalDataDTO medicalDataDTO);
 
+    /**
+     * 得到新的手术顺序号
+     * 根据patientIdOperationNumber表计算得到表
+     * 目前根据synchronized来实现多线程
+     *
+     * @return 下一个新的手术顺序号
+     */
+    Integer getNewOperationNumber();
 }

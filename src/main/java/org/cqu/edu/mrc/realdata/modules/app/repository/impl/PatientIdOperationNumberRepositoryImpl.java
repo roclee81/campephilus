@@ -33,7 +33,7 @@ public class PatientIdOperationNumberRepositoryImpl implements PatientIdOperatio
     }
 
     @Override
-    public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(Integer patientId, Pageable pageable) {
+    public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(String patientId, Pageable pageable) {
         Query query = Query.query(Criteria.where("patientId").is(patientId));
         return queryPageable(query, pageable);
     }
@@ -44,24 +44,28 @@ public class PatientIdOperationNumberRepositoryImpl implements PatientIdOperatio
         return queryPageable(query, pageable);
     }
 
+    @Override
+    public void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO) {
+        mongoOperations.save(patientIdOperationNumberDO);
+    }
+
+    @Override
+    public Page<PatientIdOperationNumberDO> findAll(Pageable pageable) {
+        Query query = Query.query(Criteria.where(""));
+        return queryPageable(query, pageable);
+    }
+
+    @Override
+    public Integer countAll() {
+        Query query = Query.query(Criteria.where(""));
+        return (int) mongoOperations.count(query, PatientIdOperationNumberDO.class);
+    }
+
     private Page<PatientIdOperationNumberDO> queryPageable(Query query, Pageable pageable) {
         query.with(pageable);
         // 查询总数
         int count = (int) mongoOperations.count(query, PatientIdOperationNumberDO.class);
         List<PatientIdOperationNumberDO> nodeSensorDOList = mongoOperations.find(query, PatientIdOperationNumberDO.class);
         return PageableExecutionUtils.getPage(nodeSensorDOList, pageable, () -> count);
-
-    }
-
-    @Override
-    public void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO) {
-        mongoOperations.save(patientIdOperationNumberDO);
-    }
-
-
-    @Override
-    public Integer countAll() {
-        Query query = Query.query(Criteria.where(""));
-        return (int) mongoOperations.count(query, PatientIdOperationNumberDO.class);
     }
 }

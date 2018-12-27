@@ -29,13 +29,15 @@ public class DataProcessServiceImpl implements DataProcessService {
     private final OperationMarkServiceImpl operationMarkService;
     private final OperationDeviceServiceImpl operationDeviceService;
     private final PreoperativePatientServiceImpl preoperativePatientService;
+    private final PatientIdOperationNumberServiceImpl patientIdOperationNumberService;
 
     @Autowired
-    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationDeviceServiceImpl operationDeviceService, PreoperativePatientServiceImpl preoperativePatientService) {
+    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationDeviceServiceImpl operationDeviceService, PreoperativePatientServiceImpl preoperativePatientService, PatientIdOperationNumberServiceImpl patientIdOperationNumberService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationDeviceService = operationDeviceService;
         this.preoperativePatientService = preoperativePatientService;
+        this.patientIdOperationNumberService = patientIdOperationNumberService;
     }
 
     @Override
@@ -85,11 +87,21 @@ public class DataProcessServiceImpl implements DataProcessService {
             result = operationMarkService.saveOperationMarkDO(parseDataDTO);
         }
 
+        // 处理了上传病人Id和手术号的情况
+        if (MqttEnum.OPERATION_READY.getCode().equals(code)) {
+            result = patientIdOperationNumberService.savePatientIdOperationNumberDO(parseDataDTO);
+        }
+
         if (result) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
 
         return code + 1;
+    }
+
+    @Override
+    public synchronized Integer getNewOperationNumber() {
+        return patientIdOperationNumberService.countAll() + 1;
     }
 
     /**

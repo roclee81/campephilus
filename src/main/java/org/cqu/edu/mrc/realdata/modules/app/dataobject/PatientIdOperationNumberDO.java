@@ -26,7 +26,7 @@ public class PatientIdOperationNumberDO {
     /**
      * 病人Id
      */
-    private Integer patientId;
+    private String patientId;
 
     /**
      * 数据创建时间
@@ -37,4 +37,13 @@ public class PatientIdOperationNumberDO {
      * 手术顺序号
      */
     private Integer operationNumber;
+
+    public PatientIdOperationNumberDO() {
+    }
+
+    public PatientIdOperationNumberDO(String patientId, Date gmtCreate, Integer operationNumber) {
+        this.patientId = patientId;
+        this.gmtCreate = gmtCreate;
+        this.operationNumber = operationNumber;
+    }
 }

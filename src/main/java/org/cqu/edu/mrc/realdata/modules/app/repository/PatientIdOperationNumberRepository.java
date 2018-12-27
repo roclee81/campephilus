@@ -23,7 +23,7 @@ public interface PatientIdOperationNumberRepository {
      * @param pageable
      * @return
      */
-    Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(Integer patientId, Pageable pageable);
+    Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * @param operationNumber
@@ -38,8 +38,16 @@ public interface PatientIdOperationNumberRepository {
      */
     void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO);
 
+
     /**
+     * 查询表中的所有数据
      *
+     * @param pageable 分页信息
+     * @return
+     */
+    Page<PatientIdOperationNumberDO> findAll(Pageable pageable);
+
+    /**
      * @return
      */
     Integer countAll();
