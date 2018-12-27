@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
@@ -24,6 +25,7 @@ import java.util.Map;
  * Description:
  */
 @Service
+@Slf4j
 public class PreoperativePatientServiceImpl implements PreoperativePatientService {
 
     private final PreoperativePatientRepository preoperativePatientRepository;
@@ -69,6 +71,7 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
                 return false;
             }
         } catch (ClassCastException | NullPointerException exception) {
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 

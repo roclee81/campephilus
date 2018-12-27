@@ -40,11 +40,11 @@ public class DataProcessServiceImplTest {
 
         MedicalDataDTO medicalDataDTO2 = dataProcessService.parseJson("{\"code\":167,\"msg\":{\"mac\":\"mac\",\"opn\":1}}");
         int result2 = dataProcessService.processCode(medicalDataDTO2);
-        Assert.assertTrue(result2 > 0);
+        Assert.assertTrue(result2 < 0);
 
         MedicalDataDTO medicalDataDTO3 = dataProcessService.parseJson("{\"msg\":{\"mac\":\"mac\",\"opn\":1}}");
         int result3 = dataProcessService.processCode(medicalDataDTO3);
-        Assert.assertTrue(result3 > 0);
+        Assert.assertTrue(result3 < 0);
 
         MedicalDataDTO medicalDataDTO4 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"opn\":2,\"data\":{\"hospitalCode\":\"165065\",\"deviceInformation\":{}}}}");
         int result4 = dataProcessService.processCode(medicalDataDTO4);
@@ -56,7 +56,7 @@ public class DataProcessServiceImplTest {
 
         MedicalDataDTO medicalDataDTO6 = dataProcessService.parseJson("{\"code\":161,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"value\",\"patientData\":\"data\"}}}");
         int result6 = dataProcessService.processCode(medicalDataDTO6);
-        Assert.assertTrue(result6 > 0);
+        Assert.assertTrue(result6 < 0);
 
         MedicalDataDTO medicalDataDTO7 = dataProcessService.parseJson("{\"code\":173,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"markNumber\":1,\"markType\":1,\"markMessage\":{}}}}");
         int result7 = dataProcessService.processCode(medicalDataDTO7);

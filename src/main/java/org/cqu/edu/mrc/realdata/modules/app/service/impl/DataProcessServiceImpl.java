@@ -92,7 +92,7 @@ public class DataProcessServiceImpl implements DataProcessService {
             result = patientIdOperationNumberService.savePatientIdOperationNumberDO(parseDataDTO);
         }
 
-        if (result) {
+        if (!result) {
             return MqttEnum.DATA_FORMAT_ERROR.getCode();
         }
 

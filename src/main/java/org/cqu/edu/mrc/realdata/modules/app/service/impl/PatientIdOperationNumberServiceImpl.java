@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientIdOperationNumberDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
@@ -23,6 +24,7 @@ import java.util.Map;
  * Description:
  */
 @Service
+@Slf4j
 public class PatientIdOperationNumberServiceImpl implements PatientIdOperationNumberService {
 
     private final PatientIdOperationNumberRepository patientIdOperationNumberRepository;
@@ -70,6 +72,7 @@ public class PatientIdOperationNumberServiceImpl implements PatientIdOperationNu
                 return false;
             }
         } catch (ClassCastException | NullPointerException exception) {
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), String.valueOf(exception));
             return false;
         }
 

@@ -18,7 +18,7 @@ import java.util.Date;
  * Description:
  */
 @Repository
-public interface OperationDeviceRepository extends MongoRepository<OperationDeviceDO, Integer> {
+public interface OperationDeviceRepository extends MongoRepository<OperationDeviceDO, String> {
 
     /**
      * @param operationNumber

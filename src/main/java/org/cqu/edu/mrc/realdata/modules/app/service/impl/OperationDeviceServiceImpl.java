@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
@@ -23,6 +24,7 @@ import java.util.Map;
  * Description:
  */
 @Service
+@Slf4j
 public class OperationDeviceServiceImpl implements OperationDeviceService {
 
     private final OperationDeviceRepository operationDeviceRepository;
@@ -64,6 +66,7 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
                 return false;
             }
         } catch (ClassCastException | NullPointerException exception) {
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), String.valueOf(exception));
             return false;
         }
 

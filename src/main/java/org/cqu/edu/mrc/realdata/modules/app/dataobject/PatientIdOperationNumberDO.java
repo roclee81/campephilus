@@ -23,6 +23,7 @@ public class PatientIdOperationNumberDO {
      * Mongo自动生成,唯一
      */
     private String id;
+
     /**
      * 病人Id
      */

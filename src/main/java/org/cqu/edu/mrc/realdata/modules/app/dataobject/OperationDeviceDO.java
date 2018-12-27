@@ -22,7 +22,7 @@ public class OperationDeviceDO {
     /**
      * Mongo自动生成
      */
-    private Integer id;
+    private String id;
 
     /**
      * 手术顺序号
