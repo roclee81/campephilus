@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.dataobject;
 
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Document
+@Document(value = "postoperative_patient")
 @Data
 public class PostoperativePatientDO {
 
@@ -29,12 +30,20 @@ public class PostoperativePatientDO {
     /**
      * 病人ID
      */
+    @Field(value = "patient_id")
     private Integer patientId;
 
     /**
      * 记录时间
      */
-    private Date updateTime;
+    @Field(value = "gmt_create")
+    private Date gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    @Field(value = "gmt_modified")
+    private Date gmtModified;
 
     /**
      * 记录人编号

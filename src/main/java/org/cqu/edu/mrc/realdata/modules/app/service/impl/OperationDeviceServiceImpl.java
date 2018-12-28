@@ -66,7 +66,7 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
                 return false;
             }
         } catch (ClassCastException | NullPointerException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), String.valueOf(exception));
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 
@@ -81,12 +81,12 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
     }
 
     @Override
-    public Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String macAddress, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceDOSByCollectorMacAddress(macAddress, pageable);
+    public Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+        return operationDeviceRepository.findOperationDeviceDOSByCollectorMacAddress(collectorMacAddress, pageable);
     }
 
     @Override
-    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable) {
+    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable) {
         return operationDeviceRepository.findOperationDeviceDOSByOperationHospitalCode(operationHospitalCode, pageable);
     }
 

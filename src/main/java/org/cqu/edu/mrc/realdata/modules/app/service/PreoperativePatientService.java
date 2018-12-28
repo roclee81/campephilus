@@ -18,23 +18,26 @@ import org.springframework.data.domain.Pageable;
 public interface PreoperativePatientService {
 
     /**
+     * 通过患者的ID得到PreoperativePatientDO信息
      *
-     * @param preoperativePatientDO
-     */
-    void savePreoperativePatientDO(PreoperativePatientDO preoperativePatientDO);
-
-    /**
-     *
-     * @param patientId
-     * @param pageable
-     * @return
+     * @param patientId 患者ID
+     * @param pageable  分页信息
+     * @return PreoperativePatientDO分页信息
      */
     Page<PreoperativePatientDO> getPreoperativePatientDOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 保存PreoperativePatientDO信息
      *
-     * @param parseDataDTO
-     * @return
+     * @param preoperativePatientDO PreoperativePatientDO实体
+     */
+    void savePreoperativePatientDO(PreoperativePatientDO preoperativePatientDO);
+
+    /**
+     * 通过ParseDataDTO中的信息解析后得到PreoperativePatientDO来保存信息
+     *
+     * @param parseDataDTO 初次解析的数据
+     * @return 是否保存成功
      */
     boolean savePreoperativePatientDO(ParseDataDTO parseDataDTO);
 }

@@ -15,7 +15,7 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Document
+@Document(value = "patient_id_operation_number")
 @Data
 public class PatientIdOperationNumberDO {
 
@@ -33,6 +33,11 @@ public class PatientIdOperationNumberDO {
      * 数据创建时间
      */
     private Date gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    private Date gmtModified;
 
     /**
      * 手术顺序号

@@ -21,39 +21,49 @@ import java.util.Date;
 public interface OperationMarkRepository extends MongoRepository<OperationMarkDO, String> {
 
     /**
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * 通过手术顺序号查询该手术的所有标记信息
+     *
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return OperationMarkDO的分页信息
      */
     Page<OperationMarkDO> findOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
-     * @param operationNumber
-     * @param markType
-     * @param pageable
-     * @return
+     * 通过手术顺序号和手术标记的类型查询所有标记信息
+     *
+     * @param operationNumber 手术顺序号
+     * @param markType        手术标记的类型
+     * @param pageable        分页信息
+     * @return OperationMarkDO的分页信息
      */
     Page<OperationMarkDO> findOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
 
     /**
-     * @param markTimeBefore
-     * @param pageable
-     * @return
+     * 通过输入的手术标记的时间查询之前的所有标记信息
+     *
+     * @param markTimeBefore 手术标记的时间
+     * @param pageable       分页信息
+     * @return OperationMarkDO的分页信息
      */
     Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
 
     /**
-     * @param markTimeAfter
-     * @param pageable
-     * @return
+     * 通过输入的手术标记的时间查询之后的所有标记信息
+     *
+     * @param markTimeAfter 手术标记时间
+     * @param pageable      分页信息
+     * @return OperationMarkDO的分页信息
      */
     Page<OperationMarkDO> findOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
 
     /**
-     * @param markTimeBefore
-     * @param markTimeAfter
-     * @param pageable
-     * @return
+     * 通过输入的手术标记的时间查询中间一段时间的所有标记信息
+     *
+     * @param markTimeBefore 手术标记时间之前
+     * @param markTimeAfter  手术标记时间之后
+     * @param pageable       分页信息
+     * @return OperationMarkDO的分页信息
      */
     Page<OperationMarkDO> findOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
 }

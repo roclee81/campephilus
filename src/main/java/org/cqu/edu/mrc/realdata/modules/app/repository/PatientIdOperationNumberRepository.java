@@ -19,36 +19,42 @@ import org.springframework.stereotype.Repository;
 public interface PatientIdOperationNumberRepository {
 
     /**
-     * @param patientId
-     * @param pageable
-     * @return
+     * 通过患者的ID查询PatientIdOperationNumberDO信息
+     *
+     * @param patientId 患者的ID
+     * @param pageable  分页信息
+     * @return PatientIdOperationNumberDO分页信息
      */
     Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(String patientId, Pageable pageable);
 
     /**
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * 通过手术顺序号查询PatientIdOperationNumberDO信息
+     *
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return PatientIdOperationNumberDO分页信息
      */
     Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOByOperationNumber(Integer operationNumber, Pageable pageable);
 
-
     /**
-     * @param patientIdOperationNumberDO
-     */
-    void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO);
-
-
-    /**
-     * 查询表中的所有数据
+     * 得到所有的PatientIdOperationNumberDO信息
      *
      * @param pageable 分页信息
-     * @return
+     * @return PatientIdOperationNumberDO分页信息
      */
     Page<PatientIdOperationNumberDO> findAll(Pageable pageable);
 
     /**
-     * @return
+     * 保存PatientIdOperationNumberDO
+     *
+     * @param patientIdOperationNumberDO PatientIdOperationNumberDO信息
+     */
+    void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO);
+
+    /**
+     * 统计PatientIdOperationNumberDO表中的记录的条数
+     *
+     * @return PatientIdOperationNumberDO表中的记录的条数
      */
     Integer countAll();
 }

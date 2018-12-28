@@ -21,18 +21,22 @@ import java.util.Date;
 public interface InvasiveDetectionBloodPressureService {
 
     /**
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * 通过手术顺序号查询该手术中的有创检测的数据
+     *
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return InvasiveDetectionBloodPressureDO的分页信息
      */
     Page<InvasiveDetectionBloodPressureDO> getInvasiveDetectionBloodPressureDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
-     * @param updateTimeBefore
-     * @param updateTimeAfter
-     * @param pageable
-     * @return
+     * 查询数据上传时间在输入范围内的数据
+     *
+     * @param gmtCreateBefore 待查询的之前数据创建时间
+     * @param gmtCreateAfter  待查询的之后数据创建时间
+     * @param pageable        分页信息
+     * @return InvasiveDetectionBloodPressureDO的分页信息
      */
-    Page<InvasiveDetectionBloodPressureDO> getInvasiveDetectionBloodPressureDOSByUpdateTimeBetween(Date updateTimeBefore, Date updateTimeAfter, Pageable pageable);
+    Page<InvasiveDetectionBloodPressureDO> getInvasiveDetectionBloodPressureDOSByGmtCreateBetween(Date gmtCreateBefore, Date gmtCreateAfter, Pageable pageable);
 
 }

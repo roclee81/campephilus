@@ -19,63 +19,81 @@ import java.util.Date;
 public interface OperationDeviceService {
 
     /**
-     * @param operationDeviceDO
+     * 保存operationDeviceDO
+     *
+     * @param operationDeviceDO operationDeviceDO实体
      */
     void saveOperationDeviceDO(OperationDeviceDO operationDeviceDO);
 
     /**
-     * @param parseDataDTO
-     * @return
+     * 通过ParseDataDTO中的信息解析后得到operationDeviceDO来保存信息
+     *
+     * @param parseDataDTO 初次解析的数据
+     * @return 是否保存成功
      */
     boolean saveOperationDeviceDO(ParseDataDTO parseDataDTO);
 
     /**
-     * @param operationNumber
-     * @return
+     * 通过手术顺序号得到OperationDeviceDO
+     *
+     * @param operationNumber 手术顺序号
+     * @return OperationDeviceDO
      */
     OperationDeviceDO getOperationDeviceDOSByOperationNumber(Integer operationNumber);
 
     /**
-     * @param macAddress
-     * @param pageable
-     * @return
+     * 通过采集器的MAC地址查询OperationDeviceDO数据
+     *
+     * @param collectorMacAddress 采集器的MAC地址
+     * @param pageable            分页信息
+     * @return OperationDeviceDO的分页信息
      */
-    Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String macAddress, Pageable pageable);
+    Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
 
     /**
-     * @param operationHospitalCode
-     * @param pageable
-     * @return
+     * 通过手术执行医院的代码得到手术的设备信息OperationDeviceDO
+     *
+     * @param operationHospitalCode 医院的代码
+     * @param pageable              分页信息
+     * @return OperationDeviceDO的分页信息
      */
-    Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(Integer operationHospitalCode, Pageable pageable);
+    Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable);
 
     /**
-     * @param operationStartTimeBefore
-     * @param pageable
-     * @return
+     * 通过输入的手术开始时间的查询之前的所有数据
+     *
+     * @param operationStartTimeBefore 手术开始的时间
+     * @param pageable                 分页信息
+     * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
 
     /**
-     * @param operationStartTimeAfter
-     * @param pageable
-     * @return
+     * 通过输入的手术开始时间的查询之后的所有数据
+     *
+     * @param operationStartTimeAfter 手术开始的时间
+     * @param pageable                分页信息
+     * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
 
     /**
-     * @param operationStartTimeBefore
-     * @param operationStartTimeAfter
-     * @param pageable
-     * @return
+     * 通过输入的手术开始时间的查询这一段时间的所有数据
+     *
+     * @param operationStartTimeBefore 手术开始的时间之前
+     * @param operationStartTimeAfter  手术开始的时间之后
+     * @param pageable                 分页信息
+     * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
 
     /**
-     * @param operationTimeBefore
-     * @param operationTimeAfter
-     * @param pageable
-     * @return
+     * 通过输入的手术进行时间的查询这一段时间的所有数据
+     *
+     * @param operationTimeBefore 手术进行时间之前
+     * @param operationTimeAfter  手术进行时间之前
+     * @param pageable            分页信息
+     * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> getOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 }

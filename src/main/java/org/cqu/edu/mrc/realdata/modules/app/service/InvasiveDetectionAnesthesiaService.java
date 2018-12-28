@@ -18,22 +18,24 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface InvasiveDetectionAnesthesiaService{
+public interface InvasiveDetectionAnesthesiaService {
 
     /**
+     * 通过手术顺序号查询该手术中的有创检测的数据
      *
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return InvasiveDetectionAnesthesiaDO的分页信息
      */
     Page<InvasiveDetectionAnesthesiaDO> getInvasiveDetectionAnesthesiaDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
+     * 查询数据上传时间在输入范围内的数据
      *
-     * @param updateTimeBefore
-     * @param updateTimeAfter
-     * @param pageable
-     * @return
+     * @param gmtCreateBefore 待查询的之前数据创建时间
+     * @param gmtCreateAfter  待查询的之后数据创建时间
+     * @param pageable        分页信息
+     * @return InvasiveDetectionAnesthesiaDO的分页信息
      */
-    Page<InvasiveDetectionAnesthesiaDO> getInvasiveDetectionAnesthesiaDOSByUpdateTimeBetween(Date updateTimeBefore, Date updateTimeAfter, Pageable pageable);
+    Page<InvasiveDetectionAnesthesiaDO> getInvasiveDetectionAnesthesiaDOSByGmtCreateBetween(Date gmtCreateBefore, Date gmtCreateAfter, Pageable pageable);
 }

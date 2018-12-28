@@ -19,9 +19,11 @@ import org.springframework.stereotype.Repository;
 public interface PreoperativePatientRepository extends MongoRepository<PreoperativePatientDO, String> {
 
     /**
-     * @param patientId
-     * @param pageable
-     * @return
+     * 通过患者的ID得到PreoperativePatientDO信息
+     *
+     * @param patientId 患者ID
+     * @param pageable  分页信息
+     * @return PreoperativePatientDO分页信息
      */
     Page<PreoperativePatientDO> findPreoperativePatientDOSByPatientId(String patientId, Pageable pageable);
 
