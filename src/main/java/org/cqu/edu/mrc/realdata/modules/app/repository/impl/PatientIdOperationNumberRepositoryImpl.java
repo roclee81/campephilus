@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientIdOperationNumberDO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.PatientIdOperationNumberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,13 @@ public class PatientIdOperationNumberRepositoryImpl implements PatientIdOperatio
 
     @Override
     public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(String patientId, Pageable pageable) {
-        Query query = Query.query(Criteria.where("patientId").is(patientId));
+        Query query = Query.query(Criteria.where(DataConstants.PATIENT_ID).is(patientId));
         return queryPageable(query, pageable);
     }
 
     @Override
     public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOByOperationNumber(Integer operationNumber, Pageable pageable) {
-        Query query = Query.query(Criteria.where("operationNumber").is(operationNumber));
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber));
         return queryPageable(query, pageable);
     }
 

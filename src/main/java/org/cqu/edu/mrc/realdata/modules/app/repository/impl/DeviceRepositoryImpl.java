@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.DeviceRepository;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,7 @@ import java.util.List;
 @Component
 public class DeviceRepositoryImpl implements DeviceRepository {
 
-    private final
-    MongoOperations mongoOperations;
+    private final MongoOperations mongoOperations;
 
     public DeviceRepositoryImpl(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
@@ -33,12 +33,13 @@ public class DeviceRepositoryImpl implements DeviceRepository {
 
     @Override
     public void save(DeviceDO deviceDO, String deviceId) {
-        mongoOperations.save(deviceDO, deviceId);
+        deviceId = deviceId.toLowerCase();
+        mongoOperations.save(deviceDO, "device_" + deviceId);
     }
 
     @Override
     public Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
-        Query query = Query.query(Criteria.where("operationNumber").is(operationNumber));
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber));
         query.with(pageable);
         return getDeviceDOS(query, deviceId, pageable);
     }

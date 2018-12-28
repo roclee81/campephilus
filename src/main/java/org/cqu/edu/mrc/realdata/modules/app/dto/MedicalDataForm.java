@@ -14,12 +14,15 @@ import java.util.Map;
  * Description:
  */
 @Data
-public class MedicalDataDTO {
+public class MedicalDataForm {
 
     /**
      * 数据传输操作码
      */
     private Integer code;
 
-    private Map<String, Object> msg;
+    /**
+     * 包含信息的Msg
+     */
+    private Map msg;
 }

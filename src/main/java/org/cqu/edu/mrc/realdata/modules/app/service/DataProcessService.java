@@ -1,7 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.service;
 
-import org.cqu.edu.mrc.realdata.common.utils.R;
-import org.cqu.edu.mrc.realdata.modules.app.dto.MedicalDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.MedicalDataForm;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 
 /**
  * realdata
@@ -20,7 +20,7 @@ public interface DataProcessService {
      * @param jsonBuffer JSON 字符串
      * @return MedicalDataDTO实体类
      */
-    MedicalDataDTO parseJson(String jsonBuffer);
+    MedicalDataForm parseJson(String jsonBuffer);
 
     /**
      * <ul>
@@ -29,10 +29,10 @@ public interface DataProcessService {
      * <li>目前仅处理在注册后的数据，即形成了mqtt话题后的数据</li>
      * </ul>
      *
-     * @param medicalDataDTO 接收的DTO
+     * @param medicalDataForm 接收的DTO
      * @return 按通讯规约返回Code
      */
-    Integer processCode(MedicalDataDTO medicalDataDTO);
+    Integer processCode(ParseDataDTO parseDataDTO);
 
     /**
      * 得到新的手术顺序号
@@ -42,4 +42,14 @@ public interface DataProcessService {
      * @return 下一个新的手术顺序号
      */
     Integer getNewOperationNumber();
+
+    /**
+     * 对接收到的实体类MedicalDataDTO进行第一步解析
+     * 缺少mac、operationNumber字段直接返回null
+     *
+     * @param medicalDataForm 接收到的实体类
+     * @return 初次解析后的实体类
+     */
+    ParseDataDTO processMsg(MedicalDataForm medicalDataForm);
+
 }

@@ -6,7 +6,7 @@
 * REGISTER_SUCCESS(200, "开机注册成功"),
 
 * DATA_FORMAT_ERROR(-2,"数据格式错误"),
-* OPERATION_READY(151,"准备要开始新的手术，获取opn"),
+* OPERATION_READY(151,"准备要开始新的手术，获取operationNumber"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
 * OPERATION_DEVICE_READY(153,"准备开始发送手术设备信息"),
 * OPERATION_DEVICE_READY_SUCCESS(154,"可以准备开始发送手术设备信息"),
@@ -73,13 +73,13 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 ### 3. 服务器订阅上述4个Topic
 
 
-* #### 准备要数据(手术开始准备,请求opn)上传了`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 准备要数据(手术开始准备,请求operationNumber)上传了`Topic:/medical/sys/E0D55E227B92/event/update`
 ```
 {
     "code": 151,
     "msg": {
         "mac": "mac",
-        "opn": 0,     
+        "operationNumber": "0",     
         "data":{
             "patientId": "patientId"
         }
@@ -87,13 +87,13 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 服务器也准备完毕，返回opn，可以上传了`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 服务器也准备完毕，返回operationNumber，可以上传了`Topic:/medical/sys/E0D55E227B92/event/update`
 ```
 {
     "code": 152
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -104,7 +104,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 153,
     "msg": {
         "mac": "mac",
-        "opn": 1,
+        "operationNumber": "1",
         }
     }
 }
@@ -116,7 +116,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 154,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
         }
     }
 }
@@ -128,9 +128,9 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	"code": 155,
 	"msg": {
 		"mac": "mac",
-		"opn": 1,
+		"operationNumber": "1",
 		"data": {
-			"historyCode": 0147,
+			"hospitalCode": "0147",
 			"deviceInformation": {}
 		}
 	}
@@ -143,7 +143,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 156,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -154,7 +154,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 157,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -165,7 +165,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 158,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -177,7 +177,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 159,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -188,7 +188,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 160,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -199,7 +199,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	"code": 161,
 	"msg": {
 		"mac": "mac",
-		"opn": 1,
+		"operationNumber": "1",
 		"data": {
 			"patientId": "value",
 			"patientData": "value"
@@ -213,7 +213,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 162,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -224,7 +224,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 163,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -235,7 +235,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 164,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -246,7 +246,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 165,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -257,7 +257,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 166,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -268,7 +268,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 167,
     "msg": {
         "mac": "mac",
-        "opn": 1,
+        "operationNumber": "1",
         "data": {
             "deviceId": "value",
             "deviceDataNumber": "",
@@ -285,7 +285,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 168,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -296,7 +296,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 169,
     "msg": {  
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -307,7 +307,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 170,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -318,7 +318,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 171,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -329,7 +329,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 172,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -340,7 +340,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	"code": 173,
 	"msg": {
 		"mac": "mac",
-		"opn": 1,
+		"operationNumber": "1",
 		"data": {
 			"markNumber": 1,
 			"markType": 1,
@@ -356,7 +356,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 174,
     "msg": {
         "mac": "mac",
-        "opn": 1,
+        "operationNumber": "1",
     }
 }
 ```
@@ -367,7 +367,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 175,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```
@@ -378,7 +378,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     "code": 176,
     "msg": {
         "mac": "mac",
-        "opn": 1
+        "operationNumber": "1"
     }
 }
 ```

@@ -99,8 +99,8 @@ public class OperationMarkServiceImpl implements OperationMarkService {
             } else {
                 return false;
             }
-        } catch (ClassCastException | NullPointerException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), String.valueOf(exception));
+        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 

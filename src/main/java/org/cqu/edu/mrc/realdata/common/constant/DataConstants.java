@@ -19,7 +19,7 @@ public class DataConstants {
 
     public static final String MAC = "mac";
 
-    public static final String OPERATION_NUMBER = "opn";
+    public static final String OPERATION_NUMBER = "operationNumber";
 
     public static final String DATA_MAP = "data";
 
@@ -38,6 +38,4 @@ public class DataConstants {
     public static final String MARK_TYPE = "markType";
 
     public static final String MARK_MESSAGE = "markMessage";
-
-
 }

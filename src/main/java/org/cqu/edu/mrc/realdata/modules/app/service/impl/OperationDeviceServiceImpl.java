@@ -65,7 +65,7 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
             } else {
                 return false;
             }
-        } catch (ClassCastException | NullPointerException exception) {
+        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
