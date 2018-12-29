@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
@@ -47,10 +48,11 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
 
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();
-        String macAddress = parseDataDTO.getMacAddress();
+        String collectorMacAddress = parseDataDTO.getMacAddress();
 
         Map deviceInformation;
         String operationHospitalCode;
+        Date operationStartTime;
         try {
             // 检查是否有operationHospitalCode,没有直接返回false
             if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
@@ -65,14 +67,34 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
             } else {
                 return false;
             }
+
+            if (dataMap.containsKey(DataConstants.OPERATION_START_TIME)) {
+                operationStartTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.OPERATION_START_TIME)));
+            } else {
+                return false;
+            }
+
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 
-        OperationDeviceDO operationDeviceDO = new OperationDeviceDO(operationNumber, macAddress, operationHospitalCode, new Date(), null, null, deviceInformation);
+        OperationDeviceDO operationDeviceDO = new OperationDeviceDO(operationNumber, collectorMacAddress, operationHospitalCode, operationStartTime, null, null, new Date(), new Date(), deviceInformation);
         this.saveOperationDeviceDO(operationDeviceDO);
+        log.info("Insert the success :{}", operationDeviceDO.toString());
         return true;
+    }
+
+    @Override
+    public boolean updateOperationDeviceDO(ParseDataDTO parseDataDTO) {
+        if (null == parseDataDTO) {
+            return false;
+        }
+
+        int operationNumber = parseDataDTO.getOperationNumber();
+
+
+        return false;
     }
 
     @Override

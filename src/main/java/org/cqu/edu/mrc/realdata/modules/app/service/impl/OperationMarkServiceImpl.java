@@ -106,6 +106,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
 
         OperationMarkDO operationMarkDO = new OperationMarkDO(operationNumber, markNumber, markType, deviceData, new Date());
         this.saveOperationMarkDO(operationMarkDO);
+        log.info("Insert the success :{}", operationMarkDO.toString());
         return true;
     }
 }

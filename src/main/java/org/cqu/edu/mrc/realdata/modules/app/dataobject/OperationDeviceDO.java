@@ -1,8 +1,10 @@
 package org.cqu.edu.mrc.realdata.modules.app.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Map;
@@ -46,6 +48,8 @@ public class OperationDeviceDO {
     /**
      * 手术开始时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Field(value = "operation_start_time")
     private Date operationStartTime;
 
@@ -64,6 +68,8 @@ public class OperationDeviceDO {
     /**
      * 数据上传时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Field(value = "gmt_create")
     private Date gmtCreate;
 
@@ -82,13 +88,15 @@ public class OperationDeviceDO {
     public OperationDeviceDO() {
     }
 
-    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Date operationTime, Map deviceInformation) {
+    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Date operationTime, Date gmtCreate, Date gmtModified, Map deviceInformation) {
         this.operationNumber = operationNumber;
         this.collectorMacAddress = collectorMacAddress;
         this.operationHospitalCode = operationHospitalCode;
         this.operationStartTime = operationStartTime;
         this.operationEndTime = operationEndTime;
         this.operationTime = operationTime;
+        this.gmtCreate = gmtCreate;
+        this.gmtModified = gmtModified;
         this.deviceInformation = deviceInformation;
     }
 }

@@ -38,4 +38,8 @@ public class DataConstants {
     public static final String MARK_TYPE = "markType";
 
     public static final String MARK_MESSAGE = "markMessage";
+
+    public static final String CODE = "code";
+
+    public static final String MSG = "msg";
 }

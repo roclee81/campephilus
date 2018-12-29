@@ -96,6 +96,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, new Date(), deviceData);
         this.saveDeviceDO(deviceDO, deviceId);
+        log.info("Insert the success :{}", deviceDO.toString());
         return true;
     }
 }

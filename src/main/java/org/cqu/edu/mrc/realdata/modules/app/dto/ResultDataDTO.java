@@ -9,13 +9,12 @@ import java.util.Map;
  *
  * @author lx
  * @version V1.0
- * @date 2018/12/24 16:33
+ * @date 2018/12/29 11:06
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
 @Data
-public class MedicalDataForm {
-
+public class ResultDataDTO {
     /**
      * 数据传输操作码
      */
@@ -25,4 +24,12 @@ public class MedicalDataForm {
      * 包含信息的Msg
      */
     private Map msg;
+
+    public ResultDataDTO() {
+    }
+
+    public ResultDataDTO(Integer code, Map msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 }

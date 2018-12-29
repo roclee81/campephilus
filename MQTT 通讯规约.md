@@ -32,24 +32,11 @@
 * OPERATION_MARK_SUCCESS(174,"该条过程中的标记数据收到"),
 * OPERATION_MARK_END(175, "手术过程中的标记数据发送结束"),
 * OPERATION_MARK_END_SUCCESS(176, "手术过程中的标记数据发送结束收到"),
+* OPERATION_END_READY(177,"请求手术结束"),
+* OPERATION_END_READY_SUCCESS(178, "是手术结束的信息"),
+* OPERATION_END(179, "是手术结束的信息"),
+* OPERATION_END_SUCCESS(180, "回复收到手术结束的信息"),
 
-## Topic规则
-* 采集器设备信息上传
-```
-Topic:/medical/sys/E0D55E227B92/event/update
-```
-* 患者信息上传
-```
-Topic:/medical/data/E0D55E227B92/patient/post
-```
-* 仪器输出信息上传
-```
-Topic:/medical/data/E0D55E227B92/device/post
-```
-* 手术标记信息上传
-```
-Topic:/medical/data/E0D55E227B92/operation/mark/post
-```
 
 ## 发布规则
 ### 1. 所有设备开机时在公共`Topic:`发布自己的机器`Topic`
@@ -70,10 +57,9 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
     }
 }
 ```
-### 3. 服务器订阅上述4个Topic
 
 
-* #### 准备要数据(手术开始准备,请求operationNumber)上传了`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 准备要开始手术了(手术开始准备,请求operationNumber)上传了
 ```
 {
     "code": 151,
@@ -81,13 +67,14 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
         "mac": "mac",
         "operationNumber": "0",     
         "data":{
-            "patientId": "patientId"
+            "patientId": "patientId",
+            "operationStartTime": ""
         }
     }
 }
 ```
 
-* #### 服务器也准备完毕，返回operationNumber，可以上传了`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 服务器也准备完毕，返回operationNumber，可以上传了
 ```
 {
     "code": 152
@@ -98,7 +85,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 准备发送手术设备数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 准备发送手术设备数据
 ```
 {
     "code": 153,
@@ -110,7 +97,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 回复可以发送发送手术设备数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 回复可以发送发送手术设备数据
 ```
 {
     "code": 154,
@@ -122,7 +109,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 发送手术设备数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 发送手术设备数据
 ```
 {
 	"code": 155,
@@ -137,7 +124,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 接收到该条设备数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 接收到该条设备数据
 ```
 {
     "code": 156,
@@ -148,7 +135,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 设备数据发送完毕`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 设备数据发送完毕
 ```
 {
     "code": 157,
@@ -159,7 +146,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 回复设备数据发送可以完毕`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 回复设备数据发送可以完毕
 ```
 {
     "code": 158,
@@ -171,7 +158,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 ```
 
 
-* #### 准备发送病人信息数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 准备发送病人信息数据
 ```
 {
     "code": 159,
@@ -182,7 +169,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 可以上传病人数据数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 可以上传病人数据数据
 ```
 {
     "code": 160,
@@ -193,7 +180,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 上传病人数据`Topic:medical/data/E0D55E227B92/patient/post`
+* #### 上传病人数据
 ```
 {
 	"code": 161,
@@ -207,7 +194,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 	}
 }
 ```
-* #### 接收到该条病人数据`Topic:medical/data/E0D55E227B92/patient/post`
+* #### 接收到该条病人数据
 ```
 {
     "code": 162,
@@ -218,7 +205,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 发布病人信息发送结束`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 发布病人信息发送结束
 ```
 {
     "code": 163,
@@ -229,7 +216,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 回复收到病人信息发送结束`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 回复收到病人信息发送结束
 ```
 {
     "code": 164,
@@ -240,7 +227,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 准备发送仪器数`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 准备发送仪器数
 ```
 {
     "code": 165,
@@ -251,7 +238,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 可以发送仪器数据`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 可以发送仪器数据
 ```
 {
     "code": 166,
@@ -262,7 +249,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 发送仪器数据`Topic:/medical/data/E0D55E227B92/device/post`
+* #### 发送仪器数据
 ```
 {
     "code": 167,
@@ -279,7 +266,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 接收到该条数据`Topic:/medical/data/E0D55E227B92/device/post`
+* #### 接收到该条数据
 ```
 {
     "code": 168,
@@ -290,7 +277,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 仪器数据发送结束`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 仪器数据发送结束
 ```
 {
     "code": 169,
@@ -301,7 +288,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 回复收到医疗仪器数据结束信号`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 回复收到医疗仪器数据结束信号
 ```
 {
     "code": 170,
@@ -312,7 +299,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 手术中的标记信息准备发送`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 手术中的标记信息准备发送
 ```
 {
     "code": 171,
@@ -323,7 +310,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 手术中的标记信息可以发送`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 手术中的标记信息可以发送
 ```
 {
     "code": 172,
@@ -334,7 +321,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 手术中的标记信息`Topic:/medical/data/E0D55E227B92/operation/mark/post`
+* #### 手术中的标记信息
 ```
 {
 	"code": 173,
@@ -361,7 +348,7 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 手术标记信息发送完毕`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 手术标记信息发送完毕
 ```
 {
     "code": 175,
@@ -372,10 +359,57 @@ Topic:/medical/data/E0D55E227B92/operation/mark/post
 }
 ```
 
-* #### 手术标记信息发送完毕收到`Topic:/medical/sys/E0D55E227B92/event/update`
+* #### 手术标记信息发送完毕收到
 ```
 {
     "code": 176,
+    "msg": {
+        "mac": "mac",
+        "operationNumber": "1"
+    }
+}
+```
+
+* #### 请求手术结束
+```
+{
+    "code": 177,
+    "msg": {
+        "mac": "mac",
+        "operationNumber": "1"
+    }
+}
+```
+
+* #### 回复手术可以结束
+```
+{
+    "code": 178,
+    "msg": {
+        "mac": "mac",
+        "operationNumber": "1"
+    }
+}
+```
+
+* #### 是手术结束的信息
+```
+{
+    "code": 179,
+    "msg": {
+        "mac": "mac",
+        "operationNumber": "1",
+        "data": {
+            "operationEndTime": ""
+        }
+    }
+}
+```
+
+* #### 回复收到手术结束的信息
+```
+{
+    "code": 180,
     "msg": {
         "mac": "mac",
         "operationNumber": "1"

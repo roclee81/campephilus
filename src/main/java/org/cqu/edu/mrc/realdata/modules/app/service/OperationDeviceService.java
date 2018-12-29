@@ -34,6 +34,14 @@ public interface OperationDeviceService {
     boolean saveOperationDeviceDO(ParseDataDTO parseDataDTO);
 
     /**
+     * 更新存储的数据
+     * 先查询再根据ID存储
+     * @param parseDataDTO
+     * @return
+     */
+    boolean updateOperationDeviceDO(ParseDataDTO parseDataDTO);
+
+    /**
      * 通过手术顺序号得到OperationDeviceDO
      *
      * @param operationNumber 手术顺序号

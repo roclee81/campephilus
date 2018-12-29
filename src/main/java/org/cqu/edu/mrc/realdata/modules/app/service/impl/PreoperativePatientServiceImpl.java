@@ -76,6 +76,7 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
 
         PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, parseDataDTO.getMacAddress(), operationNumber, new Date(), 0, null, patientData);
         this.savePreoperativePatientDO(preoperativePatientDO);
+        log.info("Insert the success :{}", preoperativePatientDO.toString());
         return true;
     }
 }

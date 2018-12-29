@@ -78,6 +78,7 @@ public class PatientIdOperationNumberServiceImpl implements PatientIdOperationNu
 
         PatientIdOperationNumberDO patientIdOperationNumberDO = new PatientIdOperationNumberDO(patientId, new Date(), operationNumber);
         this.savePatientIdOperationNumberDO(patientIdOperationNumberDO);
+        log.info("Insert the success :{}", patientIdOperationNumberDO.toString());
         return true;
     }
 

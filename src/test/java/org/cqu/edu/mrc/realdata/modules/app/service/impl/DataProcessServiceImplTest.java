@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
-import org.cqu.edu.mrc.realdata.modules.app.dto.MedicalDataForm;
+import org.cqu.edu.mrc.realdata.modules.app.dto.ResultDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.form.MedicalDataForm;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,6 +64,10 @@ public class DataProcessServiceImplTest {
 //        MedicalDataForm medicalDataForm8 = dataProcessService.parseJson("{\"code\":151,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"patientId\":\"patientId\"}}}");
 //        int result8 = dataProcessService.processCode(medicalDataForm8);
 //        Assert.assertTrue(result8 > 0);
+
+        MedicalDataForm medicalDataForm8 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"operationNumber\":\"1\",\"data\":{\"operationStartTime\":\"1546073420000\",\"hospitalCode\":\"0147\",\"deviceInformation\":{}}}}");
+        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm8);
+        Assert.assertTrue(resultDataDTO.getCode() > 0);
 
 
     }
