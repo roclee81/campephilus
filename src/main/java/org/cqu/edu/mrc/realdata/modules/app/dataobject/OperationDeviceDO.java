@@ -63,7 +63,7 @@ public class OperationDeviceDO {
      * 手术进行的时间
      */
     @Field(value = "operation_time")
-    private Date operationTime;
+    private Long operationTime;
 
     /**
      * 数据上传时间
@@ -88,7 +88,7 @@ public class OperationDeviceDO {
     public OperationDeviceDO() {
     }
 
-    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Date operationTime, Date gmtCreate, Date gmtModified, Map deviceInformation) {
+    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified, Map deviceInformation) {
         this.operationNumber = operationNumber;
         this.collectorMacAddress = collectorMacAddress;
         this.operationHospitalCode = operationHospitalCode;

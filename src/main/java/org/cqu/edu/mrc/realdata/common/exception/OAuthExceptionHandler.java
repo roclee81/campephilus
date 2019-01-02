@@ -25,7 +25,7 @@ public class OAuthExceptionHandler {
     public R handleRRException(OAuthException e) {
         R r = new R();
         r.put("code", e.getCode());
-        r.put("msg", e.getMessage());
+        r.put("data", e.getMessage());
 
         return r;
     }

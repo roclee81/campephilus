@@ -63,7 +63,7 @@ public class PreoperativePatientDO {
     private Integer creatorId;
 
     /**
-     * 存放基本数据信息 "msg": {
+     * 存放基本数据信息 "data": {
      * "stage": "pre",
      * "hospital code": "hospital code",
      * "state": "state",
@@ -71,7 +71,7 @@ public class PreoperativePatientDO {
      * },
      * 用于评分等环节，目前未使用
      */
-    @Field(value = "msg")
+    @Field(value = "data")
     private Map msg;
 
     /**

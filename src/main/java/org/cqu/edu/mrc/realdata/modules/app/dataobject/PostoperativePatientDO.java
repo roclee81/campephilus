@@ -51,7 +51,7 @@ public class PostoperativePatientDO {
     private Integer creatorId;
 
     /**
-     * 存放基本数据信息 "msg": {
+     * 存放基本数据信息 "data": {
      *         "stage": "pre",
      *         "hospital code": "hospital code",
      *         "state": "state",

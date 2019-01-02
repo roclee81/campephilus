@@ -1,10 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.form;
 
 import lombok.Data;
-import org.cqu.edu.mrc.realdata.common.validator.group.AddGroup;
-import org.cqu.edu.mrc.realdata.common.validator.group.UpdateGroup;
 
-import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Map;
@@ -31,13 +28,19 @@ public class MedicalDataForm {
     private Integer code;
 
     /**
+     * 采集器的MAC地址
+     */
+    @NotNull(message = "The mac cannot be empty")
+    private String mac;
+
+    /**
+     * 手术顺序号
+     */
+    private Integer operationNumber;
+
+    /**
      * 包含信息的Msg
      */
-    @NotNull(message = "The msg cannot be empty")
-    private String msg;
-
-    public MedicalDataForm(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
+    @NotNull(message = "The data cannot be empty")
+    private String data;
 }

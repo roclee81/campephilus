@@ -8,6 +8,7 @@ import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationDeviceRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -91,10 +92,45 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
             return false;
         }
 
+        // 通过operationNumber先查询出存储的数据，如果没有也将会报错
         int operationNumber = parseDataDTO.getOperationNumber();
-        OperationDeviceDO operationDeviceDO = operationDeviceRepository.findOperationDeviceDOSByOperationNumber(operationNumber);
-        System.out.println(operationNumber);
-        return false;
+        OperationDeviceDO operationDeviceDO;
+        try {
+            operationDeviceDO = operationDeviceRepository.findOperationDeviceDOSByOperationNumber(operationNumber);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return false;
+        }
+
+        if (null == operationDeviceDO) {
+            return false;
+        }
+
+        // 重新设定该条数据修改时间
+        operationDeviceDO.setGmtModified(new Date());
+
+        Map dataMap = parseDataDTO.getDataMap();
+
+        Date operationEndTime;
+        try {
+            // 检查是否有operationEndTime,没有直接返回false
+            if (dataMap.containsKey(DataConstants.OPERATION_END_TIME)) {
+                operationEndTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.OPERATION_END_TIME)));
+            } else {
+                return false;
+            }
+
+        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
+            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
+            return false;
+        }
+
+        operationDeviceDO.setOperationEndTime(operationEndTime);
+
+        operationDeviceDO.setOperationTime(operationEndTime.getTime() - operationDeviceDO.getOperationStartTime().getTime());
+
+        this.saveOperationDeviceDO(operationDeviceDO);
+        log.info("Update the success :{}", operationDeviceDO.toString());
+        return true;
     }
 
     @Override

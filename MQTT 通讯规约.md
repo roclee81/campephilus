@@ -4,7 +4,6 @@
 * UNKNOWN_ERROR(-1,"未知错误"),
 * DEVICE_REGISTER(199, "注册"),
 * REGISTER_SUCCESS(200, "开机注册成功"),
-
 * DATA_FORMAT_ERROR(-2,"数据格式错误"),
 * OPERATION_READY(151,"准备要开始新的手术，获取operationNumber"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
@@ -39,7 +38,7 @@
 
 
 ## 发布规则
-### 1. 所有设备开机时在公共`Topic:`发布自己的机器`Topic`
+### 1. 所有设备开机时发送
 ```
 {
     "code": 199,
@@ -48,7 +47,7 @@
     }
 }
 ```
-### 2. 服务器将会在公共`Topic`,上回复
+### 2. 服务器将回复
 ```
 {
     "code": 200,
@@ -337,7 +336,7 @@
 }
 ```
 
-* #### 收到该条标记信息`Topic:/medical/data/E0D55E227B92/operation/mark/post`
+* #### 收到该条标记信息
 ```
 {
     "code": 174,

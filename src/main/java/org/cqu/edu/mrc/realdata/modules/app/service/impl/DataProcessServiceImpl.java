@@ -61,92 +61,87 @@ public class DataProcessServiceImpl implements DataProcessService {
     @Override
     public ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm) {
 
-        if (null == medicalDataForm || null == medicalDataForm.getCode()) {
+        if (null == medicalDataForm) {
             return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
         }
 
-        Map map = parseJson(medicalDataForm.getMsg());
-        if (null == map) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+        ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
+
+        boolean result = processCode(parseDataDTO);
+
+        Map<String, Object> map = new HashMap<>(16);
+        map.put(DataConstants.MAC, parseDataDTO.getMacAddress());
+        map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
+
+        if (!result) {
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
-
-        ParseDataDTO parseDataDTO = processMsg(medicalDataForm.getCode(), map);
-
-        return processCode(parseDataDTO);
-
+        return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
     /**
      * <ul>
      * <li>通过解析Code判断请求方式并回复</li>
-     * <li>处理一个大型的分支，目前没有想到有什么其余的方式写该方法</li>
-     * <li>目前仅处理在注册后的数据，即形成了mqtt话题后的数据</li>
+     * <li>处理一个大型的分支，目前没有想到有什么其余的方式写该方法
+     * 运行到分支后将进行数据存储处理，将返回执行的结果</li>
      * </ul>
      *
      * @param parseDataDTO 初次解析的DTO
-     * @return 按通讯规约返回Code
+     * @return 成功为true，失败false
      */
-    private ResultDataDTO processCode(ParseDataDTO parseDataDTO) {
+    private boolean processCode(ParseDataDTO parseDataDTO) {
 
         if (null == parseDataDTO) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+            return false;
         }
 
         int code = parseDataDTO.getCode();
 
-        // 接收数据存储的结果
-        boolean result = false;
-
         // 准备开始手术，获取手术顺序号的情况
         if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             parseDataDTO.setOperationNumber(getNewOperationNumber());
-            result = true;
+            return true;
         }
 
         // 手术过程基本信息
         if (RequestEnum.OPERATION_DEVICE.getCode().equals(code)) {
-            result = operationDeviceService.saveOperationDeviceDO(parseDataDTO);
+            return operationDeviceService.saveOperationDeviceDO(parseDataDTO);
         }
 
-        // 更新手术过程基本信息
+        // 更新手术过程基本信息，即手术结束的信息
         if (RequestEnum.OPERATION_END.getCode().equals(code)) {
-            result = operationDeviceService.updateOperationDeviceDO(parseDataDTO);
+            return operationDeviceService.updateOperationDeviceDO(parseDataDTO);
         }
 
         // 处理传输的医疗仪器数据的情况
         if (RequestEnum.DEVICE_DATA.getCode().equals(code)) {
-            result = deviceService.saveDeviceDO(parseDataDTO);
+            return deviceService.saveDeviceDO(parseDataDTO);
         }
 
         // 处理上传的患者数据的情况
         if (RequestEnum.PATIENT_INFO.getCode().equals(code)) {
-            result = preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
+            return preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
         }
 
         // 处理上传的手术过程中标记的情况
         if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
-            result = operationMarkService.saveOperationMarkDO(parseDataDTO);
+            return operationMarkService.saveOperationMarkDO(parseDataDTO);
         }
 
-        // 处理了上传病人Id和手术号的情况
-        if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
-            result = patientIdOperationNumberService.savePatientIdOperationNumberDO(parseDataDTO);
-        }
+        //TODO 重复了，目前没有解决怎么回事
+//        // 处理了上传病人Id和手术号的情况
+//        if (RequestEnum..getCode().equals(code)) {
+//            result = patientIdOperationNumberService.savePatientIdOperationNumberDO(parseDataDTO);
+//        }
 
+        // 需要特殊处理的情况都没有的，枚举其余请求，是否存在
         for (RequestEnum requestEnum : RequestEnum.values()) {
             if (requestEnum.getCode().equals(code)) {
-                result = true;
+                return true;
             }
         }
 
-        Map<String, String> map = new HashMap<>(16);
-        map.put(DataConstants.MAC, parseDataDTO.getMacAddress());
-        map.put(DataConstants.OPERATION_NUMBER, String.valueOf(parseDataDTO.getOperationNumber()));
-
-        if (!result) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), map);
-        }
-        return new ResultDataDTO(code + 1, map);
+        return false;
     }
 
     /**
@@ -164,44 +159,33 @@ public class DataProcessServiceImpl implements DataProcessService {
      * 对接收到的实体类MedicalDataDTO进行第一步解析
      * 缺少mac、operationNumber字段直接返回null
      * 但是对于需要请求operationNumber的情况只检查是否有mac
+     * 由于之前对表单进行了验证，code以及mac必定存在
      *
-     * @param code 操作码
-     * @param msg  请求信息
-     * @return 次解析后的实体类
+     * @param medicalDataForm 表单信息
+     * @return 初次解析后的DTO
      */
-    private ParseDataDTO processMsg(int code, Map msg) {
+    private ParseDataDTO processMsg(MedicalDataForm medicalDataForm) {
         try {
-            // 检查mac字段，如何没有直接返回null
-            String macAddress;
-            if (msg.containsKey(DataConstants.MAC)) {
-                macAddress = (String) msg.get(DataConstants.MAC);
-            } else {
-                return null;
-            }
+            int code = medicalDataForm.getCode();
+            String macAddress = medicalDataForm.getMac();
 
+            // 设备准备阶段，不需要校验其他属性
             if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
                 return new ParseDataDTO(code, macAddress, null, null);
             }
 
-            // 检查operationNumber字段，如何没有直接返回null
-            int operationNumber;
-            if (msg.containsKey(DataConstants.OPERATION_NUMBER)) {
-                operationNumber = Integer.parseInt((String) msg.get(DataConstants.OPERATION_NUMBER));
-            } else {
-                return null;
-            }
+            // 检查operationNumber字段，如何没有直接返回null,因为前面已经判断了，只有准备阶段才不需要opn
+            int operationNumber = medicalDataForm.getOperationNumber();
 
-            // 检查data字段，如何没有直接返回null
-            Map dataMap;
-            if (msg.containsKey(DataConstants.DATA_MAP)) {
-                dataMap = (Map) msg.get(DataConstants.DATA_MAP);
-            } else {
-                dataMap = null;
+            // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析
+            Map dataMap = parseJson(medicalDataForm.getData());
+            if (null == dataMap) {
+                return null;
             }
 
             return new ParseDataDTO(code, macAddress, operationNumber, dataMap);
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("code:{},msg:{},Exception:{}", code, msg, exception.toString());
+            log.error("medicalDataForm:{},Exception:{}", medicalDataForm.toString(), exception.toString());
             return null;
         }
     }
