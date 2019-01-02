@@ -14,7 +14,7 @@ import lombok.Getter;
  * Description:
  */
 @Getter
-public enum ReplyCodeEnum {
+public enum ReplyEnum {
 
     /**
      * 未知错误
@@ -25,6 +25,11 @@ public enum ReplyCodeEnum {
      * 数据格式错误
      */
     DATA_FORMAT_ERROR(-2),
+
+    /**
+     * 请求的CODE是错误的
+     */
+    CODE_ERROR(-3),
 
     /**
      * 开机注册成功
@@ -109,7 +114,7 @@ public enum ReplyCodeEnum {
 
     private Integer code;
 
-    ReplyCodeEnum(Integer code) {
+    ReplyEnum(Integer code) {
         this.code = code;
     }
 }

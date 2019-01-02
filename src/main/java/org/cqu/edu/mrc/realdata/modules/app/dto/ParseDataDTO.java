@@ -36,6 +36,9 @@ public class ParseDataDTO {
      */
     private Map dataMap;
 
+    public ParseDataDTO() {
+    }
+
     public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, Map dataMap) {
         this.code = code;
         this.macAddress = macAddress;

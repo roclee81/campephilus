@@ -12,7 +12,7 @@ import lombok.Getter;
  * Description:
  */
 @Getter
-public enum RequestCodeEnum {
+public enum RequestEnum {
 
     /**
      * 注册
@@ -97,7 +97,7 @@ public enum RequestCodeEnum {
 
     private Integer code;
 
-    RequestCodeEnum(Integer code) {
+    RequestEnum(Integer code) {
         this.code = code;
     }
 }

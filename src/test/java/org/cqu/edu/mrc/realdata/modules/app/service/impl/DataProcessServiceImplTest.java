@@ -27,8 +27,8 @@ public class DataProcessServiceImplTest {
 
     @Test
     public void parseJson() {
-        MedicalDataForm medicalDataForm = dataProcessService.parseJson("{\"code\":167,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"deviceId\":\"deviceId\",\"deviceDataNumber\":\"0\",\"deviceData\":{\"CO2\":\"1\"}}}}");
-        Assert.assertNotNull(medicalDataForm);
+//        MedicalDataForm medicalDataForm = dataProcessService.parseJson("{\"code\":167,\"msg\":{\"mac\":\"mac\",\"opn\":0,\"data\":{\"deviceId\":\"deviceId\",\"deviceDataNumber\":\"0\",\"deviceData\":{\"CO2\":\"1\"}}}}");
+//        Assert.assertNotNull(medicalDataForm);
     }
 
     @Test
@@ -65,9 +65,9 @@ public class DataProcessServiceImplTest {
 //        int result8 = dataProcessService.processCode(medicalDataForm8);
 //        Assert.assertTrue(result8 > 0);
 
-        MedicalDataForm medicalDataForm8 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"operationNumber\":\"1\",\"data\":{\"operationStartTime\":\"1546073420000\",\"hospitalCode\":\"0147\",\"deviceInformation\":{}}}}");
-        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm8);
-        Assert.assertTrue(resultDataDTO.getCode() > 0);
+//        MedicalDataForm medicalDataForm8 = dataProcessService.parseJson("{\"code\":155,\"msg\":{\"mac\":\"mac\",\"operationNumber\":\"1\",\"data\":{\"operationStartTime\":\"1546073420000\",\"hospitalCode\":\"0147\",\"deviceInformation\":{}}}}");
+//        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm8);
+//        Assert.assertTrue(resultDataDTO.getCode() > 0);
 
 
     }

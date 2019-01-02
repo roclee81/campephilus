@@ -1,7 +1,9 @@
 package org.cqu.edu.mrc.realdata.common.utils;
 
 import org.apache.http.HttpStatus;
+import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
 
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,16 @@ import java.util.Map;
 public class R extends HashMap<String, Object> {
 
     private static final long serialVersionUID = 1L;
+
+    public R(Integer code, Map msg) {
+        put(DataConstants.CODE, code);
+        put(DataConstants.MSG, msg);
+    }
+
+    public R(Integer code, String msg) {
+        put(DataConstants.CODE, code);
+        put(DataConstants.MSG, msg);
+    }
 
     public R() {
         put("code", 200);

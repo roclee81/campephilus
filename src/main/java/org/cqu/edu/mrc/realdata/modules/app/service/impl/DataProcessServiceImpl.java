@@ -4,15 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.common.enums.ReplyCodeEnum;
-import org.cqu.edu.mrc.realdata.common.enums.RequestCodeEnum;
+import org.cqu.edu.mrc.realdata.common.enums.ReplyEnum;
+import org.cqu.edu.mrc.realdata.common.enums.RequestEnum;
 import org.cqu.edu.mrc.realdata.modules.app.form.MedicalDataForm;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ResultDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.service.DataProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,10 +44,15 @@ public class DataProcessServiceImpl implements DataProcessService {
         this.patientIdOperationNumberService = patientIdOperationNumberService;
     }
 
-    @Override
-    public MedicalDataForm parseJson(String jsonBuffer) {
+    /**
+     * 仅解析JSON数据，如果数据有错误，则返回null
+     *
+     * @param jsonBuffer JSON 字符串
+     * @return MedicalDataDTO实体类
+     */
+    private Map parseJson(String jsonBuffer) {
         try {
-            return new Gson().fromJson(jsonBuffer, MedicalDataForm.class);
+            return new Gson().fromJson(jsonBuffer, Map.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             return null;
         }
@@ -58,10 +62,15 @@ public class DataProcessServiceImpl implements DataProcessService {
     public ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm) {
 
         if (null == medicalDataForm || null == medicalDataForm.getCode()) {
-            return new ResultDataDTO(ReplyCodeEnum.DATA_FORMAT_ERROR.getCode(), null);
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
         }
 
-        ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
+        Map map = parseJson(medicalDataForm.getMsg());
+        if (null == map) {
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+        }
+
+        ParseDataDTO parseDataDTO = processMsg(medicalDataForm.getCode(), map);
 
         return processCode(parseDataDTO);
 
@@ -80,7 +89,7 @@ public class DataProcessServiceImpl implements DataProcessService {
     private ResultDataDTO processCode(ParseDataDTO parseDataDTO) {
 
         if (null == parseDataDTO) {
-            return new ResultDataDTO(ReplyCodeEnum.DATA_FORMAT_ERROR.getCode(), null);
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
         }
 
         int code = parseDataDTO.getCode();
@@ -89,43 +98,43 @@ public class DataProcessServiceImpl implements DataProcessService {
         boolean result = false;
 
         // 准备开始手术，获取手术顺序号的情况
-        if (RequestCodeEnum.OPERATION_READY.getCode().equals(code)) {
+        if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             parseDataDTO.setOperationNumber(getNewOperationNumber());
             result = true;
         }
 
         // 手术过程基本信息
-        if (RequestCodeEnum.OPERATION_DEVICE.getCode().equals(code)) {
+        if (RequestEnum.OPERATION_DEVICE.getCode().equals(code)) {
             result = operationDeviceService.saveOperationDeviceDO(parseDataDTO);
         }
 
         // 更新手术过程基本信息
-        if (RequestCodeEnum.OPERATION_END.getCode().equals(code)) {
+        if (RequestEnum.OPERATION_END.getCode().equals(code)) {
             result = operationDeviceService.updateOperationDeviceDO(parseDataDTO);
         }
 
         // 处理传输的医疗仪器数据的情况
-        if (RequestCodeEnum.DEVICE_DATA.getCode().equals(code)) {
+        if (RequestEnum.DEVICE_DATA.getCode().equals(code)) {
             result = deviceService.saveDeviceDO(parseDataDTO);
         }
 
         // 处理上传的患者数据的情况
-        if (RequestCodeEnum.PATIENT_INFO.getCode().equals(code)) {
+        if (RequestEnum.PATIENT_INFO.getCode().equals(code)) {
             result = preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
         }
 
         // 处理上传的手术过程中标记的情况
-        if (RequestCodeEnum.OPERATION_MARK.getCode().equals(code)) {
+        if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
             result = operationMarkService.saveOperationMarkDO(parseDataDTO);
         }
 
         // 处理了上传病人Id和手术号的情况
-        if (RequestCodeEnum.OPERATION_READY.getCode().equals(code)) {
+        if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             result = patientIdOperationNumberService.savePatientIdOperationNumberDO(parseDataDTO);
         }
 
-        for (RequestCodeEnum requestCodeEnum : RequestCodeEnum.values()) {
-            if (requestCodeEnum.getCode().equals(code)) {
+        for (RequestEnum requestEnum : RequestEnum.values()) {
+            if (requestEnum.getCode().equals(code)) {
                 result = true;
             }
         }
@@ -135,7 +144,7 @@ public class DataProcessServiceImpl implements DataProcessService {
         map.put(DataConstants.OPERATION_NUMBER, String.valueOf(parseDataDTO.getOperationNumber()));
 
         if (!result) {
-            return new ResultDataDTO(ReplyCodeEnum.DATA_FORMAT_ERROR.getCode(), map);
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
         return new ResultDataDTO(code + 1, map);
     }
@@ -156,13 +165,12 @@ public class DataProcessServiceImpl implements DataProcessService {
      * 缺少mac、operationNumber字段直接返回null
      * 但是对于需要请求operationNumber的情况只检查是否有mac
      *
-     * @param medicalDataForm 接收到的实体类
-     * @return 初次解析后的实体类
+     * @param code 操作码
+     * @param msg  请求信息
+     * @return 次解析后的实体类
      */
-    private ParseDataDTO processMsg(MedicalDataForm medicalDataForm) {
+    private ParseDataDTO processMsg(int code, Map msg) {
         try {
-            Map msg = medicalDataForm.getMsg();
-
             // 检查mac字段，如何没有直接返回null
             String macAddress;
             if (msg.containsKey(DataConstants.MAC)) {
@@ -171,8 +179,8 @@ public class DataProcessServiceImpl implements DataProcessService {
                 return null;
             }
 
-            if (RequestCodeEnum.OPERATION_READY.getCode().equals(medicalDataForm.getCode())) {
-                return new ParseDataDTO(medicalDataForm.getCode(), macAddress, null, null);
+            if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
+                return new ParseDataDTO(code, macAddress, null, null);
             }
 
             // 检查operationNumber字段，如何没有直接返回null
@@ -191,9 +199,9 @@ public class DataProcessServiceImpl implements DataProcessService {
                 dataMap = null;
             }
 
-            return new ParseDataDTO(medicalDataForm.getCode(), macAddress, operationNumber, dataMap);
+            return new ParseDataDTO(code, macAddress, operationNumber, dataMap);
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("MedicalDataForm:{},Exception:{}", medicalDataForm.toString(), exception.toString());
+            log.error("code:{},msg:{},Exception:{}", code, msg, exception.toString());
             return null;
         }
     }

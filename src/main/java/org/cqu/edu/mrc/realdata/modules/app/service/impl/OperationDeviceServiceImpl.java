@@ -92,8 +92,8 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
         }
 
         int operationNumber = parseDataDTO.getOperationNumber();
-
-
+        OperationDeviceDO operationDeviceDO = operationDeviceRepository.findOperationDeviceDOSByOperationNumber(operationNumber);
+        System.out.println(operationNumber);
         return false;
     }
 

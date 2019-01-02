@@ -4,7 +4,9 @@ import lombok.Data;
 import org.cqu.edu.mrc.realdata.common.validator.group.AddGroup;
 import org.cqu.edu.mrc.realdata.common.validator.group.UpdateGroup;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.Map;
 
 /**
@@ -17,19 +19,24 @@ import java.util.Map;
  * Description:
  */
 @Data
+@Valid
 public class MedicalDataForm {
 
     /**
      * 数据传输操作码
      */
+    @Min(value = 150, message = "The code must be greater than the protocol minimum")
+    @Max(value = 200, message = "The code must be less than the protocol maximum")
+    @NotNull(message = "The code cannot be empty")
     private Integer code;
 
     /**
      * 包含信息的Msg
      */
-    private Map msg;
+    @NotNull(message = "The msg cannot be empty")
+    private String msg;
 
-    public MedicalDataForm(Integer code, Map msg) {
+    public MedicalDataForm(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

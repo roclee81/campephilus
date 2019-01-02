@@ -16,17 +16,11 @@ import org.cqu.edu.mrc.realdata.modules.app.dto.ResultDataDTO;
 public interface DataProcessService {
 
     /**
-     * 仅解析JSON数据，如果数据有错误，则返回null
+     * 解析并且处理表单信息
+     * 处理完成后将返回DTO
      *
-     * @param jsonBuffer JSON 字符串
-     * @return MedicalDataDTO实体类
-     */
-    MedicalDataForm parseJson(String jsonBuffer);
-
-    /**
-     *
-     * @param medicalDataForm
-     * @return
+     * @param medicalDataForm 接收到的表单
+     * @return 返回的DTO
      */
     ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm);
 
