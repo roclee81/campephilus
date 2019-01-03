@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import java.util.Map;
 
 /**
  * realdata
@@ -36,6 +35,8 @@ public class MedicalDataForm {
     /**
      * 手术顺序号
      */
+    @Min(value = -1, message = "The operationNumber must be greater than the protocol minimum")
+    @NotNull(message = "The operationNumber cannot be empty")
     private Integer operationNumber;
 
     /**

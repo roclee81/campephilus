@@ -46,30 +46,8 @@ public class OperationDeviceDO {
     private String operationHospitalCode;
 
     /**
-     * 手术开始时间
+     * 数据创建时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Field(value = "operation_start_time")
-    private Date operationStartTime;
-
-    /**
-     * 手术结束时间
-     */
-    @Field(value = "operation_end_time")
-    private Date operationEndTime;
-
-    /**
-     * 手术进行的时间
-     */
-    @Field(value = "operation_time")
-    private Long operationTime;
-
-    /**
-     * 数据上传时间
-     */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Field(value = "gmt_create")
     private Date gmtCreate;
 
@@ -88,13 +66,10 @@ public class OperationDeviceDO {
     public OperationDeviceDO() {
     }
 
-    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified, Map deviceInformation) {
+    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date gmtCreate, Date gmtModified, Map deviceInformation) {
         this.operationNumber = operationNumber;
         this.collectorMacAddress = collectorMacAddress;
         this.operationHospitalCode = operationHospitalCode;
-        this.operationStartTime = operationStartTime;
-        this.operationEndTime = operationEndTime;
-        this.operationTime = operationTime;
         this.gmtCreate = gmtCreate;
         this.gmtModified = gmtModified;
         this.deviceInformation = deviceInformation;

@@ -1,8 +1,8 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientIdOperationNumberDO;
-import org.cqu.edu.mrc.realdata.modules.app.repository.PatientIdOperationNumberRepository;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,34 +24,35 @@ import java.util.List;
  * Description:
  */
 @Component
-public class PatientIdOperationNumberRepositoryImpl implements PatientIdOperationNumberRepository {
+public class OperationInformationRepositoryImpl implements OperationInformationRepository {
 
     private final MongoOperations mongoOperations;
 
     @Autowired
-    public PatientIdOperationNumberRepositoryImpl(MongoOperations mongoOperations) {
+    public OperationInformationRepositoryImpl(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
     }
 
     @Override
-    public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOSByPatientId(String patientId, Pageable pageable) {
+    public Page<OperationInformationDO> findOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
         Query query = Query.query(Criteria.where(DataConstants.PATIENT_ID).is(patientId));
         return queryPageable(query, pageable);
     }
 
     @Override
-    public Page<PatientIdOperationNumberDO> findPatientIdOperationNumberDOByOperationNumber(Integer operationNumber, Pageable pageable) {
+    public OperationInformationDO findOperationInformationDOByOperationNumber(Integer operationNumber) {
         Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber));
-        return queryPageable(query, pageable);
+        List<OperationInformationDO> operationInformationDOList = mongoOperations.find(query, OperationInformationDO.class);
+        return operationInformationDOList.size() == 1 ? operationInformationDOList.get(0) : null;
     }
 
     @Override
-    public void savePatientIdOperationNumberDO(PatientIdOperationNumberDO patientIdOperationNumberDO) {
-        mongoOperations.save(patientIdOperationNumberDO);
+    public void saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+        mongoOperations.save(operationInformationDO);
     }
 
     @Override
-    public Page<PatientIdOperationNumberDO> findAll(Pageable pageable) {
+    public Page<OperationInformationDO> findAll(Pageable pageable) {
         Query query = Query.query(Criteria.where(""));
         return queryPageable(query, pageable);
     }
@@ -59,14 +60,14 @@ public class PatientIdOperationNumberRepositoryImpl implements PatientIdOperatio
     @Override
     public Integer countAll() {
         Query query = Query.query(Criteria.where(""));
-        return (int) mongoOperations.count(query, PatientIdOperationNumberDO.class);
+        return (int) mongoOperations.count(query, OperationInformationDO.class);
     }
 
-    private Page<PatientIdOperationNumberDO> queryPageable(Query query, Pageable pageable) {
+    private Page<OperationInformationDO> queryPageable(Query query, Pageable pageable) {
         query.with(pageable);
         // 查询总数
-        int count = (int) mongoOperations.count(query, PatientIdOperationNumberDO.class);
-        List<PatientIdOperationNumberDO> nodeSensorDOList = mongoOperations.find(query, PatientIdOperationNumberDO.class);
+        int count = (int) mongoOperations.count(query, OperationInformationDO.class);
+        List<OperationInformationDO> nodeSensorDOList = mongoOperations.find(query, OperationInformationDO.class);
         return PageableExecutionUtils.getPage(nodeSensorDOList, pageable, () -> count);
     }
 }

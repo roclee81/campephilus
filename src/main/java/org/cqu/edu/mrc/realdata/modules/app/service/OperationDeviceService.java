@@ -66,42 +66,4 @@ public interface OperationDeviceService {
      * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询之前的所有数据
-     *
-     * @param operationStartTimeBefore 手术开始的时间
-     * @param pageable                 分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询之后的所有数据
-     *
-     * @param operationStartTimeAfter 手术开始的时间
-     * @param pageable                分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询这一段时间的所有数据
-     *
-     * @param operationStartTimeBefore 手术开始的时间之前
-     * @param operationStartTimeAfter  手术开始的时间之后
-     * @param pageable                 分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> getOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
-
-    /**
-     * 通过输入的手术进行时间的查询这一段时间的所有数据
-     *
-     * @param operationTimeBefore 手术进行时间之前
-     * @param operationTimeAfter  手术进行时间之前
-     * @param pageable            分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> getOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 }

@@ -40,7 +40,6 @@ public class MedicalDataController {
 
         log.info("MedicalDataForm{}", medicalDataForm);
 
-        // TODO 表单验证后mac地址后面多了些东西
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
             return new R(ReplyEnum.DATA_FORMAT_ERROR.getCode(), msg);

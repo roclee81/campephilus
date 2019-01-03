@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientIdOperationNumberDO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 /**
  * realdata
  *
@@ -26,37 +24,37 @@ import static org.junit.Assert.*;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class PatientIdOperationNumberRepositoryTest {
+public class OperationInformationRepositoryTest {
 
     @Autowired
-    private PatientIdOperationNumberRepository patientIdOperationNumberRepository;
+    private OperationInformationRepository operationInformationRepository;
 
     @Test
     public void save() {
-        PatientIdOperationNumberDO patientIdOperationNumberDO = new PatientIdOperationNumberDO();
-        patientIdOperationNumberDO.setOperationNumber(2);
-        patientIdOperationNumberDO.setPatientId("2");
-        patientIdOperationNumberDO.setGmtCreate(new Date());
-        patientIdOperationNumberRepository.savePatientIdOperationNumberDO(patientIdOperationNumberDO);
+        OperationInformationDO operationInformationDO = new OperationInformationDO();
+        operationInformationDO.setOperationNumber(2);
+        operationInformationDO.setPatientId("2");
+        operationInformationDO.setGmtCreate(new Date());
+        operationInformationRepository.saveOperationInformationDO(operationInformationDO);
     }
 
     @Test
     public void findPatientIdOperationNumberDOSByPatientId() {
         Pageable pageable = PageRequest.of(1, 100);
-        Page<PatientIdOperationNumberDO> patientIdOperationNumberDOPage = patientIdOperationNumberRepository.findPatientIdOperationNumberDOSByPatientId("1", pageable);
+        Page<OperationInformationDO> patientIdOperationNumberDOPage = operationInformationRepository.findOperationInformationDOSByPatientId("1", pageable);
         Assert.assertTrue(patientIdOperationNumberDOPage.getTotalElements() > 0);
     }
 
     @Test
     public void findPatientIdOperationNumberDOByOperationNumber() {
         Pageable pageable = PageRequest.of(1, 100);
-        Page<PatientIdOperationNumberDO> patientIdOperationNumberDOPage = patientIdOperationNumberRepository.findPatientIdOperationNumberDOSByPatientId("1", pageable);
+        Page<OperationInformationDO> patientIdOperationNumberDOPage = operationInformationRepository.findOperationInformationDOSByPatientId("1", pageable);
         Assert.assertTrue(patientIdOperationNumberDOPage.getTotalElements() > 0);
     }
 
     @Test
     public void countAll() {
-        int result = patientIdOperationNumberRepository.countAll();
+        int result = operationInformationRepository.countAll();
         Assert.assertTrue(result > 0);
     }
 

@@ -45,42 +45,4 @@ public interface OperationDeviceRepository extends MongoRepository<OperationDevi
      * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> findOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询之前的所有数据
-     *
-     * @param operationStartTimeBefore 手术开始的时间
-     * @param pageable                 分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBefore(Date operationStartTimeBefore, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询之后的所有数据
-     *
-     * @param operationStartTimeAfter 手术开始的时间
-     * @param pageable                分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeAfter(Date operationStartTimeAfter, Pageable pageable);
-
-    /**
-     * 通过输入的手术开始时间的查询这一段时间的所有数据
-     *
-     * @param operationStartTimeBefore 手术开始的时间之前
-     * @param operationStartTimeAfter  手术开始的时间之后
-     * @param pageable                 分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
-
-    /**
-     * 通过输入的手术进行时间的查询这一段时间的所有数据
-     *
-     * @param operationTimeBefore 手术进行时间之前
-     * @param operationTimeAfter  手术进行时间之前
-     * @param pageable            分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 }
