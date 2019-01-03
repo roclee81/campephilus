@@ -37,381 +37,267 @@
 * OPERATION_END_SUCCESS(180, "回复收到手术结束的信息"),
 
 
-## 发布规则
+## 上传规则
 ### 1. 所有设备开机时发送
+* 数据上传URL ip:8080/realData/data/update
+* 请求方式 POST
+* 请求类型 x-www-form-urlencoded
+* 请求体
 ```
-{
-    "code": 199,
-    "msg": {
-        "mac": "mac",
-    }
-}
+code:
+mac:
+operationNumber:
+data:
 ```
-### 2. 服务器将回复
+code、mac、operationNumber为必填字段
+
+
+* #### 设备开机注册
 ```
-{
-    "code": 200,
-    "msg": {
-        "mac": "mac",
-    }
+code: 199
+mac: "mac"
+operationNumber: "-1"
 }
 ```
 
+* #### 服务器将回复
+```
+code: 200
+mac: "mac"
+operationNumber: "-1"
+```
 
 * #### 准备要开始手术了(手术开始准备,请求operationNumber)
 ```
-{
-    "code": 151,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "-1",     
-        "data":{
-            "patientId": "patientId",
-            "hospitalCode": "0147",
-            "operationStartTime": ""
-        }
-    }
-}
+code: 151
+mac: "mac"
+operationNumber: "-1"
+data:{
+     	"patientId": "patientId",
+     	"hospitalCode": "0147",
+     	"operationStartTime": ""
+     }
 ```
 
 * #### 服务器也准备完毕，返回operationNumber，可以上传了
 ```
-{
-    "code": 152
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 152
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 准备发送手术设备数据
 ```
-{
-    "code": 153,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1",
-        }
-    }
-}
+code: 153
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 回复可以发送发送手术设备数据
 ```
-{
-    "code": 154,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-        }
-    }
-}
+code: 154
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 发送手术设备数据
 ```
-{
-	"code": 155,
-	"msg": {
-		"mac": "mac",
-		"operationNumber": "1",
-		"data": {
-			"deviceInformation": {}
-		}
-	}
-}
+code: 155
+mac: "mac"
+operationNumber: "1"
+data: {
+      	"deviceInformation": {}
+      }
 ```
 
 * #### 接收到该条设备数据
 ```
-{
-    "code": 156,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 156
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 设备数据发送完毕
 ```
-{
-    "code": 157,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 157
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 回复设备数据发送可以完毕
 ```
-{
-    "code": 158,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 158
+mac: "mac"
+operationNumber: "1"
 ```
 
 
 * #### 准备发送病人信息数据
 ```
-{
-    "code": 159,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 159
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 可以上传病人数据数据
 ```
-{
-    "code": 160,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 160
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 上传病人数据
 ```
-{
-	"code": 161,
-	"msg": {
-		"mac": "mac",
-		"operationNumber": "1",
-		"data": {
-			"patientId": "value",
-			"patientData": "value"
-		}
-	}
-}
+code: 161
+mac: "mac"
+operationNumber: "1"
+data: {
+      	"patientId": "value",
+      	"patientData": "value"
+      }
 ```
 * #### 接收到该条病人数据
 ```
-{
-    "code": 162,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 162
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 发布病人信息发送结束
 ```
-{
-    "code": 163,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 163
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 回复收到病人信息发送结束
 ```
-{
-    "code": 164,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 164
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 准备发送仪器数
 ```
-{
-    "code": 165,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 165
+mac: "mac"
+operationNumber: "1" 
 ```
 
 * #### 可以发送仪器数据
 ```
-{
-    "code": 166,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 166
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 发送仪器数据
 ```
-{
-    "code": 167,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1",
-        "data": {
-            "deviceId": "value",
-            "deviceDataNumber": "",
-            "deviceData": {
-            }
-        }
-    }
-}
+code: 167
+mac: "mac"
+operationNumber: "1", 
+data: {
+      	"deviceId": "value",
+      	"deviceDataNumber": "",
+      	"deviceData": {}
+      }
 ```
 
 * #### 接收到该条数据
 ```
-{
-    "code": 168,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 168
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 仪器数据发送结束
 ```
-{
-    "code": 169,
-    "msg": {  
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 169
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 回复收到医疗仪器数据结束信号
 ```
-{
-    "code": 170,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 170
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 手术中的标记信息准备发送
 ```
-{
-    "code": 171,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 171
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 手术中的标记信息可以发送
 ```
-{
-    "code": 172,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 172
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 手术中的标记信息
 ```
-{
-	"code": 173,
-	"msg": {
-		"mac": "mac",
-		"operationNumber": "1",
-		"data": {
-			"markNumber": 1,
-			"markType": 1,
-			"markMessage": {}
-		}
-	}
-}
+code: 173
+mac: "mac"
+operationNumber: "1"
+data: {
+      	"markNumber": 1,
+      	"markType": 1,
+      	"markMessage": {}
+      }
 ```
 
 * #### 收到该条标记信息
 ```
-{
-    "code": 174,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1",
-    }
-}
+code: 174
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 手术标记信息发送完毕
 ```
-{
-    "code": 175,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 175
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 手术标记信息发送完毕收到
 ```
-{
-    "code": 176,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 176
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 请求手术结束
 ```
-{
-    "code": 177,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 177
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 回复手术可以结束
 ```
-{
-    "code": 178,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 178
+mac: "mac"
+operationNumber: "1"
 ```
 
 * #### 是手术结束的信息
 ```
-{
-    "code": 179,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1",
-        "data": {
-            "operationEndTime": ""
-        }
-    }
-}
+code: 179
+mac: "mac"
+operationNumber: "1"
+data: {
+      	"operationEndTime": ""
+      }
 ```
 
 * #### 回复收到手术结束的信息
 ```
-{
-    "code": 180,
-    "msg": {
-        "mac": "mac",
-        "operationNumber": "1"
-    }
-}
+code: 180
+mac: "mac"
+operationNumber: "1"
 ```

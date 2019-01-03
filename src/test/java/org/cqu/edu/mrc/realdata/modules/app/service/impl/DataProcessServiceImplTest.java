@@ -26,8 +26,6 @@ public class DataProcessServiceImplTest {
     @Autowired
     DataProcessServiceImpl dataProcessService;
 
-    private int operationNumber;
-
     @Test
     public void parseJson() {
     }
@@ -75,7 +73,7 @@ public class DataProcessServiceImplTest {
         // 准备发送手术设备数据
         MedicalDataForm medicalDataForm4 = new MedicalDataForm();
         medicalDataForm4.setCode(153);
-        medicalDataForm4.setOperationNumber(2);
+        medicalDataForm4.setOperationNumber(1);
         medicalDataForm4.setMac("00-0f-e2-2e-94-a9");
         ResultDataDTO resultDataDTO4 = dataProcessService.processMedicalData(medicalDataForm4);
         Assert.assertEquals((int) resultDataDTO4.getCode(), 154);
@@ -86,7 +84,7 @@ public class DataProcessServiceImplTest {
         // 发送手术设备数据
         MedicalDataForm medicalDataForm5 = new MedicalDataForm();
         medicalDataForm5.setCode(155);
-        medicalDataForm5.setOperationNumber(2);
+        medicalDataForm5.setOperationNumber(1);
         medicalDataForm5.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm5.setData("{\"deviceInformation\":{}}");
         ResultDataDTO resultDataDTO5 = dataProcessService.processMedicalData(medicalDataForm5);
@@ -98,7 +96,7 @@ public class DataProcessServiceImplTest {
         // 上传病人数据
         MedicalDataForm medicalDataForm6 = new MedicalDataForm();
         medicalDataForm6.setCode(161);
-        medicalDataForm6.setOperationNumber(2);
+        medicalDataForm6.setOperationNumber(1);
         medicalDataForm6.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm6.setData("{\"patientId\":\"value\",\"patientData\":{}}");
         ResultDataDTO resultDataDTO6 = dataProcessService.processMedicalData(medicalDataForm6);
@@ -110,7 +108,7 @@ public class DataProcessServiceImplTest {
         // 发送仪器数据
         MedicalDataForm medicalDataForm7 = new MedicalDataForm();
         medicalDataForm7.setCode(167);
-        medicalDataForm7.setOperationNumber(2);
+        medicalDataForm7.setOperationNumber(1);
         medicalDataForm7.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm7.setData("{\"deviceId\":\"i123\",\"deviceDataNumber\":\"1\",\"deviceData\":{}}");
         ResultDataDTO resultDataDTO7 = dataProcessService.processMedicalData(medicalDataForm7);
@@ -122,7 +120,7 @@ public class DataProcessServiceImplTest {
         // 手术中的标记信息
         MedicalDataForm medicalDataForm8 = new MedicalDataForm();
         medicalDataForm8.setCode(173);
-        medicalDataForm8.setOperationNumber(2);
+        medicalDataForm8.setOperationNumber(1);
         medicalDataForm8.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm8.setData("{\"markNumber\":1,\"markType\":1,\"markMessage\":{}}");
         ResultDataDTO resultDataDTO8 = dataProcessService.processMedicalData(medicalDataForm8);
