@@ -23,7 +23,7 @@ public class DataConstants {
 
     public static final String DATA_MAP = "data";
 
-    public static final String HOSPITAL_CODE = "hospitalCode";
+    public static final String OPERATION_HOSPITAL_CODE = "operationHospitalCode";
 
     public static final String OPERATION_START_TIME = "operationStartTime";
 

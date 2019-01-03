@@ -3,6 +3,9 @@ package org.cqu.edu.mrc.realdata.modules.app.repository;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.Operation;
+
+import java.util.Date;
 
 /**
  * realdata
@@ -32,6 +35,35 @@ public interface OperationInformationRepository {
      * @return OperationInformationDO分页信息
      */
     OperationInformationDO findOperationInformationDOByOperationNumber(Integer operationNumber);
+
+    /**
+     * 通过医院代码查询OperationInformationNumberDO信息
+     *
+     * @param operationHospitalCode 医院代码
+     * @param pageable              分页信息
+     * @return OperationInformationDO分页信息
+     */
+    Page<OperationInformationDO> findOperationInformationDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable);
+
+    /**
+     * 通过输入的手术开始时间的查询这一段时间的所有数据
+     *
+     * @param operationStartTimeBefore 手术开始的时间之前
+     * @param operationStartTimeAfter  手术开始的时间之后
+     * @param pageable                 分页信息
+     * @return OperationInformationDO的分页信息
+     */
+    Page<OperationInformationDO> findOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
+
+    /**
+     * 通过输入的手术进行时间的查询这一段时间的所有数据
+     *
+     * @param operationTimeBefore 手术进行时间之前
+     * @param operationTimeAfter  手术进行时间之前
+     * @param pageable            分页信息
+     * @return OperationInformationDO的分页信息
+     */
+    Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
 
     /**
      * 得到所有的OperationInformationDO信息

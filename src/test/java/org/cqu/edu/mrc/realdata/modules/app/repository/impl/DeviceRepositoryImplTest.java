@@ -39,7 +39,7 @@ public class DeviceRepositoryImplTest {
     @Test
     public void findDeviceDOSByOperationNumber() {
         PageRequest request = PageRequest.of(0, 100);
-        Page<DeviceDO> result = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber("test", 1, request);
+        Page<DeviceDO> result = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber("i123", 1, request);
         Assert.assertTrue(result.getTotalElements() > 0);
     }
 

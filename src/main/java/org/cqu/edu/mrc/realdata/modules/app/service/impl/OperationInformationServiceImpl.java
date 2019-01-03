@@ -70,8 +70,8 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         Map deviceInformation;
         try {
             // 检查是否有operationHospitalCode,没有直接返回false
-            if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
-                operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
+            if (dataMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
+                operationHospitalCode = (String) dataMap.get(DataConstants.OPERATION_HOSPITAL_CODE);
             } else {
                 return false;
             }

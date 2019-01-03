@@ -53,8 +53,8 @@ public class DeviceRepositoryImpl implements DeviceRepository {
 
     private Page<DeviceDO> getDeviceDOS(Query query, String deviceId, Pageable pageable) {
         // 查询总数
-        int count = (int) mongoOperations.count(query, DeviceDO.class, deviceId);
-        List<DeviceDO> deviceDOList = mongoOperations.find(query, DeviceDO.class, deviceId);
+        int count = (int) mongoOperations.count(query, DeviceDO.class, "device_" + deviceId);
+        List<DeviceDO> deviceDOList = mongoOperations.find(query, DeviceDO.class, "device_" + deviceId);
         return PageableExecutionUtils.getPage(deviceDOList, pageable, () -> count);
     }
 

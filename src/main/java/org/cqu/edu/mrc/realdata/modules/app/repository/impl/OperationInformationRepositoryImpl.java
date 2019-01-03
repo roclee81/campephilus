@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +46,22 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
         Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber));
         List<OperationInformationDO> operationInformationDOList = mongoOperations.find(query, OperationInformationDO.class);
         return operationInformationDOList.size() == 1 ? operationInformationDOList.get(0) : null;
+    }
+
+    @Override
+    public Page<OperationInformationDO> findOperationInformationDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable) {
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_HOSPITAL_CODE).is(operationHospitalCode));
+        return queryPageable(query, pageable);
+    }
+
+    @Override
+    public Page<OperationInformationDO> findOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+        return null;
     }
 
     @Override
