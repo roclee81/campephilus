@@ -67,7 +67,15 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
         String patientId;
         Date operationStartTime;
+        String operationHospitalCode;
         try {
+            // 检查是否有operationHospitalCode,没有直接返回false
+            if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
+                operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
+            } else {
+                return false;
+            }
+
             // 检查是否有patientId,没有直接返回false
             if (dataMap.containsKey(DataConstants.PATIENT_ID)) {
                 patientId = (String) dataMap.get(DataConstants.PATIENT_ID);
@@ -87,7 +95,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             return false;
         }
 
-        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, patientId, operationStartTime, null, null, new Date(), new Date());
+        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, patientId, operationHospitalCode, operationStartTime, null, null, new Date(), new Date());
         this.saveOperationInformationDO(operationInformationDO);
         log.info("Insert the success :{}", operationInformationDO.toString());
         return true;

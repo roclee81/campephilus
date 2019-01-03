@@ -64,9 +64,10 @@
     "code": 151,
     "msg": {
         "mac": "mac",
-        "operationNumber": "0",     
+        "operationNumber": "-1",     
         "data":{
             "patientId": "patientId",
+            "hospitalCode": "0147",
             "operationStartTime": ""
         }
     }
@@ -116,7 +117,6 @@
 		"mac": "mac",
 		"operationNumber": "1",
 		"data": {
-			"hospitalCode": "0147",
 			"deviceInformation": {}
 		}
 	}

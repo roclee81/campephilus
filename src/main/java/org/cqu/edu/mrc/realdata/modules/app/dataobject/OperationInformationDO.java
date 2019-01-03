@@ -38,6 +38,13 @@ public class OperationInformationDO {
     private String patientId;
 
     /**
+     * 进行手术的所在医院代码 采用国家医院代码,这个需要手术标记人员手动输入
+     */
+    @Field(value = "operation_hospital_code")
+    private String operationHospitalCode;
+
+
+    /**
      * 手术开始时间
      */
     @Field(value = "operation_start_time")
@@ -71,9 +78,10 @@ public class OperationInformationDO {
     public OperationInformationDO() {
     }
 
-    public OperationInformationDO(Integer operationNumber, String patientId, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
+    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
         this.operationNumber = operationNumber;
         this.patientId = patientId;
+        this.operationHospitalCode = operationHospitalCode;
         this.operationStartTime = operationStartTime;
         this.operationEndTime = operationEndTime;
         this.operationTime = operationTime;

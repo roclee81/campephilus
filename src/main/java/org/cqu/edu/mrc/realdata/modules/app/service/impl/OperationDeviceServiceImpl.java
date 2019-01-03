@@ -51,16 +51,8 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
         String collectorMacAddress = parseDataDTO.getMacAddress();
 
         Map deviceInformation;
-        String operationHospitalCode;
 
         try {
-            // 检查是否有operationHospitalCode,没有直接返回false
-            if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
-                operationHospitalCode = (String) dataMap.get(DataConstants.HOSPITAL_CODE);
-            } else {
-                return false;
-            }
-
             // 检查是否有deviceInformation,没有直接返回false
             if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
                 deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
@@ -73,7 +65,7 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
             return false;
         }
 
-        OperationDeviceDO operationDeviceDO = new OperationDeviceDO(operationNumber, collectorMacAddress, operationHospitalCode, new Date(), new Date(), deviceInformation);
+        OperationDeviceDO operationDeviceDO = new OperationDeviceDO(operationNumber, collectorMacAddress, new Date(), new Date(), deviceInformation);
         this.saveOperationDeviceDO(operationDeviceDO);
         log.info("Insert the success :{}", operationDeviceDO.toString());
         return true;
@@ -94,10 +86,5 @@ public class OperationDeviceServiceImpl implements OperationDeviceService {
     @Override
     public Page<OperationDeviceDO> getOperationDeviceDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
         return operationDeviceRepository.findOperationDeviceDOSByCollectorMacAddress(collectorMacAddress, pageable);
-    }
-
-    @Override
-    public Page<OperationDeviceDO> getOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable) {
-        return operationDeviceRepository.findOperationDeviceDOSByOperationHospitalCode(operationHospitalCode, pageable);
     }
 }

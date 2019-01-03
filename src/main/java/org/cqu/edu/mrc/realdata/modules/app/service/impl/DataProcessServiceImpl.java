@@ -68,11 +68,15 @@ public class DataProcessServiceImpl implements DataProcessService {
 
         ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
 
+        if (null == parseDataDTO) {
+            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+        }
+
         boolean result = processCode(parseDataDTO);
 
         Map<String, Object> map = new HashMap<>(16);
-        map.put(DataConstants.MAC, Objects.requireNonNull(parseDataDTO).getMacAddress());
-        map.put(DataConstants.OPERATION_NUMBER, Objects.requireNonNull(parseDataDTO.getOperationNumber()));
+        map.put(DataConstants.MAC, parseDataDTO.getMacAddress());
+        map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
 
         if (!result) {
             return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), map);
@@ -109,10 +113,10 @@ public class DataProcessServiceImpl implements DataProcessService {
             // 检查operationNumber字段，如何没有直接返回null,因为前面已经判断了，只有准备阶段才不需要opn
             int operationNumber = medicalDataForm.getOperationNumber();
 
-            // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析
-            Map dataMap = parseJson(medicalDataForm.getData());
-            if (null == dataMap) {
-                return null;
+            // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析，data属性可以为空
+            Map dataMap = null;
+            if (null != medicalDataForm.getData()) {
+                dataMap = parseJson(medicalDataForm.getData());
             }
 
             return new ParseDataDTO(code, macAddress, operationNumber, dataMap);

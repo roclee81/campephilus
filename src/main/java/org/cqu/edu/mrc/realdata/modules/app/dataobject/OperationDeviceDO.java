@@ -40,12 +40,6 @@ public class OperationDeviceDO {
     private String collectorMacAddress;
 
     /**
-     * 进行手术的所在医院代码 采用国家医院代码,这个需要手术标记人员手动输入
-     */
-    @Field(value = "operation_hospital_code")
-    private String operationHospitalCode;
-
-    /**
      * 数据创建时间
      */
     @Field(value = "gmt_create")
@@ -66,10 +60,9 @@ public class OperationDeviceDO {
     public OperationDeviceDO() {
     }
 
-    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, String operationHospitalCode, Date gmtCreate, Date gmtModified, Map deviceInformation) {
+    public OperationDeviceDO(Integer operationNumber, String collectorMacAddress, Date gmtCreate, Date gmtModified, Map deviceInformation) {
         this.operationNumber = operationNumber;
         this.collectorMacAddress = collectorMacAddress;
-        this.operationHospitalCode = operationHospitalCode;
         this.gmtCreate = gmtCreate;
         this.gmtModified = gmtModified;
         this.deviceInformation = deviceInformation;

@@ -42,6 +42,5 @@ public class MedicalDataForm {
     /**
      * 包含信息的Msg
      */
-    @NotNull(message = "The data cannot be empty")
     private String data;
 }

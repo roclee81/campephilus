@@ -36,13 +36,4 @@ public interface OperationDeviceRepository extends MongoRepository<OperationDevi
      * @return OperationDeviceDO的分页信息
      */
     Page<OperationDeviceDO> findOperationDeviceDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
-
-    /**
-     * 通过手术执行医院的代码得到手术的设备信息OperationDeviceDO
-     *
-     * @param operationHospitalCode 医院的代码
-     * @param pageable              分页信息
-     * @return OperationDeviceDO的分页信息
-     */
-    Page<OperationDeviceDO> findOperationDeviceDOSByOperationHospitalCode(String operationHospitalCode, Pageable pageable);
 }
