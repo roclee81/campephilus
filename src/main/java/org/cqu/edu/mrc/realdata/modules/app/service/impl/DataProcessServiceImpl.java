@@ -32,15 +32,13 @@ public class DataProcessServiceImpl implements DataProcessService {
 
     private final DeviceServiceImpl deviceService;
     private final OperationMarkServiceImpl operationMarkService;
-    private final OperationDeviceServiceImpl operationDeviceService;
     private final PreoperativePatientServiceImpl preoperativePatientService;
     private final OperationInformationServiceImpl operationInformationService;
 
     @Autowired
-    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationDeviceServiceImpl operationDeviceService, PreoperativePatientServiceImpl preoperativePatientService, OperationInformationServiceImpl operationInformationService) {
+    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, PreoperativePatientServiceImpl preoperativePatientService, OperationInformationServiceImpl operationInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
-        this.operationDeviceService = operationDeviceService;
         this.preoperativePatientService = preoperativePatientService;
         this.operationInformationService = operationInformationService;
     }
@@ -144,15 +142,10 @@ public class DataProcessServiceImpl implements DataProcessService {
 
         int code = parseDataDTO.getCode();
 
-        // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号的情况
+        // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
         if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             parseDataDTO.setOperationNumber(getNewOperationNumber());
             return operationInformationService.saveOperationInformationDO(parseDataDTO);
-        }
-
-        // 手术过程基本信息
-        if (RequestEnum.OPERATION_DEVICE.getCode().equals(code)) {
-            return operationDeviceService.saveOperationDeviceDO(parseDataDTO);
         }
 
         // 更新手术过程基本信息，即手术结束的信息

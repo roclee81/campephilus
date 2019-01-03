@@ -2,7 +2,6 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationMarkRepository;

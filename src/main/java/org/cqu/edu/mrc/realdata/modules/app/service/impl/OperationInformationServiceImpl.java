@@ -2,7 +2,6 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationDeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
@@ -68,6 +67,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         String patientId;
         Date operationStartTime;
         String operationHospitalCode;
+        Map deviceInformation;
         try {
             // 检查是否有operationHospitalCode,没有直接返回false
             if (dataMap.containsKey(DataConstants.HOSPITAL_CODE)) {
@@ -90,12 +90,19 @@ public class OperationInformationServiceImpl implements OperationInformationServ
                 return false;
             }
 
+            // 检查是否有deviceInformation,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
+                deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
+            } else {
+                return false;
+            }
+
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 
-        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, patientId, operationHospitalCode, operationStartTime, null, null, new Date(), new Date());
+        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, patientId, operationHospitalCode, deviceInformation, operationStartTime, null, null, new Date(), new Date());
         this.saveOperationInformationDO(operationInformationDO);
         log.info("Insert the success :{}", operationInformationDO.toString());
         return true;

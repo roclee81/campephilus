@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * realdata
@@ -43,6 +44,11 @@ public class OperationInformationDO {
     @Field(value = "operation_hospital_code")
     private String operationHospitalCode;
 
+    /**
+     * 手术中使用的设备信息 标明设备的ID及设备型号
+     */
+    @Field(value = "device_information")
+    private Map deviceInformation;
 
     /**
      * 手术开始时间
@@ -74,14 +80,14 @@ public class OperationInformationDO {
     @Field(value = "gmt_modified")
     private Date gmtModified;
 
-
     public OperationInformationDO() {
     }
 
-    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
+    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Map deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
         this.operationNumber = operationNumber;
         this.patientId = patientId;
         this.operationHospitalCode = operationHospitalCode;
+        this.deviceInformation = deviceInformation;
         this.operationStartTime = operationStartTime;
         this.operationEndTime = operationEndTime;
         this.operationTime = operationTime;

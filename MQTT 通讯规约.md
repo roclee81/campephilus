@@ -75,7 +75,8 @@ operationNumber: "-1"
 data:{
      	"patientId": "patientId",
      	"hospitalCode": "0147",
-     	"operationStartTime": ""
+     	"operationStartTime": "1546501804000",
+     	"deviceInformation": {}
      }
 ```
 
@@ -99,38 +100,6 @@ code: 154
 mac: "mac"
 operationNumber: "1"
 ```
-
-* #### 发送手术设备数据
-```
-code: 155
-mac: "mac"
-operationNumber: "1"
-data: {
-      	"deviceInformation": {}
-      }
-```
-
-* #### 接收到该条设备数据
-```
-code: 156
-mac: "mac"
-operationNumber: "1"
-```
-
-* #### 设备数据发送完毕
-```
-code: 157
-mac: "mac"
-operationNumber: "1"
-```
-
-* #### 回复设备数据发送可以完毕
-```
-code: 158
-mac: "mac"
-operationNumber: "1"
-```
-
 
 * #### 准备发送病人信息数据
 ```
