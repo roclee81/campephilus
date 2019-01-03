@@ -82,16 +82,14 @@ public class DataProcessServiceImpl implements DataProcessService {
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
-
-    /**
-     * 得到新的手术顺序号
-     * 根据patientIdOperationNumber表计算得到表
-     * 目前根据synchronized来实现多线程
-     *
-     * @return 下一个新的手术顺序号
-     */
-    private synchronized Integer getNewOperationNumber() {
+    @Override
+    public synchronized Integer getNewOperationNumber() {
         return operationInformationService.countAll() + 1;
+    }
+
+    @Override
+    public Integer getCurrentOperationNumber() {
+        return operationInformationService.countAll();
     }
 
     /**
@@ -106,9 +104,14 @@ public class DataProcessServiceImpl implements DataProcessService {
     private ParseDataDTO processMsg(MedicalDataForm medicalDataForm) {
         try {
             int code = medicalDataForm.getCode();
+
             String macAddress = medicalDataForm.getMac();
 
-            // 检查operationNumber字段，如何没有直接返回null,因为前面已经判断了，只有准备阶段才不需要opn
+            if (null == macAddress) {
+                return null;
+            }
+
+            // 检查operationNumber字段，如果没有直接返回null,因为前面已经判断了，只有准备阶段才不需要opn
             int operationNumber = medicalDataForm.getOperationNumber();
 
             // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析，data属性可以为空

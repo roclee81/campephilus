@@ -55,10 +55,18 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
 
         Map patientData;
         String patientId;
+        Map data;
         try {
             // 检查是否有patientId,没有直接返回false
             if (dataMap.containsKey(DataConstants.PATIENT_ID)) {
                 patientId = (String) dataMap.get(DataConstants.PATIENT_ID);
+            } else {
+                return false;
+            }
+
+            // 检查是否有data,没有直接返回false
+            if (dataMap.containsKey(DataConstants.DATA_MAP)) {
+                data = (Map) dataMap.get(DataConstants.DATA_MAP);
             } else {
                 return false;
             }
@@ -74,7 +82,7 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
             return false;
         }
 
-        PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, parseDataDTO.getMacAddress(), operationNumber, new Date(), 0, null, patientData);
+        PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, parseDataDTO.getMacAddress(), operationNumber, new Date(), new Date(), 0, data, patientData);
         this.savePreoperativePatientDO(preoperativePatientDO);
         log.info("Insert the success :{}", preoperativePatientDO.toString());
         return true;

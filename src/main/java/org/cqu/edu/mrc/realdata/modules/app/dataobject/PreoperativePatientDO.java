@@ -72,7 +72,7 @@ public class PreoperativePatientDO {
      * 用于评分等环节，目前未使用
      */
     @Field(value = "data")
-    private Map msg;
+    private Map data;
 
     /**
      * 患者基本信息
@@ -80,13 +80,14 @@ public class PreoperativePatientDO {
     @Field(value = "patient_data")
     private Map patientData;
 
-    public PreoperativePatientDO(String patientId, String collectorMacAddress, Integer operationNumber, Date gmtCreate, Integer creatorId, Map msg, Map patientData) {
+    public PreoperativePatientDO(String patientId, String collectorMacAddress, Integer operationNumber, Date gmtCreate, Date gmtModified, Integer creatorId, Map data, Map patientData) {
         this.patientId = patientId;
         this.collectorMacAddress = collectorMacAddress;
         this.operationNumber = operationNumber;
         this.gmtCreate = gmtCreate;
+        this.gmtModified = gmtModified;
         this.creatorId = creatorId;
-        this.msg = msg;
+        this.data = data;
         this.patientData = patientData;
     }
 }
