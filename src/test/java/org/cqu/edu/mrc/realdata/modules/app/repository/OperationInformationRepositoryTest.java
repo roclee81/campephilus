@@ -54,7 +54,7 @@ public class OperationInformationRepositoryTest {
 
     @Test
     public void countAll() {
-        int result = operationInformationRepository.countAll();
+        int result = operationInformationRepository.countOperationInformationDOS();
         Assert.assertTrue(result > 0);
     }
 

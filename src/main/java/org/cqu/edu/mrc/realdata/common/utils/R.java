@@ -18,19 +18,12 @@ public class R extends HashMap<String, Object> {
 
     private static final long serialVersionUID = 1L;
 
-    public R(Integer code, Map msg) {
+    public R(Integer code, Object object) {
         put(DataConstants.CODE, code);
-        put(DataConstants.MSG, msg);
-    }
-
-    public R(Integer code, String msg) {
-        put(DataConstants.CODE, code);
-        put(DataConstants.MSG, msg);
+        put(DataConstants.MSG, object);
     }
 
     public R() {
-        put("code", 200);
-        put("data", "success");
     }
 
     public static R error() {

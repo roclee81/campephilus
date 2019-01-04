@@ -1,9 +1,13 @@
 package org.cqu.edu.mrc.realdata.modules.app.service;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * realdata
@@ -26,6 +30,15 @@ public interface OperationInformationService {
     Page<OperationInformationDO> getOperationInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 通过患者的ID查询PatientIdOperationNumberDTO信息
+     *
+     * @param patientId 患者的ID
+     * @param pageable  分页信息
+     * @return PatientIdOperationNumberDTO分页信息
+     */
+    List<OperationInformationDTO> getOperationInformationDTOSByPatientId(String patientId, Pageable pageable);
+
+    /**
      * 通过手术顺序号查询OperationInformationDO信息
      * operationNumber唯一，所以数据查询到的信息也是唯一的
      * 若有多个值，将会返回null
@@ -36,12 +49,70 @@ public interface OperationInformationService {
     OperationInformationDO getOperationInformationDOByOperationNumber(Integer operationNumber);
 
     /**
+     * 通过手术顺序号查询OperationInformationDTO信息
+     * operationNumber唯一，所以数据查询到的信息也是唯一的
+     * 若有多个值，将会返回null
+     *
+     * @param operationNumber 手术顺序号
+     * @return OperationInformationDTO分页信息
+     */
+    OperationInformationDTO getOperationInformationDTOByOperationNumber(Integer operationNumber);
+
+    /**
+     * 通过输入的手术开始时间的查询这一段时间的所有数据
+     *
+     * @param operationStartTimeBefore 手术开始的时间之前
+     * @param operationStartTimeAfter  手术开始的时间之后
+     * @param pageable                 分页信息
+     * @return OperationInformationDO的分页信息
+     */
+    Page<OperationInformationDO> getOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
+
+    /**
+     * 通过输入的手术开始时间的查询这一段时间的所有数据
+     *
+     * @param operationStartTimeBefore 手术开始的时间之前
+     * @param operationStartTimeAfter  手术开始的时间之后
+     * @param pageable                 分页信息
+     * @return OperationInformationDTO的分页信息
+     */
+    List<OperationInformationDTO> getOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
+
+    /**
+     * 通过输入的手术进行时间的查询这一段时间的所有数据
+     *
+     * @param operationTimeBefore 手术进行时间之前
+     * @param operationTimeAfter  手术进行时间之前
+     * @param pageable            分页信息
+     * @return OperationInformationDO的分页信息
+     */
+    Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+
+    /**
+     * 通过输入的手术进行时间的查询这一段时间的所有数据
+     *
+     * @param operationTimeBefore 手术进行时间之前
+     * @param operationTimeAfter  手术进行时间之前
+     * @param pageable            分页信息
+     * @return OperationInformationDTO的分页信息
+     */
+    List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+
+    /**
      * 得到所有的OperationInformationDO信息
      *
      * @param pageable 分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> getAll(Pageable pageable);
+    Page<OperationInformationDO> getOperationInformationDOS(Pageable pageable);
+
+    /**
+     * 得到所有的OperationInformationDTO的信息
+     *
+     * @param pageable 分页信息
+     * @return OperationInformationDTO的分页信息
+     */
+    List<OperationInformationDTO> getOperationInformationDTOS(Pageable pageable);
 
     /**
      * 保存OperationInformationDO
@@ -72,6 +143,6 @@ public interface OperationInformationService {
      *
      * @return OperationInformationDO表中的记录的条数
      */
-    Integer countAll();
+    Integer countOperationInformationDOS();
 
 }

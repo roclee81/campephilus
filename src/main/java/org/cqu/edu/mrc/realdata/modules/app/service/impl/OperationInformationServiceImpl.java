@@ -2,17 +2,23 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.convertor.OperationInformationDOConvertOperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationInformationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,13 +47,55 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
+    public List<OperationInformationDTO> getOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByPatientId(patientId, pageable);
+        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+    }
+
+    @Override
     public OperationInformationDO getOperationInformationDOByOperationNumber(Integer operationNumber) {
         return operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
     }
 
     @Override
-    public Page<OperationInformationDO> getAll(Pageable pageable) {
-        return operationInformationRepository.findAll(pageable);
+    public OperationInformationDTO getOperationInformationDTOByOperationNumber(Integer operationNumber) {
+        OperationInformationDO operationInformationDO = this.getOperationInformationDOByOperationNumber(operationNumber);
+        OperationInformationDTO operationInformationDTO = new OperationInformationDTO();
+        BeanUtils.copyProperties(operationInformationDO, operationInformationDTO);
+        return operationInformationDTO;
+    }
+
+    @Override
+    public Page<OperationInformationDO> getOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+        return operationInformationRepository.findOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+    }
+
+    @Override
+    public List<OperationInformationDTO> getOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+    }
+
+    @Override
+    public Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+        return operationInformationRepository.findOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
+    }
+
+    @Override
+    public List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
+        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+    }
+
+    @Override
+    public Page<OperationInformationDO> getOperationInformationDOS(Pageable pageable) {
+        return operationInformationRepository.findOperationInformationDOS(pageable);
+    }
+
+    @Override
+    public List<OperationInformationDTO> getOperationInformationDTOS(Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOS(pageable);
+        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
 
     @Override
@@ -156,8 +204,8 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public Integer countAll() {
-        return operationInformationRepository.countAll();
+    public Integer countOperationInformationDOS() {
+        return operationInformationRepository.countOperationInformationDOS();
     }
 
 }

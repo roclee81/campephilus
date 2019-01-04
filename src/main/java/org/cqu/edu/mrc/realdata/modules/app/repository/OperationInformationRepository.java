@@ -71,7 +71,7 @@ public interface OperationInformationRepository {
      * @param pageable 分页信息
      * @return OperationInformationDO分页信息
      */
-    Page<OperationInformationDO> findAll(Pageable pageable);
+    Page<OperationInformationDO> findOperationInformationDOS(Pageable pageable);
 
     /**
      * 保存OperationInformationDO
@@ -85,5 +85,5 @@ public interface OperationInformationRepository {
      *
      * @return OperationInformationDO表中的记录的条数
      */
-    Integer countAll();
+    Integer countOperationInformationDOS();
 }

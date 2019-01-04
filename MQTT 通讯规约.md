@@ -54,7 +54,7 @@ code、mac、operationNumber为必填字段
 
 * #### 设备开机注册
 ```
-code: 199
+code: 99
 mac: "mac"
 operationNumber: "-1"
 }
@@ -62,7 +62,7 @@ operationNumber: "-1"
 
 * #### 服务器将回复
 ```
-code: 200
+code: 100
 mac: "mac"
 operationNumber: "-1"
 ```

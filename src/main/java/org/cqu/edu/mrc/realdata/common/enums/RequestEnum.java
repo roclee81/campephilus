@@ -17,7 +17,7 @@ public enum RequestEnum {
     /**
      * 注册
      */
-    DEVICE_REGISTER(199),
+    DEVICE_REGISTER(99),
 
     /**
      * 准备要开始新的手术，获取opn

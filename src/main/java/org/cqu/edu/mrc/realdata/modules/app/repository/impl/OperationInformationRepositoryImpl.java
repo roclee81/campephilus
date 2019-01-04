@@ -70,13 +70,13 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
     }
 
     @Override
-    public Page<OperationInformationDO> findAll(Pageable pageable) {
+    public Page<OperationInformationDO> findOperationInformationDOS(Pageable pageable) {
         Query query = Query.query(Criteria.where(""));
         return queryPageable(query, pageable);
     }
 
     @Override
-    public Integer countAll() {
+    public Integer countOperationInformationDOS() {
         Query query = Query.query(Criteria.where(""));
         return (int) mongoOperations.count(query, OperationInformationDO.class);
     }

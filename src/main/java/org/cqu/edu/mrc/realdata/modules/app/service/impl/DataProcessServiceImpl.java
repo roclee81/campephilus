@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * realdata
@@ -84,12 +83,12 @@ public class DataProcessServiceImpl implements DataProcessService {
 
     @Override
     public synchronized Integer getNewOperationNumber() {
-        return operationInformationService.countAll() + 1;
+        return operationInformationService.countOperationInformationDOS() + 1;
     }
 
     @Override
     public Integer getCurrentOperationNumber() {
-        return operationInformationService.countAll();
+        return operationInformationService.countOperationInformationDOS();
     }
 
     /**

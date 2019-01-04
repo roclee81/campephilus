@@ -32,9 +32,19 @@ public enum ReplyEnum {
     CODE_ERROR(-3),
 
     /**
+     * 数据不存在
+     */
+    DATA_DOES_NOT_EXIST(-4),
+
+    /**
+     * 成功
+     */
+    SUCCESS(200),
+
+    /**
      * 开机注册成功
      */
-    REGISTER_SUCCESS(200),
+    REGISTER_SUCCESS(100),
 
     /**
      * 服务器准备完毕，可以开始手术了

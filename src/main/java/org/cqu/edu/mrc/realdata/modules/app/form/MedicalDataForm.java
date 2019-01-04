@@ -21,7 +21,7 @@ public class MedicalDataForm {
     /**
      * 数据传输操作码
      */
-    @Min(value = 150, message = "The code must be greater than the protocol minimum")
+    @Min(value = 0, message = "The code must be greater than the protocol minimum")
     @Max(value = 200, message = "The code must be less than the protocol maximum")
     @NotNull(message = "The code cannot be empty")
     private Integer code;

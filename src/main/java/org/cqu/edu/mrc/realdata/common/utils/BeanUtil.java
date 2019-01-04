@@ -1,8 +1,13 @@
 package org.cqu.edu.mrc.realdata.common.utils;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +18,7 @@ import java.util.Map;
  * 对实体类进行判断
  * 判断实体类中属性是否为空
  */
-public class BeanUtil {
+public class BeanUtil<T>{
 
     public static boolean isAllFieldNull(Object obj) {
         // 得到类对象
