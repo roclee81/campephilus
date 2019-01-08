@@ -12,4 +12,8 @@ package org.cqu.edu.mrc.realdata.common.constant;
 public class ReplyConstants {
 
     public static final String DATA_DOES_NOT_EXIST = "Data does not exist";
+
+    public static final String REQUEST_PARAMETER_DOES_NOT_EXIST = "Request parameter does not exist";
+
+    public static final String UNKNOWN_ERROR = "Unknown error";
 }

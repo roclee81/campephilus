@@ -18,6 +18,8 @@ import java.util.Map;
 @Data
 public class DeviceDTO {
 
+    private Integer operationNumber;
+
     /**
      * 仪器输出数据的顺序号，每场手术都会从0开始
      */
