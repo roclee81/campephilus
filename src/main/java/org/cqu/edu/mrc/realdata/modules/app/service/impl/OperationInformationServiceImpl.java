@@ -77,12 +77,12 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+    public Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
     }
 
     @Override
-    public List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
+    public List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
@@ -115,7 +115,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         String patientId;
         Date operationStartTime;
         String operationHospitalCode;
-        Map deviceInformation;
+        Map<String, String> deviceInformation;
         try {
             // 检查是否有operationHospitalCode,没有直接返回false
             if (dataMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
@@ -140,7 +140,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
             // 检查是否有deviceInformation,没有直接返回false
             if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
-                deviceInformation = (Map) dataMap.get(DataConstants.DEVICE_INFORMATION);
+                deviceInformation = (Map<String, String>) dataMap.get(DataConstants.DEVICE_INFORMATION);
             } else {
                 return false;
             }

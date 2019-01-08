@@ -1,10 +1,15 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.convertor.DeviceDOConvertDeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.DeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.DeviceRepository;
+import org.cqu.edu.mrc.realdata.modules.app.repository.impl.OperationInformationRepositoryImpl;
 import org.cqu.edu.mrc.realdata.modules.app.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,9 +37,12 @@ public class DeviceServiceImpl implements DeviceService {
 
     private final DeviceRepository deviceRepository;
 
+    private final OperationInformationRepositoryImpl operationInformationRepository;
+
     @Autowired
-    public DeviceServiceImpl(DeviceRepository deviceRepository) {
+    public DeviceServiceImpl(DeviceRepository deviceRepository, OperationInformationRepositoryImpl operationInformationRepository) {
         this.deviceRepository = deviceRepository;
+        this.operationInformationRepository = operationInformationRepository;
     }
 
     @Override
@@ -46,8 +56,16 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Page<DeviceDO> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
-        return deviceRepository.findDeviceDOSByOperationNumber(operationNumber, pageable);
+    public Map<String, Object> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+        OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
+        Map<String, String> deviceInformation = operationInformationDO.getDeviceInformation();
+        Map<String, Object> result = new HashMap<>(deviceInformation.size());
+        for (String deviceId : deviceInformation.values()) {
+            Page<DeviceDO> deviceDOPage = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
+            List<DeviceDTO> deviceDTOList = DeviceDOConvertDeviceDTO.convert(deviceDOPage);
+            result.put(deviceId, deviceDTOList);
+        }
+        return result;
     }
 
     @Override

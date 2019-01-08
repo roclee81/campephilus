@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -56,12 +57,14 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
 
     @Override
     public Page<OperationInformationDO> findOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
-        return null;
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_START_TIME).gt(operationStartTimeBefore).lt(operationStartTimeAfter));
+        return queryPageable(query, pageable);
     }
 
     @Override
-    public Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable) {
-        return null;
+    public Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_TIME).gt(operationTimeBefore).lt(operationTimeAfter));
+        return queryPageable(query, pageable);
     }
 
     @Override

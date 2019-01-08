@@ -86,7 +86,7 @@ public interface OperationInformationService {
      * @param pageable            分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+    Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术进行时间的查询这一段时间的所有数据
@@ -96,7 +96,7 @@ public interface OperationInformationService {
      * @param pageable            分页信息
      * @return OperationInformationDTO的分页信息
      */
-    List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+    List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable);
 
     /**
      * 得到所有的OperationInformationDO信息

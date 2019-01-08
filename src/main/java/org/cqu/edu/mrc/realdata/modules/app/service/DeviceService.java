@@ -5,6 +5,8 @@ import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
+
 /**
  * realdata
  *
@@ -17,32 +19,40 @@ import org.springframework.data.domain.Pageable;
 public interface DeviceService {
 
     /**
-     * @param deviceId
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * 通过唯一的手术顺序号和设备号查询数据
+     *
+     * @param deviceId        设备ID
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return DeviceDO分页信息
      */
     Page<DeviceDO> getDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
 
     /**
-     * @param deviceId
-     * @param pageable
-     * @return
+     * 通过设备ID获取该设备的所有数据
+     *
+     * @param deviceId 设备ID
+     * @param pageable 分页信息
+     * @return DeviceDO分页信息
      */
     Page<DeviceDO> getDeviceDOSByDeviceId(String deviceId, Pageable pageable);
 
     /**
-     * @param operationNumber
-     * @param pageable
-     * @return
+     * 通过手术号查询该手术所有的仪器数据
+     * 由于OperationInformationDO中有设备信息
+     *
+     * @param operationNumber 手术顺序号
+     * @param pageable        分页信息
+     * @return DeviceDO的分页信息
      */
-    Page<DeviceDO> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
+    Map<String, Object> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 根据设备Id存储数据
+     * 存储后表的名称为device_<code>deviceId</code>
      *
-     * @param deviceDO
-     * @param deviceId
+     * @param deviceDO DeviceDO实体
+     * @param deviceId 设备ID
      */
     void saveDeviceDO(DeviceDO deviceDO, String deviceId);
 

@@ -32,7 +32,7 @@ public interface DeviceRepository {
      * @param deviceId        设备的ID
      * @param operationNumber 手术顺序号唯一
      * @param pageable        分页信息
-     * @return
+     * @return DeviceDO实体
      */
     Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
 
@@ -41,19 +41,9 @@ public interface DeviceRepository {
      *
      * @param deviceId 设备ID
      * @param pageable 分页信息
-     * @return
+     * @return DeviceDO实体
      */
     Page<DeviceDO> findDeviceDOSByDeviceId(String deviceId, Pageable pageable);
-
-
-    /**
-     * 通过手术号查询该手术所有的仪器数据
-     *
-     * @param operationNumber 手术号
-     * @param pageable        分页信息
-     * @return
-     */
-    Page<DeviceDO> findDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 得到指定仪器id的数据条数

@@ -63,7 +63,7 @@ public interface OperationInformationRepository {
      * @param pageable            分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Date operationTimeBefore, Date operationTimeAfter, Pageable pageable);
+    Page<OperationInformationDO> findOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable);
 
     /**
      * 得到所有的OperationInformationDO信息

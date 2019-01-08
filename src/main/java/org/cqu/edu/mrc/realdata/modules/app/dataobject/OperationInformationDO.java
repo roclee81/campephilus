@@ -48,7 +48,7 @@ public class OperationInformationDO {
      * 手术中使用的设备信息 标明设备的ID及设备型号
      */
     @Field(value = "device_information")
-    private Map deviceInformation;
+    private Map<String, String> deviceInformation;
 
     /**
      * 手术开始时间
@@ -83,7 +83,7 @@ public class OperationInformationDO {
     public OperationInformationDO() {
     }
 
-    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Map deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
+    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Map<String, String> deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
         this.operationNumber = operationNumber;
         this.patientId = patientId;
         this.operationHospitalCode = operationHospitalCode;

@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
+import org.cqu.edu.mrc.realdata.common.utils.TimeStampUtil;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 /**
  * realdata
@@ -48,10 +51,16 @@ public class OperationInformationRepositoryImplTest {
 
     @Test
     public void findOperationInformationDOSByOperationStartTimeBetween() {
+        PageRequest pageRequest = PageRequest.of(0, 100);
+        Page<OperationInformationDO> result = operationInformationRepository.findOperationInformationDOSByOperationStartTimeBetween(TimeStampUtil.getWeekBeforeDate(), new Date(), pageRequest);
+        Assert.assertTrue(result.getTotalElements() > 0);
     }
 
     @Test
     public void findOperationInformationDOSByOperationTimeBetween() {
+        PageRequest pageRequest = PageRequest.of(0, 100);
+        Page<OperationInformationDO> result = operationInformationRepository.findOperationInformationDOSByOperationTimeBetween(-100000L, 90000000L, pageRequest);
+        Assert.assertEquals(0, result.getTotalElements());
     }
 
     @Test
@@ -59,14 +68,14 @@ public class OperationInformationRepositoryImplTest {
     }
 
     @Test
-    public void findAll() {
+    public void findOperationInformationDOS() {
         PageRequest page = PageRequest.of(0, 100);
         Page<OperationInformationDO> result = operationInformationRepository.findOperationInformationDOS(page);
         Assert.assertTrue(result.getTotalElements() > 0);
     }
 
     @Test
-    public void countAll() {
+    public void countOperationInformationDOS() {
         int result = operationInformationRepository.countOperationInformationDOS();
         Assert.assertTrue(result > 0);
     }
