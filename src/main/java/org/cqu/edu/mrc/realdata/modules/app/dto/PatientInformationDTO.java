@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.dto;
 
-import org.springframework.data.mongodb.core.mapping.Field;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.Map;
@@ -10,12 +10,12 @@ import java.util.Map;
  *
  * @author lx
  * @version V1.0
- * @date 2019/1/8 16:50
+ * @date 2019/1/8 22:27
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class PreoperativePatientDTO {
-
+@Data
+public class PatientInformationDTO {
     /**
      * 病人ID
      */
@@ -34,7 +34,6 @@ public class PreoperativePatientDTO {
     /**
      * 创建人编号
      */
-    @Field(value = "creator_id")
     private Integer creatorId;
 
     /**

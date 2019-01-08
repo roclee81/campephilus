@@ -2,18 +2,19 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.convertor.PreoperativePatientDOConvertPreoperativePatientDTO;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
+import org.cqu.edu.mrc.realdata.modules.app.convertor.PatientInformationDOConvertPatientInformationDTO;
+import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
-import org.cqu.edu.mrc.realdata.modules.app.dto.PreoperativePatientDTO;
-import org.cqu.edu.mrc.realdata.modules.app.repository.PreoperativePatientRepository;
-import org.cqu.edu.mrc.realdata.modules.app.service.PreoperativePatientService;
+import org.cqu.edu.mrc.realdata.modules.app.dto.PatientInformationDTO;
+import org.cqu.edu.mrc.realdata.modules.app.repository.PatientInformationRepository;
+import org.cqu.edu.mrc.realdata.modules.app.service.PatientInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,39 +23,40 @@ import java.util.Map;
  *
  * @author lx
  * @version V1.0
- * @date 2018/12/26 16:46
+ * @date 2019/1/9 0:08
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
 @Service
 @Slf4j
-public class PreoperativePatientServiceImpl implements PreoperativePatientService {
+public class PatientInformationServiceImpl implements PatientInformationService {
 
-    private final PreoperativePatientRepository preoperativePatientRepository;
+    private final PatientInformationRepository patientInformationRepository;
 
     @Autowired
-    public PreoperativePatientServiceImpl(PreoperativePatientRepository preoperativePatientRepository) {
-        this.preoperativePatientRepository = preoperativePatientRepository;
+    public PatientInformationServiceImpl(PatientInformationRepository patientInformationRepository) {
+        this.patientInformationRepository = patientInformationRepository;
     }
 
     @Override
-    public void savePreoperativePatientDO(PreoperativePatientDO preoperativePatientDO) {
-        preoperativePatientRepository.save(preoperativePatientDO);
+    public Page<PatientInformationDO> getPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
+        return patientInformationRepository.findPatientInformationDOSByPatientId(patientId, pageable);
     }
 
     @Override
-    public Page<PreoperativePatientDO> getPreoperativePatientDOSByPatientId(String patientId, Pageable pageable) {
-        return preoperativePatientRepository.findPreoperativePatientDOSByPatientId(patientId, pageable);
+    public List<PatientInformationDTO> getPatientInformationDTOSByPatientId(String patientId, Pageable pageable) {
+        Page<PatientInformationDO> patientInformationDOPage = this.getPatientInformationDOSByPatientId(patientId, pageable);
+        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDOPage);
     }
 
     @Override
-    public List<PreoperativePatientDTO> getPreoperativePatientDTOSByPatientId(String patientId, Pageable pageable) {
-        Page<PreoperativePatientDO> preoperativePatientDOPage = this.getPreoperativePatientDOSByPatientId(patientId, pageable);
-        return PreoperativePatientDOConvertPreoperativePatientDTO.convert(preoperativePatientDOPage);
+    public void savePostoperativePatientDO(PatientInformationDO patientInformationDO) {
+        patientInformationRepository.savePatientInformationDO(patientInformationDO);
     }
 
     @Override
-    public boolean savePreoperativePatientDO(ParseDataDTO parseDataDTO) {
+    public boolean savePatientInformationDO(ParseDataDTO parseDataDTO) {
+        //TODO 未完成，需要先查询数据，再存储
         if (null == parseDataDTO) {
             return false;
         }
@@ -91,9 +93,9 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
             return false;
         }
 
-        PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, operationNumber, new Date(), new Date(), 0, data, patientData);
-        this.savePreoperativePatientDO(preoperativePatientDO);
-        log.info("Insert the success :{}", preoperativePatientDO.toString());
+        PatientInformationDO patientInformationDO = new PatientInformationDO(patientId, operationNumber, 0, new HashMap(), new HashMap(), new HashMap(), new Date(), new Date());
+        this.savePostoperativePatientDO(patientInformationDO);
+        log.info("Insert the success :{}", patientInformationDO.toString());
         return true;
     }
 }

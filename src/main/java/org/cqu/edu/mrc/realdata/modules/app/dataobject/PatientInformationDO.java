@@ -9,17 +9,16 @@ import java.util.Map;
 
 /**
  * realdata
- * 术前患者数据
  *
  * @author lx
  * @version V1.0
- * @date 2018/12/19 20:41
+ * @date 2019/1/8 21:47
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Document(value = "preoperative_patient")
+@Document(value = "patient_information")
 @Data
-public class PreoperativePatientDO {
+public class PatientInformationDO {
 
     /**
      * Mongo自动生成的ID
@@ -39,18 +38,6 @@ public class PreoperativePatientDO {
     private Integer operationNumber;
 
     /**
-     * 更新时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 修改数据时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
-
-    /**
      * 创建人编号
      */
     @Field(value = "creator_id")
@@ -65,8 +52,20 @@ public class PreoperativePatientDO {
      * },
      * 用于评分等环节，目前未使用
      */
-    @Field(value = "data")
-    private Map data;
+    @Field(value = "preoperative_Data")
+    private Map preoperativeData;
+
+    /**
+     * 存放基本数据信息 "data": {
+     * "stage": "pre",
+     * "hospital code": "hospital code",
+     * "state": "state",
+     * "type": "type"
+     * },
+     * 用于评分等环节，目前未使用
+     */
+    @Field(value = "postoperative_Data")
+    private Map postoperativeData;
 
     /**
      * 患者基本信息
@@ -74,13 +73,29 @@ public class PreoperativePatientDO {
     @Field(value = "patient_data")
     private Map patientData;
 
-    public PreoperativePatientDO(String patientId, Integer operationNumber, Date gmtCreate, Date gmtModified, Integer creatorId, Map data, Map patientData) {
+    /**
+     * 更新时间
+     */
+    @Field(value = "gmt_create")
+    private Date gmtCreate;
+
+    /**
+     * 修改数据时间
+     */
+    @Field(value = "gmt_modified")
+    private Date gmtModified;
+
+    public PatientInformationDO() {
+    }
+
+    public PatientInformationDO(String patientId, Integer operationNumber, Integer creatorId, Map preoperativeData, Map postoperativeData, Map patientData, Date gmtCreate, Date gmtModified) {
         this.patientId = patientId;
         this.operationNumber = operationNumber;
+        this.creatorId = creatorId;
+        this.preoperativeData = preoperativeData;
+        this.postoperativeData = postoperativeData;
+        this.patientData = patientData;
         this.gmtCreate = gmtCreate;
         this.gmtModified = gmtModified;
-        this.creatorId = creatorId;
-        this.data = data;
-        this.patientData = patientData;
     }
 }

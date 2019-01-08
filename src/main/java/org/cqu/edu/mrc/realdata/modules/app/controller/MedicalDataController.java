@@ -62,18 +62,37 @@ public class MedicalDataController {
     }
 
     @GetMapping("/operationInformation")
-    public R getOperationInformation(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public R getOperationInformation(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
+                                     @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
+                                     @RequestParam(value = "page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "size", defaultValue = "20") Integer size) {
+
+        //TODO 传入的collectorMacAddress没有处理
+
+        if (operationNumber == -1) {
+            return new R(ReplyEnum.REQUEST_PARAMETER_DOES_NOT_EXIST.getCode(), ReplyConstants.REQUEST_PARAMETER_DOES_NOT_EXIST);
+        }
 
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        List<OperationInformationDTO> result = operationInformationService.getOperationInformationDTOS(pageRequest);
-
-        if (result.size() < 1) {
-            return new R(ReplyEnum.DATA_DOES_NOT_EXIST.getCode(), ReplyConstants.DATA_DOES_NOT_EXIST);
+        if (operationNumber == 0) {
+            List<OperationInformationDTO> result = operationInformationService.getOperationInformationDTOS(pageRequest);
+            if (result.size() < 1) {
+                return new R(ReplyEnum.DATA_DOES_NOT_EXIST.getCode(), ReplyConstants.DATA_DOES_NOT_EXIST);
+            }
+            return new R(ReplyEnum.SUCCESS.getCode(), result);
         }
 
-        return new R(ReplyEnum.SUCCESS.getCode(), result);
+        // 如果传入了不为0，则是查询特定的OperationInformationDTO
+        if (operationNumber > 1) {
+            OperationInformationDTO result = operationInformationService.getOperationInformationDTOByOperationNumber(operationNumber);
+            if (null == result) {
+                return new R(ReplyEnum.DATA_DOES_NOT_EXIST.getCode(), ReplyConstants.DATA_DOES_NOT_EXIST);
+            }
+            return new R(ReplyEnum.SUCCESS.getCode(), result);
+        }
+
+        return new R(ReplyEnum.UNKNOWN_ERROR.getCode(), ReplyConstants.UNKNOWN_ERROR);
     }
 
     @GetMapping("/deviceInformation")
