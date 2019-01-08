@@ -41,7 +41,7 @@ public class DataProcessServiceImplTest {
         medicalDataForm1.setCode(151);
         medicalDataForm1.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm1.setOperationNumber(-1);
-        medicalDataForm1.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{}}");
+        medicalDataForm1.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO1 = dataProcessService.processMedicalData(medicalDataForm1);
         Assert.assertEquals((int) resultDataDTO1.getCode(), 152);
     }
@@ -52,7 +52,7 @@ public class DataProcessServiceImplTest {
         MedicalDataForm medicalDataForm2 = new MedicalDataForm();
         medicalDataForm2.setCode(151);
         medicalDataForm2.setMac("00-0f-e2-2e-94-a9");
-        medicalDataForm2.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{}}");
+        medicalDataForm2.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO2 = dataProcessService.processMedicalData(medicalDataForm2);
         Assert.assertEquals((int) resultDataDTO2.getCode(), -2);
     }
@@ -63,7 +63,7 @@ public class DataProcessServiceImplTest {
         MedicalDataForm medicalDataForm3 = new MedicalDataForm();
         medicalDataForm3.setCode(151);
         medicalDataForm3.setOperationNumber(-2);
-        medicalDataForm3.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{}}");
+        medicalDataForm3.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO3 = dataProcessService.processMedicalData(medicalDataForm3);
         Assert.assertEquals((int) resultDataDTO3.getCode(), -2);
     }
@@ -124,7 +124,7 @@ public class DataProcessServiceImplTest {
         medicalDataForm8.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm8.setData("{\"markNumber\":1,\"markType\":1,\"markMessage\":{}}");
         ResultDataDTO resultDataDTO8 = dataProcessService.processMedicalData(medicalDataForm8);
-        Assert.assertEquals((int) resultDataDTO8.getCode(), 174);
+        Assert.assertEquals((int) resultDataDTO8.getCode(), -2);
     }
 
     @Test

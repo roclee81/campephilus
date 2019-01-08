@@ -2,8 +2,10 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.convertor.PreoperativePatientDOConvertPreoperativePatientDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.PreoperativePatientDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.PreoperativePatientRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.PreoperativePatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +45,12 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
     @Override
     public Page<PreoperativePatientDO> getPreoperativePatientDOSByPatientId(String patientId, Pageable pageable) {
         return preoperativePatientRepository.findPreoperativePatientDOSByPatientId(patientId, pageable);
+    }
+
+    @Override
+    public List<PreoperativePatientDTO> getPreoperativePatientDTOSByPatientId(String patientId, Pageable pageable) {
+        Page<PreoperativePatientDO> preoperativePatientDOPage = this.getPreoperativePatientDOSByPatientId(patientId, pageable);
+        return PreoperativePatientDOConvertPreoperativePatientDTO.convert(preoperativePatientDOPage);
     }
 
     @Override
@@ -82,7 +91,7 @@ public class PreoperativePatientServiceImpl implements PreoperativePatientServic
             return false;
         }
 
-        PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, parseDataDTO.getMacAddress(), operationNumber, new Date(), new Date(), 0, data, patientData);
+        PreoperativePatientDO preoperativePatientDO = new PreoperativePatientDO(patientId, operationNumber, new Date(), new Date(), 0, data, patientData);
         this.savePreoperativePatientDO(preoperativePatientDO);
         log.info("Insert the success :{}", preoperativePatientDO.toString());
         return true;

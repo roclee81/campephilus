@@ -33,6 +33,12 @@ public class OperationInformationDO {
     private Integer operationNumber;
 
     /**
+     * 数据采集器MAC地址
+     */
+    @Field(value = "collector_mac_address")
+    private String collectorMacAddress;
+
+    /**
      * 病人Id
      */
     @Field(value = "patient_id")
@@ -83,8 +89,9 @@ public class OperationInformationDO {
     public OperationInformationDO() {
     }
 
-    public OperationInformationDO(Integer operationNumber, String patientId, String operationHospitalCode, Map<String, String> deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
+    public OperationInformationDO(Integer operationNumber, String collectorMacAddress, String patientId, String operationHospitalCode, Map<String, String> deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
         this.operationNumber = operationNumber;
+        this.collectorMacAddress = collectorMacAddress;
         this.patientId = patientId;
         this.operationHospitalCode = operationHospitalCode;
         this.deviceInformation = deviceInformation;

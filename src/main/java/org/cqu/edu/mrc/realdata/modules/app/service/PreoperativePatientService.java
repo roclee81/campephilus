@@ -3,8 +3,11 @@ package org.cqu.edu.mrc.realdata.modules.app.service;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PreoperativePatientDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.PreoperativePatientDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * realdata
@@ -25,6 +28,15 @@ public interface PreoperativePatientService {
      * @return PreoperativePatientDO分页信息
      */
     Page<PreoperativePatientDO> getPreoperativePatientDOSByPatientId(String patientId, Pageable pageable);
+
+    /**
+     * 通过患者的ID得到PreoperativePatientDTO信息
+     *
+     * @param patientId 患者ID
+     * @param pageable  分页信息
+     * @return PreoperativePatientDTO列表
+     */
+    List<PreoperativePatientDTO> getPreoperativePatientDTOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * 保存PreoperativePatientDO信息

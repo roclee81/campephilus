@@ -51,8 +51,32 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    public List<DeviceDTO> getDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
+        Page<DeviceDO> deviceDOPage = this.getDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
+        return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
+    }
+
+    @Override
+    public Page<DeviceDO> getDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+        //TODO 未完成，可能需要维护一张表
+        return null;
+    }
+
+    @Override
+    public List<DeviceDTO> getDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+        //TODO 未完成，可能需要维护一张表
+        return null;
+    }
+
+    @Override
     public Page<DeviceDO> getDeviceDOSByDeviceId(String deviceId, Pageable pageable) {
         return deviceRepository.findDeviceDOSByDeviceId(deviceId, pageable);
+    }
+
+    @Override
+    public List<DeviceDTO> getDeviceDTOSByDeviceId(String deviceId, Pageable pageable) {
+        Page<DeviceDO> deviceDOPage = this.getDeviceDOSByDeviceId(deviceId, pageable);
+        return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
     }
 
     @Override

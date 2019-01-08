@@ -33,12 +33,6 @@ public class PreoperativePatientDO {
     private String patientId;
 
     /**
-     * 数据采集器MAC地址
-     */
-    @Field(value = "collector_mac_address")
-    private String collectorMacAddress;
-
-    /**
      * 手术顺序号 手术的顺序号，唯一
      */
     @Field(value = "operation_number")
@@ -80,9 +74,8 @@ public class PreoperativePatientDO {
     @Field(value = "patient_data")
     private Map patientData;
 
-    public PreoperativePatientDO(String patientId, String collectorMacAddress, Integer operationNumber, Date gmtCreate, Date gmtModified, Integer creatorId, Map data, Map patientData) {
+    public PreoperativePatientDO(String patientId, Integer operationNumber, Date gmtCreate, Date gmtModified, Integer creatorId, Map data, Map patientData) {
         this.patientId = patientId;
-        this.collectorMacAddress = collectorMacAddress;
         this.operationNumber = operationNumber;
         this.gmtCreate = gmtCreate;
         this.gmtModified = gmtModified;

@@ -21,9 +21,17 @@ public class DataConstants {
 
     public static final String OPERATION_NUMBER = "operationNumber";
 
+    public static final String DATABASE_OPERATION_NUMBER = "operation_number";
+
+    public static final String COLLECTOR_MAC_ADDRESS = "collectorMacAddress";
+
+    public static final String DATABASE_COLLECTOR_MAC_ADDRESS = "collector_mac_address";
+
     public static final String DATA_MAP = "data";
 
     public static final String OPERATION_HOSPITAL_CODE = "operationHospitalCode";
+
+    public static final String DATABASE_OPERATION_HOSPITAL_CODE = "operation_hospital_code";
 
     public static final String OPERATION_START_TIME = "operationStartTime";
 
@@ -35,6 +43,8 @@ public class DataConstants {
 
     public static final String PATIENT_ID = "patientId";
 
+    public static final String DATABASE_PATIENT_ID = "patient_id";
+
     public static final String PATIENT_DATA = "patientData";
 
     public static final String MARK_NUMBER = "markNumber";
@@ -42,6 +52,8 @@ public class DataConstants {
     public static final String MARK_TYPE = "markType";
 
     public static final String MARK_MESSAGE = "markMessage";
+
+    public static final String MARK_TIME = "markTime";
 
     public static final String CODE = "code";
 

@@ -14,6 +14,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -144,13 +145,12 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             } else {
                 return false;
             }
-
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 
-        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, patientId, operationHospitalCode, deviceInformation, operationStartTime, null, null, new Date(), new Date());
+        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, parseDataDTO.getMacAddress(), patientId, operationHospitalCode, deviceInformation, operationStartTime, null, null, new Date(), new Date());
         this.saveOperationInformationDO(operationInformationDO);
         log.info("Insert the success :{}", operationInformationDO.toString());
         return true;

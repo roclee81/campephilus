@@ -45,6 +45,13 @@ public class DeviceRepositoryImpl implements DeviceRepository {
     }
 
     @Override
+    public Page<DeviceDO> findDeviceDOSByCollectorMacAddress(String deviceId, String collectorMacAddress, Pageable pageable) {
+        Query query = Query.query(Criteria.where(DataConstants.COLLECTOR_MAC_ADDRESS).is(collectorMacAddress));
+        query.with(pageable);
+        return getDeviceDOS(query, deviceId, pageable);
+    }
+
+    @Override
     public Page<DeviceDO> findDeviceDOSByDeviceId(String deviceId, Pageable pageable) {
         Query query = Query.query(Criteria.where(""));
         query.with(pageable);

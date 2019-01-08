@@ -30,6 +30,11 @@ public class OperationInformationDTO {
     private String patientId;
 
     /**
+     * 数据采集器MAC地址
+     */
+    private String collectorMacAddress;
+
+    /**
      * 进行手术的所在医院代码 采用国家医院代码,这个需要手术标记人员手动输入
      */
     private String operationHospitalCode;

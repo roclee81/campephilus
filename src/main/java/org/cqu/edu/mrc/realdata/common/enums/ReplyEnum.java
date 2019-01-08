@@ -37,6 +37,11 @@ public enum ReplyEnum {
     DATA_DOES_NOT_EXIST(-4),
 
     /**
+     * 请求参数不存在
+     */
+    REQUEST_PARAMETER_DOES_NOT_EXIST(-5),
+
+    /**
      * 成功
      */
     SUCCESS(200),

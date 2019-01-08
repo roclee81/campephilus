@@ -1,9 +1,12 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.DeviceDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * realdata
@@ -35,6 +38,16 @@ public interface DeviceRepository {
      * @return DeviceDO实体
      */
     Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
+
+    /**
+     * 通过采集器MAC地址获取采集器所采集的所有DeviceDO信息
+     *
+     * @param deviceId            设备的ID
+     * @param collectorMacAddress 采集器MAC地址
+     * @param pageable            分页信息
+     * @return DeviceDO分页信息
+     */
+    Page<DeviceDO> findDeviceDOSByCollectorMacAddress(String deviceId, String collectorMacAddress, Pageable pageable);
 
     /**
      * 通过设备ID获取该设备的所有数据

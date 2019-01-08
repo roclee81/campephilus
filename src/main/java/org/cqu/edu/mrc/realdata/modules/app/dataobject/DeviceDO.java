@@ -39,7 +39,7 @@ public class DeviceDO {
     private Integer deviceDataNumber;
 
     /**
-     * 更新时间 数据更新时间
+     * 数据插入时间
      */
     @Field(value = "gmt_create")
     private Date gmtCreate;

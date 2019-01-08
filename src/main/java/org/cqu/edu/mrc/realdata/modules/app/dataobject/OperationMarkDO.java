@@ -56,11 +56,18 @@ public class OperationMarkDO {
     @Field(value = "mark_time")
     private Date markTime;
 
-    public OperationMarkDO(Integer operationNumber, Integer markNumber, Integer markType, Map markMessage, Date markTime) {
+    /**
+     * 数据插入时间
+     */
+    @Field(value = "gmt_create")
+    private Date gmtCreate;
+
+    public OperationMarkDO(Integer operationNumber, Integer markNumber, Integer markType, Map markMessage, Date markTime, Date gmtCreate) {
         this.operationNumber = operationNumber;
         this.markNumber = markNumber;
         this.markType = markType;
         this.markMessage = markMessage;
         this.markTime = markTime;
+        this.gmtCreate = gmtCreate;
     }
 }

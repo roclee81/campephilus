@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 

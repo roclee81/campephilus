@@ -2,7 +2,9 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.modules.app.convertor.OperationMarkDOConvertOperationMarkDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.OperationMarkDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationMarkRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationMarkService;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,8 +44,20 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     }
 
     @Override
+    public List<OperationMarkDTO> getOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByOperationNumber(operationNumber, pageable);
+        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+    }
+
+    @Override
     public Page<OperationMarkDO> getOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
+    }
+
+    @Override
+    public List<OperationMarkDTO> getOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
+        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
@@ -51,13 +66,31 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     }
 
     @Override
+    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
+        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+    }
+
+    @Override
     public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
     }
 
     @Override
+    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
+        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+    }
+
+    @Override
     public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
+    }
+
+    @Override
+    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
+        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
@@ -76,6 +109,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
 
         int markNumber, markType;
         Map deviceData;
+        Date markTime;
 
         try {
             // 检查是否有markNumber,没有直接返回false
@@ -98,12 +132,19 @@ public class OperationMarkServiceImpl implements OperationMarkService {
             } else {
                 return false;
             }
+
+            // 检查是否有markTime，没有直接返回false
+            if (dataMap.containsKey(DataConstants.MARK_TIME)) {
+                markTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.MARK_TIME)));
+            } else {
+                return false;
+            }
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
             log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
             return false;
         }
 
-        OperationMarkDO operationMarkDO = new OperationMarkDO(operationNumber, markNumber, markType, deviceData, new Date());
+        OperationMarkDO operationMarkDO = new OperationMarkDO(operationNumber, markNumber, markType, deviceData, markTime, new Date());
         this.saveOperationMarkDO(operationMarkDO);
         log.info("Insert the success :{}", operationMarkDO.toString());
         return true;
