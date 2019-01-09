@@ -98,13 +98,25 @@ public class DataProcessServiceImplTest {
         medicalDataForm6.setCode(161);
         medicalDataForm6.setOperationNumber(dataProcessService.getCurrentOperationNumber());
         medicalDataForm6.setMac("00-0f-e2-2e-94-a9");
-        medicalDataForm6.setData("{\"patientId\":\"value\",\"patientData\":{},\"data\":{}}");
+        medicalDataForm6.setData("{\"patientId\": \"0xx11111\", \"patientData\": {}, \"preoperativeData\": {}}");
         ResultDataDTO resultDataDTO6 = dataProcessService.processMedicalData(medicalDataForm6);
         Assert.assertEquals((int) resultDataDTO6.getCode(), 162);
     }
 
     @Test
     public void processMedicalData7() {
+        // 更新病人数据，即术后病人数据
+        MedicalDataForm medicalDataForm7 = new MedicalDataForm();
+        medicalDataForm7.setCode(183);
+        medicalDataForm7.setOperationNumber(dataProcessService.getCurrentOperationNumber());
+        medicalDataForm7.setMac("00-0f-e2-2e-94-a9");
+        medicalDataForm7.setData("{\"patientId\": \"0xx11111\", \"postoperativeData\": {}}");
+        ResultDataDTO resultDataDTO7 = dataProcessService.processMedicalData(medicalDataForm7);
+        Assert.assertEquals((int) resultDataDTO7.getCode(), 184);
+    }
+
+    @Test
+    public void processMedicalData8() {
         // 发送仪器数据
         MedicalDataForm medicalDataForm7 = new MedicalDataForm();
         medicalDataForm7.setCode(167);
@@ -116,7 +128,7 @@ public class DataProcessServiceImplTest {
     }
 
     @Test
-    public void processMedicalData8() {
+    public void processMedicalData9() {
         // 手术中的标记信息
         MedicalDataForm medicalDataForm8 = new MedicalDataForm();
         medicalDataForm8.setCode(173);
@@ -128,7 +140,7 @@ public class DataProcessServiceImplTest {
     }
 
     @Test
-    public void processMedicalData9() {
+    public void processMedicalData10() {
         // 是手术结束的信息
         MedicalDataForm medicalDataForm9 = new MedicalDataForm();
         medicalDataForm9.setCode(179);

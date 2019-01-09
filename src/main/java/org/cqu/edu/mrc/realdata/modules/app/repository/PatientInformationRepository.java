@@ -21,10 +21,9 @@ public interface PatientInformationRepository {
      *
      * @param patientId       患者ID
      * @param operationNumber 手术顺序号
-     * @param pageable        分页信息
      * @return PatientInformationDO实体
      */
-    PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber, Pageable pageable);
+    PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
 
     /**
      * 通过患者的ID得到PatientInformationDO信息

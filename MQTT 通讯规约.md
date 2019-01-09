@@ -35,6 +35,10 @@
 * OPERATION_END_READY_SUCCESS(178, "是手术结束的信息"),
 * OPERATION_END(179, "是手术结束的信息"),
 * OPERATION_END_SUCCESS(180, "回复收到手术结束的信息"),
+* POSTOPERATIVE_PATIENT_INFO_READY(181, 请求发送术后患者信息),
+* POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182, "可以发送术后患者信息，服务器已经准备好了"),
+* POSTOPERATIVE_PATIENT_INFO(183, "是术后患者信息"),
+* POSTOPERATIVE_PATIENT_INFO_SUCCESS(184, "收到术后患者信息"),
 
 
 ## 上传规则
@@ -122,7 +126,8 @@ mac: "mac"
 operationNumber: "1"
 data: {
       	"patientId": "value",
-      	"patientData": "value"
+      	"patientData": "value",
+      	"preoperativeData": "preoperativeData"
       }
 ```
 * #### 接收到该条病人数据
@@ -267,6 +272,38 @@ data: {
 * #### 回复收到手术结束的信息
 ```
 code: 180
+mac: "mac"
+operationNumber: "1"
+```
+
+* #### 请求发送术后患者情况(平板记录下来operationNumber)
+```
+code: 181
+mac: "mac"
+operationNumber: "1"
+```
+
+* #### 可以发送术后患者情况(平板记录下来operationNumber)
+```
+code: 182
+mac: "mac"
+operationNumber: "1"
+```
+
+* #### 请求发送术后患者情况
+```
+code: 183
+mac: "mac"
+operationNumber: "1"
+data: {
+          "patientId": "value",
+          "postoperativeData": "postoperativeData"
+      }
+```
+
+* #### 请求发送术后患者情况
+```
+code: 184 
 mac: "mac"
 operationNumber: "1"
 ```

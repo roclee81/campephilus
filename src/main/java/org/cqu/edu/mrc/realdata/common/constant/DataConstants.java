@@ -58,4 +58,9 @@ public class DataConstants {
     public static final String CODE = "code";
 
     public static final String MSG = "data";
+
+    public static final String PREOPERATIVE_DATA = "preoperativeData";
+
+    public static final String POSTOPERATIVE_DATA = "postoperativeData";
+
 }

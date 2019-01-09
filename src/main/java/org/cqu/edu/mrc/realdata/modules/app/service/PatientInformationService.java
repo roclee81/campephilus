@@ -20,6 +20,16 @@ import java.util.List;
 public interface PatientInformationService {
 
     /**
+     * 通过patientId和operationNumber得到PatientInformationDO
+     * 结果是唯一的
+     *
+     * @param patientId       患者ID
+     * @param operationNumber 手术顺序号
+     * @return PatientInformationDO实体
+     */
+    PatientInformationDO getPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
+
+    /**
      * 通过患者的ID得到PatientInformationDO信息
      *
      * @param patientId 患者ID
@@ -42,7 +52,7 @@ public interface PatientInformationService {
      *
      * @param patientInformationDO patientInformationDO实体
      */
-    void savePostoperativePatientDO(PatientInformationDO patientInformationDO);
+    void savePatientInformationDO(PatientInformationDO patientInformationDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到PatientInformationDO来保存信息

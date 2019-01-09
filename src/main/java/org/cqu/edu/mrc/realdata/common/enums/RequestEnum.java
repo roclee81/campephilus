@@ -93,6 +93,16 @@ public enum RequestEnum {
      * 是手术结束的信息
      */
     OPERATION_END(179),
+
+    /**
+     * 请求发送术后患者信息
+     */
+    POSTOPERATIVE_PATIENT_INFO_READY(181),
+
+    /**
+     * 是术后患者信息
+     */
+    POSTOPERATIVE_PATIENT_INFO(183),
     ;
 
     private Integer code;

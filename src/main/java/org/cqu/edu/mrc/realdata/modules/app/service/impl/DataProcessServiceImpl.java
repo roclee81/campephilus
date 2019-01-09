@@ -31,15 +31,15 @@ public class DataProcessServiceImpl implements DataProcessService {
 
     private final DeviceServiceImpl deviceService;
     private final OperationMarkServiceImpl operationMarkService;
-    private final PreoperativePatientServiceImpl preoperativePatientService;
     private final OperationInformationServiceImpl operationInformationService;
+    private final PatientInformationServiceImpl patientInformationService;
 
     @Autowired
-    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, PreoperativePatientServiceImpl preoperativePatientService, OperationInformationServiceImpl operationInformationService) {
+    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationInformationServiceImpl operationInformationService, PatientInformationServiceImpl patientInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
-        this.preoperativePatientService = preoperativePatientService;
         this.operationInformationService = operationInformationService;
+        this.patientInformationService = patientInformationService;
     }
 
     /**
@@ -96,6 +96,7 @@ public class DataProcessServiceImpl implements DataProcessService {
      * 缺少mac、operationNumber字段直接返回null
      * 因为手术准备开启阶段也会传operationNumber字段，但值为-1
      * 由于之前对表单进行了验证，code以及mac必定存在
+     * 对存储数据dataMap不进行验证不进行验证
      *
      * @param medicalDataForm 表单信息
      * @return 初次解析后的DTO
@@ -110,7 +111,7 @@ public class DataProcessServiceImpl implements DataProcessService {
                 return null;
             }
 
-            // 检查operationNumber字段，如果没有直接返回null,因为前面已经判断了，只有准备阶段才不需要opn
+            // 检查operationNumber字段，如果没有直接返回null
             int operationNumber = medicalDataForm.getOperationNumber();
 
             // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析，data属性可以为空
@@ -161,8 +162,8 @@ public class DataProcessServiceImpl implements DataProcessService {
         }
 
         // 处理上传的患者数据的情况
-        if (RequestEnum.PATIENT_INFO.getCode().equals(code)) {
-            return preoperativePatientService.savePreoperativePatientDO(parseDataDTO);
+        if (RequestEnum.PATIENT_INFO.getCode().equals(code) || RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
+            return patientInformationService.savePatientInformationDO(parseDataDTO);
         }
 
         // 处理上传的手术过程中标记的情况

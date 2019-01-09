@@ -125,6 +125,16 @@ public enum ReplyEnum {
      * 回复收到手术结束的信息
      */
     OPERATION_END_SUCCESS(180),
+
+    /**
+     * 可以发送术后患者信息，服务器已经准备好了
+     */
+    POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182),
+
+    /**
+     * 收到术后患者信息
+     */
+    POSTOPERATIVE_PATIENT_INFO_SUCCESS(184),
     ;
 
     private Integer code;

@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.PatientInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +35,17 @@ public class PatientInformationRepositoryImpl implements PatientInformationRepos
     }
 
     @Override
-    public PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber, Pageable pageable) {
-        Query query = Query.query(new Criteria(DataConstants.PATIENT_ID).is(patientId));
-        return null;
+    public PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
+        Query query = Query.query(new Criteria(DataConstants.OPERATION_NUMBER).is(operationNumber).and(DataConstants.PATIENT_ID).is(patientId));
+        List<PatientInformationDO> patientInformationDOList = mongoOperations.find(query, PatientInformationDO.class);
+        return patientInformationDOList.size() == 1 ? patientInformationDOList.get(0) : null;
     }
 
     @Override
     public Page<PatientInformationDO> findPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
         Query query = Query.query(new Criteria(DataConstants.PATIENT_ID).is(patientId));
         query.with(pageable);
-        return getPatientInformationDOS(query, patientId, pageable);
+        return getPatientInformationDOS(query, pageable);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class PatientInformationRepositoryImpl implements PatientInformationRepos
         mongoOperations.save(patientInformationDO);
     }
 
-    private Page<PatientInformationDO> getPatientInformationDOS(Query query, String patientId, Pageable pageable) {
+    private Page<PatientInformationDO> getPatientInformationDOS(Query query, Pageable pageable) {
         // 查询总数
-        int count = (int) mongoOperations.count(query, PatientInformationDO.class, patientId);
-        List<PatientInformationDO> patientInformationDOList = mongoOperations.find(query, PatientInformationDO.class, patientId);
+        int count = (int) mongoOperations.count(query, PatientInformationDO.class);
+        List<PatientInformationDO> patientInformationDOList = mongoOperations.find(query, PatientInformationDO.class);
         return PageableExecutionUtils.getPage(patientInformationDOList, pageable, () -> count);
     }
 }
