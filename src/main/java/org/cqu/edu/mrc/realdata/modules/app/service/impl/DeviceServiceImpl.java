@@ -59,14 +59,25 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public Page<DeviceDO> getDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
         //TODO 未完成，可能需要维护一张表
+//        // 首先查询得到手术的基本信息
+//        Page<OperationInformationDO> operationInformationDOPage = operationInformationRepository.findOperationInformationDOSByCollectorMacAddress(collectorMacAddress, pageable);
+//        operationInformationDOPage.stream().forEach((operationInformationDO) -> {
+//            // 遍历得到的手术基本信息
+//            int operationNumber = operationInformationDO.getOperationNumber();
+//            // 遍历OperationInformationDO表中deviceInformation字段的所有值
+//            Map deviceInformation = operationInformationDO.getDeviceInformation();
+//            for (Object deviceId : deviceInformation.values()) {
+//                List<DeviceDTO> deviceDTOList = this.getDeviceDTOSByDeviceIdAndOperationNumber((String) deviceId, operationNumber, pageable);
+//            }
+//        });
         return null;
     }
 
     @Override
     public List<DeviceDTO> getDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
-        //TODO 未完成，可能需要维护一张表
         return null;
     }
+
 
     @Override
     public Page<DeviceDO> getDeviceDOSByDeviceId(String deviceId, Pageable pageable) {

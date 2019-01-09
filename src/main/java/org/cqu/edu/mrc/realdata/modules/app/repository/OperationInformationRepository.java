@@ -28,6 +28,15 @@ public interface OperationInformationRepository {
     Page<OperationInformationDO> findOperationInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 通过采集器的MAC地址查询采集器上传的信息
+     *
+     * @param collectorMacAddress 采集器的MAC地址
+     * @param pageable            分页信息
+     * @return OperationInformationDO的分页信息
+     */
+    Page<OperationInformationDO> findOperationInformationDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
+
+    /**
      * 通过手术顺序号查询OperationInformationNumberDO信息
      * 由于手术顺序号唯一，所以结果只会有一个，如果查询到的结果有多个将会返回null
      *

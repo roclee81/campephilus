@@ -49,7 +49,6 @@ public class MedicalDataController {
     @PostMapping("/update")
     public R processMedicalData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
         //TODO 根据测试情况实现考虑多线程需求
-
         log.info("MedicalDataForm{}", medicalDataForm);
 
         if (bindingResult.hasErrors()) {
@@ -68,8 +67,7 @@ public class MedicalDataController {
                                      @RequestParam(value = "size", defaultValue = "20") Integer size) {
 
         //TODO 传入的collectorMacAddress没有处理
-
-        if (operationNumber == -1) {
+        if (operationNumber == -1 && collectorMacAddress.length() == 0) {
             return new R(ReplyEnum.REQUEST_PARAMETER_DOES_NOT_EXIST.getCode(), ReplyConstants.REQUEST_PARAMETER_DOES_NOT_EXIST);
         }
 
@@ -134,4 +132,6 @@ public class MedicalDataController {
 
         return new R(ReplyEnum.UNKNOWN_ERROR.getCode(), ReplyConstants.UNKNOWN_ERROR);
     }
+
+
 }

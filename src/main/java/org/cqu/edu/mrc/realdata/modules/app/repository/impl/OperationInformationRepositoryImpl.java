@@ -41,6 +41,13 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
     }
 
     @Override
+    public Page<OperationInformationDO> findOperationInformationDOSByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+        Query query = Query.query(new Criteria(DataConstants.COLLECTOR_MAC_ADDRESS).is(collectorMacAddress));
+        query.with(pageable);
+        return queryPageable(query, pageable);
+    }
+
+    @Override
     public OperationInformationDO findOperationInformationDOByOperationNumber(Integer operationNumber) {
         Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber));
         List<OperationInformationDO> operationInformationDOList = mongoOperations.find(query, OperationInformationDO.class);
