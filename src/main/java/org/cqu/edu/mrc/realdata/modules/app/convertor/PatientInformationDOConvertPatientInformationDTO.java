@@ -20,6 +20,10 @@ import java.util.List;
 public class PatientInformationDOConvertPatientInformationDTO {
     public static List<PatientInformationDTO> convert(Page<PatientInformationDO> sourcePage) {
 
+        if (sourcePage.getTotalElements() <= 0) {
+            return new ArrayList<>();
+        }
+
         List<PatientInformationDTO> patientInformationDTOList = new ArrayList<>();
 
         sourcePage.stream().forEach((patientInformationDO) -> {
@@ -28,5 +32,15 @@ public class PatientInformationDOConvertPatientInformationDTO {
             patientInformationDTOList.add(preoperativePatientDTO);
         });
         return patientInformationDTOList;
+    }
+
+    public static PatientInformationDTO convert(PatientInformationDO patientInformationDO) {
+        if (null == patientInformationDO) {
+            return null;
+        }
+
+        PatientInformationDTO patientInformationDTO = new PatientInformationDTO();
+        BeanUtils.copyProperties(patientInformationDO, patientInformationDTO);
+        return patientInformationDTO;
     }
 }

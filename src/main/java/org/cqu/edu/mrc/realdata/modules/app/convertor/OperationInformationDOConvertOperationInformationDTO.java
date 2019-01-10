@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.convertor;
 
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
+import org.cqu.edu.mrc.realdata.modules.app.dto.PatientInformationDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 
@@ -20,6 +21,10 @@ import java.util.List;
 public class OperationInformationDOConvertOperationInformationDTO {
     public static List<OperationInformationDTO> convert(Page<OperationInformationDO> sourcePage) {
 
+        if (sourcePage.getTotalElements() <= 0) {
+            return new ArrayList<>();
+        }
+
         List<OperationInformationDTO> operationInformationDTOList = new ArrayList<>();
 
         sourcePage.stream().forEach((operationInformationDO) -> {
@@ -28,6 +33,16 @@ public class OperationInformationDOConvertOperationInformationDTO {
             operationInformationDTOList.add(operationInformationDTO);
         });
         return operationInformationDTOList;
+    }
+
+    public static OperationInformationDTO convert(OperationInformationDO operationInformationDO) {
+        if (null == operationInformationDO) {
+            return null;
+        }
+
+        OperationInformationDTO operationInformationDTO = new OperationInformationDTO();
+        BeanUtils.copyProperties(operationInformationDO, operationInformationDTO);
+        return operationInformationDTO;
     }
 
 }

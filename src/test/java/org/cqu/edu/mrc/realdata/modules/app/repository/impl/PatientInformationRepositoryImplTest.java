@@ -34,7 +34,7 @@ public class PatientInformationRepositoryImplTest {
 
     @Test
     public void findPatientInformationDOSByPatientIdAndOperationNumber() {
-        PatientInformationDO result = patientInformationRepository.findPatientInformationDOSByPatientIdAndOperationNumber("012121", 1);
+        PatientInformationDO result = patientInformationRepository.findPatientInformationDOByPatientIdAndOperationNumber("012121", 1);
         Assert.assertNotNull(result);
     }
 

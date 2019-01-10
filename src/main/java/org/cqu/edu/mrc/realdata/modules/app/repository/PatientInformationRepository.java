@@ -16,6 +16,15 @@ import org.springframework.data.domain.Pageable;
 public interface PatientInformationRepository {
 
     /**
+     * 通过operationNumber得到PatientInformationDO
+     * 结果是唯一的
+     *
+     * @param operationNumber 手术顺序号
+     * @return PatientInformationDO实体
+     */
+    PatientInformationDO findPatientInformationDOByOperationNumber(Integer operationNumber);
+
+    /**
      * 通过patientId和operationNumber得到PatientInformationDO
      * 结果是唯一的
      *
@@ -23,7 +32,7 @@ public interface PatientInformationRepository {
      * @param operationNumber 手术顺序号
      * @return PatientInformationDO实体
      */
-    PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
+    PatientInformationDO findPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
 
     /**
      * 通过患者的ID得到PatientInformationDO信息

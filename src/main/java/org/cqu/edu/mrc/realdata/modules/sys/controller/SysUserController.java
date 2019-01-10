@@ -4,7 +4,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.cqu.edu.mrc.realdata.common.utils.R;
-import org.cqu.edu.mrc.realdata.common.validator.Assert;
+import org.cqu.edu.mrc.realdata.common.validator.AbstractAssert;
 import org.cqu.edu.mrc.realdata.common.validator.ValidatorUtils;
 import org.cqu.edu.mrc.realdata.common.validator.group.AddGroup;
 import org.cqu.edu.mrc.realdata.common.validator.group.UpdateGroup;
@@ -52,7 +52,7 @@ public class SysUserController extends AbstractController {
 //    @SysLog("修改密码")
     @PostMapping("/password")
     public R password(@RequestBody PasswordForm form) {
-        Assert.isBlank(form.getNewPassword(), "新密码不为能空");
+        AbstractAssert.isBlank(form.getNewPassword(), "新密码不为能空");
 
         //sha256加密
         String password = new Sha256Hash(form.getPassword(), getUser().getSalt()).toHex();

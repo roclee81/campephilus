@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.convertor;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
@@ -22,6 +23,10 @@ import java.util.List;
 public class OperationMarkDOConvertOperationMarkDTO {
     public static List<OperationMarkDTO> convert(Page<OperationMarkDO> sourcePage) {
 
+        if (sourcePage.getTotalElements() <= 0) {
+            return new ArrayList<>();
+        }
+
         List<OperationMarkDTO> operationMarkDTOList = new ArrayList<>();
 
         sourcePage.stream().forEach((operationMarkDO) -> {
@@ -30,5 +35,15 @@ public class OperationMarkDOConvertOperationMarkDTO {
             operationMarkDTOList.add(operationMarkDTO);
         });
         return operationMarkDTOList;
+    }
+
+    public static OperationMarkDTO convert(OperationMarkDO operationMarkDO) {
+        if (null == operationMarkDO) {
+            return null;
+        }
+
+        OperationMarkDTO operationMarkDTO = new OperationMarkDTO();
+        BeanUtils.copyProperties(operationMarkDO, operationMarkDTO);
+        return operationMarkDTO;
     }
 }

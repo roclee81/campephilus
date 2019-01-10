@@ -20,6 +20,24 @@ import java.util.List;
 public interface PatientInformationService {
 
     /**
+     * 通过operationNumber得到PatientInformationDO
+     * 结果是唯一的
+     *
+     * @param operationNumber 手术顺序号
+     * @return PatientInformationDO实体
+     */
+    PatientInformationDO getPatientInformationDOByOperationNumber(Integer operationNumber);
+
+    /**
+     * 通过operationNumber得到PatientInformationDTO
+     * 结果是唯一的
+     *
+     * @param operationNumber 手术顺序号
+     * @return PatientInformationDTO实体
+     */
+    PatientInformationDTO getPatientInformationDTOByOperationNumber(Integer operationNumber);
+
+    /**
      * 通过patientId和operationNumber得到PatientInformationDO
      * 结果是唯一的
      *
@@ -27,7 +45,17 @@ public interface PatientInformationService {
      * @param operationNumber 手术顺序号
      * @return PatientInformationDO实体
      */
-    PatientInformationDO getPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
+    PatientInformationDO getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
+
+    /**
+     * 通过patientId和operationNumber得到PatientInformationDTO
+     * 结果是唯一的
+     *
+     * @param patientId       患者ID
+     * @param operationNumber 手术顺序号
+     * @return PatientInformationDTO实体
+     */
+    PatientInformationDTO getPatientInformationDTOByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
 
     /**
      * 通过患者的ID得到PatientInformationDO信息

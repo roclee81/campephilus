@@ -2,6 +2,8 @@ package org.cqu.edu.mrc.realdata.common.utils;
 
 import org.apache.http.HttpStatus;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.common.constant.ReplyConstants;
+import org.cqu.edu.mrc.realdata.common.enums.ReplyEnum;
 
 import javax.xml.crypto.Data;
 import java.util.HashMap;
@@ -58,6 +60,18 @@ public class R extends HashMap<String, Object> {
         R r = new R();
         r.putAll(map);
         return r;
+    }
+
+    public static R dataNotExist() {
+        return new R(ReplyEnum.DATA_DOES_NOT_EXIST.getCode(), ReplyConstants.DATA_DOES_NOT_EXIST);
+    }
+
+    public static R unknownError() {
+        return new R(ReplyEnum.UNKNOWN_ERROR.getCode(), ReplyConstants.UNKNOWN_ERROR);
+    }
+
+    public static R requestParameterError() {
+        return new R(ReplyEnum.REQUEST_PARAMETER_DOES_NOT_EXIST.getCode(), ReplyConstants.REQUEST_PARAMETER_DOES_NOT_EXIST);
     }
 
     public static R success() {

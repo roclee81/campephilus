@@ -38,7 +38,7 @@ public class PatientInformationServiceImplTest {
 
     @Test
     public void getPatientInformationDOSByPatientIdAndOperationNumber() {
-        PatientInformationDO result = patientInformationService.getPatientInformationDOSByPatientIdAndOperationNumber("012121", 1);
+        PatientInformationDO result = patientInformationService.getPatientInformationDOByPatientIdAndOperationNumber("012121", 1);
         Assert.assertNotNull(result);
     }
 

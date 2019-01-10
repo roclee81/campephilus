@@ -35,7 +35,14 @@ public class PatientInformationRepositoryImpl implements PatientInformationRepos
     }
 
     @Override
-    public PatientInformationDO findPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
+    public PatientInformationDO findPatientInformationDOByOperationNumber(Integer operationNumber) {
+        Query query = Query.query(new Criteria(DataConstants.OPERATION_NUMBER).is(operationNumber));
+        List<PatientInformationDO> patientInformationDOList = mongoOperations.find(query, PatientInformationDO.class);
+        return patientInformationDOList.size() == 1 ? patientInformationDOList.get(0) : null;
+    }
+
+    @Override
+    public PatientInformationDO findPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
         Query query = Query.query(new Criteria(DataConstants.OPERATION_NUMBER).is(operationNumber).and(DataConstants.PATIENT_ID).is(patientId));
         List<PatientInformationDO> patientInformationDOList = mongoOperations.find(query, PatientInformationDO.class);
         return patientInformationDOList.size() == 1 ? patientInformationDOList.get(0) : null;

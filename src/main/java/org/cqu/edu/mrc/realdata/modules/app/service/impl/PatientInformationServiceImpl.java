@@ -8,6 +8,7 @@ import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.repository.PatientInformationRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.PatientInformationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,8 +40,25 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     }
 
     @Override
-    public PatientInformationDO getPatientInformationDOSByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
-        return patientInformationRepository.findPatientInformationDOSByPatientIdAndOperationNumber(patientId, operationNumber);
+    public PatientInformationDO getPatientInformationDOByOperationNumber(Integer operationNumber) {
+        return patientInformationRepository.findPatientInformationDOByOperationNumber(operationNumber);
+    }
+
+    @Override
+    public PatientInformationDTO getPatientInformationDTOByOperationNumber(Integer operationNumber) {
+        PatientInformationDO patientInformationDO = this.getPatientInformationDOByOperationNumber(operationNumber);
+        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDO);
+    }
+
+    @Override
+    public PatientInformationDO getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
+        return patientInformationRepository.findPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
+    }
+
+    @Override
+    public PatientInformationDTO getPatientInformationDTOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
+        PatientInformationDO patientInformationDO = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
+        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDO);
     }
 
     @Override
@@ -87,7 +105,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
         }
 
         // 首先查询是否已有该数据
-        PatientInformationDO patientInformationDO = this.getPatientInformationDOSByPatientIdAndOperationNumber(patientId, operationNumber);
+        PatientInformationDO patientInformationDO = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
 
         // 如果不存在则生成部分数据
         if (null == patientInformationDO) {
@@ -110,7 +128,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
                 return false;
             }
 
-            patientInformationDO = new PatientInformationDO(patientId, operationNumber, 0, preoperativeData, new HashMap(), patientData, new Date(), new Date());
+            patientInformationDO = new PatientInformationDO(patientId, operationNumber, 0, preoperativeData, new HashMap(16), patientData, new Date(), new Date());
         } else {
             // 如果存在首先先更新数据更改时间
             patientInformationDO.setGmtModified(new Date());

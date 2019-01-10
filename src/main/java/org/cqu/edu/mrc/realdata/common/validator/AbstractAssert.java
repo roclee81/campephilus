@@ -10,7 +10,7 @@ import org.cqu.edu.mrc.realdata.common.exception.OAuthException;
  * Description:
  * 数据校验
  */
-public abstract class Assert {
+public abstract class AbstractAssert {
 
     public static void isBlank(String str, String message) {
         if (StringUtils.isBlank(str)) {

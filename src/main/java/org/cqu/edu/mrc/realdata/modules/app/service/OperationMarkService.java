@@ -55,6 +55,7 @@ public interface OperationMarkService {
      * 通过手术顺序号查询该手术的所有标记信息
      *
      * @param operationNumber 手术顺序号
+     * @param markType        标记的类型
      * @param pageable        分页信息
      * @return OperationMarkDTO列表
      */

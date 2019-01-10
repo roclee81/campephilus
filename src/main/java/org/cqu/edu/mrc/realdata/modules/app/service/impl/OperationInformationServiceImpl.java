@@ -61,9 +61,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public OperationInformationDTO getOperationInformationDTOByOperationNumber(Integer operationNumber) {
         OperationInformationDO operationInformationDO = this.getOperationInformationDOByOperationNumber(operationNumber);
-        OperationInformationDTO operationInformationDTO = new OperationInformationDTO();
-        BeanUtils.copyProperties(operationInformationDO, operationInformationDTO);
-        return operationInformationDTO;
+        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDO);
     }
 
     @Override

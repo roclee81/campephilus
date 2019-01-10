@@ -182,7 +182,7 @@ public class SysMenuController extends AbstractController {
         }
 
         // 菜单
-        if (menu.getType() == MenuTypeEnum.MENU.getValue()) {
+        if (menu.getType().equals(MenuTypeEnum.MENU.getValue())) {
             if (StringUtils.isBlank(menu.getUrl())) {
                 throw new OAuthException("菜单URL不能为空");
             }
@@ -196,8 +196,8 @@ public class SysMenuController extends AbstractController {
         }
 
         // 目录、菜单
-        if (menu.getType() == MenuTypeEnum.CATALOG.getValue() ||
-                menu.getType() == MenuTypeEnum.MENU.getValue()) {
+        if (menu.getType().equals(MenuTypeEnum.CATALOG.getValue()) ||
+                menu.getType().equals(MenuTypeEnum.MENU.getValue())) {
             if (parentType != MenuTypeEnum.CATALOG.getValue()) {
                 throw new OAuthException("上级菜单只能为目录类型");
             }
@@ -205,7 +205,7 @@ public class SysMenuController extends AbstractController {
         }
 
         // 按钮
-        if (menu.getType() == MenuTypeEnum.BUTTON.getValue()) {
+        if (menu.getType().equals(MenuTypeEnum.BUTTON.getValue())) {
             if (parentType != MenuTypeEnum.MENU.getValue()) {
                 throw new OAuthException("上级菜单只能为菜单类型");
             }

@@ -24,6 +24,10 @@ public interface DeviceService {
 
     /**
      * 通过唯一的手术顺序号和设备号查询数据
+     * 可以传入空的deviceId和operationNumber
+     * 但是如果检测到两个参数都为空的话将返回null
+     * 需要检测是否是空值
+     * 如果仅有一个参数有效，则按照单一参数查询
      *
      * @param deviceId        设备ID
      * @param operationNumber 手术顺序号

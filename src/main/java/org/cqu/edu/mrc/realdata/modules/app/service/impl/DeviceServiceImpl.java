@@ -47,7 +47,16 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Page<DeviceDO> getDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
-        return deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
+        if (operationNumber < 0 && deviceId.length() == 0) {
+            return null;
+        }
+        if (operationNumber > 0 && deviceId.length() > 0) {
+            return deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
+        }
+        if (operationNumber < 0 && deviceId.length() > 0) {
+            return this.getDeviceDOSByDeviceId(deviceId, pageable);
+        }
+        return null;
     }
 
     @Override

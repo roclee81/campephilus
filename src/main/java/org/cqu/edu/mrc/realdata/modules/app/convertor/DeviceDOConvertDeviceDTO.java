@@ -21,6 +21,11 @@ import java.util.List;
  */
 public class DeviceDOConvertDeviceDTO {
     public static List<DeviceDTO> convert(Page<DeviceDO> sourcePage) {
+
+        if (sourcePage.getTotalElements() <= 0) {
+            return new ArrayList<>();
+        }
+
         List<DeviceDTO> deviceDTOList = new ArrayList<>();
         sourcePage.stream().forEach((deviceDO) -> {
             DeviceDTO deviceDTO = new DeviceDTO();
@@ -28,5 +33,15 @@ public class DeviceDOConvertDeviceDTO {
             deviceDTOList.add(deviceDTO);
         });
         return deviceDTOList;
+    }
+
+    public static DeviceDTO convert(DeviceDO deviceDO) {
+        if (null == deviceDO) {
+            return null;
+        }
+
+        DeviceDTO deviceDTO = new DeviceDTO();
+        BeanUtils.copyProperties(deviceDO, deviceDTO);
+        return deviceDTO;
     }
 }
