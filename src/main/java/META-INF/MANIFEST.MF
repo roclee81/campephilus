@@ -1,0 +1,54 @@
+Manifest-Version: 1.0
+Class-Path: shiro-cache-1.4.0.jar hibernate-commons-annotations-5.0.4.
+ Final.jar logback-classic-1.2.3.jar commons-collections-3.2.1.jar tom
+ cat-embed-websocket-9.0.13.jar jackson-core-2.9.7.jar javassist-3.23.
+ 1-GA.jar spring-retry-1.2.2.RELEASE.jar jackson-coreutils-1.6.jar ant
+ lr-2.7.7.jar jackson-databind-2.9.7.jar spring-boot-starter-web-2.1.1
+ .RELEASE.jar swagger-compat-spec-parser-1.0.13.jar spring-integration
+ -core-5.1.1.RELEASE.jar classmate-1.4.0.jar rhino-1.7R4.jar hibernate
+ -validator-6.0.13.Final.jar activation-1.1.jar joda-time-2.10.1.jar m
+ arkup-document-builder-0.1.5.jar jaxb-api-2.3.1.jar commons-lang3-3.8
+ .1.jar spring-tx-5.1.3.RELEASE.jar jackson-datatype-joda-2.9.7.jar js
+ r305-2.0.1.jar commons-lang-2.6.jar spring-jcl-5.1.3.RELEASE.jar comm
+ ons-io-2.4.jar spring-boot-starter-data-jpa-2.1.1.RELEASE.jar slf4j-e
+ xt-1.7.25.jar mariadb-java-client-2.3.0.jar shiro-crypto-hash-1.4.0.j
+ ar spring-boot-starter-integration-2.1.1.RELEASE.jar jopt-simple-4.6.
+ jar spring-integration-stream-5.1.1.RELEASE.jar httpcore-4.4.10.jar j
+ andex-2.0.5.Final.jar jackson-datatype-jsr310-2.9.7.jar spring-core-5
+ .1.3.RELEASE.jar swagger2markup-0.9.2.jar spring-boot-starter-tomcat-
+ 2.1.1.RELEASE.jar spring-boot-autoconfigure-2.1.1.RELEASE.jar logback
+ -core-1.2.3.jar swagger-annotations-1.5.4.jar spring-boot-starter-log
+ ging-2.1.1.RELEASE.jar jackson-datatype-jdk8-2.9.7.jar aspectjweaver-
+ 1.9.2.jar tomcat-embed-el-9.0.13.jar spring-beans-5.1.3.RELEASE.jar s
+ pring-jdbc-5.1.3.RELEASE.jar slf4j-api-1.7.25.jar spring-orm-5.1.3.RE
+ LEASE.jar shiro-web-1.4.0.jar spring-messaging-5.1.3.RELEASE.jar mong
+ odb-driver-3.8.2.jar byte-buddy-1.9.5.jar log4j-api-2.11.1.jar jul-to
+ -slf4j-1.7.25.jar spring-context-5.1.3.RELEASE.jar shiro-config-core-
+ 1.4.0.jar jconsole.jar javax.persistence-api-2.2.jar commons-codec-1.
+ 11.jar shiro-config-ogdl-1.4.0.jar hibernate-core-5.3.7.Final.jar com
+ mons-beanutils-1.9.3.jar jackson-dataformat-yaml-2.9.7.jar lombok-1.1
+ 8.4.jar druid-1.0.29.jar jackson-annotations-2.9.0.jar json-schema-co
+ re-1.2.1.jar uri-template-0.9.jar guava-18.0.jar httpclient-4.5.6.jar
+  shiro-crypto-cipher-1.4.0.jar shiro-spring-1.4.0.jar libphonenumber-
+ 6.0.jar btf-1.2.jar dom4j-2.1.1.jar spring-expression-5.1.3.RELEASE.j
+ ar spring-webmvc-5.1.3.RELEASE.jar log4j-to-slf4j-2.11.1.jar spring-b
+ oot-starter-data-mongodb-2.1.1.RELEASE.jar json-schema-validator-2.2.
+ 3.jar spring-data-mongodb-2.1.3.RELEASE.jar reactor-core-3.2.3.RELEAS
+ E.jar swagger-parser-1.0.13.jar org.eclipse.paho.client.mqttv3-1.2.0.
+ jar spring-boot-starter-jdbc-2.1.1.RELEASE.jar spring-web-5.1.3.RELEA
+ SE.jar javax.transaction-api-1.3.jar gson-2.8.5.jar jackson-module-pa
+ rameter-names-2.9.7.jar HikariCP-3.2.0.jar springfox-staticdocs-2.6.1
+ .jar shiro-crypto-core-1.4.0.jar swagger-models-1.5.4.jar spring-aspe
+ cts-5.1.3.RELEASE.jar spring-data-commons-2.1.3.RELEASE.jar reactive-
+ streams-1.0.2.jar swagger-core-1.5.4.jar spring-boot-starter-aop-2.1.
+ 1.RELEASE.jar bson-3.8.2.jar spring-boot-starter-json-2.1.1.RELEASE.j
+ ar shiro-core-1.4.0.jar spring-aop-5.1.3.RELEASE.jar spring-boot-star
+ ter-2.1.1.RELEASE.jar mongodb-driver-core-3.8.2.jar spring-data-jpa-2
+ .1.3.RELEASE.jar spring-integration-mqtt-5.1.1.RELEASE.jar spring-boo
+ t-2.1.1.RELEASE.jar snakeyaml-1.23.jar tools.jar msg-simple-1.1.jar j
+ boss-logging-3.3.2.Final.jar javax.activation-api-1.2.0.jar shiro-eve
+ nt-1.4.0.jar javax.annotation-api-1.3.2.jar mailapi-1.4.3.jar tomcat-
+ embed-core-9.0.13.jar shiro-lang-1.4.0.jar validation-api-2.0.1.Final
+ .jar json-patch-1.6.jar
+Main-Class: org.cqu.edu.mrc.realdata.RealdataApplication
+

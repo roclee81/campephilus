@@ -121,7 +121,7 @@ public class MedicalDataController {
         return R.unknownError();
     }
 
-    @GetMapping("/")
+    @GetMapping("/patientInformation")
     public R getPatientInformation(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
                                    @RequestParam(value = "patientId", defaultValue = "") String patientId,
                                    @RequestParam(value = "page", defaultValue = "0") Integer page,
