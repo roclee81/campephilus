@@ -25,7 +25,7 @@
             <!--路径-->
             <fileNamePattern>
                 <!--C:\var\log\tomcat\sell\info.%d.log-->
-                ./var/log/tomcat/sell/info.%d.log
+                ./var/log/real_data/info.%d.log
             </fileNamePattern>
         </rollingPolicy>
     </appender>
@@ -44,7 +44,7 @@
             <!--路径-->
             <fileNamePattern>
                 <!--C:\var\log\tomcat\sell\error.%d.log-->
-                ./var/log/tomcat/sell/error.%d.log
+                ./var/log/real_data/error.%d.log
             </fileNamePattern>
         </rollingPolicy>
     </appender>

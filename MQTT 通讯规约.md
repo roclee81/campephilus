@@ -78,7 +78,7 @@ mac: "mac"
 operationNumber: "-1"
 data:{
      	"patientId": "patientId",
-     	"hospitalCode": "0147",
+     	"operationHospitalCode": "0147",
      	"operationStartTime": "1546501804000",
      	"deviceInformation": {}
      }

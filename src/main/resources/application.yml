@@ -3,8 +3,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
-    password: root
-    url: jdbc:mariadb://127.0.0.1:3306/real_data?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    password: re51YEjoT5bi
+    url: jdbc:mariadb://120.79.151.208:3306/real_data?useUnicode=true&characterEncoding=UTF-8&useSSL=false
 
   jpa:
     database: mysql
@@ -13,7 +13,7 @@ spring:
   #mongo配置
   data:
     mongodb:
-      host: 127.0.0.1
+      host: 120.79.151.208
       port: 27017
       username: mrc206
       password: mrc206$mrc206
