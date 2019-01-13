@@ -95,6 +95,8 @@ public interface DeviceService {
     /**
      * 根据设备Id存储数据
      * 存储后表的名称为device_<code>deviceId</code>
+     * 在保存中将检查对应的OperationInformationDO类中的deviceInformation属性中有没有该仪器
+     * 如果没有会将该仪器添加进deviceInformation属性中
      *
      * @param deviceDO DeviceDO实体
      * @param deviceId 设备ID

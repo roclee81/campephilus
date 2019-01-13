@@ -114,7 +114,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         String patientId;
         Date operationStartTime;
         String operationHospitalCode;
-        Map<String, String> deviceInformation;
+        List<String> deviceInformation;
         try {
             // 检查是否有operationHospitalCode,没有直接返回false
             if (dataMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
@@ -139,7 +139,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
             // 检查是否有deviceInformation,没有直接返回false
             if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
-                deviceInformation = (Map<String, String>) dataMap.get(DataConstants.DEVICE_INFORMATION);
+                deviceInformation = (List<String>) dataMap.get(DataConstants.DEVICE_INFORMATION);
             } else {
                 return false;
             }

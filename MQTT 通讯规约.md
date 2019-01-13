@@ -80,7 +80,7 @@ data:{
      	"patientId": "patientId",
      	"operationHospitalCode": "0147",
      	"operationStartTime": "1546501804000",
-     	"deviceInformation": {}
+     	"deviceInformation": []
      }
 ```
 

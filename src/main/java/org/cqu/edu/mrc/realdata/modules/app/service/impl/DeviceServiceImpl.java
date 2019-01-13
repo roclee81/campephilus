@@ -16,10 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -102,9 +99,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public Map<String, Object> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
         OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
-        Map<String, String> deviceInformation = operationInformationDO.getDeviceInformation();
+        List<String> deviceInformation = operationInformationDO.getDeviceInformation();
         Map<String, Object> result = new HashMap<>(deviceInformation.size());
-        for (String deviceId : deviceInformation.values()) {
+        for (String deviceId : deviceInformation) {
             Page<DeviceDO> deviceDOPage = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
             List<DeviceDTO> deviceDTOList = DeviceDOConvertDeviceDTO.convert(deviceDOPage);
             result.put(deviceId, deviceDTOList);
@@ -114,6 +111,14 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void saveDeviceDO(DeviceDO deviceDO, String deviceId) {
+        // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
+        OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
+        List<String> deviceInformation = operationInformationDO.getDeviceInformation();
+        if (!deviceInformation.contains(deviceId)) {
+            deviceInformation.add(deviceId);
+            operationInformationDO.setGmtModified(new Date());
+            operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+        }
         deviceRepository.save(deviceDO, deviceId);
     }
 
@@ -145,7 +150,7 @@ public class DeviceServiceImpl implements DeviceService {
                 return false;
             }
 
-            // 检查是否有deviceDataNumber,没有直接返回false
+            // 检查是否有deviceData,没有直接返回false
             if (dataMap.containsKey(DataConstants.DEVICE_DATA)) {
                 deviceData = (Map) dataMap.get(DataConstants.DEVICE_DATA);
             } else {
