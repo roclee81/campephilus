@@ -2,8 +2,8 @@
 
 ## enum code
 * UNKNOWN_ERROR(-1,"未知错误"),
-* DEVICE_REGISTER(199, "注册"),
-* REGISTER_SUCCESS(200, "开机注册成功"),
+* DEVICE_REGISTER(99, "注册"),
+* REGISTER_SUCCESS(100, "开机注册成功"),
 * DATA_FORMAT_ERROR(-2,"数据格式错误"),
 * OPERATION_READY(151,"准备要开始新的手术，获取operationNumber"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
@@ -56,7 +56,7 @@ data:
 code、mac、operationNumber为必填字段
 
 
-* #### 设备开机注册
+* #### 设备开机注册(未使用)
 ```
 code: 99
 mac: "mac"
@@ -64,7 +64,7 @@ operationNumber: "-1"
 }
 ```
 
-* #### 服务器将回复
+* #### 服务器将回复(未使用)
 ```
 code: 100
 mac: "mac"
@@ -126,8 +126,8 @@ mac: "mac"
 operationNumber: "1"
 data: {
       	"patientId": "value",
-      	"patientData": "value",
-      	"preoperativeData": "preoperativeData"
+      	"patientData": {},
+      	"preoperativeData": {}
       }
 ```
 * #### 接收到该条病人数据
@@ -297,7 +297,7 @@ mac: "mac"
 operationNumber: "1"
 data: {
           "patientId": "value",
-          "postoperativeData": "postoperativeData"
+          "postoperativeData": {}
       }
 ```
 
