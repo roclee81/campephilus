@@ -35,11 +35,11 @@ public class OAuthExceptionHandler {
         return R.error("没有权限，请联系管理员授权");
     }
 
-    @ExceptionHandler(Exception.class)
-    public R handleException(Exception e) {
-        log.error(e.getMessage(), e);
-        return R.error();
-    }
+//    @ExceptionHandler(Exception.class)
+//    public R handleException(Exception e) {
+//        log.error(e.getMessage(), e);
+//        return R.error();
+//    }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public R handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {

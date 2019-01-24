@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
-import org.cqu.edu.mrc.realdata.common.enums.ReplyEnum;
+import org.cqu.edu.mrc.realdata.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.realdata.common.enums.RequestEnum;
+import org.cqu.edu.mrc.realdata.modules.app.exception.ParseException;
+import org.cqu.edu.mrc.realdata.modules.app.exception.SaveException;
 import org.cqu.edu.mrc.realdata.modules.app.form.MedicalDataForm;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ResultDataDTO;
@@ -52,7 +54,7 @@ public class DataProcessServiceImpl implements DataProcessService {
         try {
             return new Gson().fromJson(jsonBuffer, Map.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
-            return null;
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", jsonBuffer);
         }
     }
 
@@ -60,13 +62,13 @@ public class DataProcessServiceImpl implements DataProcessService {
     public ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm) {
 
         if (null == medicalDataForm) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "MedicalDataForm is null", "");
         }
 
         ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
 
         if (null == parseDataDTO) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), null);
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "ParseDataDTO is null", "");
         }
 
         boolean result = processCode(parseDataDTO);
@@ -76,7 +78,7 @@ public class DataProcessServiceImpl implements DataProcessService {
         map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
 
         if (!result) {
-            return new ResultDataDTO(ReplyEnum.DATA_FORMAT_ERROR.getCode(), map);
+            return new ResultDataDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
@@ -108,7 +110,7 @@ public class DataProcessServiceImpl implements DataProcessService {
             String macAddress = medicalDataForm.getMac();
 
             if (null == macAddress) {
-                return null;
+                throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "CollectorMacAddress is null", "");
             }
 
             // 检查operationNumber字段，如果没有直接返回null
@@ -122,8 +124,7 @@ public class DataProcessServiceImpl implements DataProcessService {
 
             return new ParseDataDTO(code, macAddress, operationNumber, dataMap);
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("medicalDataForm:{},Exception:{}", medicalDataForm.toString(), exception.toString());
-            return null;
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", exception.toString(), medicalDataForm.toString());
         }
     }
 

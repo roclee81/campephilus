@@ -2,10 +2,12 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.realdata.modules.app.convertor.OperationInformationDOConvertOperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.exception.SaveException;
 import org.cqu.edu.mrc.realdata.modules.app.repository.OperationInformationRepository;
 import org.cqu.edu.mrc.realdata.modules.app.service.OperationInformationService;
 import org.springframework.beans.BeanUtils;
@@ -105,7 +107,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public boolean saveOperationInformationDO(ParseDataDTO parseDataDTO) {
         if (null == parseDataDTO) {
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "");
         }
 
         Map dataMap = parseDataDTO.getDataMap();

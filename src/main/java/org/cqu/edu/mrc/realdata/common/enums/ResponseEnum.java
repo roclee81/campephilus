@@ -14,7 +14,7 @@ import lombok.Getter;
  * Description:
  */
 @Getter
-public enum ReplyEnum {
+public enum ResponseEnum {
 
     /**
      * 未知错误
@@ -139,7 +139,7 @@ public enum ReplyEnum {
 
     private Integer code;
 
-    ReplyEnum(Integer code) {
+    ResponseEnum(Integer code) {
         this.code = code;
     }
 }

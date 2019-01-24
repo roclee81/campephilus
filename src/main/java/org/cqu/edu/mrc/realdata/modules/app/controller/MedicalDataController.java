@@ -1,7 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.realdata.common.enums.ReplyEnum;
+import org.cqu.edu.mrc.realdata.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.realdata.common.utils.R;
 import org.cqu.edu.mrc.realdata.modules.app.dto.DeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
@@ -56,7 +56,7 @@ public class MedicalDataController {
 
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            return new R(ReplyEnum.DATA_FORMAT_ERROR.getCode(), msg);
+            return new R(ResponseEnum.DATA_FORMAT_ERROR.getCode(), msg);
         }
 
         ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);
@@ -78,13 +78,13 @@ public class MedicalDataController {
 
         if (operationNumber == 0) {
             List<OperationInformationDTO> result = operationInformationService.getOperationInformationDTOS(pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         // 如果传入了不为0，则是查询特定的OperationInformationDTO
         if (operationNumber > 1) {
             OperationInformationDTO result = operationInformationService.getOperationInformationDTOByOperationNumber(operationNumber);
-            return null == result ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         return R.unknownError();
@@ -105,17 +105,17 @@ public class MedicalDataController {
 
         if (operationNumber == -1 && deviceId.length() > 0) {
             List<DeviceDTO> result = deviceService.getDeviceDTOSByDeviceId(deviceId, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         if (operationNumber > 0 && deviceId.length() == 0) {
             Map<String, Object> result = deviceService.getDeviceDOSByOperationNumber(operationNumber, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         if (operationNumber > 0 && deviceId.length() > 0) {
             List<DeviceDTO> result = deviceService.getDeviceDTOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         return R.unknownError();
@@ -136,17 +136,17 @@ public class MedicalDataController {
 
         if (operationNumber == -1 && patientId.length() > 0) {
             List<PatientInformationDTO> result = patientInformationService.getPatientInformationDTOSByPatientId(patientId, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         if (operationNumber > 0 && patientId.length() == 0) {
             PatientInformationDTO result = patientInformationService.getPatientInformationDTOByOperationNumber(operationNumber);
-            return null == result ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         if (operationNumber > 0 && patientId.length() > 0) {
             PatientInformationDTO result = patientInformationService.getPatientInformationDTOByPatientIdAndOperationNumber(patientId, operationNumber);
-            return null == result ? R.dataNotExist() : new R(ReplyEnum.SUCCESS.getCode(), result);
+            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
         return R.unknownError();

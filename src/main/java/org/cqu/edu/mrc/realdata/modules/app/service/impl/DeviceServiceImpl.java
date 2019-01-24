@@ -3,11 +3,13 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.realdata.common.constant.DataConstants;
+import org.cqu.edu.mrc.realdata.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.realdata.modules.app.convertor.DeviceDOConvertDeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.DeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ParseDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.exception.SaveException;
 import org.cqu.edu.mrc.realdata.modules.app.repository.DeviceRepository;
 import org.cqu.edu.mrc.realdata.modules.app.repository.impl.OperationInformationRepositoryImpl;
 import org.cqu.edu.mrc.realdata.modules.app.service.DeviceService;
@@ -15,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -111,11 +112,11 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public boolean saveDeviceDO(DeviceDO deviceDO, String deviceId) {
+    public void saveDeviceDO(DeviceDO deviceDO, String deviceId) {
         // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
         OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
         if (null == operationInformationDO) {
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Correspondence operationInformation table does not exist", deviceDO.toString());
         }
         List<String> deviceInformation = operationInformationDO.getDeviceInformation();
         if (!deviceInformation.contains(deviceId)) {
@@ -124,13 +125,12 @@ public class DeviceServiceImpl implements DeviceService {
             operationInformationRepository.saveOperationInformationDO(operationInformationDO);
         }
         deviceRepository.save(deviceDO, deviceId);
-        return true;
     }
 
     @Override
     public boolean saveDeviceDO(ParseDataDTO parseDataDTO) {
         if (null == parseDataDTO) {
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "");
         }
 
         Map dataMap = parseDataDTO.getDataMap();
@@ -162,17 +162,12 @@ public class DeviceServiceImpl implements DeviceService {
                 return false;
             }
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", parseDataDTO.toString());
         }
 
         DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, new Date(), deviceData);
-        if (this.saveDeviceDO(deviceDO, deviceId)) {
-            log.info("Insert the success :{}", deviceDO.toString());
-            return true;
-        } else {
-            log.info("Insert the error :{}", deviceDO.toString());
-            return false;
-        }
+        this.saveDeviceDO(deviceDO, deviceId);
+        log.info("Insert the success :{}", deviceDO.toString());
+        return true;
     }
 }
