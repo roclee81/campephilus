@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -110,9 +111,12 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public void saveDeviceDO(DeviceDO deviceDO, String deviceId) {
+    public boolean saveDeviceDO(DeviceDO deviceDO, String deviceId) {
         // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
         OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
+        if (null == operationInformationDO) {
+            return false;
+        }
         List<String> deviceInformation = operationInformationDO.getDeviceInformation();
         if (!deviceInformation.contains(deviceId)) {
             deviceInformation.add(deviceId);
@@ -120,6 +124,7 @@ public class DeviceServiceImpl implements DeviceService {
             operationInformationRepository.saveOperationInformationDO(operationInformationDO);
         }
         deviceRepository.save(deviceDO, deviceId);
+        return true;
     }
 
     @Override
@@ -162,8 +167,12 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
         DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, new Date(), deviceData);
-        this.saveDeviceDO(deviceDO, deviceId);
-        log.info("Insert the success :{}", deviceDO.toString());
-        return true;
+        if (this.saveDeviceDO(deviceDO, deviceId)) {
+            log.info("Insert the success :{}", deviceDO.toString());
+            return true;
+        } else {
+            log.info("Insert the error :{}", deviceDO.toString());
+            return false;
+        }
     }
 }

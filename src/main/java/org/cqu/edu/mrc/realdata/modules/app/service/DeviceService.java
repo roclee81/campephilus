@@ -100,8 +100,9 @@ public interface DeviceService {
      *
      * @param deviceDO DeviceDO实体
      * @param deviceId 设备ID
+     * @return 存储完成返回true，失败返回false
      */
-    void saveDeviceDO(DeviceDO deviceDO, String deviceId);
+    boolean saveDeviceDO(DeviceDO deviceDO, String deviceId);
 
     /**
      * 存储数据

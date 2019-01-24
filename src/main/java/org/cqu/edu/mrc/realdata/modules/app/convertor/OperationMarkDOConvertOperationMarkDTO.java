@@ -1,9 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.convertor;
 
-import com.sun.org.apache.regexp.internal.RE;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+
 import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationMarkDO;
-import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationMarkDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
