@@ -129,10 +129,6 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public boolean saveDeviceDO(ParseDataDTO parseDataDTO) {
-        if (null == parseDataDTO) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "");
-        }
-
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();
 

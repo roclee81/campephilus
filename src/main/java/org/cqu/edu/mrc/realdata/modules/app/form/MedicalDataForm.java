@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.Map;
 
 /**
  * realdata
@@ -40,7 +41,8 @@ public class MedicalDataForm {
     private Integer operationNumber;
 
     /**
-     * 包含信息的Msg
+     * 包含信息的Data
      */
+    @NotNull(message = "The data cannot be empty")
     private String data;
 }

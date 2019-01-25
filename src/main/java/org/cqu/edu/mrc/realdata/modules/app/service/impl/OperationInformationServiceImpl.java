@@ -106,10 +106,6 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public boolean saveOperationInformationDO(ParseDataDTO parseDataDTO) {
-        if (null == parseDataDTO) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "");
-        }
-
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();
 
@@ -146,8 +142,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
                 return false;
             }
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
         OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, parseDataDTO.getMacAddress(), patientId, operationHospitalCode, deviceInformation, operationStartTime, null, null, new Date(), new Date());
@@ -190,8 +185,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             }
 
         } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
-            return false;
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
         operationInformationDO.setOperationEndTime(operationEndTime);

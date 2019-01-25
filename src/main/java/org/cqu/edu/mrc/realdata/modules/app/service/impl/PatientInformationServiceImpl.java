@@ -79,16 +79,9 @@ public class PatientInformationServiceImpl implements PatientInformationService 
 
     @Override
     public boolean savePatientInformationDO(ParseDataDTO parseDataDTO) {
-        if (null == parseDataDTO) {
-            return false;
-        }
 
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();
-
-        if (null == dataMap) {
-            return false;
-        }
 
         Map patientData, preoperativeData, postoperativeData;
         String patientId;

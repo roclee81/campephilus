@@ -46,6 +46,7 @@ public class DataProcessServiceImpl implements DataProcessService {
 
     /**
      * 仅解析JSON数据，如果数据有错误，则返回null
+     * 将传入的值为{},将返回一个空的HashMap
      *
      * @param jsonBuffer JSON 字符串
      * @return MedicalDataDTO实体类
@@ -54,7 +55,7 @@ public class DataProcessServiceImpl implements DataProcessService {
         try {
             return new Gson().fromJson(jsonBuffer, Map.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", jsonBuffer);
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), DataConstants.DATA_FIELD_FORMAT_ERROR, DataConstants.DATA_FIELD_FORMAT_ERROR, jsonBuffer);
         }
     }
 
@@ -66,10 +67,6 @@ public class DataProcessServiceImpl implements DataProcessService {
         }
 
         ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
-
-        if (null == parseDataDTO) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "ParseDataDTO is null", "");
-        }
 
         boolean result = processCode(parseDataDTO);
 
@@ -94,38 +91,19 @@ public class DataProcessServiceImpl implements DataProcessService {
     }
 
     /**
-     * 对接收到的实体类MedicalDataDTO进行第一步解析
-     * 缺少mac、operationNumber字段直接返回null
+     * 对接收到的实体类MedicalDataForm进行第一步解析
+     * 将MedicalDataForm转换成ParseDataDTO
+     * 缺少code、mac、operationNumber、dataMap字段直接返回null
      * 因为手术准备开启阶段也会传operationNumber字段，但值为-1
-     * 由于之前对表单进行了验证，code以及mac必定存在
-     * 对存储数据dataMap不进行验证不进行验证
+     * 由于之前对表单进行了验证，所有4个值都应该不为空
+     * data字段将进行验证，如何没有值需要传入{}
      *
      * @param medicalDataForm 表单信息
-     * @return 初次解析后的DTO
+     * @return 初次解析后的ParseDataDTO，不会返回空值
      */
     private ParseDataDTO processMsg(MedicalDataForm medicalDataForm) {
-        try {
-            int code = medicalDataForm.getCode();
-
-            String macAddress = medicalDataForm.getMac();
-
-            if (null == macAddress) {
-                throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "CollectorMacAddress is null", "");
-            }
-
-            // 检查operationNumber字段，如果没有直接返回null
-            int operationNumber = medicalDataForm.getOperationNumber();
-
-            // 检查data属性，表单接收为String，需要转换为Map形式，所以将进行JSON解析，data属性可以为空
-            Map dataMap = null;
-            if (null != medicalDataForm.getData()) {
-                dataMap = parseJson(medicalDataForm.getData());
-            }
-
-            return new ParseDataDTO(code, macAddress, operationNumber, dataMap);
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", exception.toString(), medicalDataForm.toString());
-        }
+        return new ParseDataDTO(medicalDataForm.getCode(), medicalDataForm.getMac(),
+                medicalDataForm.getOperationNumber(), parseJson(medicalDataForm.getData()));
     }
 
     /**
@@ -133,17 +111,14 @@ public class DataProcessServiceImpl implements DataProcessService {
      * <li>通过解析Code判断请求方式并回复</li>
      * <li>处理一个大型的分支，目前没有想到有什么其余的方式写该方法
      * 运行到分支后将进行数据存储处理，将返回执行的结果</li>
+     * <li>在此处不检查传入参数ParseDataDTO的非空情况，因为在表单
+     * 验证后必定不为空</li>
      * </ul>
      *
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
     private boolean processCode(ParseDataDTO parseDataDTO) {
-
-        if (null == parseDataDTO) {
-            return false;
-        }
-
         int code = parseDataDTO.getCode();
 
         // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况

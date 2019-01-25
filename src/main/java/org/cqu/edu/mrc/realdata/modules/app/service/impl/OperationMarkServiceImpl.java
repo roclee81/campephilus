@@ -100,9 +100,6 @@ public class OperationMarkServiceImpl implements OperationMarkService {
 
     @Override
     public boolean saveOperationMarkDO(ParseDataDTO parseDataDTO) {
-        if (null == parseDataDTO) {
-            return false;
-        }
 
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();

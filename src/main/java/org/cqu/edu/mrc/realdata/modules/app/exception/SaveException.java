@@ -14,6 +14,7 @@ public class SaveException extends RuntimeException {
 
     private String msg;
     private int code;
+    private String errorMeg;
     private String errorData;
 
     public SaveException(int code, String msg) {
@@ -26,6 +27,14 @@ public class SaveException extends RuntimeException {
         super(msg);
         this.msg = msg;
         this.code = code;
+        this.errorData = errorData;
+    }
+
+    public SaveException(int code, String msg, String errorMeg, String errorData) {
+        super(msg);
+        this.msg = msg;
+        this.code = code;
+        this.errorMeg = errorMeg;
         this.errorData = errorData;
     }
 
@@ -43,6 +52,14 @@ public class SaveException extends RuntimeException {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getErrorMeg() {
+        return errorMeg;
+    }
+
+    public void setErrorMeg(String errorMeg) {
+        this.errorMeg = errorMeg;
     }
 
     public String getErrorData() {

@@ -7,6 +7,7 @@ import org.cqu.edu.mrc.realdata.modules.app.dto.DeviceDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.realdata.modules.app.dto.ResultDataDTO;
+import org.cqu.edu.mrc.realdata.modules.app.exception.ParseException;
 import org.cqu.edu.mrc.realdata.modules.app.form.MedicalDataForm;
 import org.cqu.edu.mrc.realdata.modules.app.service.impl.DataProcessServiceImpl;
 import org.cqu.edu.mrc.realdata.modules.app.service.impl.DeviceServiceImpl;
@@ -56,7 +57,7 @@ public class MedicalDataController {
 
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            return new R(ResponseEnum.DATA_FORMAT_ERROR.getCode(), msg);
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "Data format error", msg);
         }
 
         ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);

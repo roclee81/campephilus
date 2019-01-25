@@ -25,7 +25,10 @@ public class SaveExceptionHandler {
     @ExceptionHandler(value = SaveException.class)
     @ResponseBody
     public R handleDeviceException(SaveException e) {
-        log.error(e.getMsg(), e.getErrorData());
+        // 传递的值有错误信息，才将日志保存
+        if (null != e.getErrorMeg() && null != e.getErrorData()) {
+            log.error(e.getErrorMeg(), e.getErrorData());
+        }
         return new R(e.getCode(), e.getMsg());
     }
 }

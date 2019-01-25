@@ -23,13 +23,6 @@ public class ParseException extends RuntimeException {
         this.code = code;
     }
 
-    public ParseException(int code, String msg, String errorData) {
-        super(msg);
-        this.msg = msg;
-        this.code = code;
-        this.errorData = errorData;
-    }
-
     public ParseException(int code, String msg, String errorMeg, String errorData) {
         super(msg);
         this.msg = msg;
