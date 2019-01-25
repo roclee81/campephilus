@@ -141,7 +141,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             } else {
                 return false;
             }
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
+        } catch (ClassCastException | NumberFormatException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
@@ -184,7 +184,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
                 return false;
             }
 
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
+        } catch (ClassCastException | NumberFormatException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 

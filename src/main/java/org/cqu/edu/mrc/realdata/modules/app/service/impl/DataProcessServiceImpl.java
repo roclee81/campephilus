@@ -137,7 +137,7 @@ public class DataProcessServiceImpl implements DataProcessService {
             return deviceService.saveDeviceDO(parseDataDTO);
         }
 
-        // 处理上传的患者数据的情况
+        // 处理上传或者更新的患者数据的情况
         if (RequestEnum.PATIENT_INFO.getCode().equals(code) || RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
             return patientInformationService.savePatientInformationDO(parseDataDTO);
         }
