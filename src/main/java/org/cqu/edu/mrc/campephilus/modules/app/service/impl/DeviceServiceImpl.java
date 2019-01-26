@@ -157,7 +157,7 @@ public class DeviceServiceImpl implements DeviceService {
             } else {
                 return false;
             }
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
+        } catch (ClassCastException | NumberFormatException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", parseDataDTO.toString());
         }
 
