@@ -53,6 +53,7 @@ public class MedicalDataController {
     @PostMapping("/update")
     public R processMedicalData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
         //TODO 根据测试情况实现考虑多线程需求
+        System.out.println(Thread.currentThread());
         log.info("MedicalDataForm{}", medicalDataForm);
 
         if (bindingResult.hasErrors()) {
@@ -69,6 +70,8 @@ public class MedicalDataController {
                                      @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
                                      @RequestParam(value = "page", defaultValue = "0") Integer page,
                                      @RequestParam(value = "size", defaultValue = "20") Integer size) {
+
+        System.out.println(Thread.currentThread());
 
         //TODO 目前不支持传入collectorMacAddress来查询
         if (operationNumber == -1 && collectorMacAddress.length() == 0) {
@@ -96,6 +99,8 @@ public class MedicalDataController {
                                   @RequestParam(value = "deviceId", defaultValue = "") String deviceId,
                                   @RequestParam(value = "page", defaultValue = "0") Integer page,
                                   @RequestParam(value = "size", defaultValue = "20") Integer size) {
+
+        System.out.println(Thread.currentThread());
 
         // 没有接收到deviceId与operationNumber，返回缺少参数
         if (deviceId.length() == 0 && operationNumber == -1) {
