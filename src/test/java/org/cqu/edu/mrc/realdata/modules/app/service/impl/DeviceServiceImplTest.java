@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
+import org.cqu.edu.mrc.campephilus.modules.app.service.impl.DeviceServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * realdata

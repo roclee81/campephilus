@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.campephilus.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.campephilus.modules.app.repository.impl.DeviceRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * realdata

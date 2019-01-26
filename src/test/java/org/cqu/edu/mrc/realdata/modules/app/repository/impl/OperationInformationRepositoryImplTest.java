@@ -1,7 +1,8 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
-import org.cqu.edu.mrc.realdata.common.utils.TimeStampUtil;
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.campephilus.common.utils.TimeStampUtil;
+import org.cqu.edu.mrc.campephilus.modules.app.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.campephilus.modules.app.repository.impl.OperationInformationRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

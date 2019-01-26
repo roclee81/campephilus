@@ -1,7 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
-import org.cqu.edu.mrc.realdata.modules.app.dataobject.PatientInformationDO;
-import org.cqu.edu.mrc.realdata.modules.app.repository.PatientInformationRepository;
+import org.cqu.edu.mrc.campephilus.modules.app.dataobject.PatientInformationDO;
+import org.cqu.edu.mrc.campephilus.modules.app.repository.impl.PatientInformationRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 /**
  * realdata
