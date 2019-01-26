@@ -1,15 +1,4 @@
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: root
-    password: re51YEjoT5bi
-    url: jdbc:mariadb://120.79.151.208:3306/real_data?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-
-  jpa:
-    database: mysql
-    show-sql: true
-
   #mongo配置
   data:
     mongodb:
@@ -21,4 +10,4 @@ spring:
 
 server:
   servlet:
-    context-path: /realData
+    context-path: /campephilus
