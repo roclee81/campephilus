@@ -1,9 +1,9 @@
 package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
-import org.cqu.edu.mrc.campephilus.modules.app.dataobject.PatientInformationDO;
-import org.cqu.edu.mrc.campephilus.modules.app.dto.ParseDataDTO;
-import org.cqu.edu.mrc.campephilus.modules.app.dto.PatientInformationDTO;
-import org.cqu.edu.mrc.campephilus.modules.app.service.impl.PatientInformationServiceImpl;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dataobject.PatientInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.PatientInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.PatientInformationServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

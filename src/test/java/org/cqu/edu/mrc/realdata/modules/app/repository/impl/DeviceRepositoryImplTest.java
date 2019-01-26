@@ -1,7 +1,7 @@
 package org.cqu.edu.mrc.realdata.modules.app.repository.impl;
 
-import org.cqu.edu.mrc.campephilus.modules.app.dataobject.DeviceDO;
-import org.cqu.edu.mrc.campephilus.modules.app.repository.impl.DeviceRepositoryImpl;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dataobject.DeviceDO;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.repository.impl.DeviceRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
