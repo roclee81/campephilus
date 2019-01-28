@@ -1,7 +1,6 @@
-package org.cqu.edu.mrc.realdata.modules.app.repository;
+package org.cqu.edu.mrc.annihilation.campephilus.modules.app.repository;
 
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dataobject.OperationInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.modules.app.repository.OperationInformationRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
