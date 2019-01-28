@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * realdata
+ * campephilus
  * 医疗仪器输出的数据，根据每台仪器的不同Id建表
  *
  * @author lx

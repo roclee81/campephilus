@@ -4,7 +4,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.modules.app.form.MedicalDataForm
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ResultDataDTO;
 
 /**
- * realdata
+ * campephilus
  *
  * @author lx
  * @version V1.0
