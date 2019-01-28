@@ -51,7 +51,7 @@ public interface DeviceService {
      * @param pageable            分页信息
      * @return DeviceDO分页信息
      */
-    Page<DeviceDO> getDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
+    Page<DeviceDO> listDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
 
     /**
      * 通过采集器MAC地址获取采集器所采集的所有DeviceDTO信息
@@ -60,7 +60,7 @@ public interface DeviceService {
      * @param pageable            分页信息
      * @return DeviceDO列表
      */
-    List<DeviceDTO> getDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
+    List<DeviceDTO> listDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
 
     /**
      * 通过设备ID获取该设备的所有数据
@@ -79,16 +79,6 @@ public interface DeviceService {
      * @return DeviceDO列表
      */
     List<DeviceDTO> listDeviceDTOSByDeviceId(String deviceId, Pageable pageable);
-
-    /**
-     * 通过手术号查询该手术所有的仪器数据
-     * 由于OperationInformationDO中有设备信息
-     *
-     * @param operationNumber 手术顺序号
-     * @param pageable        分页信息
-     * @return DeviceDO的分页信息
-     */
-    Map<String, Object> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 根据设备Id存储数据

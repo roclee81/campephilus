@@ -10,7 +10,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.modules.app.exception.ParseExcep
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.form.MedicalDataForm;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ResultDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.DataProcessService;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.DataStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class DataProcessServiceImpl implements DataProcessService {
+public class DataStorageServiceImpl implements DataStorageService {
 
     private final DeviceServiceImpl deviceService;
     private final OperationMarkServiceImpl operationMarkService;
@@ -36,7 +36,7 @@ public class DataProcessServiceImpl implements DataProcessService {
     private final PatientInformationServiceImpl patientInformationService;
 
     @Autowired
-    public DataProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationInformationServiceImpl operationInformationService, PatientInformationServiceImpl patientInformationService) {
+    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationInformationServiceImpl operationInformationService, PatientInformationServiceImpl patientInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;

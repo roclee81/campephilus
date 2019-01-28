@@ -9,7 +9,8 @@ import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.OperationInforma
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ResultDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.form.MedicalDataForm;
-import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.DataProcessServiceImpl;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.DataSearchService;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.DataStorageServiceImpl;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.DeviceServiceImpl;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.OperationInformationServiceImpl;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.PatientInformationServiceImpl;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -37,22 +37,18 @@ import java.util.Objects;
 @Slf4j
 public class MedicalDataController {
 
-    private final DataProcessServiceImpl dataProcessService;
-    private final OperationInformationServiceImpl operationInformationService;
-    private final DeviceServiceImpl deviceService;
-    private final PatientInformationServiceImpl patientInformationService;
+    private final DataSearchService dataSearchService;
+    private final DataStorageServiceImpl dataProcessService;
 
     @Autowired
-    public MedicalDataController(DataProcessServiceImpl dataProcessService, OperationInformationServiceImpl operationInformationService, DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService) {
+    public MedicalDataController(DataSearchService dataSearchService, DataStorageServiceImpl dataProcessService) {
+        this.dataSearchService = dataSearchService;
         this.dataProcessService = dataProcessService;
-        this.operationInformationService = operationInformationService;
-        this.deviceService = deviceService;
-        this.patientInformationService = patientInformationService;
     }
 
     @PostMapping("/update")
     public R processMedicalData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
-        log.info("MedicalDataForm{}", medicalDataForm);
+        log.info("{}", medicalDataForm);
 
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
@@ -63,94 +59,54 @@ public class MedicalDataController {
         return new R(resultDataDTO.getCode(), resultDataDTO.getMsg());
     }
 
-    @GetMapping("/operationInformation")
-    public R getOperationInformation(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
-                                     @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
-                                     @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                     @RequestParam(value = "size", defaultValue = "20") Integer size) {
+    @GetMapping("/operationData")
+    public R listOperationData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
+                               @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
+                               @RequestParam(value = "page", defaultValue = "0") Integer page,
+                               @RequestParam(value = "size", defaultValue = "20") Integer size) {
 
         //TODO 目前不支持传入collectorMacAddress来查询
-        if (operationNumber == -1 && collectorMacAddress.length() == 0) {
+        if (operationNumber == -1) {
             return R.requestParameterError();
         }
 
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        if (operationNumber == 0) {
-            List<OperationInformationDTO> result = operationInformationService.listOperationInformationDTOS(pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        // 如果传入了不为0，则是查询特定的OperationInformationDTO
-        if (operationNumber > 1) {
-            OperationInformationDTO result = operationInformationService.getOperationInformationDTOByOperationNumber(operationNumber);
-            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        return R.unknownError();
+        List<OperationInformationDTO> result = dataSearchService.listOperationData(operationNumber, collectorMacAddress, pageRequest);
+        return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/deviceInformation")
-    public R getDeviceInformation(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
-                                  @RequestParam(value = "deviceId", defaultValue = "") String deviceId,
-                                  @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                  @RequestParam(value = "size", defaultValue = "20") Integer size) {
+    @GetMapping("/deviceData")
+    public R listDeviceData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
+                            @RequestParam(value = "deviceId", defaultValue = "") String deviceId,
+                            @RequestParam(value = "page", defaultValue = "0") Integer page,
+                            @RequestParam(value = "size", defaultValue = "20") Integer size) {
 
-        // 没有接收到deviceId与operationNumber，返回缺少参数
-        if (deviceId.length() == 0 && operationNumber == -1) {
+        // 必须传输deviceId与operationNumber，否则直接返回参数错误
+        if (deviceId.length() == 0 || operationNumber == -1) {
             return R.requestParameterError();
         }
 
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        if (operationNumber == -1 && deviceId.length() > 0) {
-            List<DeviceDTO> result = deviceService.listDeviceDTOSByDeviceId(deviceId, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        if (operationNumber > 0 && deviceId.length() == 0) {
-            Map<String, Object> result = deviceService.getDeviceDOSByOperationNumber(operationNumber, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        if (operationNumber > 0 && deviceId.length() > 0) {
-            List<DeviceDTO> result = deviceService.listDeviceDTOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        return R.unknownError();
+        List<DeviceDTO> result = dataSearchService.listDeviceData(operationNumber, deviceId, pageRequest);
+        return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/patientInformation")
-    public R getPatientInformation(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
-                                   @RequestParam(value = "patientId", defaultValue = "") String patientId,
-                                   @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                   @RequestParam(value = "size", defaultValue = "20") Integer size) {
+    @GetMapping("/patientData")
+    public R listPatientData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
+                             @RequestParam(value = "patientId", defaultValue = "") String patientId,
+                             @RequestParam(value = "page", defaultValue = "0") Integer page,
+                             @RequestParam(value = "size", defaultValue = "20") Integer size) {
 
         // 没有接收到deviceId与operationNumber，返回缺少参数
         if (patientId.length() == 0 && operationNumber == -1) {
             return R.requestParameterError();
         }
 
-        PageRequest pageRequest = PageRequest.of(0, 100);
+        PageRequest pageRequest = PageRequest.of(page, size);
 
-        if (operationNumber == -1 && patientId.length() > 0) {
-            List<PatientInformationDTO> result = patientInformationService.listPatientInformationDTOSByPatientId(patientId, pageRequest);
-            return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        if (operationNumber > 0 && patientId.length() == 0) {
-            PatientInformationDTO result = patientInformationService.getPatientInformationDTOByOperationNumber(operationNumber);
-            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        if (operationNumber > 0 && patientId.length() > 0) {
-            PatientInformationDTO result = patientInformationService.getPatientInformationDTOByPatientIdAndOperationNumber(patientId, operationNumber);
-            return null == result ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
-        }
-
-        return R.unknownError();
+        List<PatientInformationDTO> result = dataSearchService.listPatientData(operationNumber, patientId, pageRequest);
+        return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
     }
-
-
 }

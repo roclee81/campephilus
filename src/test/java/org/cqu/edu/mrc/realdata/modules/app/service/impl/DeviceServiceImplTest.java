@@ -36,13 +36,6 @@ public class DeviceServiceImplTest {
     }
 
     @Test
-    public void getDeviceDOSByOperationNumber() {
-        PageRequest pageRequest = PageRequest.of(0, 100);
-        Map<String, Object> result = deviceService.getDeviceDOSByOperationNumber(1, pageRequest);
-        Assert.assertTrue(result.size() > 0);
-    }
-
-    @Test
     public void saveDeviceDO() {
     }
 }

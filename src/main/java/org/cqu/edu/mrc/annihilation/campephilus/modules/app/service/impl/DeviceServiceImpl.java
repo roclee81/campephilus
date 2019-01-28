@@ -66,7 +66,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Page<DeviceDO> getDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+    public Page<DeviceDO> listDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
         //TODO 未完成，可能需要维护一张表
 //        // 首先查询得到手术的基本信息
 //        Page<OperationInformationDO> operationInformationDOPage = operationInformationRepository.findOperationInformationDOSByCollectorMacAddress(collectorMacAddress, pageable);
@@ -74,7 +74,7 @@ public class DeviceServiceImpl implements DeviceService {
 //            // 遍历得到的手术基本信息
 //            int operationNumber = operationInformationDO.getOperationNumber();
 //            // 遍历OperationInformationDO表中deviceInformation字段的所有值
-//            Map deviceInformation = operationInformationDO.getDeviceInformation();
+//            Map deviceInformation = operationInformationDO.listDeviceData();
 //            for (Object deviceId : deviceInformation.values()) {
 //                List<DeviceDTO> deviceDTOList = this.listDeviceDTOSByDeviceIdAndOperationNumber((String) deviceId, operationNumber, pageable);
 //            }
@@ -83,7 +83,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<DeviceDTO> getDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
+    public List<DeviceDTO> listDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable) {
         return null;
     }
 
@@ -97,19 +97,6 @@ public class DeviceServiceImpl implements DeviceService {
     public List<DeviceDTO> listDeviceDTOSByDeviceId(String deviceId, Pageable pageable) {
         Page<DeviceDO> deviceDOPage = this.listDeviceDOSByDeviceId(deviceId, pageable);
         return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
-    }
-
-    @Override
-    public Map<String, Object> getDeviceDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
-        OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
-        List<String> deviceInformation = operationInformationDO.getDeviceInformation();
-        Map<String, Object> result = new HashMap<>(deviceInformation.size());
-        for (String deviceId : deviceInformation) {
-            Page<DeviceDO> deviceDOPage = deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
-            List<DeviceDTO> deviceDTOList = DeviceDOConvertDeviceDTO.convert(deviceDOPage);
-            result.put(deviceId, deviceDTOList);
-        }
-        return result;
     }
 
     @Override

@@ -11,8 +11,9 @@ import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ResultDataDTO;
  * @date 2018/12/24 21:39
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 处理上传的数据，通过解析code来判断上传了什么数据
  */
-public interface DataProcessService {
+public interface DataStorageService {
 
     /**
      * 解析并且处理表单信息

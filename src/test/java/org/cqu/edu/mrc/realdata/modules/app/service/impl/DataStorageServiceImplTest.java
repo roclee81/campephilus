@@ -2,7 +2,7 @@ package org.cqu.edu.mrc.realdata.modules.app.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.dto.ResultDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.modules.app.form.MedicalDataForm;
-import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.DataProcessServiceImpl;
+import org.cqu.edu.mrc.annihilation.campephilus.modules.app.service.impl.DataStorageServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +21,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class DataProcessServiceImplTest {
+public class DataStorageServiceImplTest {
 
     @Autowired
-    DataProcessServiceImpl dataProcessService;
+    DataStorageServiceImpl dataProcessService;
 
     @Test
     public void parseJson() {
