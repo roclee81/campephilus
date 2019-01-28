@@ -27,7 +27,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> getOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
+    Page<OperationMarkDO> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 通过手术顺序号查询该手术的所有标记信息
@@ -36,7 +36,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDTO列表
      */
-    List<OperationMarkDTO> getOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable);
+    List<OperationMarkDTO> listOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 通过手术顺序号和手术标记的类型查询所有标记信息
@@ -46,7 +46,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> getOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
+    Page<OperationMarkDO> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
 
     /**
      * 通过手术顺序号查询该手术的所有标记信息
@@ -56,7 +56,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDTO列表
      */
-    List<OperationMarkDTO> getOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
+    List<OperationMarkDTO> listOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之前的所有标记信息
@@ -65,7 +65,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
+    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之前的所有标记信息
@@ -74,7 +74,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDTO列表
      */
-    List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
+    List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之后的所有标记信息
@@ -83,7 +83,7 @@ public interface OperationMarkService {
      * @param pageable      分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> getOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
+    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之后的所有标记信息
@@ -92,7 +92,7 @@ public interface OperationMarkService {
      * @param pageable      分页信息
      * @return OperationMarkDTO列表T
      */
-    List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
+    List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询中间一段时间的所有标记信息
@@ -102,7 +102,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
+    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询中间一段时间的所有标记信息
@@ -112,7 +112,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDTO列表
      */
-    List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
+    List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
 
     /**
      * 保存数据

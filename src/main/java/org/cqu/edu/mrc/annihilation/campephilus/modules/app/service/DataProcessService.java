@@ -16,7 +16,7 @@ public interface DataProcessService {
 
     /**
      * 解析并且处理表单信息
-     * 处理完成后将返回DTO
+     * 处理完成后将返回ResultDataDTO
      *
      * @param medicalDataForm 接收到的表单
      * @return 返回的DTO

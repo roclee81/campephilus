@@ -77,7 +77,7 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         if (operationNumber == 0) {
-            List<OperationInformationDTO> result = operationInformationService.getOperationInformationDTOS(pageRequest);
+            List<OperationInformationDTO> result = operationInformationService.listOperationInformationDTOS(pageRequest);
             return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
@@ -104,7 +104,7 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         if (operationNumber == -1 && deviceId.length() > 0) {
-            List<DeviceDTO> result = deviceService.getDeviceDTOSByDeviceId(deviceId, pageRequest);
+            List<DeviceDTO> result = deviceService.listDeviceDTOSByDeviceId(deviceId, pageRequest);
             return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
@@ -114,7 +114,7 @@ public class MedicalDataController {
         }
 
         if (operationNumber > 0 && deviceId.length() > 0) {
-            List<DeviceDTO> result = deviceService.getDeviceDTOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageRequest);
+            List<DeviceDTO> result = deviceService.listDeviceDTOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageRequest);
             return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 
@@ -135,7 +135,7 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(0, 100);
 
         if (operationNumber == -1 && patientId.length() > 0) {
-            List<PatientInformationDTO> result = patientInformationService.getPatientInformationDTOSByPatientId(patientId, pageRequest);
+            List<PatientInformationDTO> result = patientInformationService.listPatientInformationDTOSByPatientId(patientId, pageRequest);
             return result.size() < 1 ? R.dataNotExist() : new R(ResponseEnum.SUCCESS.getCode(), result);
         }
 

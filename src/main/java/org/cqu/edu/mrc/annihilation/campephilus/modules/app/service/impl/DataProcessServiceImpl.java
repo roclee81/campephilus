@@ -80,7 +80,7 @@ public class DataProcessServiceImpl implements DataProcessService {
     }
 
     @Override
-    public synchronized Integer getNewOperationNumber() {
+    public Integer getNewOperationNumber() {
         return operationInformationService.countOperationInformationDOS() + 1;
     }
 

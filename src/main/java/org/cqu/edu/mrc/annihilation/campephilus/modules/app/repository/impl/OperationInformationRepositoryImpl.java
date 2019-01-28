@@ -84,7 +84,7 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
     }
 
     @Override
-    public Integer countOperationInformationDOS() {
+    public synchronized Integer countOperationInformationDOS() {
         Query query = Query.query(Criteria.where(""));
         return (int) mongoOperations.count(query, OperationInformationDO.class);
     }

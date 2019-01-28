@@ -64,7 +64,7 @@ public interface PatientInformationService {
      * @param pageable  分页信息
      * @return PatientInformationDO分页信息
      */
-    Page<PatientInformationDO> getPatientInformationDOSByPatientId(String patientId, Pageable pageable);
+    Page<PatientInformationDO> listPatientInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * 通过患者的ID得到PatientInformationDTO信息
@@ -73,7 +73,7 @@ public interface PatientInformationService {
      * @param pageable  分页信息
      * @return PatientInformationDTO列表
      */
-    List<PatientInformationDTO> getPatientInformationDTOSByPatientId(String patientId, Pageable pageable);
+    List<PatientInformationDTO> listPatientInformationDTOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * 保存PatientInformationDO信息

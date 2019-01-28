@@ -41,13 +41,13 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public Page<OperationInformationDO> getOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
+    public Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByPatientId(patientId, pageable);
     }
 
     @Override
-    public List<OperationInformationDTO> getOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByPatientId(patientId, pageable);
+    public List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
 
@@ -63,35 +63,35 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public Page<OperationInformationDO> getOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+    public Page<OperationInformationDO> listOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
     }
 
     @Override
-    public List<OperationInformationDTO> getOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+    public List<OperationInformationDTO> listOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
 
     @Override
-    public Page<OperationInformationDO> getOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
+    public Page<OperationInformationDO> listOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
     }
 
     @Override
-    public List<OperationInformationDTO> getOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
+    public List<OperationInformationDTO> listOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
 
     @Override
-    public Page<OperationInformationDO> getOperationInformationDOS(Pageable pageable) {
+    public Page<OperationInformationDO> listOperationInformationDOS(Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOS(pageable);
     }
 
     @Override
-    public List<OperationInformationDTO> getOperationInformationDTOS(Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.getOperationInformationDOS(pageable);
+    public List<OperationInformationDTO> listOperationInformationDTOS(Pageable pageable) {
+        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOS(pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
     }
 

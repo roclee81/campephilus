@@ -46,7 +46,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Page<DeviceDO> getDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
+    public Page<DeviceDO> listDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
         if (operationNumber < 0 && deviceId.length() == 0) {
             return null;
         }
@@ -54,14 +54,14 @@ public class DeviceServiceImpl implements DeviceService {
             return deviceRepository.findDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
         }
         if (operationNumber < 0 && deviceId.length() > 0) {
-            return this.getDeviceDOSByDeviceId(deviceId, pageable);
+            return this.listDeviceDOSByDeviceId(deviceId, pageable);
         }
         return null;
     }
 
     @Override
-    public List<DeviceDTO> getDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
-        Page<DeviceDO> deviceDOPage = this.getDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
+    public List<DeviceDTO> listDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
+        Page<DeviceDO> deviceDOPage = this.listDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
         return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
     }
 
@@ -76,7 +76,7 @@ public class DeviceServiceImpl implements DeviceService {
 //            // 遍历OperationInformationDO表中deviceInformation字段的所有值
 //            Map deviceInformation = operationInformationDO.getDeviceInformation();
 //            for (Object deviceId : deviceInformation.values()) {
-//                List<DeviceDTO> deviceDTOList = this.getDeviceDTOSByDeviceIdAndOperationNumber((String) deviceId, operationNumber, pageable);
+//                List<DeviceDTO> deviceDTOList = this.listDeviceDTOSByDeviceIdAndOperationNumber((String) deviceId, operationNumber, pageable);
 //            }
 //        });
         return null;
@@ -89,13 +89,13 @@ public class DeviceServiceImpl implements DeviceService {
 
 
     @Override
-    public Page<DeviceDO> getDeviceDOSByDeviceId(String deviceId, Pageable pageable) {
+    public Page<DeviceDO> listDeviceDOSByDeviceId(String deviceId, Pageable pageable) {
         return deviceRepository.findDeviceDOSByDeviceId(deviceId, pageable);
     }
 
     @Override
-    public List<DeviceDTO> getDeviceDTOSByDeviceId(String deviceId, Pageable pageable) {
-        Page<DeviceDO> deviceDOPage = this.getDeviceDOSByDeviceId(deviceId, pageable);
+    public List<DeviceDTO> listDeviceDTOSByDeviceId(String deviceId, Pageable pageable) {
+        Page<DeviceDO> deviceDOPage = this.listDeviceDOSByDeviceId(deviceId, pageable);
         return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
     }
 

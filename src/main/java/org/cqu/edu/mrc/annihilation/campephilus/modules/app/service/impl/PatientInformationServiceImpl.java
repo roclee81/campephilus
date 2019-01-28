@@ -61,13 +61,13 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     }
 
     @Override
-    public Page<PatientInformationDO> getPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
+    public Page<PatientInformationDO> listPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
         return patientInformationRepository.findPatientInformationDOSByPatientId(patientId, pageable);
     }
 
     @Override
-    public List<PatientInformationDTO> getPatientInformationDTOSByPatientId(String patientId, Pageable pageable) {
-        Page<PatientInformationDO> patientInformationDOPage = this.getPatientInformationDOSByPatientId(patientId, pageable);
+    public List<PatientInformationDTO> listPatientInformationDTOSByPatientId(String patientId, Pageable pageable) {
+        Page<PatientInformationDO> patientInformationDOPage = this.listPatientInformationDOSByPatientId(patientId, pageable);
         return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDOPage);
     }
 

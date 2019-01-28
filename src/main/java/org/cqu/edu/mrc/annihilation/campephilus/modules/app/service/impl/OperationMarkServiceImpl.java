@@ -39,57 +39,57 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     }
 
     @Override
-    public Page<OperationMarkDO> getOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+    public Page<OperationMarkDO> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByOperationNumber(operationNumber, pageable);
     }
 
     @Override
-    public List<OperationMarkDTO> getOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByOperationNumber(operationNumber, pageable);
+    public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumber(operationNumber, pageable);
         return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
-    public Page<OperationMarkDO> getOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
+    public Page<OperationMarkDO> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
     }
 
     @Override
-    public List<OperationMarkDTO> getOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
+    public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
         return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
-    public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
+    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
     }
 
     @Override
-    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
+    public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
         return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
-    public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
+    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
     }
 
     @Override
-    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
+    public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
         return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 
     @Override
-    public Page<OperationMarkDO> getOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
+    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
     }
 
     @Override
-    public List<OperationMarkDTO> getOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.getOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
+    public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
+        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
         return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
     }
 

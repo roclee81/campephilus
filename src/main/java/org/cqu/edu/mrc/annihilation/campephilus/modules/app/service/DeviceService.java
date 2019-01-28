@@ -32,7 +32,7 @@ public interface DeviceService {
      * @param pageable        分页信息
      * @return DeviceDO分页信息
      */
-    Page<DeviceDO> getDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
+    Page<DeviceDO> listDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
 
     /**
      * 通过唯一的手术顺序号和设备号查询数据
@@ -42,7 +42,7 @@ public interface DeviceService {
      * @param pageable        分页信息
      * @return DeviceDTO列表
      */
-    List<DeviceDTO> getDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
+    List<DeviceDTO> listDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
 
     /**
      * 通过采集器MAC地址获取采集器所采集的所有DeviceDO信息
@@ -69,7 +69,7 @@ public interface DeviceService {
      * @param pageable 分页信息
      * @return DeviceDO分页信息
      */
-    Page<DeviceDO> getDeviceDOSByDeviceId(String deviceId, Pageable pageable);
+    Page<DeviceDO> listDeviceDOSByDeviceId(String deviceId, Pageable pageable);
 
     /**
      * 通过设备ID获取该设备的所有数据
@@ -78,7 +78,7 @@ public interface DeviceService {
      * @param pageable 分页信息
      * @return DeviceDO列表
      */
-    List<DeviceDTO> getDeviceDTOSByDeviceId(String deviceId, Pageable pageable);
+    List<DeviceDTO> listDeviceDTOSByDeviceId(String deviceId, Pageable pageable);
 
     /**
      * 通过手术号查询该手术所有的仪器数据

@@ -43,14 +43,14 @@ public class PatientInformationServiceImplTest {
     @Test
     public void getPatientInformationDOSByPatientId() {
         PageRequest pageRequest = PageRequest.of(0, 100);
-        Page<PatientInformationDO> result = patientInformationService.getPatientInformationDOSByPatientId("012121", pageRequest);
+        Page<PatientInformationDO> result = patientInformationService.listPatientInformationDOSByPatientId("012121", pageRequest);
         Assert.assertTrue(result.getTotalElements() > 0);
     }
 
     @Test
     public void getPatientInformationDTOSByPatientId() {
         PageRequest pageRequest = PageRequest.of(0, 100);
-        List<PatientInformationDTO> result = patientInformationService.getPatientInformationDTOSByPatientId("012121", pageRequest);
+        List<PatientInformationDTO> result = patientInformationService.listPatientInformationDTOSByPatientId("012121", pageRequest);
         Assert.assertTrue(result.size() > 0);
     }
 

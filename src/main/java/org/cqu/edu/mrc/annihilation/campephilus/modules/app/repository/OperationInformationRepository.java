@@ -90,6 +90,7 @@ public interface OperationInformationRepository {
 
     /**
      * 统计OperationInformationDO表中的记录的条数
+     * 这里使用synchronized锁保证同步性
      *
      * @return OperationInformationDO表中的记录的条数
      */
