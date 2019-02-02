@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Class-Path: spring-aop-5.1.4.RELEASE.jar spring-tx-5.1.4.RELEASE.jar j
  ackson-datatype-jsr310-2.9.8.jar lombok-1.18.4.jar hibernate-validato
- r-6.0.14.Final.jar mongodb-driver-core-3.8.2.jar validation-api-2.0.1
+ resultVO-6.0.14.Final.jar mongodb-driver-core-3.8.2.jar validation-api-2.0.1
  .Final.jar spring-boot-autoconfigure-2.1.2.RELEASE.jar spring-boot-st
  arter-json-2.1.2.RELEASE.jar javax.annotation-api-1.3.2.jar logback-c
  lassic-1.2.3.jar spring-core-5.1.4.RELEASE.jar tomcat-embed-el-9.0.14
@@ -12,7 +12,7 @@ Class-Path: spring-aop-5.1.4.RELEASE.jar spring-tx-5.1.4.RELEASE.jar j
  s-2.9.0.jar spring-boot-2.1.2.RELEASE.jar log4j-to-slf4j-2.11.1.jar m
  ongodb-driver-3.8.2.jar spring-beans-5.1.4.RELEASE.jar jackson-databi
  nd-2.9.8.jar spring-data-commons-2.1.4.RELEASE.jar spring-boot-starte
- r-2.1.2.RELEASE.jar spring-expression-5.1.4.RELEASE.jar spring-boot-s
+ resultVO-2.1.2.RELEASE.jar spring-expression-5.1.4.RELEASE.jar spring-boot-s
  tarter-web-2.1.2.RELEASE.jar jackson-datatype-jdk8-2.9.8.jar spring-b
  oot-starter-logging-2.1.2.RELEASE.jar jackson-core-2.9.8.jar tomcat-e
  mbed-websocket-9.0.14.jar jackson-module-parameter-names-2.9.8.jar ju

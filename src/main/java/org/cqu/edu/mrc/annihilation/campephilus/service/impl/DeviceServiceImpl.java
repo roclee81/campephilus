@@ -104,7 +104,7 @@ public class DeviceServiceImpl implements DeviceService {
         // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
         OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
         if (null == operationInformationDO) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, deviceDO.toString());
+                 throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, deviceDO.toString());
         }
         List<String> deviceInformation = operationInformationDO.getDeviceInformation();
         if (!deviceInformation.contains(deviceId)) {
