@@ -43,24 +43,25 @@
 
 ## 上传规则
 ### 1. 所有设备开机时发送
-* 数据上传URL ip:8080/realData/data/update
+* 数据上传URL 120.79.151.208:8080/campephilus/data/update
 * 请求方式 POST
 * 请求类型 x-www-form-urlencoded
 * 请求体
 ```
-code:
-mac:
-operationNumber:
-data:
+code: 199
+mac: "mac"
+operationNumber: 1
+data: {}
 ```
-code、mac、operationNumber为必填字段
+code、mac、operationNumber、data为必填字段
 
 
 * #### 设备开机注册(未使用)
 ```
 code: 99
 mac: "mac"
-operationNumber: "-1"
+operationNumber: -1
+data: {}
 }
 ```
 
@@ -68,14 +69,15 @@ operationNumber: "-1"
 ```
 code: 100
 mac: "mac"
-operationNumber: "-1"
+operationNumber: -1
+data: {}
 ```
 
 * #### 准备要开始手术了(手术开始准备,请求operationNumber)
 ```
 code: 151
 mac: "mac"
-operationNumber: "-1"
+operationNumber: -1
 data:{
 		patientInfo: {
 			"patientId": "patientId",
@@ -101,42 +103,47 @@ data:{
 ```
 code: 152
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 准备发送手术设备数据
 ```
 code: 153
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 回复可以发送发送手术设备数据
 ```
 code: 154
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 准备发送病人信息数据
 ```
 code: 159
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 可以上传病人数据数据
 ```
 code: 160
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 上传病人数据
 ```
 code: 161
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
 data: {
       	"patientId": "value",
       	"patientData": {},
@@ -147,42 +154,47 @@ data: {
 ```
 code: 162
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 发布病人信息发送结束
 ```
 code: 163
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 回复收到病人信息发送结束
 ```
 code: 164
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 准备发送仪器数
 ```
 code: 165
 mac: "mac"
-operationNumber: "1" 
+operationNumber: 1
+data: {}
 ```
 
 * #### 可以发送仪器数据
 ```
 code: 166
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 发送仪器数据
 ```
 code: 167
 mac: "mac"
-operationNumber: "1", 
+operationNumber: 1
 data: {
       	"deviceId": "value",
       	"deviceDataNumber": "",
@@ -194,42 +206,47 @@ data: {
 ```
 code: 168
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 仪器数据发送结束
 ```
 code: 169
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 回复收到医疗仪器数据结束信号
 ```
 code: 170
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 手术中的标记信息准备发送
 ```
 code: 171
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 手术中的标记信息可以发送
 ```
 code: 172
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 手术中的标记信息
 ```
 code: 173
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
 data: {
       	"markNumber": 1,
       	"markType": 1,
@@ -241,42 +258,47 @@ data: {
 ```
 code: 174
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 手术标记信息发送完毕
 ```
 code: 175
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 手术标记信息发送完毕收到
 ```
 code: 176
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 请求手术结束
 ```
 code: 177
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 回复手术可以结束
 ```
 code: 178
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 是手术结束的信息
 ```
 code: 179
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
 data: {
       	"operationEndTime": ""
       }
@@ -286,28 +308,31 @@ data: {
 ```
 code: 180
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 请求发送术后患者情况(平板记录下来operationNumber)
 ```
 code: 181
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 可以发送术后患者情况(平板记录下来operationNumber)
 ```
 code: 182
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
 
 * #### 请求发送术后患者情况
 ```
 code: 183
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
 data: {
           "patientId": "value",
           "postoperativeData": {}
@@ -318,5 +343,6 @@ data: {
 ```
 code: 184 
 mac: "mac"
-operationNumber: "1"
+operationNumber: 1
+data: {}
 ```
