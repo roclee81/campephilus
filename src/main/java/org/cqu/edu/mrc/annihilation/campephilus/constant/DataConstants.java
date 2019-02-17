@@ -27,6 +27,8 @@ public class DataConstants {
 
     public static final String DATABASE_COLLECTOR_MAC_ADDRESS = "collector_mac_address";
 
+    public static final String OPERATION_STATE = "operationState";
+
     public static final String DATA_MAP = "data";
 
     public static final String OPERATION_INFOMATION = "operationInfo";

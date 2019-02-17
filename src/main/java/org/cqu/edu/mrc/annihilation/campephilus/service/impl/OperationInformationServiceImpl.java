@@ -47,6 +47,11 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
+    public Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable) {
+        return operationInformationRepository.findOperationInformationDOSByOperationState(operationState, pageable);
+    }
+
+    @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);

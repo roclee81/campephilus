@@ -30,6 +30,15 @@ public interface OperationInformationService {
     Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 通过手术状态查询OperationInformationNumberDO信息
+     *
+     * @param operationState 手术状态
+     * @param pageable       分页信息
+     * @return OperationInformationDO分页信息
+     */
+    Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable);
+
+    /**
      * 通过患者的ID查询PatientIdOperationNumberDTO信息
      *
      * @param patientId 患者的ID
