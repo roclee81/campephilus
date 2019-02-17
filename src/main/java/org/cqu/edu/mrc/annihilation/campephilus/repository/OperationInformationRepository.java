@@ -84,9 +84,10 @@ public interface OperationInformationRepository {
     /**
      * 保存OperationInformationDO
      *
-     * @param operationInformationDO OperationInformationDO信息
+     * @param operationInformationDO operationInformationDO OperationInformationDO信息
+     * @return operationInformationDO 则保存完成，null则失败
      */
-    void saveOperationInformationDO(OperationInformationDO operationInformationDO);
+    OperationInformationDO saveOperationInformationDO(OperationInformationDO operationInformationDO);
 
     /**
      * 统计OperationInformationDO表中的记录的条数

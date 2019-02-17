@@ -40,7 +40,7 @@ public class DataStorageServiceImplTest {
         medicalDataForm1.setCode(151);
         medicalDataForm1.setMac("00-0f-e2-2e-94-a9");
         medicalDataForm1.setOperationNumber(-1);
-        medicalDataForm1.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
+        medicalDataForm1.setData("{\"operationInfo\":{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546501804000\"},\"deviceInfo\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}");
         ResultDataDTO resultDataDTO1 = dataStorageService.processMedicalData(medicalDataForm1);
         Assert.assertEquals((int) resultDataDTO1.getCode(), 152);
     }

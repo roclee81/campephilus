@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * campephilus
@@ -53,7 +54,7 @@ public class OperationInformationDO {
      * 手术中使用的设备信息 标明设备的ID及设备型号
      */
     @Field(value = "device_information")
-    private List<String> deviceInformation;
+    private List<Map<String, Object>> deviceInformation;
 
     /**
      * 手术开始时间
@@ -74,6 +75,12 @@ public class OperationInformationDO {
     private Long operationTime;
 
     /**
+     * 手术状态
+     */
+    @Field(value = "operation_state")
+    private Integer operationState;
+
+    /**
      * 数据创建时间
      */
     @Field(value = "gmt_create")
@@ -84,20 +91,4 @@ public class OperationInformationDO {
      */
     @Field(value = "gmt_modified")
     private Date gmtModified;
-
-    public OperationInformationDO() {
-    }
-
-    public OperationInformationDO(Integer operationNumber, String collectorMacAddress, String patientId, String operationHospitalCode, List<String> deviceInformation, Date operationStartTime, Date operationEndTime, Long operationTime, Date gmtCreate, Date gmtModified) {
-        this.operationNumber = operationNumber;
-        this.collectorMacAddress = collectorMacAddress;
-        this.patientId = patientId;
-        this.operationHospitalCode = operationHospitalCode;
-        this.deviceInformation = deviceInformation;
-        this.operationStartTime = operationStartTime;
-        this.operationEndTime = operationEndTime;
-        this.operationTime = operationTime;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
-    }
 }

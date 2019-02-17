@@ -73,8 +73,8 @@ public class OperationInformationRepositoryImpl implements OperationInformationR
     }
 
     @Override
-    public void saveOperationInformationDO(OperationInformationDO operationInformationDO) {
-        mongoOperations.save(operationInformationDO);
+    public OperationInformationDO saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+        return mongoOperations.save(operationInformationDO);
     }
 
     @Override

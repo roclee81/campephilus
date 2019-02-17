@@ -118,14 +118,15 @@ public interface OperationInformationService {
      * 保存OperationInformationDO
      *
      * @param operationInformationDO OperationInformationDO信息
+     * @return 是否保存成功，OperationInformationDO则保存成功，null则失败
      */
-    void saveOperationInformationDO(OperationInformationDO operationInformationDO);
+    OperationInformationDO saveOperationInformationDO(OperationInformationDO operationInformationDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationInformationDO来保存信息
      *
      * @param parseDataDTO 初次解析的数据
-     * @return 是否保存成功
+     * @return 是否保存成功，OperationInformationDO则保存成功，null则失败
      */
     boolean saveOperationInformationDO(ParseDataDTO parseDataDTO);
 

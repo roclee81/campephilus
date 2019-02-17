@@ -79,22 +79,19 @@ code: 151
 mac: "mac"
 operationNumber: -1
 data:{
-     	"patientInfo": {
-     		"patientId": "patientId",
-     		"patientData": "patientData"
-     	},
      	"operationInfo": {
+     	    "patientId": "patientId",
      		"operationHospitalCode": "0147",
      		"operationStartTime": "1546501804000"
      	},
      	"deviceInfo": [{
-     		"devideType": "1",
+     		"deviceType": 1,
      		"serialNumber": "SN123123",
-     		"serviceLife": "2"
+     		"serviceLife": 2
      	}, {
-     		"devideType": "2",
+     		"deviceType": 2,
      		"serialNumber": "SN1231233",
-     		"serviceLife": "3"
+     		"serviceLife": 3
      	}]
      }
 ```

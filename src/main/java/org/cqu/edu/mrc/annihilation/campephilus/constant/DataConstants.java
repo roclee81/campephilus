@@ -29,6 +29,8 @@ public class DataConstants {
 
     public static final String DATA_MAP = "data";
 
+    public static final String OPERATION_INFOMATION = "operationInfo";
+
     public static final String OPERATION_HOSPITAL_CODE = "operationHospitalCode";
 
     public static final String DATABASE_OPERATION_HOSPITAL_CODE = "operation_hospital_code";
@@ -39,7 +41,7 @@ public class DataConstants {
 
     public static final String OPERATION_TIME = "operationTime";
 
-    public static final String DEVICE_INFORMATION = "deviceInformation";
+    public static final String DEVICE_INFORMATION = "deviceInfo";
 
     public static final String PATIENT_ID = "patientId";
 
@@ -66,5 +68,7 @@ public class DataConstants {
     public static final String DATA_FORMAT_ERROR = "Data format error";
 
     public static final String DATA_FIELD_FORMAT_ERROR = "Data field format error";
+
+    public static final String SAVE_ERROR = "Save Error";
 
 }
