@@ -118,9 +118,9 @@ public interface OperationInformationService {
      * 保存OperationInformationDO
      *
      * @param operationInformationDO OperationInformationDO信息
-     * @return 是否保存成功，OperationInformationDO则保存成功，null则失败
+     * @return 是否保存成功
      */
-    OperationInformationDO saveOperationInformationDO(OperationInformationDO operationInformationDO);
+    boolean saveOperationInformationDO(OperationInformationDO operationInformationDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationInformationDO来保存信息

@@ -97,8 +97,14 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public OperationInformationDO saveOperationInformationDO(OperationInformationDO operationInformationDO) {
-        return operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+    public boolean saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+        OperationInformationDO result = operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+        if (null == result) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, operationInformationDO.toString());
+        } else {
+            log.info("Insert the success :{}", operationInformationDO.toString());
+        }
+        return true;
     }
 
     @Override
@@ -161,13 +167,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         operationInformationDO.setGmtCreate(new Date());
         operationInformationDO.setGmtModified(new Date());
 
-        OperationInformationDO result = this.saveOperationInformationDO(operationInformationDO);
-        if (null == result) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, operationInformationDO.toString());
-        } else {
-            log.info("Insert the success :{}", operationInformationDO.toString());
-            return true;
-        }
+        return this.saveOperationInformationDO(operationInformationDO);
     }
 
     @Override
@@ -202,18 +202,15 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             } else {
                 return false;
             }
-
         } catch (ClassCastException | NumberFormatException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
         operationInformationDO.setOperationEndTime(operationEndTime);
-
+        operationInformationDO.setOperationState(OperationStateEnum.FINISH.getCode());
         operationInformationDO.setOperationTime(operationEndTime.getTime() - operationInformationDO.getOperationStartTime().getTime());
 
-        this.saveOperationInformationDO(operationInformationDO);
-        log.info("Update the success :{}", operationInformationDO.toString());
-        return true;
+        return this.saveOperationInformationDO(operationInformationDO);
     }
 
     @Override
