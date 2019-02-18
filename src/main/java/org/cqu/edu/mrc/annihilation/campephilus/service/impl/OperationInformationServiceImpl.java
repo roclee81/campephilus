@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
 import org.cqu.edu.mrc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.OperationInformationDOConvertOperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
@@ -43,6 +44,11 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByPatientId(patientId, pageable);
+    }
+
+    @Override
+    public Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable) {
+        return operationInformationRepository.findOperationInformationDOSByOperationState(operationState, pageable);
     }
 
     @Override
@@ -96,8 +102,14 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public void saveOperationInformationDO(OperationInformationDO operationInformationDO) {
-        operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+    public boolean saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+        OperationInformationDO result = operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+        if (null == result) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, operationInformationDO.toString());
+        } else {
+            log.info("Insert the success :{}", operationInformationDO.toString());
+        }
+        return true;
     }
 
     @Override
@@ -105,35 +117,42 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         Map dataMap = parseDataDTO.getDataMap();
         int operationNumber = parseDataDTO.getOperationNumber();
 
+        Map<String, Object> operationInfoMap;
         String patientId;
         Date operationStartTime;
         String operationHospitalCode;
-        List<String> deviceInformation;
+        List<Map<String, Object>> deviceInformation;
         try {
-            // 检查是否有operationHospitalCode,没有直接返回false
-            if (dataMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
-                operationHospitalCode = (String) dataMap.get(DataConstants.OPERATION_HOSPITAL_CODE);
-            } else {
-                return false;
-            }
+            // 检查是否有operationInfo,没有直接返回false
+            if (dataMap.containsKey(DataConstants.OPERATION_INFOMATION)) {
+                operationInfoMap = (Map<String, Object>) dataMap.get(DataConstants.OPERATION_INFOMATION);
+                // 检查是否有operationHospitalCode,没有直接返回false
+                if (operationInfoMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
+                    operationHospitalCode = (String) operationInfoMap.get(DataConstants.OPERATION_HOSPITAL_CODE);
+                } else {
+                    return false;
+                }
 
-            // 检查是否有patientId,没有直接返回false
-            if (dataMap.containsKey(DataConstants.PATIENT_ID)) {
-                patientId = (String) dataMap.get(DataConstants.PATIENT_ID);
-            } else {
-                return false;
-            }
+                // 检查是否有patientId,没有直接返回false
+                if (operationInfoMap.containsKey(DataConstants.PATIENT_ID)) {
+                    patientId = (String) operationInfoMap.get(DataConstants.PATIENT_ID);
+                } else {
+                    return false;
+                }
 
-            // 检查是否有operationStartTime，没有直接返回false
-            if (dataMap.containsKey(DataConstants.OPERATION_START_TIME)) {
-                operationStartTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.OPERATION_START_TIME)));
+                // 检查是否有operationStartTime，没有直接返回false
+                if (operationInfoMap.containsKey(DataConstants.OPERATION_START_TIME)) {
+                    operationStartTime = new Date(Long.parseLong((String) operationInfoMap.get(DataConstants.OPERATION_START_TIME)));
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
 
             // 检查是否有deviceInformation,没有直接返回false
             if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
-                deviceInformation = (List<String>) dataMap.get(DataConstants.DEVICE_INFORMATION);
+                deviceInformation = (List<Map<String, Object>>) dataMap.get(DataConstants.DEVICE_INFORMATION);
             } else {
                 return false;
             }
@@ -141,10 +160,19 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
-        OperationInformationDO operationInformationDO = new OperationInformationDO(operationNumber, parseDataDTO.getMacAddress(), patientId, operationHospitalCode, deviceInformation, operationStartTime, null, null, new Date(), new Date());
-        this.saveOperationInformationDO(operationInformationDO);
-        log.info("Insert the success :{}", operationInformationDO.toString());
-        return true;
+        OperationInformationDO operationInformationDO = new OperationInformationDO();
+        operationInformationDO.setOperationNumber(operationNumber);
+        operationInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
+        operationInformationDO.setPatientId(patientId);
+        operationInformationDO.setOperationHospitalCode(operationHospitalCode);
+        operationInformationDO.setDeviceInformation(deviceInformation);
+        operationInformationDO.setOperationStartTime(operationStartTime);
+        operationInformationDO.setOperationEndTime(null);
+        operationInformationDO.setOperationState(OperationStateEnum.IN_PREPARATION.getCode());
+        operationInformationDO.setGmtCreate(new Date());
+        operationInformationDO.setGmtModified(new Date());
+
+        return this.saveOperationInformationDO(operationInformationDO);
     }
 
     @Override
@@ -179,18 +207,15 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             } else {
                 return false;
             }
-
         } catch (ClassCastException | NumberFormatException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
         operationInformationDO.setOperationEndTime(operationEndTime);
-
+        operationInformationDO.setOperationState(OperationStateEnum.FINISH.getCode());
         operationInformationDO.setOperationTime(operationEndTime.getTime() - operationInformationDO.getOperationStartTime().getTime());
 
-        this.saveOperationInformationDO(operationInformationDO);
-        log.info("Update the success :{}", operationInformationDO.toString());
-        return true;
+        return this.saveOperationInformationDO(operationInformationDO);
     }
 
     @Override

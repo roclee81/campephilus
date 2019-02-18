@@ -58,7 +58,6 @@ public class MedicalDataController {
     }
 
     @GetMapping("/operationData")
-    @Cacheable(cacheNames = "operationData", key = "#operationNumber+#collectorMacAddress+#page+#size")
     public ResultVO listOperationData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
                                       @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
                                       @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -76,7 +75,6 @@ public class MedicalDataController {
     }
 
     @GetMapping("/deviceData")
-    @Cacheable(cacheNames = "deviceData", key = "#operationNumber+#deviceId+#page+#size")
     public ResultVO listDeviceData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
                                    @RequestParam(value = "deviceId", defaultValue = "") String deviceId,
                                    @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -94,7 +92,6 @@ public class MedicalDataController {
     }
 
     @GetMapping("/patientData")
-    @Cacheable(cacheNames = "patientData", key = "#operationNumber+#patientId+#page+#size")
     public ResultVO listPatientData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
                                     @RequestParam(value = "patientId", defaultValue = "") String patientId,
                                     @RequestParam(value = "page", defaultValue = "0") Integer page,

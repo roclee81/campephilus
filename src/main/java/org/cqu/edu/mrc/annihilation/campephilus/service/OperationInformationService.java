@@ -30,6 +30,15 @@ public interface OperationInformationService {
     Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 通过手术状态查询OperationInformationNumberDO信息
+     *
+     * @param operationState 手术状态
+     * @param pageable       分页信息
+     * @return OperationInformationDO分页信息
+     */
+    Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable);
+
+    /**
      * 通过患者的ID查询PatientIdOperationNumberDTO信息
      *
      * @param patientId 患者的ID
@@ -118,14 +127,15 @@ public interface OperationInformationService {
      * 保存OperationInformationDO
      *
      * @param operationInformationDO OperationInformationDO信息
+     * @return 是否保存成功
      */
-    void saveOperationInformationDO(OperationInformationDO operationInformationDO);
+    boolean saveOperationInformationDO(OperationInformationDO operationInformationDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationInformationDO来保存信息
      *
      * @param parseDataDTO 初次解析的数据
-     * @return 是否保存成功
+     * @return 是否保存成功，OperationInformationDO则保存成功，null则失败
      */
     boolean saveOperationInformationDO(ParseDataDTO parseDataDTO);
 

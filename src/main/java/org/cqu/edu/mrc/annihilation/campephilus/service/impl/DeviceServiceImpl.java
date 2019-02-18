@@ -101,17 +101,17 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void saveDeviceDO(DeviceDO deviceDO, String deviceId) {
-        // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
-        OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
-        if (null == operationInformationDO) {
-                 throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, deviceDO.toString());
-        }
-        List<String> deviceInformation = operationInformationDO.getDeviceInformation();
-        if (!deviceInformation.contains(deviceId)) {
-            deviceInformation.add(deviceId);
-            operationInformationDO.setGmtModified(new Date());
-            operationInformationRepository.saveOperationInformationDO(operationInformationDO);
-        }
+//        // 首先查询OperationInformation表中deviceInformation属性是否存在该设备
+//        OperationInformationDO operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(deviceDO.getOperationNumber());
+//        if (null == operationInformationDO) {
+//            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, ReplyConstants.OPERATION_INFORMATION_NOT_EXIST, deviceDO.toString());
+//        }
+//        List<Map<String, Object>> deviceInformation = operationInformationDO.getDeviceInformation();
+//        if (!deviceInformation.contains(deviceId)) {
+//            deviceInformation.add(deviceId);
+//            operationInformationDO.setGmtModified(new Date());
+//            operationInformationRepository.saveOperationInformationDO(operationInformationDO);
+//        }
         deviceRepository.save(deviceDO, deviceId);
     }
 
