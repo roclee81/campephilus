@@ -51,7 +51,7 @@ public class DataStorageServiceImplTest {
         MedicalDataForm medicalDataForm2 = new MedicalDataForm();
         medicalDataForm2.setCode(151);
         medicalDataForm2.setMac("00-0f-e2-2e-94-a9");
-        medicalDataForm2.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
+        medicalDataForm2.setData("{\"patientId\":\"1022\",\"operationCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO2 = dataStorageService.processMedicalData(medicalDataForm2);
         Assert.assertEquals((int) resultDataDTO2.getCode(), -2);
     }
