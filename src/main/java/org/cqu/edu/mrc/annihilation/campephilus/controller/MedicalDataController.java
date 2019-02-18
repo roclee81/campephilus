@@ -70,7 +70,7 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         List<OperationInformationDTO> result = dataSearchService.listOperationData(operationNumber, collectorMacAddress, pageRequest);
-        return result.size() < 1 ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+        return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
     @GetMapping("/deviceData")
@@ -87,7 +87,7 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         List<DeviceDTO> result = dataSearchService.listDeviceData(operationNumber, deviceId, pageRequest);
-        return result.size() < 1 ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+        return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
     @GetMapping("/patientData")
@@ -104,6 +104,6 @@ public class MedicalDataController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         List<PatientInformationDTO> result = dataSearchService.listPatientData(operationNumber, patientId, pageRequest);
-        return result.size() < 1 ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+        return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 }

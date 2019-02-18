@@ -77,7 +77,7 @@ public class DataSearchServiceImpl implements DataSearchService {
 
         List<OperationInformationDTO> result = new ArrayList<>();
         // 如果传入了不为0，则是查询特定的OperationInformationDTO
-        if (operationNumber > 1) {
+        if (operationNumber >= 1) {
             result.add(operationInformationService.getOperationInformationDTOByOperationNumber(operationNumber));
         }
 

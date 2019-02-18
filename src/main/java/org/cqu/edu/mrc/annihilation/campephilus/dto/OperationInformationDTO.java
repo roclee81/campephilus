@@ -3,6 +3,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.dto;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,7 +42,12 @@ public class OperationInformationDTO {
     /**
      * 手术中使用的设备信息 标明设备的ID及设备型号
      */
-    private Map deviceInformation;
+    private List<Map<String, Object>> deviceInformation;
+
+    /**
+     * 手术状态
+     */
+    private Integer operationState;
 
     /**
      * 手术开始时间
