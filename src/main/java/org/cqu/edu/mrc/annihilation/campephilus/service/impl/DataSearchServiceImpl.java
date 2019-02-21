@@ -1,8 +1,10 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.DeviceDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +28,14 @@ public class DataSearchServiceImpl implements DataSearchService {
     private final DeviceServiceImpl deviceService;
     private final PatientInformationServiceImpl patientInformationService;
     private final OperationInformationServiceImpl operationInformationService;
+    private final CollectorInformationService collectorInformationService;
 
     @Autowired
-    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService) {
+    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService) {
         this.deviceService = deviceService;
         this.patientInformationService = patientInformationService;
         this.operationInformationService = operationInformationService;
+        this.collectorInformationService = collectorInformationService;
     }
 
     @Override
@@ -83,4 +87,10 @@ public class DataSearchServiceImpl implements DataSearchService {
 
         return result;
     }
+
+    @Override
+    public CollectorInformationDTO listCollectorData(Pageable pageable) {
+        return collectorInformationService.getCollectorInformationDTO(pageable);
+    }
+
 }

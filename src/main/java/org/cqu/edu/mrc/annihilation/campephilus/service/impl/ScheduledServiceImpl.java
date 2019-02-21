@@ -59,6 +59,7 @@ public class ScheduledServiceImpl implements ScheduledService {
                             collectorStateList, gmtCollectorLastUploadDataBefore, pageable);
             // 6. 获取后取出每一个，将状态改为离线;
             collectorInformationDOPage.stream().forEach((collectorInformationDO -> {
+                collectorInformationDO.setGmtModified(new Date());
                 collectorInformationDO.setCollectorState(CollectorStateEnum.OFFLINE.getCode());
                 collectorInformationDOList.add(collectorInformationDO);
             }));

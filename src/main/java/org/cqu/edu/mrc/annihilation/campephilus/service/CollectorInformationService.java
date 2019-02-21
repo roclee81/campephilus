@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -104,5 +105,11 @@ public interface CollectorInformationService {
      */
     Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable);
 
-
+    /**
+     * 得到CollectorInformationDTO信息
+     *
+     * @param pageable 分页信息
+     * @return 成功为CollectorInformationDTO，失败为null
+     */
+    CollectorInformationDTO getCollectorInformationDTO(Pageable pageable);
 }

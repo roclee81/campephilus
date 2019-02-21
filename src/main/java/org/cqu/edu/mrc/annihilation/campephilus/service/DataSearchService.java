@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.DeviceDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
@@ -56,4 +57,12 @@ public interface DataSearchService {
      * 如果只有一个数据，也将加入到列表中
      */
     List<OperationInformationDTO> listOperationData(int operationNumber, String collectorMacAddress, Pageable pageable);
+
+    /**
+     * 通过Pageable得到CollectorInformationDTO
+     *
+     * @param pageable 分页信息
+     * @return CollectorInformationDTO
+     */
+    CollectorInformationDTO listCollectorData(Pageable pageable);
 }

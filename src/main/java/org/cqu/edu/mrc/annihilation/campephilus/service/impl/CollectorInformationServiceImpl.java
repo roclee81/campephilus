@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.CollectorInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
@@ -9,9 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author lx
@@ -96,6 +95,21 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     @Override
     public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable) {
         return collectorInformationRepository.getCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(collectorStateList, gmtCollectorLastUploadDataBefore, pageable);
+    }
+
+    @Override
+    public CollectorInformationDTO getCollectorInformationDTO(Pageable pageable) {
+        CollectorInformationDTO collectorInformationDTO = new CollectorInformationDTO();
+        int collectorTotalNumber = this.countCollectorInformationDOS();
+        int runningCollectorNumber = this.countCollectorInformationDOSByCollectorStateIn(new ArrayList<>(Collections.singletonList(CollectorStateEnum.RUNNING.getCode())));
+        int offlineCollectorNumber = collectorTotalNumber - runningCollectorNumber;
+        collectorInformationDTO.setCollectorTotalNumber(collectorTotalNumber);
+        collectorInformationDTO.setOfflineCollectorNumber(offlineCollectorNumber);
+        collectorInformationDTO.setRunningCollectorNumber(runningCollectorNumber);
+        if (null != pageable) {
+            collectorInformationDTO.setCollectorInformationDOList(this.listCollectorInformationDOS(pageable).getContent());
+        }
+        return collectorInformationDTO;
     }
 
     private List<Integer> getAllCollectorState() {

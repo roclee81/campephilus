@@ -1,5 +1,8 @@
 package org.cqu.edu.mrc.annihilation.common.utils;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.lang.reflect.Field;
 
 /**
@@ -10,7 +13,7 @@ import java.lang.reflect.Field;
  * 对实体类进行判断
  * 判断实体类中属性是否为空
  */
-public class BeanUtil<T>{
+public class BeanUtil {
 
     public static boolean isAllFieldNull(Object obj) {
         // 得到类对象
@@ -60,6 +63,16 @@ public class BeanUtil<T>{
             }
         }
         return true;
+    }
+
+    public static Pageable getPageable(int page, int size) {
+        Pageable pageable;
+        try {
+            pageable = PageRequest.of(page, size);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        return pageable;
     }
 
 }
