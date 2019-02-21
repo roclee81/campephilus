@@ -4,6 +4,9 @@ import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author lx
  * @version V1.0
@@ -12,7 +15,6 @@ import org.springframework.data.domain.Pageable;
  * Description:
  */
 public interface CollectorInformationService {
-
     /**
      * 通过collectorMacAddress获得CollectorInformationDO实体
      *
@@ -40,6 +42,14 @@ public interface CollectorInformationService {
     CollectorInformationDO saveCollectorInformationDO(CollectorInformationDO collectorInformationDO);
 
     /**
+     * 批量保存CollectorInformationDO实体
+     *
+     * @param collectorInformationDOIterable CollectorInformationDO迭代器
+     * @return 保存结果，如果成功返回List<CollectorInformationDO>，失败返回空
+     */
+    List<CollectorInformationDO> saveCollectorInformationDOS(List<CollectorInformationDO> collectorInformationDOIterable);
+
+    /**
      * 更改CollectorInformationDO实体的属性，当数据不存在时候，将创建
      *
      * @param collectorMacAddress      采集器的MAC地址
@@ -49,5 +59,50 @@ public interface CollectorInformationService {
      * @return 保存更改成功，如果成功返回CollectorInformationDO实体，失败返回空
      */
     CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes);
+
+    /**
+     * 通过采集器状态查询采集器信息
+     * 需要查询所有信息则传入所有状态值列表
+     *
+     * @param collectorStateList 需要查找的采集器状态列表
+     * @param pageable           分页信息
+     * @return 状态为输入状态的采集器的信息
+     */
+    Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList, Pageable pageable);
+
+    /**
+     * 获得所有CollectorInformationDO
+     *
+     * @param pageable 分页信息
+     * @return CollectorInformationDO的分页信息
+     */
+    Page<CollectorInformationDO> listCollectorInformationDOS(Pageable pageable);
+
+    /**
+     * 通过采集器状态查询采集器数量
+     * 需要查询所有个数则传入所有状态值列表
+     *
+     * @param collectorStateList 需要统计的采集器状态列表
+     * @return 状态为输入状态的采集器的个数
+     */
+    Integer countCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList);
+
+    /**
+     * 获得数据库中的采集器的信息的条数，即采集器的人数
+     *
+     * @return 采集器的总数
+     */
+    Integer countCollectorInformationDOS();
+
+    /**
+     * 通过采集器的状态和采集器最后上传数据的时间来查询数据
+     *
+     * @param collectorStateList               需要查找的采集器状态列表
+     * @param gmtCollectorLastUploadDataBefore 需要查询的时间，将查找采集器最后一个数据上传的时间在输入时间之前的
+     * @param pageable                         分页信息
+     * @return 符合的Page<CollectorInformationDO>
+     */
+    Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable);
+
 
 }

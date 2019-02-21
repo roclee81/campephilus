@@ -1,5 +1,7 @@
 package org.cqu.edu.mrc.annihilation.common.enums;
 
+import lombok.Getter;
+
 /**
  * realdata
  *
@@ -10,6 +12,19 @@ package org.cqu.edu.mrc.annihilation.common.enums;
  * Description:
  * 错误值枚举
  */
-public class ErrorEnum {
+@Getter
+public enum ErrorEnum {
 
-}
+    /**
+     * 保存出错
+     */
+    SAVE_ERROR(-1),
+    ;
+
+
+    private Integer code;
+
+    ErrorEnum(Integer code) {
+
+        this.code = code;
+    }}

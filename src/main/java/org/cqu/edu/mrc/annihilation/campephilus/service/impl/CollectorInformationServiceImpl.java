@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.CollectorInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lx
@@ -43,6 +46,11 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     }
 
     @Override
+    public List<CollectorInformationDO> saveCollectorInformationDOS(List<CollectorInformationDO> collectorInformationDOIterable) {
+        return collectorInformationRepository.saveAll(collectorInformationDOIterable);
+    }
+
+    @Override
     public CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes) {
         CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;
@@ -61,6 +69,42 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
         collectorInformationDO.setGmtCollectorLastUploadData(new Date());
         collectorInformationDO.setGmtModified(new Date());
         return this.saveCollectorInformationDO(collectorInformationDO);
+    }
+
+    @Override
+    public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList, Pageable pageable) {
+        return collectorInformationRepository.getCollectorInformationDOSByCollectorStateIn(collectorStateList, pageable);
+    }
+
+    @Override
+    public Page<CollectorInformationDO> listCollectorInformationDOS(Pageable pageable) {
+        List<Integer> collectorStateList = getAllCollectorState();
+        return this.listCollectorInformationDOSByCollectorStateIn(collectorStateList, pageable);
+    }
+
+    @Override
+    public Integer countCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList) {
+        return collectorInformationRepository.countCollectorInformationDOSByCollectorStateIn(collectorStateList);
+    }
+
+    @Override
+    public Integer countCollectorInformationDOS() {
+        List<Integer> collectorStateList = getAllCollectorState();
+        return this.countCollectorInformationDOSByCollectorStateIn(collectorStateList);
+    }
+
+    @Override
+    public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable) {
+        return collectorInformationRepository.getCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(collectorStateList, gmtCollectorLastUploadDataBefore, pageable);
+    }
+
+    private List<Integer> getAllCollectorState() {
+        List<Integer> collectorStateList = new ArrayList<>();
+
+        for (CollectorStateEnum collectorState : CollectorStateEnum.values()) {
+            collectorStateList.add(collectorState.getCode());
+        }
+        return collectorStateList;
     }
 
 }

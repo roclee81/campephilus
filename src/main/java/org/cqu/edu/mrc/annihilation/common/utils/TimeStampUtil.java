@@ -17,8 +17,18 @@ public class TimeStampUtil {
      *
      * @return 当前时间戳
      */
-    public static Integer getCurrentTimeStamp() {
+    private static Integer getCurrentTimeStamp() {
         return (int) (System.currentTimeMillis() / 1000);
+    }
+
+    /**
+     * 得到与当前时间前多少分钟的时间戳
+     *
+     * @param minute 当前时间前多少分钟
+     * @return 当前时间前多少分钟的时间戳
+     */
+    public static Integer getMinuteBeforeTimeStamp(int minute) {
+        return getCurrentTimeStamp() - 60 * minute;
     }
 
     /**
@@ -28,6 +38,20 @@ public class TimeStampUtil {
      */
     public static Integer getDayBeforeTimeStamp() {
         return getCurrentTimeStamp() - 86400;
+    }
+
+    /**
+     * 得到与当前时间前多少分钟的时间
+     *
+     * @param minute 当前时间前多少分钟就输入负
+     *               需要退后就输入正
+     *               例如：得到前十分钟，输入 -10
+     * @return 当前时间前多少分钟的时间
+     */
+    public static Date getMinuteDate(int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, minute);
+        return calendar.getTime();
     }
 
     /**

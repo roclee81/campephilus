@@ -1,9 +1,8 @@
 package org.cqu.edu.mrc.annihilation.campephilus;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * campephilus
@@ -14,7 +13,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * Description:
  */
 @SpringBootApplication
-@EnableCaching
+@EnableScheduling
 public class CampephilusApplication {
 
     public static void main(String[] args) {

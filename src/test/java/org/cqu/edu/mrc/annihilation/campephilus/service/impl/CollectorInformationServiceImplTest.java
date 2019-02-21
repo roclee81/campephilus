@@ -61,4 +61,28 @@ public class CollectorInformationServiceImplTest {
         CollectorInformationDO result = collectorInformationService.updateCollectorInformationDO("test", 1, 1L, 1);
         assertNotNull(result);
     }
+
+    @Test
+    public void saveCollectorInformationDOS() {
+    }
+
+    @Test
+    public void listCollectorInformationDOSByCollectorStateIn() {
+    }
+
+    @Test
+    public void listCollectorInformationDOS() {
+    }
+
+    @Test
+    public void countCollectorInformationDOSByCollectorStateIn() {
+    }
+
+    @Test
+    public void countCollectorInformationDOS() {
+    }
+
+    @Test
+    public void listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore() {
+    }
 }
