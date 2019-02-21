@@ -4,13 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.cqu.edu.mrc.annihilation.common.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
 import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.service.DataStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,17 +31,19 @@ import java.util.Map;
 @Slf4j
 public class DataStorageServiceImpl implements DataStorageService {
 
-    private final DeviceServiceImpl deviceService;
-    private final OperationMarkServiceImpl operationMarkService;
-    private final OperationInformationServiceImpl operationInformationService;
-    private final PatientInformationServiceImpl patientInformationService;
+    private final DeviceService deviceService;
+    private final OperationMarkService operationMarkService;
+    private final OperationInformationService operationInformationService;
+    private final PatientInformationService patientInformationService;
+    private final CollectorInformationService collectorInformationService;
 
     @Autowired
-    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkServiceImpl operationMarkService, OperationInformationServiceImpl operationInformationService, PatientInformationServiceImpl patientInformationService) {
+    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;
         this.patientInformationService = patientInformationService;
+        this.collectorInformationService = collectorInformationService;
     }
 
     /**
@@ -68,6 +71,15 @@ public class DataStorageServiceImpl implements DataStorageService {
         ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
 
         boolean result = processCode(parseDataDTO);
+
+        // 如果保存成功，将对CollectorInformation表进行更改
+        if (result) {
+            if (parseDataDTO.getCode().equals(RequestEnum.OPERATION_READY.getCode())) {
+                collectorInformationService.updateCollectorInformationDO(parseDataDTO.getMacAddress(), CollectorStateEnum.RUNNING.getCode(), 1L, 1);
+            } else {
+                collectorInformationService.updateCollectorInformationDO(parseDataDTO.getMacAddress(), CollectorStateEnum.RUNNING.getCode(), 0L, 1);
+            }
+        }
 
         Map<String, Object> map = new HashMap<>(16);
         map.put(DataConstants.MAC, parseDataDTO.getMacAddress());

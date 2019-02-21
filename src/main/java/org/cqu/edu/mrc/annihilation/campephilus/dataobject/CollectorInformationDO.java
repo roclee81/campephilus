@@ -13,7 +13,7 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Document
+@Document(value = "collector_information")
 @Data
 public class CollectorInformationDO {
 

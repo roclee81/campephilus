@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author lx
  * @version V1.0
@@ -39,4 +41,26 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     public CollectorInformationDO saveCollectorInformationDO(CollectorInformationDO collectorInformationDO) {
         return collectorInformationRepository.save(collectorInformationDO);
     }
+
+    @Override
+    public CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes) {
+        CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        CollectorInformationDO collectorInformationDO;
+        if (null == oldCollectorInformationDO) {
+            collectorInformationDO = new CollectorInformationDO();
+            collectorInformationDO.setCollectorMacAddress(collectorMacAddress);
+            collectorInformationDO.setGmtCreate(new Date());
+            collectorInformationDO.setCollectorUploadDataTimes(collectorUploadDataTimes);
+            collectorInformationDO.setCollectorOperationTimes(collectorOperationTimes);
+        } else {
+            collectorInformationDO = oldCollectorInformationDO;
+            collectorInformationDO.setCollectorOperationTimes(collectorInformationDO.getCollectorOperationTimes() + collectorOperationTimes);
+            collectorInformationDO.setCollectorUploadDataTimes(oldCollectorInformationDO.getCollectorUploadDataTimes() + collectorUploadDataTimes);
+        }
+        collectorInformationDO.setCollectorState(collectorState);
+        collectorInformationDO.setGmtCollectorLastUploadData(new Date());
+        collectorInformationDO.setGmtModified(new Date());
+        return this.saveCollectorInformationDO(collectorInformationDO);
+    }
+
 }
