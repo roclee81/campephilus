@@ -4,15 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
+import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
+import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 /**
  * @author lx
@@ -26,13 +29,25 @@ import java.util.Objects;
 @Slf4j
 public class InformationController {
 
-//    @PostMapping(value = "version/update")
-//    public ResultVO updateVersionData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-//            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "Data format error", msg);
-//        }
-//
-//        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);
-//        return new ResultVO(resultDataDTO.getCode(), resultDataDTO.getMsg());
+    private final VersionInformationService versionInformationService;
+
+    @Autowired
+    public InformationController(VersionInformationService versionInformationService) {
+        this.versionInformationService = versionInformationService;
+    }
+
+    @PostMapping(value = "version/update")
+    public ResultVO updateVersionData(@Valid InformationForm informationForm, BindingResult bindingResult) {
+        BindingResultUtil.checkBindingResult(bindingResult);
+
+        boolean result = versionInformationService.saveInformation(informationForm);
+
+        if (result) {
+            return ResultVO.success("success");
+        } else {
+            ResultVO.error(ResponseEnum.UNKNOWN_ERROR.getCode(), "error");
+        }
+        return null;
+    }
+
 }

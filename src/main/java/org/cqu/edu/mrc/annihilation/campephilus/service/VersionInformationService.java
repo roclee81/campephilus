@@ -3,6 +3,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.FeedbackInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.VersionInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.VersionInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -44,4 +45,12 @@ public interface VersionInformationService {
      * @return VersionInformationDTO
      */
     VersionInformationDTO getVersionInformationDTO();
+
+    /**
+     * 保存表单信息
+     *
+     * @param informationForm 表单信息
+     * @return 是否保存成功
+     */
+    boolean saveInformation(InformationForm informationForm);
 }

@@ -9,6 +9,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataStorageService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -42,10 +43,7 @@ public class DataController {
 
     @PostMapping("/update")
     public ResultVO processMedicalData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "Data format error", msg);
-        }
+        BindingResultUtil.checkBindingResult(bindingResult);
 
         ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);
         return new ResultVO(resultDataDTO.getCode(), resultDataDTO.getMsg());
