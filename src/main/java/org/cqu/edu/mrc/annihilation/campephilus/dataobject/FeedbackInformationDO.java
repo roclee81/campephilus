@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author lx
@@ -26,7 +27,7 @@ public class FeedbackInformationDO {
      * 反馈信息
      */
     @Field(value = "msg")
-    private String msg;
+    private Map<String, Object> msg;
 
     /**
      * 数据创建时间

@@ -1,11 +1,9 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.DeviceDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.FeedbackInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,13 +27,15 @@ public class DataSearchServiceImpl implements DataSearchService {
     private final PatientInformationServiceImpl patientInformationService;
     private final OperationInformationServiceImpl operationInformationService;
     private final CollectorInformationService collectorInformationService;
+    private final FeedbackInformationService feedbackInformationService;
 
     @Autowired
-    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService) {
+    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService, FeedbackInformationService feedbackInformationService) {
         this.deviceService = deviceService;
         this.patientInformationService = patientInformationService;
         this.operationInformationService = operationInformationService;
         this.collectorInformationService = collectorInformationService;
+        this.feedbackInformationService = feedbackInformationService;
     }
 
     @Override
@@ -91,6 +91,11 @@ public class DataSearchServiceImpl implements DataSearchService {
     @Override
     public CollectorInformationDTO listCollectorData(Pageable pageable) {
         return collectorInformationService.getCollectorInformationDTO(pageable);
+    }
+
+    @Override
+    public List<FeedbackInformationDTO> listFeedbackData(Pageable pageable) {
+        return feedbackInformationService.listFeedbackInformationDTO(pageable);
     }
 
 }

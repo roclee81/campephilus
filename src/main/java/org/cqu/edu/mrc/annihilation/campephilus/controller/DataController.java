@@ -103,4 +103,12 @@ public class DataController {
         CollectorInformationDTO result = dataSearchService.listCollectorData(BeanUtil.getPageable(page, size));
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
+
+    @GetMapping("/feedbackData")
+    public ResultVO listFeedbackData(@RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "size", defaultValue = "20") int size) {
+
+        List<FeedbackInformationDTO> result = dataSearchService.listFeedbackData(BeanUtil.getPageable(page, size));
+        return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+    }
 }

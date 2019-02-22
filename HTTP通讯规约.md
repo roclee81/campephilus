@@ -4,6 +4,8 @@
 * UNKNOWN_ERROR(-1,"未知错误"),
 * DEVICE_REGISTER(99, "注册"),
 * REGISTER_SUCCESS(100, "开机注册成功"),
+* VERSION_REQUEST(101, "请求版本号"),
+* VERSION_REQUEST_SUCCESS(102, "版本号请求成功"),
 * DATA_FORMAT_ERROR(-2,"数据格式错误"),
 * OPERATION_READY(151,"准备要开始新的手术，获取operationNumber"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
@@ -39,8 +41,8 @@
 * POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182, "可以发送术后患者信息，服务器已经准备好了"),
 * POSTOPERATIVE_PATIENT_INFO(183, "是术后患者信息"),
 * POSTOPERATIVE_PATIENT_INFO_SUCCESS(184, "收到术后患者信息"),
-* FEEDBACK_INFO(199, "是反馈数据"),
-* FEEDBACK_INFO(200, "反馈数据接收成功"),
+* FEEDBACK_INFO(185, "是反馈数据"),
+* FEEDBACK_INFO_SUCCESS(186, "反馈数据接收成功"),
 
 
 ## 上传规则
@@ -64,7 +66,6 @@ code: 99
 mac: "mac"
 operationNumber: -1
 data: {}
-}
 ```
 
 * #### 服务器将回复(未使用)
@@ -73,6 +74,25 @@ code: 100
 mac: "mac"
 operationNumber: -1
 data: {}
+```
+
+* #### 请求版本号
+```
+code: 101
+mac: "mac"
+operationNumber: -1
+data: {}
+```
+
+* #### 回复请求版本号
+```
+code: 102
+mac: "mac"
+operationNumber: -1
+data: {
+      	"applicationVersion": "0.1.0",
+      	"collectorVersion": "0.1.0"
+      }
 ```
 
 * #### 准备要开始手术了(手术开始准备,请求operationNumber)
@@ -349,7 +369,7 @@ data: {}
 
 * #### 发送用户反馈信息
 ```
-code: 199
+code: 185
 mac: "mac"
 operationNumber: 1
 data: {
@@ -359,7 +379,7 @@ data: {
 
 * #### 收到发送的用户反馈信息
 ```
-code: 200
+code: 186
 mac: "mac"
 operationNumber: 1
 data: {}

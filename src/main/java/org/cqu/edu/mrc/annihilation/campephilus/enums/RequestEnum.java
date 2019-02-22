@@ -1,4 +1,4 @@
-package org.cqu.edu.mrc.annihilation.common.enums;
+package org.cqu.edu.mrc.annihilation.campephilus.enums;
 
 import lombok.Getter;
 
@@ -18,6 +18,11 @@ public enum RequestEnum {
      * 注册
      */
     DEVICE_REGISTER(99),
+
+    /**
+     * 请求版本号
+     */
+    VERSION_REQUEST(101),
 
     /**
      * 准备要开始新的手术，获取opn
@@ -103,7 +108,11 @@ public enum RequestEnum {
      * 是术后患者信息
      */
     POSTOPERATIVE_PATIENT_INFO(183),
-    ;
+
+    /**
+     * 是反馈数据
+     */
+    FEEDBACK_INFO(185);
 
     private Integer code;
 

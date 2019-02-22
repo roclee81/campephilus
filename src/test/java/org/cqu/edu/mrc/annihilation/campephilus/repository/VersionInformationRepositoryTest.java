@@ -29,7 +29,7 @@ public class VersionInformationRepositoryTest {
     public void save() {
         VersionInformationDO versionInformationDO = new VersionInformationDO();
         versionInformationDO.setApplicationVersion("0");
-        versionInformationDO.setHardwareVersion("0");
+        versionInformationDO.setCollectorVersion("0");
         versionInformationDO.setGmtCreate(new Date());
         versionInformationDO.setGmtModified(new Date());
         VersionInformationDO result = versionInformationRepository.save(versionInformationDO);
@@ -40,7 +40,7 @@ public class VersionInformationRepositoryTest {
     public void save1() {
         VersionInformationDO versionInformationDO = new VersionInformationDO();
         versionInformationDO.setApplicationVersion("1");
-        versionInformationDO.setHardwareVersion("1");
+        versionInformationDO.setCollectorVersion("1");
         versionInformationDO.setGmtCreate(new Date());
         versionInformationDO.setGmtModified(new Date());
         VersionInformationDO result = versionInformationRepository.save(versionInformationDO);
@@ -51,7 +51,7 @@ public class VersionInformationRepositoryTest {
     public void save2() {
         VersionInformationDO versionInformationDO = new VersionInformationDO();
         versionInformationDO.setApplicationVersion("2");
-        versionInformationDO.setHardwareVersion("2");
+        versionInformationDO.setCollectorVersion("2");
         versionInformationDO.setGmtCreate(new Date());
         versionInformationDO.setGmtModified(new Date());
         VersionInformationDO result = versionInformationRepository.save(versionInformationDO);

@@ -1,8 +1,12 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.FeedbackInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.FeedbackInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @author lx
@@ -28,4 +32,20 @@ public interface FeedbackInformationService {
      * @return Page<FeedbackInformationDO>，查询失败为空的page
      */
     Page<FeedbackInformationDO> listAllByIdNotNull(Pageable pageable);
+
+    /**
+     * 保存FeedbackInformationDO
+     *
+     * @param parseDataDTO 解析后的请求体
+     * @return 是否保存成功
+     */
+    boolean saveFeedbackInformationDO(ParseDataDTO parseDataDTO);
+
+    /**
+     * 按照pageable找到所有的FeedbackInformationDTO
+     *
+     * @param pageable 分页信息
+     * @return Page<FeedbackInformationDTO>，查询失败为空的page
+     */
+    List<FeedbackInformationDTO> listFeedbackInformationDTO(Pageable pageable);
 }

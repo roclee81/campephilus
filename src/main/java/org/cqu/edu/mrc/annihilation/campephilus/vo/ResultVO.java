@@ -2,7 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.vo;
 
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.ReplyConstants;
-import org.cqu.edu.mrc.annihilation.common.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 
 import java.io.Serializable;
 import java.util.HashMap;

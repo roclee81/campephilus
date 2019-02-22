@@ -50,6 +50,11 @@ public enum ResponseEnum {
     REGISTER_SUCCESS(100),
 
     /**
+     * 版本号请求成功
+     */
+    VERSION_REQUEST_SUCCESS(102),
+
+    /**
      * 服务器准备完毕，可以开始手术了
      */
     OPERATION_READY_SUCCESS(152),
@@ -123,6 +128,21 @@ public enum ResponseEnum {
      * 回复收到手术结束的信息
      */
     OPERATION_END_SUCCESS(180),
+
+    /**
+     * 可以发送术后患者信息，服务器已经准备好了
+     */
+    POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182),
+
+    /**
+     * 收到术后患者信息
+     */
+    POSTOPERATIVE_PATIENT_INFO_SUCCESS(184),
+
+    /**
+     * 反馈数据接收成功
+     */
+    FEEDBACK_INFO_SUCCESS(186),
     ;
 
     private Integer code;

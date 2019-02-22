@@ -3,11 +3,9 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
-import org.cqu.edu.mrc.annihilation.campephilus.constant.ReplyConstants;
-import org.cqu.edu.mrc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.DeviceDOConvertDeviceDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.DeviceDO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.DeviceRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.impl.OperationInformationRepositoryImpl;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;

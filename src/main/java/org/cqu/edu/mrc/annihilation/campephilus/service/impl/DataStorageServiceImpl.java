@@ -5,9 +5,9 @@ import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.service.*;
-import org.cqu.edu.mrc.annihilation.common.enums.RequestEnum;
-import org.cqu.edu.mrc.annihilation.common.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
 import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
@@ -36,14 +36,18 @@ public class DataStorageServiceImpl implements DataStorageService {
     private final OperationInformationService operationInformationService;
     private final PatientInformationService patientInformationService;
     private final CollectorInformationService collectorInformationService;
+    private final VersionInformationService versionInformationService;
+    private final FeedbackInformationService feedbackInformationService;
 
     @Autowired
-    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService) {
+    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;
         this.patientInformationService = patientInformationService;
         this.collectorInformationService = collectorInformationService;
+        this.versionInformationService = versionInformationService;
+        this.feedbackInformationService = feedbackInformationService;
     }
 
     /**
@@ -156,6 +160,11 @@ public class DataStorageServiceImpl implements DataStorageService {
         // 处理上传的手术过程中标记的情况
         if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
             return operationMarkService.saveOperationMarkDO(parseDataDTO);
+        }
+
+        // 处理上传的反馈数据
+        if (RequestEnum.FEEDBACK_INFO.getCode().equals(code)) {
+            return feedbackInformationService.saveFeedbackInformationDO(parseDataDTO);
         }
 
         // 需要特殊处理的情况都没有的，枚举其余请求，是否存在

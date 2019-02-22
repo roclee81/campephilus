@@ -33,7 +33,7 @@ public class FeedbackInformationRepositoryTest {
         FeedbackInformationDO feedbackInformationDO = new FeedbackInformationDO();
         feedbackInformationDO.setGmtCreate(new Date());
         feedbackInformationDO.setGmtModified(new Date());
-        feedbackInformationDO.setMsg("nononono");
+//        feedbackInformationDO.setMsg("nononono");
         FeedbackInformationDO result = repository.save(feedbackInformationDO);
         assertNotNull(result);
     }
@@ -43,7 +43,7 @@ public class FeedbackInformationRepositoryTest {
         FeedbackInformationDO feedbackInformationDO = new FeedbackInformationDO();
         feedbackInformationDO.setGmtCreate(new Date());
         feedbackInformationDO.setGmtModified(new Date());
-        feedbackInformationDO.setMsg("nononono12321");
+//        feedbackInformationDO.setMsg("nononono12321");
         FeedbackInformationDO result = repository.save(feedbackInformationDO);
         assertNotNull(result);
     }
@@ -53,7 +53,7 @@ public class FeedbackInformationRepositoryTest {
         FeedbackInformationDO feedbackInformationDO = new FeedbackInformationDO();
         feedbackInformationDO.setGmtCreate(new Date());
         feedbackInformationDO.setGmtModified(new Date());
-        feedbackInformationDO.setMsg("nononono12asdsads321");
+//        feedbackInformationDO.setMsg("nononono12asdsads321");
         FeedbackInformationDO result = repository.save(feedbackInformationDO);
         assertNotNull(result);
     }
