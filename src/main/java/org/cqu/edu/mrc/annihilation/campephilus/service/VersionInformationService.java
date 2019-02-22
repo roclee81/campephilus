@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.FeedbackInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.VersionInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.VersionInformationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -36,4 +37,11 @@ public interface VersionInformationService {
      * @return Page<VersionInformationDO>，查询失败为空的page
      */
     Page<VersionInformationDO> listAllByIdNotNull(Pageable pageable);
+
+    /**
+     * 得到最新的VersionInformationDTO版本信息
+     *
+     * @return VersionInformationDTO
+     */
+    VersionInformationDTO getVersionInformationDTO();
 }

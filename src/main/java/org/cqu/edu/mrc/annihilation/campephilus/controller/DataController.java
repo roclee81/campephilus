@@ -111,4 +111,11 @@ public class DataController {
         List<FeedbackInformationDTO> result = dataSearchService.listFeedbackData(BeanUtil.getPageable(page, size));
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
+
+    @GetMapping("/versionData")
+    public ResultVO getVersionData() {
+
+        VersionInformationDTO result = dataSearchService.getVersionData();
+        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+    }
 }

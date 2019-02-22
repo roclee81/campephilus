@@ -70,4 +70,11 @@ public interface DataSearchService {
      * @return FeedbackInformationDTO
      */
     List<FeedbackInformationDTO> listFeedbackData(Pageable pageable);
+
+    /**
+     * 得到最新的版本信息
+     *
+     * @return VersionInformationDTO
+     */
+    VersionInformationDTO getVersionData();
 }
