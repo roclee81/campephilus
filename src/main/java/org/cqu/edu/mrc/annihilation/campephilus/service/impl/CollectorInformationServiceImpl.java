@@ -31,12 +31,12 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public CollectorInformationDO getCollectorInformationDOByCollectorMacAddress(String collectorMacAddress) {
-        return collectorInformationRepository.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        return collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
     }
 
     @Override
     public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorState(Integer collectorState, Pageable pageable) {
-        return collectorInformationRepository.getCollectorInformationDOSByCollectorState(collectorState, pageable);
+        return collectorInformationRepository.findCollectorInformationDOSByCollectorState(collectorState, pageable);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes) {
-        CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;
         if (null == oldCollectorInformationDO) {
             collectorInformationDO = new CollectorInformationDO();
@@ -72,7 +72,7 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList, Pageable pageable) {
-        return collectorInformationRepository.getCollectorInformationDOSByCollectorStateIn(collectorStateList, pageable);
+        return collectorInformationRepository.findCollectorInformationDOSByCollectorStateIn(collectorStateList, pageable);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public Page<CollectorInformationDO> listCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable) {
-        return collectorInformationRepository.getCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(collectorStateList, gmtCollectorLastUploadDataBefore, pageable);
+        return collectorInformationRepository.findCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(collectorStateList, gmtCollectorLastUploadDataBefore, pageable);
     }
 
     @Override

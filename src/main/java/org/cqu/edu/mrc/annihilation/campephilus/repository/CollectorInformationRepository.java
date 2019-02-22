@@ -25,7 +25,7 @@ public interface CollectorInformationRepository extends MongoRepository<Collecto
      * @param collectorMacAddress 采集器的MAC地址
      * @return CollectorInformationDO实体
      */
-    CollectorInformationDO getCollectorInformationDOByCollectorMacAddress(String collectorMacAddress);
+    CollectorInformationDO findCollectorInformationDOByCollectorMacAddress(String collectorMacAddress);
 
     /**
      * 通过采集器的状态得到对应的CollectorInformationDO实体
@@ -34,7 +34,7 @@ public interface CollectorInformationRepository extends MongoRepository<Collecto
      * @param pageable       分页信息
      * @return CollectorInformationDO的分页信息
      */
-    Page<CollectorInformationDO> getCollectorInformationDOSByCollectorState(Integer collectorState, Pageable pageable);
+    Page<CollectorInformationDO> findCollectorInformationDOSByCollectorState(Integer collectorState, Pageable pageable);
 
     /**
      * 通过采集器状态查询采集器信息
@@ -44,7 +44,7 @@ public interface CollectorInformationRepository extends MongoRepository<Collecto
      * @param pageable           分页信息
      * @return 状态为输入状态的采集器的信息
      */
-    Page<CollectorInformationDO> getCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList, Pageable pageable);
+    Page<CollectorInformationDO> findCollectorInformationDOSByCollectorStateIn(List<Integer> collectorStateList, Pageable pageable);
 
     /**
      * 通过采集器状态查询采集器数量
@@ -63,5 +63,5 @@ public interface CollectorInformationRepository extends MongoRepository<Collecto
      * @param pageable                         分页信息
      * @return 符合的Page<CollectorInformationDO>
      */
-    Page<CollectorInformationDO> getCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable);
+    Page<CollectorInformationDO> findCollectorInformationDOSByCollectorStateInAndGmtCollectorLastUploadDataBefore(List<Integer> collectorStateList, Date gmtCollectorLastUploadDataBefore, Pageable pageable);
 }

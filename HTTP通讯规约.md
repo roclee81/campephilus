@@ -39,6 +39,8 @@
 * POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182, "可以发送术后患者信息，服务器已经准备好了"),
 * POSTOPERATIVE_PATIENT_INFO(183, "是术后患者信息"),
 * POSTOPERATIVE_PATIENT_INFO_SUCCESS(184, "收到术后患者信息"),
+* FEEDBACK_INFO(199, "是反馈数据"),
+* FEEDBACK_INFO(200, "反馈数据接收成功"),
 
 
 ## 上传规则
@@ -337,9 +339,27 @@ data: {
       }
 ```
 
-* #### 请求发送术后患者情况
+* #### 收到发送的术后患者情况
 ```
 code: 184 
+mac: "mac"
+operationNumber: 1
+data: {}
+```
+
+* #### 发送用户反馈信息
+```
+code: 199
+mac: "mac"
+operationNumber: 1
+data: {
+          "msg": "使用极其困难,投诉"
+      }
+```
+
+* #### 收到发送的用户反馈信息
+```
+code: 200
 mac: "mac"
 operationNumber: 1
 data: {}
