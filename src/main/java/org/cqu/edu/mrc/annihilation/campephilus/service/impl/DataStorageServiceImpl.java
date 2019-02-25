@@ -78,11 +78,7 @@ public class DataStorageServiceImpl implements DataStorageService {
 
         // 如果保存成功，将对CollectorInformation表进行更改
         if (result) {
-            if (parseDataDTO.getCode().equals(RequestEnum.OPERATION_READY.getCode())) {
-                collectorInformationService.updateCollectorInformationDO(parseDataDTO.getMacAddress(), CollectorStateEnum.RUNNING.getCode(), 1L, 1);
-            } else {
-                collectorInformationService.updateCollectorInformationDO(parseDataDTO.getMacAddress(), CollectorStateEnum.RUNNING.getCode(), 0L, 1);
-            }
+            collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess(parseDataDTO);
         }
 
         Map<String, Object> map = new HashMap<>(16);

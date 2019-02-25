@@ -58,8 +58,6 @@ public class CollectorInformationServiceImplTest {
 
     @Test
     public void updateCollectorInformationDO() {
-        CollectorInformationDO result = collectorInformationService.updateCollectorInformationDO("test", 1, 1L, 1);
-        assertNotNull(result);
     }
 
     @Test

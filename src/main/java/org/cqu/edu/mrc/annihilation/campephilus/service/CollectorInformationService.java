@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -51,15 +52,12 @@ public interface CollectorInformationService {
     List<CollectorInformationDO> saveCollectorInformationDOS(List<CollectorInformationDO> collectorInformationDOIterable);
 
     /**
-     * 更改CollectorInformationDO实体的属性，当数据不存在时候，将创建
+     * 当数据保存成功的时候更新CollectorInformationDO对应数据
      *
-     * @param collectorMacAddress      采集器的MAC地址
-     * @param collectorState           采集器的状态
-     * @param collectorUploadDataTimes 采集器上传数据，如果该更改为上传数据，则此属性为1，如果仅更改状态，传入数据为0
-     * @param collectorOperationTimes  采集器运行的手术场次，如果增加场次，该属性传入1，如果不增加场次，传入数据0
+     * @param parseDataDTO 解析后的对象
      * @return 保存更改成功，如果成功返回CollectorInformationDO实体，失败返回空
      */
-    CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes);
+    CollectorInformationDO updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO);
 
     /**
      * 通过采集器状态查询采集器信息

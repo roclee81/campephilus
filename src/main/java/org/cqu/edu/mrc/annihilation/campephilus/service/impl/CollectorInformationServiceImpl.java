@@ -2,7 +2,9 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.CollectorInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,21 +52,25 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     }
 
     @Override
-    public CollectorInformationDO updateCollectorInformationDO(String collectorMacAddress, Integer collectorState, Long collectorUploadDataTimes, int collectorOperationTimes) {
+    public CollectorInformationDO updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
+        String collectorMacAddress = parseDataDTO.getMacAddress();
         CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;
+        // 如果数据库中没有对应collectorMacAddress的地址，新建一个，并将CollectorUploadDataTimes、CollectorOperationTimes设置为1
         if (null == oldCollectorInformationDO) {
             collectorInformationDO = new CollectorInformationDO();
             collectorInformationDO.setCollectorMacAddress(collectorMacAddress);
             collectorInformationDO.setGmtCreate(new Date());
-            collectorInformationDO.setCollectorUploadDataTimes(collectorUploadDataTimes);
-            collectorInformationDO.setCollectorOperationTimes(collectorOperationTimes);
+            collectorInformationDO.setCollectorUploadDataTimes(1L);
+            collectorInformationDO.setCollectorOperationTimes(1);
         } else {
             collectorInformationDO = oldCollectorInformationDO;
-            collectorInformationDO.setCollectorOperationTimes(collectorInformationDO.getCollectorOperationTimes() + collectorOperationTimes);
-            collectorInformationDO.setCollectorUploadDataTimes(oldCollectorInformationDO.getCollectorUploadDataTimes() + collectorUploadDataTimes);
+            if (parseDataDTO.getCode().equals(RequestEnum.OPERATION_READY.getCode())) {
+                collectorInformationDO.setCollectorOperationTimes(collectorInformationDO.getCollectorOperationTimes() + 1);
+            }
+            collectorInformationDO.setCollectorUploadDataTimes(oldCollectorInformationDO.getCollectorUploadDataTimes() + 1L);
         }
-        collectorInformationDO.setCollectorState(collectorState);
+        collectorInformationDO.setCollectorState(CollectorStateEnum.RUNNING.getCode());
         collectorInformationDO.setGmtCollectorLastUploadData(new Date());
         collectorInformationDO.setGmtModified(new Date());
         return this.saveCollectorInformationDO(collectorInformationDO);
