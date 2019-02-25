@@ -42,7 +42,7 @@ public class DataController {
     }
 
     @PostMapping("/update")
-    public ResultVO processMedicalData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
+    public ResultVO processUpdateData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
 
         ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);

@@ -2,10 +2,12 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalUploadRequestDO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalUploadRequestService;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.mrc.annihilation.common.utils.TimeStampUtil;
@@ -20,6 +22,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.minuteRequest;
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequest;
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequestValid;
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.minuteRequestValid;
+
 /**
  * @author lx
  * @version V1.0
@@ -31,16 +38,21 @@ import java.util.List;
 @Slf4j
 public class ScheduledServiceImpl implements ScheduledService {
 
+    StatisticalUploadRequestDO statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+
     private final CollectorInformationService collectorInformationService;
+    private final StatisticalUploadRequestService statisticalUploadRequestService;
 
     @Autowired
-    public ScheduledServiceImpl(CollectorInformationService collectorInformationService) {
+    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalUploadRequestService statisticalUploadRequestService) {
         this.collectorInformationService = collectorInformationService;
+        this.statisticalUploadRequestService = statisticalUploadRequestService;
     }
 
     @Scheduled(cron = "0 * * * * *")
     @Override
     public void checkCollectorState() {
+
         List<CollectorInformationDO> collectorInformationDOList = new ArrayList<>();
         // 1. 获取当前时间前十分钟的时间戳
         Date gmtCollectorLastUploadDataBefore = TimeStampUtil.getMinuteDate(-10);
@@ -68,5 +80,30 @@ public class ScheduledServiceImpl implements ScheduledService {
                 throw new SaveException(ErrorEnum.SAVE_ERROR.getCode(), "Save Exception", "Save Exception", result.toString());
             }
         }
+    }
+
+    @Scheduled(cron = "0 * * * * ?")
+    @Override
+    public void handleRequestsMinuteSecond() {
+        hourRequest += minuteRequest;
+        hourRequestValid += minuteRequestValid;
+        hourRequest = 0;
+        hourRequestValid = 0;
+    }
+
+    @Scheduled(cron = "0 0 * * * ?")
+    @Override
+    public void handleRequestsPerHour() {
+        statisticalUploadRequestDO.getPerHourRequestNumber().add(hourRequest);
+        statisticalUploadRequestDO.getPerHourValidRequestNumber().add(hourRequestValid);
+        hourRequestValid = 0;
+        hourRequest = 0;
+    }
+
+    @Scheduled(cron = "0 0 0 * * ? *")
+    @Override
+    public void handleRequestsPerDay() {
+        statisticalUploadRequestService.saveStatisticalUploadRequestDO(statisticalUploadRequestDO);
+        statisticalUploadRequestDO = new StatisticalUploadRequestDO();
     }
 }

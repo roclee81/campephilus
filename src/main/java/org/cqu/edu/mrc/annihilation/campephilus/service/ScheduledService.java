@@ -17,4 +17,19 @@ public interface ScheduledService {
      * 如果超过10分钟没有上传数据而且状态为在线的采集器，则将该采集器的状态改为离线
      */
     void checkCollectorState();
+
+    /**
+     * 处理每分钟请求，即将每分钟的请求数量存储，保存成在一分钟的请求量，以及无效请求
+     */
+    void handleRequestsMinuteSecond();
+
+    /**
+     * 处理每小时请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
+     */
+    void handleRequestsPerHour();
+
+    /**
+     * 处理每天请求，即将小时的请求数量存储，保存成在一天的请求量，以及无效请求
+     */
+    void handleRequestsPerDay();
 }
