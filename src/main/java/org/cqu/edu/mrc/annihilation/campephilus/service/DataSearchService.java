@@ -77,4 +77,11 @@ public interface DataSearchService {
      * @return VersionInformationDTO
      */
     VersionInformationDTO getVersionData();
+
+    /**
+     * 得到当天的统计信息
+     *
+     * @return 当天的统计信息，如果没有，则返回null
+     */
+    StatisticalUploadRequestDTO listCurrentStatisticalAspect();
 }

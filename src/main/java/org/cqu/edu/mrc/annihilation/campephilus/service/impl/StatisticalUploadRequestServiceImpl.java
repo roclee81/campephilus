@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalUploadRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalUploadRequestRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalUploadRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,25 +20,41 @@ import java.util.Date;
 @Service
 public class StatisticalUploadRequestServiceImpl implements StatisticalUploadRequestService {
 
-    private final StatisticalUploadRequestService statisticalUploadRequestService;
+    private final StatisticalUploadRequestRepository statisticalUploadRequestRepository;
 
     @Autowired
-    public StatisticalUploadRequestServiceImpl(StatisticalUploadRequestService statisticalUploadRequestService) {
-        this.statisticalUploadRequestService = statisticalUploadRequestService;
+    public StatisticalUploadRequestServiceImpl(StatisticalUploadRequestRepository statisticalUploadRequestRepository) {
+        this.statisticalUploadRequestRepository = statisticalUploadRequestRepository;
     }
 
     @Override
     public StatisticalUploadRequestDO getStatisticalUploadRequestDOByStatisticalDate(String statisticalDate) {
-        return statisticalUploadRequestService.getStatisticalUploadRequestDOByStatisticalDate(statisticalDate);
+        return statisticalUploadRequestRepository.findStatisticalUploadRequestDOByStatisticalDate(statisticalDate);
     }
 
     @Override
     public Page<StatisticalUploadRequestDO> listStatisticalUploadRequestDOByGmtCreateBetween(Date gmtCreateBefore, Date gmtCreateAfter, Pageable pageable) {
-        return statisticalUploadRequestService.listStatisticalUploadRequestDOByGmtCreateBetween(gmtCreateBefore, gmtCreateAfter, pageable);
+        return statisticalUploadRequestRepository.findStatisticalUploadRequestDOByGmtCreateBetween(gmtCreateBefore, gmtCreateAfter, pageable);
     }
 
     @Override
     public Page<StatisticalUploadRequestDO> listStatisticalUploadRequestDOByGmtModifiedBetween(Date gmtModifiedBefore, Date gmtModifiedAfter, Pageable pageable) {
-        return statisticalUploadRequestService.listStatisticalUploadRequestDOByGmtModifiedBetween(gmtModifiedBefore, gmtModifiedAfter, pageable);
+        return statisticalUploadRequestRepository.findStatisticalUploadRequestDOByGmtModifiedBetween(gmtModifiedBefore, gmtModifiedAfter, pageable);
     }
+
+    @Override
+    public StatisticalUploadRequestDO saveStatisticalUploadRequestDO(StatisticalUploadRequestDO statisticalUploadRequestDO) {
+        return statisticalUploadRequestRepository.save(statisticalUploadRequestDO);
+    }
+
+    @Override
+    public StatisticalUploadRequestDO getCurrentStatisticalUploadRequestDO() {
+        return statisticalUploadRequestRepository.findFirstByOrderByIdDesc();
+    }
+
+    @Override
+    public StatisticalUploadRequestDO updateStatisticalUploadRequestDO(StatisticalUploadRequestDO statisticalUploadRequestDO) {
+        return statisticalUploadRequestRepository.save(statisticalUploadRequestDO);
+    }
+
 }

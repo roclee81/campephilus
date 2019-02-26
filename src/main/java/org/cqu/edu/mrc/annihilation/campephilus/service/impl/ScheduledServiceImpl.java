@@ -10,6 +10,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalUploadRequestService;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
+import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.TimeStampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +39,7 @@ import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.
 @Slf4j
 public class ScheduledServiceImpl implements ScheduledService {
 
-    StatisticalUploadRequestDO statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+    private StatisticalUploadRequestDO statisticalUploadRequestDO;
 
     private final CollectorInformationService collectorInformationService;
     private final StatisticalUploadRequestService statisticalUploadRequestService;
@@ -94,15 +95,25 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Scheduled(cron = "0 0 * * * ?")
     @Override
     public void handleRequestsPerHour() {
+        if (null == statisticalUploadRequestDO) {
+            statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+        }
         statisticalUploadRequestDO.getPerHourRequestNumber().add(hourRequest);
         statisticalUploadRequestDO.getPerHourValidRequestNumber().add(hourRequestValid);
         hourRequestValid = 0;
         hourRequest = 0;
     }
 
-    @Scheduled(cron = "0 0 0 * * ? *")
+    @Scheduled(cron = "0 0 0 * * ?")
     @Override
     public void handleRequestsPerDay() {
+        // 目前为存储一天再存入数据库中
+        // 任务设置时间单位为天，同时将数据保存到数据库中，同时新建一个对象
+        statisticalUploadRequestDO.setTotalValidRequestNumber();
+        statisticalUploadRequestDO.setTotalRequestNumber();
+        statisticalUploadRequestDO.setGmtCreate(new Date());
+        statisticalUploadRequestDO.setGmtModified(new Date());
+        statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
         statisticalUploadRequestService.saveStatisticalUploadRequestDO(statisticalUploadRequestDO);
         statisticalUploadRequestDO = new StatisticalUploadRequestDO();
     }

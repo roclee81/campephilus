@@ -51,5 +51,20 @@ public interface StatisticalUploadRequestService {
      */
     StatisticalUploadRequestDO saveStatisticalUploadRequestDO(StatisticalUploadRequestDO statisticalUploadRequestDO);
 
+    /**
+     * 得到当前的StatisticalUploadRequestDO数据
+     *
+     * @return StatisticalUploadRequestDO，如果保存不成功，则返回null
+     */
+    StatisticalUploadRequestDO getCurrentStatisticalUploadRequestDO();
+
+    //TODO 未实现
+    /**
+     * 更新StatisticalUploadRequestDO
+     *
+     * @param statisticalUploadRequestDO 需要更新的实体
+     * @return 如果更新成功则返回StatisticalUploadRequestDO，如果失败或者数据不存在则返回null
+     */
+    StatisticalUploadRequestDO updateStatisticalUploadRequestDO(StatisticalUploadRequestDO statisticalUploadRequestDO);
 
 }

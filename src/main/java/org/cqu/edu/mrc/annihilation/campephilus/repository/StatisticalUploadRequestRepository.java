@@ -45,4 +45,11 @@ public interface StatisticalUploadRequestRepository extends MongoRepository<Stat
      * @return 如果找到则返回Page<StatisticalUploadRequestDO>，如果没找到则返回空的Page
      */
     Page<StatisticalUploadRequestDO> findStatisticalUploadRequestDOByGmtModifiedBetween(Date gmtModifiedBefore, Date gmtModifiedAfter, Pageable pageable);
+
+    /**
+     * 查询最后一条数据
+     *
+     * @return StatisticalUploadRequestDO实体
+     */
+    StatisticalUploadRequestDO findFirstByOrderByIdDesc();
 }

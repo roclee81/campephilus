@@ -1,10 +1,8 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import org.cqu.edu.mrc.annihilation.campephilus.convertor.StatisticalUploadRequestDOConvertStatisticalUploadRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
-import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.FeedbackInformationService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,15 +28,17 @@ public class DataSearchServiceImpl implements DataSearchService {
     private final CollectorInformationService collectorInformationService;
     private final FeedbackInformationService feedbackInformationService;
     private final VersionInformationService versionInformationService;
+    private final StatisticalUploadRequestService statisticalUploadRequestService;
 
     @Autowired
-    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService, FeedbackInformationService feedbackInformationService, VersionInformationService versionInformationService) {
+    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService, FeedbackInformationService feedbackInformationService, VersionInformationService versionInformationService, StatisticalUploadRequestService statisticalUploadRequestService) {
         this.deviceService = deviceService;
         this.patientInformationService = patientInformationService;
         this.operationInformationService = operationInformationService;
         this.collectorInformationService = collectorInformationService;
         this.feedbackInformationService = feedbackInformationService;
         this.versionInformationService = versionInformationService;
+        this.statisticalUploadRequestService = statisticalUploadRequestService;
     }
 
     @Override
@@ -104,6 +104,11 @@ public class DataSearchServiceImpl implements DataSearchService {
     @Override
     public VersionInformationDTO getVersionData() {
         return versionInformationService.getVersionInformationDTO();
+    }
+
+    @Override
+    public StatisticalUploadRequestDTO listCurrentStatisticalAspect() {
+        return StatisticalUploadRequestDOConvertStatisticalUploadRequestDTO.convert(statisticalUploadRequestService.getCurrentStatisticalUploadRequestDO());
     }
 
 }

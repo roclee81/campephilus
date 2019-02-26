@@ -94,14 +94,6 @@ public class DataController {
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/collectorData")
-    public ResultVO listPatientData(@RequestParam(value = "page", defaultValue = "0") int page,
-                                    @RequestParam(value = "size", defaultValue = "20") int size) {
-
-        CollectorInformationDTO result = dataSearchService.listCollectorData(BeanUtil.getPageable(page, size));
-        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
-    }
-
     @GetMapping("/feedbackData")
     public ResultVO listFeedbackData(@RequestParam(value = "page", defaultValue = "0") int page,
                                      @RequestParam(value = "size", defaultValue = "20") int size) {
