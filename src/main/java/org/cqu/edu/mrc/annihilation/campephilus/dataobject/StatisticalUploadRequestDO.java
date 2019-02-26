@@ -1,9 +1,11 @@
 package org.cqu.edu.mrc.annihilation.campephilus.dataobject;
 
 import lombok.Data;
+import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,4 +75,18 @@ public class StatisticalUploadRequestDO {
      */
     @Field(value = "gmt_modified")
     private Date gmtModified;
+
+    public static StatisticalUploadRequestDO getStatisticalUploadRequestDOInstance() {
+        StatisticalUploadRequestDO statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+        statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
+        statisticalUploadRequestDO.setTotalRequestNumber(0);
+        statisticalUploadRequestDO.setTotalValidRequestNumber(0);
+        statisticalUploadRequestDO.setGmtModified(new Date());
+        statisticalUploadRequestDO.setGmtCreate(new Date());
+        List<Integer> perHourRequestNumber = new ArrayList<>();
+        statisticalUploadRequestDO.setPerHourRequestNumber(perHourRequestNumber);
+        List<Integer> perHourValidRequestNumber = new ArrayList<>();
+        statisticalUploadRequestDO.setPerHourValidRequestNumber(perHourValidRequestNumber);
+        return statisticalUploadRequestDO;
+    }
 }

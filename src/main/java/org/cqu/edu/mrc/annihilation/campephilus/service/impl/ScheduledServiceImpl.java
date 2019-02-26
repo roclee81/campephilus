@@ -53,7 +53,6 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Scheduled(cron = "0 * * * * *")
     @Override
     public void checkCollectorState() {
-
         List<CollectorInformationDO> collectorInformationDOList = new ArrayList<>();
         // 1. 获取当前时间前十分钟的时间戳
         Date gmtCollectorLastUploadDataBefore = TimeStampUtil.getMinuteDate(-10);
@@ -83,7 +82,7 @@ public class ScheduledServiceImpl implements ScheduledService {
         }
     }
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 1-59 * * * ?")
     @Override
     public void handleRequestsMinuteSecond() {
         hourRequest += minuteRequest;
@@ -92,29 +91,38 @@ public class ScheduledServiceImpl implements ScheduledService {
         hourRequestValid = 0;
     }
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 0 0-23 * * ?")
     @Override
     public void handleRequestsPerHour() {
         if (null == statisticalUploadRequestDO) {
-            statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+            statisticalUploadRequestDO = StatisticalUploadRequestDO.getStatisticalUploadRequestDOInstance();
         }
-        statisticalUploadRequestDO.getPerHourRequestNumber().add(hourRequest);
-        statisticalUploadRequestDO.getPerHourValidRequestNumber().add(hourRequestValid);
+        List<Integer> perHourRequest = statisticalUploadRequestDO.getPerHourRequestNumber();
+        perHourRequest.add(hourRequest);
+        statisticalUploadRequestDO.setPerHourRequestNumber(perHourRequest);
+        statisticalUploadRequestDO.setTotalRequestNumber(statisticalUploadRequestDO.getTotalRequestNumber() + hourRequest);
         hourRequestValid = 0;
         hourRequest = 0;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     @Override
     public void handleRequestsPerDay() {
         // 目前为存储一天再存入数据库中
         // 任务设置时间单位为天，同时将数据保存到数据库中，同时新建一个对象
-        statisticalUploadRequestDO.setTotalValidRequestNumber();
-        statisticalUploadRequestDO.setTotalRequestNumber();
-        statisticalUploadRequestDO.setGmtCreate(new Date());
-        statisticalUploadRequestDO.setGmtModified(new Date());
-        statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
-        statisticalUploadRequestService.saveStatisticalUploadRequestDO(statisticalUploadRequestDO);
-        statisticalUploadRequestDO = new StatisticalUploadRequestDO();
+        // TODO 目前无法对有效请求进行判断，后期将加上
+        // 如果不存在statisticalUploadRequestDO，跳过，不存在则标明该
+        if (null != statisticalUploadRequestDO) {
+            int totalRequest = 0;
+            List<Integer> integerList = statisticalUploadRequestDO.getPerHourRequestNumber();
+            for (int i : integerList) {
+                totalRequest += i;
+            }
+            statisticalUploadRequestDO.setTotalValidRequestNumber(totalRequest);
+            statisticalUploadRequestDO.setTotalRequestNumber(totalRequest);
+            statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
+            statisticalUploadRequestService.saveStatisticalUploadRequestDO(statisticalUploadRequestDO);
+            statisticalUploadRequestDO = StatisticalUploadRequestDO.getStatisticalUploadRequestDOInstance();
+        }
     }
 }

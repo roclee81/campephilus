@@ -25,6 +25,7 @@ public interface ScheduledService {
 
     /**
      * 处理每小时请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
+     *
      */
     void handleRequestsPerHour();
 
