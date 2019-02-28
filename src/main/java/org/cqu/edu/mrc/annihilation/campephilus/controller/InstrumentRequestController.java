@@ -3,7 +3,6 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
-import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.InstrumentRequestProcessService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
@@ -30,18 +29,18 @@ import javax.validation.Valid;
 @Slf4j
 public class InstrumentRequestController {
 
-    private final InstrumentRequestProcessService dataProcessService;
+    private final InstrumentRequestProcessService instrumentRequestProcessService;
 
     @Autowired
-    public InstrumentRequestController(InstrumentRequestProcessService dataProcessService) {
-        this.dataProcessService = dataProcessService;
+    public InstrumentRequestController(InstrumentRequestProcessService instrumentRequestProcessService) {
+        this.instrumentRequestProcessService = instrumentRequestProcessService;
     }
 
     @PostMapping("/")
     public ResultVO processInstrumentData(@Valid InstrumentRequestForm instrumentRequestForm, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
 
-        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(instrumentRequestForm);
+        ResultDataDTO resultDataDTO = instrumentRequestProcessService.processInstrumentData(instrumentRequestForm);
         return new ResultVO(resultDataDTO.getCode(), resultDataDTO.getMsg());
     }
 }

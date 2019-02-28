@@ -25,6 +25,8 @@ import java.util.List;
  * @date 2019/01/26 14:59
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 提供数据库搜索的API接口
+ * 用于通过HTTP接口来获取数据库数据
  */
 @RestController
 @RequestMapping(value = "/data")
@@ -32,13 +34,11 @@ import java.util.List;
 public class DataController {
 
     private final DataSearchService dataSearchService;
-    private final InstrumentRequestProcessService instrumentRequestProcessService;
     private final VersionInformationService versionInformationService;
 
     @Autowired
-    public DataController(DataSearchService dataSearchService, InstrumentRequestProcessService instrumentRequestProcessService, VersionInformationService versionInformationService) {
+    public DataController(DataSearchService dataSearchService, VersionInformationService versionInformationService) {
         this.dataSearchService = dataSearchService;
-        this.instrumentRequestProcessService = instrumentRequestProcessService;
         this.versionInformationService = versionInformationService;
     }
 
@@ -54,7 +54,7 @@ public class DataController {
         }
     }
 
-    @GetMapping("/operationData")
+    @GetMapping("/operation")
     public ResultVO listOperationData(@RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
                                       @RequestParam(value = "collectorMacAddress", defaultValue = "") String collectorMacAddress,
                                       @RequestParam(value = "page", defaultValue = "0") int page,
@@ -69,7 +69,7 @@ public class DataController {
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/deviceData")
+    @GetMapping("/device")
     public ResultVO listDeviceData(@RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
                                    @RequestParam(value = "deviceId", defaultValue = "") String deviceId,
                                    @RequestParam(value = "page", defaultValue = "0") int page,
@@ -84,7 +84,7 @@ public class DataController {
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/patientData")
+    @GetMapping("/patient")
     public ResultVO listPatientData(@RequestParam(value = "operationNumber", defaultValue = "-1") Integer operationNumber,
                                     @RequestParam(value = "patientId", defaultValue = "") String patientId,
                                     @RequestParam(value = "page", defaultValue = "0") int page,
@@ -99,7 +99,7 @@ public class DataController {
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/feedbackData")
+    @GetMapping("/feedback")
     public ResultVO listFeedbackData(@RequestParam(value = "page", defaultValue = "0") int page,
                                      @RequestParam(value = "size", defaultValue = "20") int size) {
 
@@ -107,7 +107,7 @@ public class DataController {
         return result.get(0) == null ? ResultVO.dataNotExist() : new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping("/versionData")
+    @GetMapping("/version")
     public ResultVO getVersionData() {
 
         VersionInformationDTO result = dataSearchService.getVersionData();

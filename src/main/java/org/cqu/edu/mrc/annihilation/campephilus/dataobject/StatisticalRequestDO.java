@@ -18,8 +18,8 @@ import java.util.List;
  * 用于统计Http请求的类
  */
 @Data
-@Document(value = "statistical_upload_request")
-public class StatisticalUploadRequestDO {
+@Document(value = "statistical_request")
+public class StatisticalRequestDO {
 
     /**
      * id 自动生成
@@ -76,17 +76,17 @@ public class StatisticalUploadRequestDO {
     @Field(value = "gmt_modified")
     private Date gmtModified;
 
-    public static StatisticalUploadRequestDO getStatisticalUploadRequestDOInstance() {
-        StatisticalUploadRequestDO statisticalUploadRequestDO = new StatisticalUploadRequestDO();
-        statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
-        statisticalUploadRequestDO.setTotalRequestNumber(0);
-        statisticalUploadRequestDO.setTotalValidRequestNumber(0);
-        statisticalUploadRequestDO.setGmtModified(new Date());
-        statisticalUploadRequestDO.setGmtCreate(new Date());
+    public static StatisticalRequestDO getStatisticalUploadRequestDOInstance() {
+        StatisticalRequestDO statisticalRequestDO = new StatisticalRequestDO();
+        statisticalRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
+        statisticalRequestDO.setTotalRequestNumber(0);
+        statisticalRequestDO.setTotalValidRequestNumber(0);
+        statisticalRequestDO.setGmtModified(new Date());
+        statisticalRequestDO.setGmtCreate(new Date());
         List<Integer> perHourRequestNumber = new ArrayList<>();
-        statisticalUploadRequestDO.setPerHourRequestNumber(perHourRequestNumber);
+        statisticalRequestDO.setPerHourRequestNumber(perHourRequestNumber);
         List<Integer> perHourValidRequestNumber = new ArrayList<>();
-        statisticalUploadRequestDO.setPerHourValidRequestNumber(perHourValidRequestNumber);
-        return statisticalUploadRequestDO;
+        statisticalRequestDO.setPerHourValidRequestNumber(perHourValidRequestNumber);
+        return statisticalRequestDO;
     }
 }

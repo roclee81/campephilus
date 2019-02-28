@@ -13,7 +13,7 @@ import java.util.List;
  * Description:
  */
 @Data
-public class StatisticalUploadRequestDTO {
+public class StatisticalRequestDTO {
 
     /**
      * 统计的时间

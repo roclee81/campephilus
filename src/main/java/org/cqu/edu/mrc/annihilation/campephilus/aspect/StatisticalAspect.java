@@ -18,12 +18,12 @@ public class StatisticalAspect {
     /**
      * 每秒数据上传的请求数量
      */
-    public static int minuteRequest = 0;
+    public static int secondRequest = 0;
 
     /**
      * 每秒数据上传的请求有效数量
      */
-    public static int minuteRequestValid = 0;
+    public static int secondRequestValid = 0;
 
     /**
      * 每小时数据上传的请求数量
@@ -35,9 +35,9 @@ public class StatisticalAspect {
      */
     public static int hourRequestValid = 0;
 
-    @Before("execution(public * org.cqu.edu.mrc.annihilation.campephilus.controller.DataController.processUpdateData(..))")
+    @Before("execution(public * org.cqu.edu.mrc.annihilation.campephilus.controller.InstrumentRequestController.processInstrumentData(..))")
     public void statisticalUpdateRequest() {
-        minuteRequest += 1;
+        secondRequest += 1;
     }
 
 }

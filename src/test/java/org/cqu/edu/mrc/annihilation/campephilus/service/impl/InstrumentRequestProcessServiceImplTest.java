@@ -41,7 +41,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm1.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm1.setOperationNumber(-1);
         instrumentRequestForm1.setData("{\"operationInfo\":{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546501804000\"},\"deviceInfo\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}");
-        ResultDataDTO resultDataDTO1 = dataStorageService.processMedicalData(instrumentRequestForm1);
+        ResultDataDTO resultDataDTO1 = dataStorageService.processInstrumentData(instrumentRequestForm1);
         Assert.assertEquals((int) resultDataDTO1.getCode(), 152);
     }
 
@@ -52,7 +52,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm2.setCode(151);
         instrumentRequestForm2.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm2.setData("{\"patientId\":\"1022\",\"operationCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
-        ResultDataDTO resultDataDTO2 = dataStorageService.processMedicalData(instrumentRequestForm2);
+        ResultDataDTO resultDataDTO2 = dataStorageService.processInstrumentData(instrumentRequestForm2);
         //Assert.assertEquals((int) resultDataDTO2.getCode(), -2);
     }
 
@@ -63,7 +63,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm3.setCode(151);
         instrumentRequestForm3.setOperationNumber(-2);
         instrumentRequestForm3.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
-        ResultDataDTO resultDataDTO3 = dataStorageService.processMedicalData(instrumentRequestForm3);
+        ResultDataDTO resultDataDTO3 = dataStorageService.processInstrumentData(instrumentRequestForm3);
         //Assert.assertEquals((int) resultDataDTO3.getCode(), -2);
     }
 
@@ -74,7 +74,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm4.setCode(153);
         instrumentRequestForm4.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm4.setMac("00-0f-e2-2e-94-a9");
-        ResultDataDTO resultDataDTO4 = dataStorageService.processMedicalData(instrumentRequestForm4);
+        ResultDataDTO resultDataDTO4 = dataStorageService.processInstrumentData(instrumentRequestForm4);
         Assert.assertEquals((int) resultDataDTO4.getCode(), 154);
     }
 
@@ -86,7 +86,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm5.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm5.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm5.setData("{\"deviceInformation\":{}}");
-        ResultDataDTO resultDataDTO5 = dataStorageService.processMedicalData(instrumentRequestForm5);
+        ResultDataDTO resultDataDTO5 = dataStorageService.processInstrumentData(instrumentRequestForm5);
         Assert.assertEquals((int) resultDataDTO5.getCode(), 156);
     }
 
@@ -98,7 +98,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm6.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm6.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm6.setData("{\"patientId\": \"0xx11111\", \"patientData\": {}, \"preoperativeData\": {}}");
-        ResultDataDTO resultDataDTO6 = dataStorageService.processMedicalData(instrumentRequestForm6);
+        ResultDataDTO resultDataDTO6 = dataStorageService.processInstrumentData(instrumentRequestForm6);
         Assert.assertEquals((int) resultDataDTO6.getCode(), 162);
     }
 
@@ -110,7 +110,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm7.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm7.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm7.setData("{\"patientId\": \"0xx11111\", \"postoperativeData\": {}}");
-        ResultDataDTO resultDataDTO7 = dataStorageService.processMedicalData(instrumentRequestForm7);
+        ResultDataDTO resultDataDTO7 = dataStorageService.processInstrumentData(instrumentRequestForm7);
         Assert.assertEquals((int) resultDataDTO7.getCode(), 184);
     }
 
@@ -122,7 +122,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm7.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm7.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm7.setData("{\"deviceId\":\"i123\",\"deviceDataNumber\":\"1\",\"deviceData\":{}}");
-        ResultDataDTO resultDataDTO7 = dataStorageService.processMedicalData(instrumentRequestForm7);
+        ResultDataDTO resultDataDTO7 = dataStorageService.processInstrumentData(instrumentRequestForm7);
         Assert.assertEquals((int) resultDataDTO7.getCode(), 168);
     }
 
@@ -134,7 +134,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm8.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm8.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm8.setData("{\"markNumber\":1,\"markType\":1,\"markMessage\":{}}");
-        ResultDataDTO resultDataDTO8 = dataStorageService.processMedicalData(instrumentRequestForm8);
+        ResultDataDTO resultDataDTO8 = dataStorageService.processInstrumentData(instrumentRequestForm8);
         //Assert.assertEquals((int) resultDataDTO8.getCode(), -2);
     }
 
@@ -146,7 +146,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm9.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm9.setMac("00-0f-e2-2e-94-a9");
         instrumentRequestForm9.setData("{\"operationEndTime\":\"1546492789000\"}");
-        ResultDataDTO resultDataDTO9 = dataStorageService.processMedicalData(instrumentRequestForm9);
+        ResultDataDTO resultDataDTO9 = dataStorageService.processInstrumentData(instrumentRequestForm9);
         Assert.assertEquals((int) resultDataDTO9.getCode(), 180);
     }
 }

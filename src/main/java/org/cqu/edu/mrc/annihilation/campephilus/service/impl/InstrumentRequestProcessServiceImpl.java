@@ -67,7 +67,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     }
 
     @Override
-    public ResultDataDTO processMedicalData(InstrumentRequestForm instrumentRequestForm) {
+    public ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm) {
 
         if (null == instrumentRequestForm) {
             throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "InstrumentRequestForm is null", "");

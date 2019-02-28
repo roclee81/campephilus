@@ -2,19 +2,13 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalUploadRequestDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
-import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * @author lx
@@ -22,21 +16,22 @@ import javax.validation.Valid;
  * @date 2019/2/22 14:02
  * @email vinicolor.violet.end@gmail.com
  * Description:
- * 用于显示给前端的Controller
+ * 用于将统计的信息提供API
+ * 主要是对服务器自动的数据进行统计
  */
 @RestController
-@RequestMapping(value = "/display")
+@RequestMapping(value = "/statistical")
 @Slf4j
-public class DisplayController {
+public class StatisticalController {
 
     private final DataSearchService dataSearchService;
 
     @Autowired
-    public DisplayController(DataSearchService dataSearchService) {
+    public StatisticalController(DataSearchService dataSearchService) {
         this.dataSearchService = dataSearchService;
     }
 
-    @GetMapping("/collectorData")
+    @GetMapping("/collector")
     public ResultVO listPatientData(@RequestParam(value = "page", defaultValue = "0") int page,
                                     @RequestParam(value = "size", defaultValue = "20") int size) {
 
@@ -44,9 +39,9 @@ public class DisplayController {
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping(value = "/currentStatisticalAspect")
-    public ResultVO listCurrentStatisticalAspect() {
-        StatisticalUploadRequestDTO result = dataSearchService.listCurrentStatisticalAspect();
+    @GetMapping(value = "/current")
+    public ResultVO getCurrentStatistical() {
+        StatisticalRequestDTO result = dataSearchService.getCurrentStatistical();
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 }

@@ -2,12 +2,12 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalUploadRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalUploadRequestService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalRequestService;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.minuteRequest;
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.secondRequest;
 import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequest;
 import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequestValid;
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.minuteRequestValid;
+import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.secondRequestValid;
 
 /**
  * @author lx
@@ -39,20 +39,18 @@ import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.
 @Slf4j
 public class ScheduledServiceImpl implements ScheduledService {
 
-    private StatisticalUploadRequestDO statisticalUploadRequestDO;
-
     private final CollectorInformationService collectorInformationService;
-    private final StatisticalUploadRequestService statisticalUploadRequestService;
+    private final StatisticalRequestService statisticalRequestService;
 
     @Autowired
-    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalUploadRequestService statisticalUploadRequestService) {
+    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalRequestService statisticalRequestService) {
         this.collectorInformationService = collectorInformationService;
-        this.statisticalUploadRequestService = statisticalUploadRequestService;
+        this.statisticalRequestService = statisticalRequestService;
     }
 
     @Scheduled(cron = "0 * * * * *")
     @Override
-    public void checkCollectorState() {
+    public void checkCollectorStatePreMinute() {
         List<CollectorInformationDO> collectorInformationDOList = new ArrayList<>();
         // 1. 获取当前时间前十分钟的时间戳
         Date gmtCollectorLastUploadDataBefore = TimeStampUtil.getMinuteDate(-10);
@@ -82,47 +80,46 @@ public class ScheduledServiceImpl implements ScheduledService {
         }
     }
 
-    @Scheduled(cron = "0 1-59 * * * ?")
+    @Scheduled(cron = "* * * * * ?")
     @Override
-    public void handleRequestsMinuteSecond() {
-        hourRequest += minuteRequest;
-        hourRequestValid += minuteRequestValid;
-        hourRequest = 0;
-        hourRequestValid = 0;
+    public void handleRequestPreSecond() {
+        hourRequest += secondRequest;
+        hourRequestValid += secondRequestValid;
+        secondRequest = 0;
+        secondRequestValid = 0;
     }
 
-    @Scheduled(cron = "0 0 0-23 * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Override
-    public void handleRequestsPerHour() {
-        if (null == statisticalUploadRequestDO) {
-            statisticalUploadRequestDO = StatisticalUploadRequestDO.getStatisticalUploadRequestDOInstance();
+    public void handleRequestPerHour() {
+        // 首先查找有没有该条数据，通过statisticalDate字段去查找
+        StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == statisticalRequestDO) {
+            // 数据库中没有该数据，新建一条
+            statisticalRequestDO = StatisticalRequestDO.getStatisticalUploadRequestDOInstance();
         }
-        List<Integer> perHourRequest = statisticalUploadRequestDO.getPerHourRequestNumber();
-        perHourRequest.add(hourRequest);
-        statisticalUploadRequestDO.setPerHourRequestNumber(perHourRequest);
-        statisticalUploadRequestDO.setTotalRequestNumber(statisticalUploadRequestDO.getTotalRequestNumber() + hourRequest);
+        // 保存每小时的请求
+        List<Integer> perHourRequestList = statisticalRequestDO.getPerHourRequestNumber();
+        perHourRequestList.add(hourRequest);
+        statisticalRequestDO.setPerHourRequestNumber(perHourRequestList);
+
+        // 保存每小时的有效请求
+        List<Integer> perHourValidRequestList = statisticalRequestDO.getPerHourValidRequestNumber();
+        perHourValidRequestList.add(hourRequestValid);
+        statisticalRequestDO.setPerHourValidRequestNumber(perHourValidRequestList);
+
+        statisticalRequestDO.setGmtModified(new Date());
+        statisticalRequestDO.setTotalRequestNumber(statisticalRequestDO.getTotalRequestNumber() + hourRequest);
+        statisticalRequestDO.setTotalValidRequestNumber(statisticalRequestDO.getTotalValidRequestNumber() + hourRequestValid);
+        statisticalRequestService.saveStatisticalRequestDO(statisticalRequestDO);
+        // 清零
         hourRequestValid = 0;
         hourRequest = 0;
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
-    public void handleRequestsPerDay() {
-        // 目前为存储一天再存入数据库中
-        // 任务设置时间单位为天，同时将数据保存到数据库中，同时新建一个对象
-        // TODO 目前无法对有效请求进行判断，后期将加上
-        // 如果不存在statisticalUploadRequestDO，跳过，不存在则标明该
-        if (null != statisticalUploadRequestDO) {
-            int totalRequest = 0;
-            List<Integer> integerList = statisticalUploadRequestDO.getPerHourRequestNumber();
-            for (int i : integerList) {
-                totalRequest += i;
-            }
-            statisticalUploadRequestDO.setTotalValidRequestNumber(totalRequest);
-            statisticalUploadRequestDO.setTotalRequestNumber(totalRequest);
-            statisticalUploadRequestDO.setStatisticalDate(DateUtil.getCurrentDateString());
-            statisticalUploadRequestService.saveStatisticalUploadRequestDO(statisticalUploadRequestDO);
-            statisticalUploadRequestDO = StatisticalUploadRequestDO.getStatisticalUploadRequestDOInstance();
-        }
+    public void handleRequestPerDay() {
+        // 目前没有操作、主要是在每小时的数据中将数据已经存储
     }
 }

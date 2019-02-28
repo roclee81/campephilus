@@ -22,7 +22,7 @@ public interface InstrumentRequestProcessService {
      * @param instrumentRequestForm 接收到的表单
      * @return 返回的DTO
      */
-    ResultDataDTO processMedicalData(InstrumentRequestForm instrumentRequestForm);
+    ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm);
 
     /**
      * 得到新的手术顺序号

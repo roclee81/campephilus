@@ -83,5 +83,5 @@ public interface DataSearchService {
      *
      * @return 当天的统计信息，如果没有，则返回null
      */
-    StatisticalUploadRequestDTO listCurrentStatisticalAspect();
+    StatisticalRequestDTO getCurrentStatistical();
 }
