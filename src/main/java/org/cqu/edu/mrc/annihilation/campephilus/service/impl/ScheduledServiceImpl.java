@@ -105,7 +105,7 @@ public class ScheduledServiceImpl implements ScheduledService {
         hourRequest = 0;
     }
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     @Override
     public void handleRequestsPerDay() {
         // 目前为存储一天再存入数据库中

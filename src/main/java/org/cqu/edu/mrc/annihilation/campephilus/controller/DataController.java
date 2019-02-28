@@ -3,13 +3,18 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.InstrumentRequestProcessService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -27,12 +32,26 @@ import java.util.List;
 public class DataController {
 
     private final DataSearchService dataSearchService;
-    private final InstrumentRequestProcessService dataProcessService;
+    private final InstrumentRequestProcessService instrumentRequestProcessService;
+    private final VersionInformationService versionInformationService;
 
     @Autowired
-    public DataController(DataSearchService dataSearchService, InstrumentRequestProcessService dataProcessService) {
+    public DataController(DataSearchService dataSearchService, InstrumentRequestProcessService instrumentRequestProcessService, VersionInformationService versionInformationService) {
         this.dataSearchService = dataSearchService;
-        this.dataProcessService = dataProcessService;
+        this.instrumentRequestProcessService = instrumentRequestProcessService;
+        this.versionInformationService = versionInformationService;
+    }
+
+    @PostMapping(value = "/version")
+    public ResultVO updateVersionData(@Valid InformationForm informationForm, BindingResult bindingResult) {
+        BindingResultUtil.checkBindingResult(bindingResult);
+
+        boolean result = versionInformationService.saveInformation(informationForm);
+        if (result) {
+            return ResultVO.success("success");
+        } else {
+            return ResultVO.error(ResponseEnum.UNKNOWN_ERROR.getCode(), "error");
+        }
     }
 
     @GetMapping("/operationData")

@@ -2,7 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.InstrumentRequestProcessService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
@@ -21,26 +21,27 @@ import javax.validation.Valid;
  * @date 2019/2/28 16:57
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 该Controller仅用于与医疗仪器通信的API
+ * 医疗仪器端与服务器端通信主要采用CODE方式，仅通过判断CODE的方式来进行相应
+ * 暂不提供任何数据搜索服务接口
  */
 @RestController
 @RequestMapping(value = "/instrument")
 @Slf4j
-public class InstrumentController {
+public class InstrumentRequestController {
 
-    private final DataSearchService dataSearchService;
     private final InstrumentRequestProcessService dataProcessService;
 
     @Autowired
-    public InstrumentController(DataSearchService dataSearchService, InstrumentRequestProcessService dataProcessService) {
-        this.dataSearchService = dataSearchService;
+    public InstrumentRequestController(InstrumentRequestProcessService dataProcessService) {
         this.dataProcessService = dataProcessService;
     }
 
-    @PostMapping("/data")
-    public ResultVO processInstrumentData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
+    @PostMapping("/")
+    public ResultVO processInstrumentData(@Valid InstrumentRequestForm instrumentRequestForm, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
 
-        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);
+        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(instrumentRequestForm);
         return new ResultVO(resultDataDTO.getCode(), resultDataDTO.getMsg());
     }
 }

@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.VersionInformationDOConvertVersionInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
-import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,13 +67,13 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     }
 
     @Override
-    public ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm) {
+    public ResultDataDTO processMedicalData(InstrumentRequestForm instrumentRequestForm) {
 
-        if (null == medicalDataForm) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "MedicalDataForm is null", "");
+        if (null == instrumentRequestForm) {
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "InstrumentRequestForm is null", "");
         }
 
-        ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
+        ParseDataDTO parseDataDTO = processMsg(instrumentRequestForm);
 
         ParseResultObject parseResultObject = processCode(parseDataDTO);
 
@@ -108,12 +108,12 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * 由于之前对表单进行了验证，所有4个值都应该不为空
      * data字段将进行验证，如何没有值需要传入{}
      *
-     * @param medicalDataForm 表单信息
+     * @param instrumentRequestForm 表单信息
      * @return 初次解析后的ParseDataDTO，不会返回空值
      */
-    private ParseDataDTO processMsg(MedicalDataForm medicalDataForm) {
-        return new ParseDataDTO(medicalDataForm.getCode(), medicalDataForm.getMac(),
-                medicalDataForm.getOperationNumber(), parseJson(medicalDataForm.getData()));
+    private ParseDataDTO processMsg(InstrumentRequestForm instrumentRequestForm) {
+        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
+                instrumentRequestForm.getOperationNumber(), parseJson(instrumentRequestForm.getData()));
     }
 
     /**

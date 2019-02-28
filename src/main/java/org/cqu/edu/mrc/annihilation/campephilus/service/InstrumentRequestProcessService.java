@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
-import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
 
 /**
@@ -19,10 +19,10 @@ public interface InstrumentRequestProcessService {
      * 解析并且处理表单信息
      * 处理完成后将返回ResultDataDTO
      *
-     * @param medicalDataForm 接收到的表单
+     * @param instrumentRequestForm 接收到的表单
      * @return 返回的DTO
      */
-    ResultDataDTO processMedicalData(MedicalDataForm medicalDataForm);
+    ResultDataDTO processMedicalData(InstrumentRequestForm instrumentRequestForm);
 
     /**
      * 得到新的手术顺序号

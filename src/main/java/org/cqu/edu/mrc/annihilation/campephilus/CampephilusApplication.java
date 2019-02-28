@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 public class CampephilusApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CampephilusApplication.class, args);
     }

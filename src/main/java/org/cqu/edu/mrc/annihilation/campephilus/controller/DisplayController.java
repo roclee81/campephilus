@@ -29,25 +29,11 @@ import javax.validation.Valid;
 @Slf4j
 public class DisplayController {
 
-    private final VersionInformationService versionInformationService;
     private final DataSearchService dataSearchService;
 
     @Autowired
-    public DisplayController(VersionInformationService versionInformationService, DataSearchService dataSearchService) {
-        this.versionInformationService = versionInformationService;
+    public DisplayController(DataSearchService dataSearchService) {
         this.dataSearchService = dataSearchService;
-    }
-
-    @PostMapping(value = "version/update")
-    public ResultVO updateVersionData(@Valid InformationForm informationForm, BindingResult bindingResult) {
-        BindingResultUtil.checkBindingResult(bindingResult);
-
-        boolean result = versionInformationService.saveInformation(informationForm);
-        if (result) {
-            return ResultVO.success("success");
-        } else {
-            return ResultVO.error(ResponseEnum.UNKNOWN_ERROR.getCode(), "error");
-        }
     }
 
     @GetMapping("/collectorData")
