@@ -2,8 +2,10 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
+import org.cqu.edu.mrc.annihilation.campephilus.convertor.VersionInformationDOConvertVersionInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
@@ -28,7 +30,7 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class DataStorageServiceImpl implements DataStorageService {
+public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
     private final DeviceService deviceService;
     private final OperationMarkService operationMarkService;
@@ -39,7 +41,7 @@ public class DataStorageServiceImpl implements DataStorageService {
     private final FeedbackInformationService feedbackInformationService;
 
     @Autowired
-    public DataStorageServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService) {
+    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;
@@ -73,20 +75,18 @@ public class DataStorageServiceImpl implements DataStorageService {
 
         ParseDataDTO parseDataDTO = processMsg(medicalDataForm);
 
-        boolean result = processCode(parseDataDTO);
-
-        // 如果保存成功，将对CollectorInformation表进行更改
-        if (result) {
-            collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess(parseDataDTO);
-        }
+        ParseResultObject parseResultObject = processCode(parseDataDTO);
 
         Map<String, Object> map = new HashMap<>(16);
         map.put(DataConstants.MAC, parseDataDTO.getMacAddress());
         map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
+        map.put(DataConstants.DATA_MAP, parseResultObject.getReturnData());
 
-        if (!result) {
+        if (!parseResultObject.isReturnResult()) {
             return new ResultDataDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
+        // 保存成功，将对CollectorInformation表进行更改
+        collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess(parseDataDTO);
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
@@ -128,48 +128,73 @@ public class DataStorageServiceImpl implements DataStorageService {
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    private boolean processCode(ParseDataDTO parseDataDTO) {
+    private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
+        ParseResultObject parseResultObject = new ParseResultObject();
+        parseResultObject.setReturnResult(false);
         int code = parseDataDTO.getCode();
 
         // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
         if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             parseDataDTO.setOperationNumber(getNewOperationNumber());
-            return operationInformationService.saveOperationInformationDO(parseDataDTO);
+            parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDO(parseDataDTO));
         }
 
         // 更新手术过程基本信息，即手术结束的信息
         if (RequestEnum.OPERATION_END.getCode().equals(code)) {
-            return operationInformationService.updateOperationInformationDO(parseDataDTO);
+            parseResultObject.setReturnResult(operationInformationService.updateOperationInformationDO(parseDataDTO));
         }
 
         // 处理传输的医疗仪器数据的情况
         if (RequestEnum.DEVICE_DATA.getCode().equals(code)) {
-            return deviceService.saveDeviceDO(parseDataDTO);
+            parseResultObject.setReturnResult(deviceService.saveDeviceDO(parseDataDTO));
         }
 
         // 处理上传或者更新的患者数据的情况
         if (RequestEnum.PATIENT_INFO.getCode().equals(code) || RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
-            return patientInformationService.savePatientInformationDO(parseDataDTO);
+            parseResultObject.setReturnResult(patientInformationService.savePatientInformationDO(parseDataDTO));
         }
 
         // 处理上传的手术过程中标记的情况
         if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
-            return operationMarkService.saveOperationMarkDO(parseDataDTO);
+            parseResultObject.setReturnResult(operationMarkService.saveOperationMarkDO(parseDataDTO));
         }
 
         // 处理上传的反馈数据
         if (RequestEnum.FEEDBACK_INFO.getCode().equals(code)) {
-            return feedbackInformationService.saveFeedbackInformationDO(parseDataDTO);
+            parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
+        }
+
+        // 处理获取版本的请求
+        if (RequestEnum.VERSION_REQUEST.getCode().equals(code)) {
+            parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
         }
 
         // 需要特殊处理的情况都没有的，枚举其余请求，是否存在
         for (RequestEnum requestEnum : RequestEnum.values()) {
             if (requestEnum.getCode().equals(code)) {
-                return true;
+                parseResultObject.setReturnResult(true);
             }
         }
-
-        return false;
+        return parseResultObject;
     }
 
+    /**
+     * 包装解析后的结果的内部类
+     */
+    @Data
+    private class ParseResultObject {
+        /**
+         * 解析后的结果
+         * 不能为空
+         * true解析成功
+         * false解析失败
+         */
+        private boolean returnResult;
+
+        /**
+         * 解析后返回的消息体，可以为空
+         * 如果没有消息将返回null
+         */
+        private Object returnData;
+    }
 }

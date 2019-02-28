@@ -3,20 +3,14 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
-import org.cqu.edu.mrc.annihilation.campephilus.form.MedicalDataForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.DataStorageService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.InstrumentRequestProcessService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
-import org.cqu.edu.mrc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * campephilus
@@ -33,20 +27,12 @@ import java.util.Objects;
 public class DataController {
 
     private final DataSearchService dataSearchService;
-    private final DataStorageService dataProcessService;
+    private final InstrumentRequestProcessService dataProcessService;
 
     @Autowired
-    public DataController(DataSearchService dataSearchService, DataStorageService dataProcessService) {
+    public DataController(DataSearchService dataSearchService, InstrumentRequestProcessService dataProcessService) {
         this.dataSearchService = dataSearchService;
         this.dataProcessService = dataProcessService;
-    }
-
-    @PostMapping("/update")
-    public ResultVO processUpdateData(@Valid MedicalDataForm medicalDataForm, BindingResult bindingResult) {
-        BindingResultUtil.checkBindingResult(bindingResult);
-
-        ResultDataDTO resultDataDTO = dataProcessService.processMedicalData(medicalDataForm);
-        return new ResultVO(resultDataDTO.getCode(), resultDataDTO.getMsg());
     }
 
     @GetMapping("/operationData")

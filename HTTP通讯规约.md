@@ -47,7 +47,7 @@
 
 ## 上传规则
 ### 1. 所有设备开机时发送
-* 数据上传URL 120.79.151.208:8080/campephilus/data/update
+* 数据上传URL 120.79.151.208:8080/campephilus/instrument/data/
 * 请求方式 POST
 * 请求类型 x-www-form-urlencoded
 * 请求体

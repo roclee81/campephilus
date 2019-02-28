@@ -13,7 +13,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
  * Description:
  * 处理上传的数据，通过解析code来判断上传了什么数据
  */
-public interface DataStorageService {
+public interface InstrumentRequestProcessService {
 
     /**
      * 解析并且处理表单信息
