@@ -9,6 +9,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalRequestService;
+import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
@@ -37,26 +38,6 @@ public class ScheduledServiceImpl implements ScheduledService {
 
     static CurrentStatisticsRequestDTO currentStatisticsRequestDTO = new CurrentStatisticsRequestDTO();
 
-    /**
-     * 每秒数据上传的请求数量
-     */
-    public static int secondRequest = 0;
-
-    /**
-     * 每秒数据上传的请求有效数量
-     */
-    public static int secondValidRequest = 0;
-
-    /**
-     * 每小时数据上传的请求数量
-     */
-    public static int hourRequest = 0;
-
-    /**
-     * 每小时数据上传的请求有效数量
-     */
-    public static int hourRequestValid = 0;
-
     private final CollectorInformationService collectorInformationService;
     private final StatisticalRequestService statisticalRequestService;
 
@@ -66,9 +47,13 @@ public class ScheduledServiceImpl implements ScheduledService {
         this.statisticalRequestService = statisticalRequestService;
     }
 
+    /**
+     * 检测采集器状态，每分钟检测一次
+     * 通过采集器的最后上传时间进行检测，
+     * 如果超过10分钟没有上传数据而且状态为在线的采集器，则将该采集器的状态改为离线
+     */
     @Scheduled(cron = "0 * * * * *")
-    @Override
-    public void checkCollectorStatePreMinute() {
+    private void checkCollectorStatePreMinute() {
         List<CollectorInformationDO> collectorInformationDOList = new ArrayList<>();
         // 1. 获取当前时间前十分钟的时间戳
         Date gmtCollectorLastUploadDataBefore = TimeStampUtil.getMinuteDate(-10);
@@ -98,20 +83,35 @@ public class ScheduledServiceImpl implements ScheduledService {
         }
     }
 
+    /**
+     * 统计每秒钟的请求数量以及无效请求
+     * 将每秒的数据叠加到<code>hourRequest</code>和<code>hourRequestValid</code>里面
+     */
     @Scheduled(cron = "* * * * * ?")
-    @Override
-    public void handleRequestPreSecond() {
-        hourRequest += secondRequest;
-        hourRequestValid += secondValidRequest;
-        statisticalRequestService.updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
-        secondRequest = 0;
-        secondValidRequest = 0;
+    private void handleRequestPreSecond() {
+        //TODO 在多线程下，统计值会丢失
+        StatisticalRequestValue.hourRequest += StatisticalRequestValue.secondRequest;
+        StatisticalRequestValue.hourRequestValid += StatisticalRequestValue.secondValidRequest;
+        updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
+        StatisticalRequestValue.secondRequest = 0;
+        StatisticalRequestValue.secondValidRequest = 0;
     }
 
+    /**
+     * 处理每小时请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
+     * 每一小时存储一次，直接存储到数据中
+     * 首先判断是否在数据库中存在，通过保存的存储时间判断，如果存在将数据取出，同时添加数据后再保存
+     * 如果不存在，在此情况下默认为到第二天了，新建数据再存储
+     * 在*：59：59触发，与handleRequestsPerDay方法分隔开，具体时间如下：
+     * 2019-02-28 21:59:59
+     * 2019-02-28 22:59:59
+     * 2019-02-28 23:59:59
+     * 2019-03-01 00:59:59
+     * 2019-03-01 01:59:59
+     * 2019-03-01 02:59:59
+     */
     @Scheduled(cron = "0 0 * * * ?")
-    @Override
-    public void handleRequestPerHour() {
-
+    private void handleRequestPerHour() {
         // 首先查找有没有该条数据，通过statisticalDate字段去查找
         StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
         if (null == statisticalRequestDO) {
@@ -120,29 +120,60 @@ public class ScheduledServiceImpl implements ScheduledService {
         }
         // 保存每小时的请求
         List<Integer> perHourRequestList = statisticalRequestDO.getPerHourRequestNumber();
-        perHourRequestList.add(hourRequest);
+        perHourRequestList.add(StatisticalRequestValue.hourRequest);
         statisticalRequestDO.setPerHourRequestNumber(perHourRequestList);
 
         // 保存每小时的有效请求
         List<Integer> perHourValidRequestList = statisticalRequestDO.getPerHourValidRequestNumber();
-        perHourValidRequestList.add(hourRequestValid);
+        perHourValidRequestList.add(StatisticalRequestValue.hourRequestValid);
         statisticalRequestDO.setPerHourValidRequestNumber(perHourValidRequestList);
 
         statisticalRequestDO.setGmtModified(new Date());
-        statisticalRequestDO.setTotalRequestNumber(statisticalRequestDO.getTotalRequestNumber() + hourRequest);
-        statisticalRequestDO.setTotalValidRequestNumber(statisticalRequestDO.getTotalValidRequestNumber() + hourRequestValid);
+        statisticalRequestDO.setTotalRequestNumber(statisticalRequestDO.getTotalRequestNumber() + StatisticalRequestValue.hourRequest);
+        statisticalRequestDO.setTotalValidRequestNumber(statisticalRequestDO.getTotalValidRequestNumber() + StatisticalRequestValue.hourRequestValid);
 
         // TODO 没有判断result是否保存要求，是否保存成功
         StatisticalRequestDO result = statisticalRequestService.saveStatisticalRequestDO(statisticalRequestDO);
 
         // 清零
-        hourRequestValid = 0;
-        hourRequest = 0;
+        StatisticalRequestValue.hourRequestValid = 0;
+        StatisticalRequestValue.hourRequest = 0;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
-    @Override
-    public void handleRequestPerDay() {
-        // 目前没有操作、主要是在每小时的数据中将数据已经存储
+    /**
+     * 得到实时统计的CurrentStatisticsRequestDTO
+     * 该方法将定时进行调用，每秒进行调用，但该方式目前仅存放于内存中，并未存入到数据库中
+     * 方法将调用数据库，查询数据库中当天的数据，进行统计
+     * 将通过查询数据库中保存的数据进行统计，数据库中只有前一个小时的数据
+     * 在统计当天的统计时将加上当前小时的统计信息
+     *
+     * @param currentStatisticsRequestDTO 存储于内存中，实时更新
+     */
+    private void updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO) {
+        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestValue.secondRequest);
+        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestValue.secondValidRequest);
+        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestValue.hourRequest);
+        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+
+        // 开始统计当天的数据
+        // 首先查询数据库，得到是否存在对象
+        StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == statisticalRequestDO) {
+            // 如果不存在则当天的统计信息仅为当前小时的
+            currentStatisticsRequestDTO.setCurrentDayRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+        } else {
+            // 存在就需要将数据取出，计算总和与平均值
+            int hourRequestSum = statisticalRequestDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
+            int hourValidRequestSum = statisticalRequestDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
+
+            currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
+            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
+
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalRequestDO.getPerHourRequestNumber().size() + 1));
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalRequestDO.getPerHourValidRequestNumber().size() + 1));
+        }
     }
 }

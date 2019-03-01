@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRequestRepository;
+import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalRequestService;
+import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,34 +63,34 @@ public class StatisticalRequestServiceImpl implements StatisticalRequestService 
         return statisticalRequestRepository.save(statisticalRequestDO);
     }
 
-    @Override
-    public CurrentStatisticsRequestDTO updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO) {
-        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(ScheduledServiceImpl.secondRequest);
-        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(ScheduledServiceImpl.secondValidRequest);
-        currentStatisticsRequestDTO.setCurrentHourRequestNumber(ScheduledServiceImpl.hourRequest);
-        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
-
-        // 开始统计当天的数据
-        // 首先查询数据库，得到是否存在对象
-        StatisticalRequestDO statisticalRequestDO = this.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
-        if (null == statisticalRequestDO) {
-            // 如果不存在则当天的统计信息仅为当前小时的
-            currentStatisticsRequestDTO.setCurrentDayRequestNumber(ScheduledServiceImpl.hourRequest);
-            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
-            currentStatisticsRequestDTO.setAverageHourRequestNumber(ScheduledServiceImpl.hourRequest);
-            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
-        } else {
-            // 存在就需要将数据取出，计算总和与平均值
-            int hourRequestSum = statisticalRequestDO.getTotalRequestNumber() + ScheduledServiceImpl.hourRequest;
-            int hourValidRequestSum = statisticalRequestDO.getTotalValidRequestNumber() + ScheduledServiceImpl.hourRequestValid;
-
-            currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
-            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
-
-            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalRequestDO.getPerHourRequestNumber().size() + 1));
-            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalRequestDO.getPerHourValidRequestNumber().size() + 1));
-        }
-        return currentStatisticsRequestDTO;
-    }
+//    @Override
+//    public CurrentStatisticsRequestDTO updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO) {
+//        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestValue.secondRequest);
+//        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestValue.secondValidRequest);
+//        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestValue.hourRequest);
+//        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+//
+//        // 开始统计当天的数据
+//        // 首先查询数据库，得到是否存在对象
+//        StatisticalRequestDO statisticalRequestDO = this.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
+//        if (null == statisticalRequestDO) {
+//            // 如果不存在则当天的统计信息仅为当前小时的
+//            currentStatisticsRequestDTO.setCurrentDayRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+//            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+//            currentStatisticsRequestDTO.setAverageHourRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+//            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+//        } else {
+//            // 存在就需要将数据取出，计算总和与平均值
+//            int hourRequestSum = statisticalRequestDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
+//            int hourValidRequestSum = statisticalRequestDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
+//
+//            currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
+//            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
+//
+//            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalRequestDO.getPerHourRequestNumber().size() + 1));
+//            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalRequestDO.getPerHourValidRequestNumber().size() + 1));
+//        }
+//        return currentStatisticsRequestDTO;
+//    }
 
 }
