@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
@@ -39,9 +40,17 @@ public class StatisticalController {
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
+    @GetMapping(value = "/statistical")
+    public ResultVO listStatisticalData(@RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "size", defaultValue = "20") int size) {
+        StatisticalRequestDTO result = dataSearchService.listStatisticalData();
+        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+    }
+
     @GetMapping(value = "/current")
-    public ResultVO getCurrentStatistical() {
-        StatisticalRequestDTO result = dataSearchService.getCurrentStatistical();
+    public ResultVO getCurrentStatisticsData(@RequestParam(value = "page", defaultValue = "0") int page,
+                                             @RequestParam(value = "size", defaultValue = "20") int size) {
+        CurrentStatisticsRequestDTO result = dataSearchService.getCurrentStatisticsRequestDTO();
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 }

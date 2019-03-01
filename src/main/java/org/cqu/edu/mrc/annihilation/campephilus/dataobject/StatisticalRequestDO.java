@@ -51,15 +51,17 @@ public class StatisticalRequestDO {
      * 存储的格式按照perHourRequestNumber[0]代表0~1点的统计
      * 一共索引为0~23
      * perHourRequestNumber[23]代表23~24点的统计值
+     * 一个小时保存一次
      */
     @Field(value = "per_hour_request_number")
     private List<Integer> perHourRequestNumber;
 
     /**
      * 每小时有效请求数量
-     * 存储的格式按照perHourRequestNumber[0]代表0~1点的统计
+     * 存储的格式按照perHourValidRequestNumber[0]代表0~1点的统计
      * 一共索引为0~23
-     * perHourRequestNumber[23]代表23~24点的统计值
+     * perHourValidRequestNumber[23]代表23~24点的统计值
+     * 一个小时保存一次
      */
     @Field(value = "per_valid_hour_request_number")
     private List<Integer> perHourValidRequestNumber;

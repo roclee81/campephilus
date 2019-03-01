@@ -20,6 +20,7 @@ public interface ScheduledService {
 
     /**
      * 统计每秒钟的请求数量以及无效请求
+     * 将每秒的数据叠加到<code>hourRequest</code>和<code>hourRequestValid</code>里面
      */
     void handleRequestPreSecond();
 

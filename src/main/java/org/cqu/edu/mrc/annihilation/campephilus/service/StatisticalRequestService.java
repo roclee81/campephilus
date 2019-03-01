@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -52,13 +53,14 @@ public interface StatisticalRequestService {
     StatisticalRequestDO saveStatisticalRequestDO(StatisticalRequestDO statisticalRequestDO);
 
     /**
-     * 得到当前的StatisticalRequestDO数据
+     * 得到最后一条StatisticalRequestDO数据
      *
      * @return StatisticalRequestDO，如果保存不成功，则返回null
      */
-    StatisticalRequestDO getCurrentStatisticalRequestDO();
+    StatisticalRequestDO getLastStatisticalRequestDO();
 
     //TODO 未实现
+
     /**
      * 更新StatisticalRequestDO
      *
@@ -67,4 +69,15 @@ public interface StatisticalRequestService {
      */
     StatisticalRequestDO updateStatisticalRequestDO(StatisticalRequestDO statisticalRequestDO);
 
+    /**
+     * 得到实时统计的CurrentStatisticsRequestDTO
+     * 该方法将定时进行调用，每秒进行调用，但该方式目前仅存放于内存中，并未存入到数据库中
+     * 方法将调用数据库，查询数据库中当天的数据，进行统计
+     * 将通过查询数据库中保存的数据进行统计，数据库中只有前一个小时的数据
+     * 在统计当天的统计时将加上当前小时的统计信息
+     *
+     * @param currentStatisticsRequestDTO 存储于内存中，实时更新
+     * @return CurrentStatisticsRequestDTO
+     */
+    CurrentStatisticsRequestDTO updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO);
 }

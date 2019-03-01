@@ -83,5 +83,12 @@ public interface DataSearchService {
      *
      * @return 当天的统计信息，如果没有，则返回null
      */
-    StatisticalRequestDTO getCurrentStatistical();
+    StatisticalRequestDTO listStatisticalData();
+
+    /**
+     * 得到当前的统计请求的信息
+     * 如果发现没有CurrentStatisticsRequestDTO信息，将创建
+     * @return 返回当前保存的CurrentStatisticsRequestDTO信息
+     */
+    CurrentStatisticsRequestDTO getCurrentStatisticsRequestDTO();
 }

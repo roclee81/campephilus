@@ -3,6 +3,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
@@ -23,11 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.secondRequest;
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequest;
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.hourRequestValid;
-import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.secondRequestValid;
-
 /**
  * @author lx
  * @version V1.0
@@ -38,6 +34,28 @@ import static org.cqu.edu.mrc.annihilation.campephilus.aspect.StatisticalAspect.
 @Service
 @Slf4j
 public class ScheduledServiceImpl implements ScheduledService {
+
+    static CurrentStatisticsRequestDTO currentStatisticsRequestDTO = new CurrentStatisticsRequestDTO();
+
+    /**
+     * 每秒数据上传的请求数量
+     */
+    public static int secondRequest = 0;
+
+    /**
+     * 每秒数据上传的请求有效数量
+     */
+    static int secondValidRequest = 0;
+
+    /**
+     * 每小时数据上传的请求数量
+     */
+    static int hourRequest = 0;
+
+    /**
+     * 每小时数据上传的请求有效数量
+     */
+    static int hourRequestValid = 0;
 
     private final CollectorInformationService collectorInformationService;
     private final StatisticalRequestService statisticalRequestService;
@@ -84,14 +102,16 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Override
     public void handleRequestPreSecond() {
         hourRequest += secondRequest;
-        hourRequestValid += secondRequestValid;
+        hourRequestValid += secondValidRequest;
+        statisticalRequestService.updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
         secondRequest = 0;
-        secondRequestValid = 0;
+        secondValidRequest = 0;
     }
 
     @Scheduled(cron = "0 0 * * * ?")
     @Override
     public void handleRequestPerHour() {
+
         // 首先查找有没有该条数据，通过statisticalDate字段去查找
         StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
         if (null == statisticalRequestDO) {
@@ -111,7 +131,10 @@ public class ScheduledServiceImpl implements ScheduledService {
         statisticalRequestDO.setGmtModified(new Date());
         statisticalRequestDO.setTotalRequestNumber(statisticalRequestDO.getTotalRequestNumber() + hourRequest);
         statisticalRequestDO.setTotalValidRequestNumber(statisticalRequestDO.getTotalValidRequestNumber() + hourRequestValid);
-        statisticalRequestService.saveStatisticalRequestDO(statisticalRequestDO);
+
+        // TODO 没有判断result是否保存要求，是否保存成功
+        StatisticalRequestDO result = statisticalRequestService.saveStatisticalRequestDO(statisticalRequestDO);
+
         // 清零
         hourRequestValid = 0;
         hourRequest = 0;

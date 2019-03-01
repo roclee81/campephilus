@@ -107,8 +107,13 @@ public class DataSearchServiceImpl implements DataSearchService {
     }
 
     @Override
-    public StatisticalRequestDTO getCurrentStatistical() {
-        return StatisticalRequestDOConvertStatisticalRequestDTO.convert(statisticalRequestService.getCurrentStatisticalRequestDO());
+    public StatisticalRequestDTO listStatisticalData() {
+        return StatisticalRequestDOConvertStatisticalRequestDTO.convert(statisticalRequestService.getLastStatisticalRequestDO());
+    }
+
+    @Override
+    public CurrentStatisticsRequestDTO getCurrentStatisticsRequestDTO() {
+        return ScheduledServiceImpl.currentStatisticsRequestDTO;
     }
 
 }
