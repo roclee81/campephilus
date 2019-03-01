@@ -102,16 +102,16 @@ public class ScheduledServiceImpl implements ScheduledService {
      * 每一小时存储一次，直接存储到数据中
      * 首先判断是否在数据库中存在，通过保存的存储时间判断，如果存在将数据取出，同时添加数据后再保存
      * 如果不存在，在此情况下默认为到第二天了，新建数据再存储
-     * 在*：59：59触发，与handleRequestsPerDay方法分隔开，具体时间如下：
-     * 2019-02-28 21:59:59
-     * 2019-02-28 22:59:59
-     * 2019-02-28 23:59:59
-     * 2019-03-01 00:59:59
-     * 2019-03-01 01:59:59
-     * 2019-03-01 02:59:59
+     * 在*：00：01触发具体时间如下：
+     * 2019/3/2 2:00:01
+     * 2019/3/2 3:00:01
+     * 2019/3/2 4:00:01
+     * 2019/3/2 5:00:01
+     * 2019/3/2 6:00:01
      */
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "1 0 * * * ?")
     private void handleRequestPerHour() {
+        // TODO 日期之后未更新，检查到可能是改方法调用时，输入的日期还是前一天的
         // 首先查找有没有该条数据，通过statisticalDate字段去查找
         StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
         if (null == statisticalRequestDO) {
