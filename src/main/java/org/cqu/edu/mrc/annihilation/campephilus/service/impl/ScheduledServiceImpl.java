@@ -45,17 +45,17 @@ public class ScheduledServiceImpl implements ScheduledService {
     /**
      * 每秒数据上传的请求有效数量
      */
-    static int secondValidRequest = 0;
+    public static int secondValidRequest = 0;
 
     /**
      * 每小时数据上传的请求数量
      */
-    static int hourRequest = 0;
+    public static int hourRequest = 0;
 
     /**
      * 每小时数据上传的请求有效数量
      */
-    static int hourRequestValid = 0;
+    public static int hourRequestValid = 0;
 
     private final CollectorInformationService collectorInformationService;
     private final StatisticalRequestService statisticalRequestService;

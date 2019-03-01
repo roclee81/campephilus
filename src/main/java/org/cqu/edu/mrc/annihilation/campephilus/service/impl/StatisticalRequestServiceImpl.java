@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRequestRepository;
@@ -20,6 +21,7 @@ import java.util.Date;
  * Description:
  */
 @Service
+@Slf4j
 public class StatisticalRequestServiceImpl implements StatisticalRequestService {
 
     private final StatisticalRequestRepository statisticalRequestRepository;
@@ -65,6 +67,7 @@ public class StatisticalRequestServiceImpl implements StatisticalRequestService 
         currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(ScheduledServiceImpl.secondValidRequest);
         currentStatisticsRequestDTO.setCurrentHourRequestNumber(ScheduledServiceImpl.hourRequest);
         currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
+        //log.debug(currentStatisticsRequestDTO.toString());
 
         // 开始统计当天的数据
         // 首先查询数据库，得到是否存在对象
@@ -75,6 +78,7 @@ public class StatisticalRequestServiceImpl implements StatisticalRequestService 
             currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
             currentStatisticsRequestDTO.setAverageHourRequestNumber(ScheduledServiceImpl.hourRequest);
             currentStatisticsRequestDTO.setAverageHourValidRequestNumber(ScheduledServiceImpl.hourRequestValid);
+            //log.debug("no exist" + currentStatisticsRequestDTO.toString());
         } else {
             // 存在就需要将数据取出，计算总和与平均值
             int hourRequestSum = statisticalRequestDO.getTotalRequestNumber() + ScheduledServiceImpl.hourRequest;

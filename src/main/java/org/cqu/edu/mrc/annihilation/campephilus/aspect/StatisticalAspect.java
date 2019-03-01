@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.aspect;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.cqu.edu.mrc.annihilation.campephilus.service.impl.ScheduledServiceImpl;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
+@Slf4j
 public class StatisticalAspect {
 
     @Before("execution(public * org.cqu.edu.mrc.annihilation.campephilus.controller.InstrumentRequestController.processInstrumentData(..))")
