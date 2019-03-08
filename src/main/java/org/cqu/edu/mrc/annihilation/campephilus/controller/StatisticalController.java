@@ -34,8 +34,8 @@ public class StatisticalController {
     }
 
     @GetMapping("/collector")
-    public ResultVO listPatientData(@RequestParam(value = "page", defaultValue = "0") int page,
-                                    @RequestParam(value = "size", defaultValue = "20") int size) {
+    public ResultVO listCollectorData(@RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "size", defaultValue = "20") int size) {
 
         CollectorInformationDTO result = dataSearchService.listCollectorData(BeanUtil.getPageable(page, size));
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
@@ -48,9 +48,14 @@ public class StatisticalController {
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
+    @GetMapping(value = "/day")
+    public ResultVO getDayStatisticsData() {
+        StatisticsDayDTO result = dataSearchService.getStatisticsDayDTO();
+        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+    }
+
     @GetMapping(value = "/current")
-    public ResultVO getCurrentStatisticsData(@RequestParam(value = "page", defaultValue = "0") int page,
-                                             @RequestParam(value = "size", defaultValue = "20") int size) {
+    public ResultVO getCurrentStatisticsData() {
         CurrentStatisticsRequestDTO result = dataSearchService.getCurrentStatisticsRequestDTO();
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }

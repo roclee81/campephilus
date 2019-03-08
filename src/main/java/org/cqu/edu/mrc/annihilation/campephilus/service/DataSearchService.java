@@ -92,4 +92,7 @@ public interface DataSearchService {
      * @return 返回当前保存的CurrentStatisticsRequestDTO信息
      */
     CurrentStatisticsRequestDTO getCurrentStatisticsRequestDTO();
+
+
+    StatisticsDayDTO getStatisticsDayDTO();
 }

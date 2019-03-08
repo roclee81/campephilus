@@ -52,6 +52,7 @@ public class CollectorInformationDO {
     @Field(value = "gmt_collector_last_upload_data")
     private Date gmtCollectorLastUploadData;
 
+
     /**
      * 数据创建时间
      */
