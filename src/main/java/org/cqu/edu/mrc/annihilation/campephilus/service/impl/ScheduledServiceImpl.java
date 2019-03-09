@@ -2,13 +2,13 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalRequestService;
+import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
 import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
@@ -39,12 +39,12 @@ public class ScheduledServiceImpl implements ScheduledService {
     static CurrentStatisticsRequestDTO currentStatisticsRequestDTO = new CurrentStatisticsRequestDTO();
 
     private final CollectorInformationService collectorInformationService;
-    private final StatisticalRequestService statisticalRequestService;
+    private final StatisticalService statisticalService;
 
     @Autowired
-    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalRequestService statisticalRequestService) {
+    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalService statisticalService) {
         this.collectorInformationService = collectorInformationService;
-        this.statisticalRequestService = statisticalRequestService;
+        this.statisticalService = statisticalService;
     }
 
     /**
@@ -84,7 +84,7 @@ public class ScheduledServiceImpl implements ScheduledService {
     }
 
     /**
-     * 统计每秒钟的请求数量以及无效请求
+     * 统计每秒钟的采集器请求数量以及无效请求
      * 将每秒的数据叠加到<code>hourRequest</code>和<code>hourRequestValid</code>里面
      */
     @Scheduled(cron = "* * * * * ?")
@@ -98,10 +98,9 @@ public class ScheduledServiceImpl implements ScheduledService {
     }
 
     /**
-     * 处理每小时请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
+     * 处理每小时采集器的请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
      * 每一小时存储一次，直接存储到数据中
-     * 首先判断是否在数据库中存在，通过保存的存储时间判断，如果存在将数据取出，同时添加数据后再保存
-     * 如果不存在，在此情况下默认为到第二天了，新建数据再存储
+     * 无需数据是否存在
      * 在*：00：01触发具体时间如下：
      * 2019/3/2 2:00:01
      * 2019/3/2 3:00:01
@@ -111,29 +110,23 @@ public class ScheduledServiceImpl implements ScheduledService {
      */
     @Scheduled(cron = "1 0 * * * ?")
     private void handleRequestPerHour() {
-        // TODO 日期之后未更新，检查到可能是改方法调用时，输入的日期还是前一天的
-        // 首先查找有没有该条数据，通过statisticalDate字段去查找
-        StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
-        if (null == statisticalRequestDO) {
-            // 数据库中没有该数据，新建一条
-            statisticalRequestDO = StatisticalRequestDO.getStatisticalUploadRequestDOInstance();
-        }
+        // TODO 日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
+        StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
         // 保存每小时的请求
-        List<Integer> perHourRequestList = statisticalRequestDO.getPerHourRequestNumber();
-        perHourRequestList.add(StatisticalRequestValue.hourRequest);
-        statisticalRequestDO.setPerHourRequestNumber(perHourRequestList);
+        List<Integer> collectorPerHourRequestList = statisticalDO.getCollectorPerHourRequestNumber();
+        collectorPerHourRequestList.add(StatisticalRequestValue.hourRequest);
+        statisticalDO.setCollectorPerHourRequestNumber(collectorPerHourRequestList);
 
         // 保存每小时的有效请求
-        List<Integer> perHourValidRequestList = statisticalRequestDO.getPerHourValidRequestNumber();
-        perHourValidRequestList.add(StatisticalRequestValue.hourRequestValid);
-        statisticalRequestDO.setPerHourValidRequestNumber(perHourValidRequestList);
+        List<Integer> collectorPerHourValidRequestList = statisticalDO.getCollectorPerHourValidRequestNumber();
+        collectorPerHourValidRequestList.add(StatisticalRequestValue.hourRequestValid);
+        statisticalDO.setCollectorPerHourValidRequestNumber(collectorPerHourValidRequestList);
 
-        statisticalRequestDO.setGmtModified(new Date());
-        statisticalRequestDO.setTotalRequestNumber(statisticalRequestDO.getTotalRequestNumber() + StatisticalRequestValue.hourRequest);
-        statisticalRequestDO.setTotalValidRequestNumber(statisticalRequestDO.getTotalValidRequestNumber() + StatisticalRequestValue.hourRequestValid);
+        statisticalDO.setTotalRequestNumber(StatisticalRequestValue.hourRequest);
+        statisticalDO.setTotalValidRequestNumber(StatisticalRequestValue.hourRequestValid);
 
         // TODO 没有判断result是否保存要求，是否保存成功
-        StatisticalRequestDO result = statisticalRequestService.saveStatisticalRequestDO(statisticalRequestDO);
+        StatisticalDO result = statisticalService.updateStatisticalDO(statisticalDO);
 
         // 清零
         StatisticalRequestValue.hourRequestValid = 0;
@@ -157,8 +150,8 @@ public class ScheduledServiceImpl implements ScheduledService {
 
         // 开始统计当天的数据
         // 首先查询数据库，得到是否存在对象
-        StatisticalRequestDO statisticalRequestDO = statisticalRequestService.getStatisticalRequestDOByStatisticalDate(DateUtil.getCurrentDateString());
-        if (null == statisticalRequestDO) {
+        StatisticalDO statisticalDO = statisticalService.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == statisticalDO) {
             // 如果不存在则当天的统计信息仅为当前小时的
             currentStatisticsRequestDTO.setCurrentDayRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
             currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
@@ -166,14 +159,14 @@ public class ScheduledServiceImpl implements ScheduledService {
             currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
         } else {
             // 存在就需要将数据取出，计算总和与平均值
-            int hourRequestSum = statisticalRequestDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
-            int hourValidRequestSum = statisticalRequestDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
+            int hourRequestSum = statisticalDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
+            int hourValidRequestSum = statisticalDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
 
             currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
             currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
 
-            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalRequestDO.getPerHourRequestNumber().size() + 1));
-            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalRequestDO.getPerHourValidRequestNumber().size() + 1));
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalDO.getPerHourRequestNumber().size() + 1));
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalDO.getPerHourValidRequestNumber().size() + 1));
         }
     }
 }

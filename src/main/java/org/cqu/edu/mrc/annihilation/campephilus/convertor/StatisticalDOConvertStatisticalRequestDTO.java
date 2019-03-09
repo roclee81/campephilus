@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.convertor;
 
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalRequestDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -15,9 +15,9 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class StatisticalRequestDOConvertStatisticalRequestDTO {
+public class StatisticalDOConvertStatisticalRequestDTO {
 
-    public static List<StatisticalRequestDTO> convert(Page<StatisticalRequestDO> sourcePage) {
+    public static List<StatisticalRequestDTO> convert(Page<StatisticalDO> sourcePage) {
 
         if (sourcePage.getTotalElements() <= 0) {
             return new ArrayList<>();
@@ -32,13 +32,13 @@ public class StatisticalRequestDOConvertStatisticalRequestDTO {
         return statisticalRequestDTOList;
     }
 
-    public static StatisticalRequestDTO convert(StatisticalRequestDO statisticalRequestDO) {
-        if (null == statisticalRequestDO) {
+    public static StatisticalRequestDTO convert(StatisticalDO statisticalDO) {
+        if (null == statisticalDO) {
             return null;
         }
 
         StatisticalRequestDTO statisticalRequestDTO = new StatisticalRequestDTO();
-        BeanUtils.copyProperties(statisticalRequestDO, statisticalRequestDTO);
+        BeanUtils.copyProperties(statisticalDO, statisticalRequestDTO);
         return statisticalRequestDTO;
     }
 }

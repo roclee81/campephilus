@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.StatisticalRequestDOConvertStatisticalRequestDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.convertor.StatisticalDOConvertStatisticalRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
@@ -29,17 +29,17 @@ public class DataSearchServiceImpl implements DataSearchService {
     private final CollectorInformationService collectorInformationService;
     private final FeedbackInformationService feedbackInformationService;
     private final VersionInformationService versionInformationService;
-    private final StatisticalRequestService statisticalRequestService;
+    private final StatisticalService statisticalService;
 
     @Autowired
-    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService, FeedbackInformationService feedbackInformationService, VersionInformationService versionInformationService, StatisticalRequestService statisticalRequestService) {
+    public DataSearchServiceImpl(DeviceServiceImpl deviceService, PatientInformationServiceImpl patientInformationService, OperationInformationServiceImpl operationInformationService, CollectorInformationService collectorInformationService, FeedbackInformationService feedbackInformationService, VersionInformationService versionInformationService, StatisticalService statisticalService) {
         this.deviceService = deviceService;
         this.patientInformationService = patientInformationService;
         this.operationInformationService = operationInformationService;
         this.collectorInformationService = collectorInformationService;
         this.feedbackInformationService = feedbackInformationService;
         this.versionInformationService = versionInformationService;
-        this.statisticalRequestService = statisticalRequestService;
+        this.statisticalService = statisticalService;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class DataSearchServiceImpl implements DataSearchService {
 
     @Override
     public StatisticalRequestDTO listStatisticalData() {
-        return StatisticalRequestDOConvertStatisticalRequestDTO.convert(statisticalRequestService.getLastStatisticalRequestDO());
+        return StatisticalDOConvertStatisticalRequestDTO.convert(statisticalService.getLastStatisticalDO());
     }
 
     @Override

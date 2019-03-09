@@ -93,6 +93,5 @@ public interface DataSearchService {
      */
     CurrentStatisticsRequestDTO getCurrentStatisticsRequestDTO();
 
-
-    StatisticsDayDTO getStatisticsDayDTO();
+//    StatisticsDataDTO getStatisticsDataDTO();
 }

@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.repository;
 
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalRequestDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,22 +21,22 @@ import java.util.List;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class StatisticalRequestRepositoryTest {
+public class StatisticalRepositoryTest {
 
     @Autowired
-    private StatisticalRequestRepository statisticalRequestRepository;
+    private StatisticalRepository statisticalRepository;
 
     @Test
     public void save() {
-        StatisticalRequestDO statisticalRequestDO = new StatisticalRequestDO();
-        statisticalRequestDO.setGmtCreate(new Date());
-        statisticalRequestDO.setGmtModified(new Date());
-        statisticalRequestDO.setStatisticalDate("2019/02/25");
+        StatisticalDO statisticalDO = new StatisticalDO();
+        statisticalDO.setGmtCreate(new Date());
+        statisticalDO.setGmtModified(new Date());
+        statisticalDO.setStatisticalDate("2019/02/25");
         List<Integer> integerList = new ArrayList<>();
         integerList.add(1212);
         integerList.add(1232131);
-        statisticalRequestDO.setPerHourRequestNumber(integerList);
-        StatisticalRequestDO result = statisticalRequestRepository.save(statisticalRequestDO);
+        statisticalDO.setPerHourRequestNumber(integerList);
+        StatisticalDO result = statisticalRepository.save(statisticalDO);
         Assert.assertNotNull(result);
     }
 

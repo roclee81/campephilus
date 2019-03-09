@@ -48,11 +48,11 @@ public class StatisticalController {
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
 
-    @GetMapping(value = "/day")
-    public ResultVO getDayStatisticsData() {
-        StatisticsDayDTO result = dataSearchService.getStatisticsDayDTO();
-        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
-    }
+//    @GetMapping(value = "/day")
+//    public ResultVO getDayStatisticsData() {
+//        StatisticsDayDTO result = dataSearchService.getStatisticsDayDTO();
+//        return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
+//    }
 
     @GetMapping(value = "/current")
     public ResultVO getCurrentStatisticsData() {

@@ -39,9 +39,10 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final CollectorInformationService collectorInformationService;
     private final VersionInformationService versionInformationService;
     private final FeedbackInformationService feedbackInformationService;
+    private final StatisticalService statisticalService;
 
     @Autowired
-    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService) {
+    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService, StatisticalService statisticalService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;
@@ -49,6 +50,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.collectorInformationService = collectorInformationService;
         this.versionInformationService = versionInformationService;
         this.feedbackInformationService = feedbackInformationService;
+        this.statisticalService = statisticalService;
     }
 
     /**
@@ -87,6 +89,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         }
         // 保存成功，将对CollectorInformation表进行更改
         collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess(parseDataDTO);
+        // 添加/更新StatisticalDO表
+        statisticalService.updateStatisticalDO(parseDataDTO);
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
