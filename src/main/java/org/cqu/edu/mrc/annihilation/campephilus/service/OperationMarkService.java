@@ -118,8 +118,9 @@ public interface OperationMarkService {
      * 保存数据
      *
      * @param operationMarkDO operationMarkDO实体
+     * @return 保存成功为true
      */
-    void saveOperationMarkDO(OperationMarkDO operationMarkDO);
+    boolean saveOperationMarkDO(OperationMarkDO operationMarkDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationMarkDO来保存信息

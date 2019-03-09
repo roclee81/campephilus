@@ -180,7 +180,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         try {
             operationInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), OperationInformationDO.class);
         } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
         }
         operationInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
         operationInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());

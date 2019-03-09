@@ -1,10 +1,16 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.OperationMarkDOConvertOperationMarkDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationMarkDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationMarkDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.OperationMarkRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationMarkService;
@@ -29,7 +35,6 @@ import java.util.Map;
 @Service
 @Slf4j
 public class OperationMarkServiceImpl implements OperationMarkService {
-
 
     private final OperationMarkRepository operationMarkRepository;
 
@@ -94,56 +99,39 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     }
 
     @Override
-    public void saveOperationMarkDO(OperationMarkDO operationMarkDO) {
+    public boolean saveOperationMarkDO(OperationMarkDO operationMarkDO) {
+        // TODO 不知道如何处理保存是否需要验证
         operationMarkRepository.save(operationMarkDO);
+        return true;
     }
 
     @Override
     public boolean saveOperationMarkDO(ParseDataDTO parseDataDTO) {
-        Map dataMap = null;
-//        Map dataMap = parseDataDTO.getData();
-        int operationNumber = parseDataDTO.getOperationNumber();
 
-        int markNumber, markType;
-        Map deviceData;
-        Date markTime;
-
-        try {
-            // 检查是否有markNumber,没有直接返回false
-            if (dataMap.containsKey(DataConstants.MARK_NUMBER)) {
-                markNumber = (int) (double) dataMap.get(DataConstants.MARK_NUMBER);
-            } else {
-                return false;
-            }
-
-            // 检查是否有markType,没有直接返回false
-            if (dataMap.containsKey(DataConstants.MARK_TYPE)) {
-                markType = (int) (double) dataMap.get(DataConstants.MARK_TYPE);
-            } else {
-                return false;
-            }
-
-            // 检查是否有deviceDataNumber,没有直接返回false
-            if (dataMap.containsKey(DataConstants.MARK_MESSAGE)) {
-                deviceData = (Map) dataMap.get(DataConstants.MARK_MESSAGE);
-            } else {
-                return false;
-            }
-
-            // 检查是否有markTime，没有直接返回false
-            if (dataMap.containsKey(DataConstants.MARK_TIME)) {
-                markTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.MARK_TIME)));
-            } else {
-                return false;
-            }
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
+        OperationMarkDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        if (null == parseResult) {
+            return false;
+        }
+        if (parseResult.getMarkType() == null || parseResult.getMarkMessage() == null) {
             return false;
         }
 
-        OperationMarkDO operationMarkDO = new OperationMarkDO(operationNumber, markNumber, markType, deviceData, markTime,new Date());
-        this.saveOperationMarkDO(operationMarkDO);
-        log.info("Insert the success :{}", operationMarkDO.toString());
-        return true;
+        parseResult.setDataState(Boolean.FALSE);
+        parseResult.setGmtCreate(new Date());
+        parseResult.setGmtModified(new Date());
+
+        return this.saveOperationMarkDO(parseResult);
+    }
+
+    private OperationMarkDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
+        OperationMarkDO operationMarkDO;
+        try {
+            operationMarkDO = new Gson().fromJson(parseDataDTO.getJsonData(), OperationMarkDO.class);
+        } catch (JsonSyntaxException exception) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
+        }
+        operationMarkDO.setOperationNumber(parseDataDTO.getOperationNumber());
+        operationMarkDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
+        return operationMarkDO;
     }
 }

@@ -78,7 +78,7 @@ public class ScheduledServiceImpl implements ScheduledService {
             }));
             List<CollectorInformationDO> result = collectorInformationService.saveCollectorInformationDOS(collectorInformationDOList);
             if (result.size() != collectorInformationDOList.size()) {
-                throw new SaveException(ErrorEnum.SAVE_ERROR.getCode(), "Save Exception", "Save Exception", result.toString());
+                throw new SaveException(ErrorEnum.SAVE_ERROR, "Save Exception", result.toString());
             }
         }
     }

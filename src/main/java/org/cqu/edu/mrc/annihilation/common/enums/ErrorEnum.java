@@ -18,13 +18,14 @@ public enum ErrorEnum {
     /**
      * 保存出错
      */
-    SAVE_ERROR(-1),
+    SAVE_ERROR(-1, "保存出错"),
     ;
 
 
     private Integer code;
+    private String msg;
 
-    ErrorEnum(Integer code) {
-
+    ErrorEnum(Integer code, String msg) {
         this.code = code;
+        this.msg = msg;
     }}

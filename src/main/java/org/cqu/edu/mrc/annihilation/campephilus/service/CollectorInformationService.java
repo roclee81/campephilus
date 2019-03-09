@@ -39,9 +39,9 @@ public interface CollectorInformationService {
      * 不推荐使用该方法，该方法可能会造成多条数据的collectorMacAddress相同
      *
      * @param collectorInformationDO CollectorInformationDO实体
-     * @return 保存结果，如果成功返回CollectorInformationDO实体失败返回空
+     * @return 保存结果，如果成功返回true实体失败返回false
      */
-    CollectorInformationDO saveCollectorInformationDO(CollectorInformationDO collectorInformationDO);
+    boolean saveCollectorInformationDO(CollectorInformationDO collectorInformationDO);
 
     /**
      * 批量保存CollectorInformationDO实体
@@ -55,9 +55,9 @@ public interface CollectorInformationService {
      * 当数据保存成功的时候更新CollectorInformationDO对应数据
      *
      * @param parseDataDTO 解析后的对象
-     * @return 保存更改成功，如果成功返回CollectorInformationDO实体，失败返回空
+     * @return 保存结果，如果成功返回true实体失败返回false
      */
-    CollectorInformationDO updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO);
+    boolean updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO);
 
     /**
      * 通过采集器状态查询采集器信息

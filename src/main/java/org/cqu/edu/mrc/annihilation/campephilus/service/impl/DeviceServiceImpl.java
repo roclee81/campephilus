@@ -145,7 +145,7 @@ public class DeviceServiceImpl implements DeviceService {
                 return false;
             }
         } catch (ClassCastException | NumberFormatException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", "Data property parsing error", parseDataDTO.toString());
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, "Data property parsing error", parseDataDTO.toString());
         }
 
         DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, deviceData, new Date());

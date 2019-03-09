@@ -27,6 +27,12 @@ public class OperationMarkDO extends CommonDO {
     private Integer operationNumber;
 
     /**
+     * 数据采集器MAC地址
+     */
+    @Field(value = "collector_mac_address")
+    private String collectorMacAddress;
+
+    /**
      * 手术标记序号 手术标记序号,递增,程序实现
      */
     @Field(value = "mark_number")
@@ -50,13 +56,10 @@ public class OperationMarkDO extends CommonDO {
     @Field(value = "mark_time")
     private Date markTime;
 
-
-    public OperationMarkDO(Integer operationNumber, Integer markNumber, Integer markType, Map markMessage, Date markTime, Date gmtCreate) {
-        super.setGmtCreate(gmtCreate);
-        this.operationNumber = operationNumber;
-        this.markNumber = markNumber;
-        this.markType = markType;
-        this.markMessage = markMessage;
-        this.markTime = markTime;
-    }
+    /**
+     * 数据状态
+     * 如果处于false就不允许更改了
+     */
+    @Field(value = "data_state")
+    private Boolean dataState;
 }

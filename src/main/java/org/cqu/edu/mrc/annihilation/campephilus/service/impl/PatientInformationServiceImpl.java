@@ -129,6 +129,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
             return false;
         }
 
+        // 如果数据状态处于结束，就不允许更改了
         if (searchResult.getDataState().equals(Boolean.FALSE)) {
             throw new SaveException(ResponseEnum.DATA_STATE_FINISHED);
         }
@@ -145,7 +146,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
         try {
             patientInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), PatientInformationDO.class);
         } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
         }
         patientInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
         patientInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());

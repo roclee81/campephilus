@@ -1,13 +1,17 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.CollectorInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,7 +37,13 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public CollectorInformationDO getCollectorInformationDOByCollectorMacAddress(String collectorMacAddress) {
-        return collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        CollectorInformationDO result;
+        try {
+            result = collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+        return result;
     }
 
     @Override
@@ -42,8 +52,18 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     }
 
     @Override
-    public CollectorInformationDO saveCollectorInformationDO(CollectorInformationDO collectorInformationDO) {
-        return collectorInformationRepository.save(collectorInformationDO);
+    public boolean saveCollectorInformationDO(CollectorInformationDO collectorInformationDO) {
+        // 首先查询是否存在该条数据，根据operationNumber查询
+        CollectorInformationDO searchResult = this.getCollectorInformationDOByCollectorMacAddress(collectorInformationDO.getCollectorMacAddress());
+        if (null != searchResult) {
+            if (null == collectorInformationDO.getId() || !collectorInformationDO.getId().equals(searchResult.getId())) {
+                throw new SaveException(ResponseEnum.DATA_EXISTED);
+            }
+        }
+
+        CollectorInformationDO result = collectorInformationRepository.save(collectorInformationDO);
+        SaveException.checkSaveSuccess(result, collectorInformationDO);
+        return true;
     }
 
     @Override
@@ -52,7 +72,7 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     }
 
     @Override
-    public CollectorInformationDO updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
+    public boolean updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
         String collectorMacAddress = parseDataDTO.getMacAddress();
         CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;

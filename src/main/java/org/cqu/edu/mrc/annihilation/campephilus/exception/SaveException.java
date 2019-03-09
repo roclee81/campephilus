@@ -3,6 +3,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 
 /**
  * campephilus
@@ -22,10 +23,18 @@ public class SaveException extends RuntimeException {
     private String errorMeg;
     private String errorData;
 
-    public SaveException(int code, String msg, String errorMeg, String errorData) {
-        super(msg);
-        this.msg = msg;
-        this.code = code;
+    public SaveException(ResponseEnum responseEnum, String errorMeg, String errorData) {
+        super();
+        this.msg = responseEnum.getMsg();
+        this.code = responseEnum.getCode();
+        this.errorMeg = errorMeg;
+        this.errorData = errorData;
+    }
+
+    public SaveException(ErrorEnum errorEnum, String errorMeg, String errorData) {
+        super();
+        this.code = errorEnum.getCode();
+        this.msg = errorEnum.getMsg();
         this.errorMeg = errorMeg;
         this.errorData = errorData;
     }
@@ -45,7 +54,7 @@ public class SaveException extends RuntimeException {
      */
     public static void checkSaveSuccess(Object result, Object saveObject) {
         if (null == result) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, saveObject.toString());
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, DataConstants.SAVE_ERROR, saveObject.toString());
         } else {
             log.info("Insert the success :{}", saveObject.toString());
         }
