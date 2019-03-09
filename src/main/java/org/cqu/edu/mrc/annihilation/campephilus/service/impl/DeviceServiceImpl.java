@@ -147,7 +147,7 @@ public class DeviceServiceImpl implements DeviceService {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", "Data property parsing error", parseDataDTO.toString());
         }
 
-        DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, new Date(), deviceData);
+        DeviceDO deviceDO = new DeviceDO(operationNumber, deviceDataNumber, deviceData, new Date());
         this.saveDeviceDO(deviceDO, deviceId);
         log.info("Insert the success :{}", deviceDO.toString());
         return true;

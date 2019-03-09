@@ -20,12 +20,7 @@ import java.util.List;
  */
 @Document(value = "statistical")
 @Data
-public class StatisticalDO {
-
-    /**
-     * mongo自动生成id
-     */
-    private String id;
+public class StatisticalDO extends CommonDO {
 
     /**
      * 统计的时间
@@ -110,18 +105,6 @@ public class StatisticalDO {
      */
     @Field(value = "operation_device")
     private List<String> operationDevice;
-
-    /**
-     * 数据创建时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
 
     public static StatisticalDO getStatisticalDOInstance() {
         StatisticalDO statisticalDO = new StatisticalDO();

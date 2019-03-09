@@ -15,12 +15,7 @@ import java.util.Date;
  */
 @Document(value = "version_information")
 @Data
-public class VersionInformationDO {
-
-    /**
-     * 编号 MongoDB自动生成
-     */
-    private String id;
+public class VersionInformationDO extends CommonDO {
 
     /**
      * APP端最新版本号
@@ -33,17 +28,5 @@ public class VersionInformationDO {
      */
     @Field(value = "collector_version")
     private String collectorVersion;
-
-    /**
-     * 数据创建时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
 
 }

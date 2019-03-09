@@ -19,12 +19,7 @@ import java.util.Map;
  */
 @Document
 @Data
-public class DeviceDO {
-
-    /**
-     * 编号 MongoDB自动生成
-     */
-    private String id;
+public class DeviceDO extends CommonDO {
 
     /**
      * 手术的顺序号，唯一
@@ -39,12 +34,6 @@ public class DeviceDO {
     private Integer deviceDataNumber;
 
     /**
-     * 数据插入时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
      * 仪器输出数据 仪器输出数据
      */
     @Field(value = "device_data")
@@ -53,10 +42,10 @@ public class DeviceDO {
     public DeviceDO() {
     }
 
-    public DeviceDO(Integer operationNumber, Integer deviceDataNumber, Date gmtCreate, Map deviceData) {
+    public DeviceDO(Integer operationNumber, Integer deviceDataNumber, Map deviceData, Date gmtCreate) {
+        super.setGmtCreate(gmtCreate);
         this.operationNumber = operationNumber;
         this.deviceDataNumber = deviceDataNumber;
-        this.gmtCreate = gmtCreate;
         this.deviceData = deviceData;
     }
 

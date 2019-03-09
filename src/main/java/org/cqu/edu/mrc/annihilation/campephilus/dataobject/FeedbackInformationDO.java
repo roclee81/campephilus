@@ -16,29 +16,10 @@ import java.util.Map;
  */
 @Document(value = "feedback_information")
 @Data
-public class FeedbackInformationDO {
-
-    /**
-     * 编号 MongoDB自动生成
-     */
-    private String id;
-
+public class FeedbackInformationDO extends CommonDO{
     /**
      * 反馈信息
      */
     @Field(value = "msg")
     private Map<String, Object> msg;
-
-    /**
-     * 数据创建时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
-
 }

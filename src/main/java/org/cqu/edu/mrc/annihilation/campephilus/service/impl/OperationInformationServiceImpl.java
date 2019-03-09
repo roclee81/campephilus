@@ -166,8 +166,8 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         operationInformationDO.setPatientId(patientId);
         operationInformationDO.setOperationHospitalCode(operationHospitalCode);
         operationInformationDO.setDeviceInformation(deviceInformation);
-        operationInformationDO.setOperationStartTime(operationStartTime);
-        operationInformationDO.setOperationEndTime(null);
+//        operationInformationDO.setOperationStartTime(operationStartTime);
+//        operationInformationDO.setOperationEndTime(null);
         operationInformationDO.setOperationState(OperationStateEnum.IN_PREPARATION.getCode());
         operationInformationDO.setGmtCreate(new Date());
         operationInformationDO.setGmtModified(new Date());
@@ -211,9 +211,9 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }
 
-        operationInformationDO.setOperationEndTime(operationEndTime);
+//        operationInformationDO.setOperationEndTime(operationEndTime);
         operationInformationDO.setOperationState(OperationStateEnum.FINISH.getCode());
-        operationInformationDO.setOperationTime(operationEndTime.getTime() - operationInformationDO.getOperationStartTime().getTime());
+//        operationInformationDO.setOperationTime(operationEndTime.getTime() - operationInformationDO.getOperationStartTime().getTime());
 
         return this.saveOperationInformationDO(operationInformationDO);
     }

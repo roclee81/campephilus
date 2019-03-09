@@ -18,12 +18,7 @@ import java.util.Map;
  */
 @Document(value = "operation_mark")
 @Data
-public class OperationMarkDO {
-
-    /**
-     * 编号 MongoDB自动生成
-     */
-    private String id;
+public class OperationMarkDO extends CommonDO {
 
     /**
      * 手术顺序号 手术的顺序号，唯一
@@ -55,18 +50,13 @@ public class OperationMarkDO {
     @Field(value = "mark_time")
     private Date markTime;
 
-    /**
-     * 数据插入时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
 
     public OperationMarkDO(Integer operationNumber, Integer markNumber, Integer markType, Map markMessage, Date markTime, Date gmtCreate) {
+        super.setGmtCreate(gmtCreate);
         this.operationNumber = operationNumber;
         this.markNumber = markNumber;
         this.markType = markType;
         this.markMessage = markMessage;
         this.markTime = markTime;
-        this.gmtCreate = gmtCreate;
     }
 }

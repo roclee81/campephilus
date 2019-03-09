@@ -18,12 +18,7 @@ import java.util.Map;
  */
 @Document(value = "patient_information")
 @Data
-public class PatientInformationDO {
-
-    /**
-     * Mongo自动生成的ID
-     */
-    private String id;
+public class PatientInformationDO extends CommonDO {
 
     /**
      * 病人ID
@@ -73,29 +68,17 @@ public class PatientInformationDO {
     @Field(value = "patient_data")
     private Map patientData;
 
-    /**
-     * 更新时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 修改数据时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
-
     public PatientInformationDO() {
     }
 
     public PatientInformationDO(String patientId, Integer operationNumber, Integer creatorId, Map preoperativeData, Map postoperativeData, Map patientData, Date gmtCreate, Date gmtModified) {
+        super.setGmtCreate(gmtCreate);
+        super.setGmtModified(gmtModified);
         this.patientId = patientId;
         this.operationNumber = operationNumber;
         this.creatorId = creatorId;
         this.preoperativeData = preoperativeData;
         this.postoperativeData = postoperativeData;
         this.patientData = patientData;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
     }
 }

@@ -15,12 +15,7 @@ import java.util.Date;
  */
 @Document(value = "collector_information")
 @Data
-public class CollectorInformationDO {
-
-    /**
-     * 编号 MongoDB自动生成
-     */
-    private String id;
+public class CollectorInformationDO extends CommonDO{
 
     /**
      * 采集器的MAC地址
@@ -51,17 +46,4 @@ public class CollectorInformationDO {
      */
     @Field(value = "gmt_collector_last_upload_data")
     private Date gmtCollectorLastUploadData;
-
-
-    /**
-     * 数据创建时间
-     */
-    @Field(value = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Field(value = "gmt_modified")
-    private Date gmtModified;
 }
