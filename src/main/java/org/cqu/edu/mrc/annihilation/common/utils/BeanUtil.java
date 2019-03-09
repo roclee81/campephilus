@@ -1,9 +1,14 @@
 package org.cqu.edu.mrc.annihilation.common.utils;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Vinicolor
@@ -15,56 +20,6 @@ import java.lang.reflect.Field;
  */
 public class BeanUtil {
 
-    public static boolean isAllFieldNull(Object obj) {
-        // 得到类对象
-        Class stuCla = obj.getClass();
-        // 得到属性集合
-        Field[] fs = stuCla.getDeclaredFields();
-        boolean flag = true;
-        // 遍历属性
-        for (Field f : fs) {
-            // 设置属性是可以访问的(私有的也可以)
-            f.setAccessible(true);
-            // 得到此属性的值
-            Object val = null;
-            try {
-                val = f.get(obj);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (val != null) {
-                //只要有1个属性不为空,那么就不是所有的属性值都为空
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
-
-    public static boolean allFieldNotNull(Object obj) {
-        // 得到类对象
-        Class stuCla = obj.getClass();
-        // 得到属性集合
-        Field[] fs = stuCla.getDeclaredFields();
-        // 遍历属性
-        for (Field f : fs) {
-            // 设置属性是可以访问的(私有的也可以)
-            f.setAccessible(true);
-            // 得到此属性的值
-            Object val = null;
-            try {
-                val = f.get(obj);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (val == null) {
-                //只要有1个属性为空,返回false
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static Pageable getPageable(int page, int size) {
         Pageable pageable;
         try {
@@ -73,6 +28,60 @@ public class BeanUtil {
             return null;
         }
         return pageable;
+    }
+
+    /**
+     * <p>获取到对象中属性为null的属性名  </P>
+     *
+     * @param source source 要拷贝的对象
+     * @return 对象中属性为null的属性名
+     */
+    public static String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) {
+                emptyNames.add(pd.getName());
+            }
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
+
+    /**
+     * <p>获取到对象中属性不为null的属性名  </P>
+     *
+     * @param source source 要拷贝的对象
+     * @return 对象中属性不为null的属性名
+     */
+    public static String[] getNotNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue != null) {
+                emptyNames.add(pd.getName());
+            }
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
+
+    /**
+     * 复制source的属性到target对象中
+     * 但是要求复制的属性在target中的对应属性要为空
+     * 如果target对象中的该属性不为空，将不被复制，将跳过
+     *
+     * @param source 需要被复制的对象
+     * @param target 需要复制的对象
+     */
+    public static void copyPropertiesTargetNotNull(Object source, Object target) {
+        BeanUtils.copyProperties(source, target, getNotNullPropertyNames(target));
     }
 
 }

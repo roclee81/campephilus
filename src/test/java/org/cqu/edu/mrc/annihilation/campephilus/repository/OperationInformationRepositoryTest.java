@@ -34,14 +34,10 @@ public class OperationInformationRepositoryTest {
     @Test
     public void save() {
 //        OperationInformationDO result = new Gson().fromJson("{\"operationInfo\":{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"2004-05-03T17:30:08+08:00\"},\"deviceInformation\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}", OperationInformationDO.class);
-
         OperationInformationDO operationInformationDO = new OperationInformationDO();
         operationInformationDO.setOperationNumber(2);
         operationInformationDO.setPatientId("2131231231");
         operationInformationDO.setGmtCreate(new Date());
-        OperationInformationDO.OperationInfo operationInfo = new OperationInformationDO.OperationInfo();
-        operationInfo.setOperationHospitalCode("test");
-        operationInformationDO.setOperationInfo(operationInfo);
         operationInformationRepository.saveOperationInformationDO(operationInformationDO);
 //        operationInformationRepository.saveOperationInformationDO(result);
     }

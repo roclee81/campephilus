@@ -48,10 +48,10 @@ public class FeedbackInformationServiceImpl implements FeedbackInformationServic
     @Override
     public boolean saveFeedbackInformationDO(ParseDataDTO parseDataDTO) {
 
-        Map<String, Object> dataMap;
+        Map<String, Object> dataMap = null;
 
         try {
-            dataMap = parseDataDTO.getDataMap();
+//            dataMap = parseDataDTO.getData();
         } catch (ClassCastException e) {
             throw new SaveException(ErrorEnum.SAVE_ERROR.getCode(), DataConstants.SAVE_ERROR, e.toString(), parseDataDTO.toString());
         }

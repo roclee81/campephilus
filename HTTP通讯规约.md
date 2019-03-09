@@ -46,6 +46,8 @@
 
 
 ## 上传规则
+###所有时间格式采用ISO8601格式例如2004-05-03T17:30:08+08:00
+
 ### 1. 所有设备开机时发送
 * 数据上传URL 120.79.151.208:8080/campephilus/instrument/
 * 请求方式 POST
@@ -101,12 +103,10 @@ code: 151
 mac: "mac"
 operationNumber: -1
 data:{
-     	"operationInfo": {
-     	    "patientId": "patientId",
-     		"operationHospitalCode": "0147",
-     		"operationStartTime": "1546501804000"
-     	},
-     	"deviceInfo": [{
+     	"patientId": "patientId",
+     	"operationHospitalCode": "0147",
+     	"operationStartTime": "2004-05-03T17:30:08+08:00",
+     	"deviceInformation": [{
      		"deviceType": 1,
      		"serialNumber": "SN123123",
      		"serviceLife": 2
@@ -269,7 +269,7 @@ operationNumber: 1
 data: {
       	"markNumber": 1,
       	"markType": 1,
-        "markTime": "1546501804000",
+        "markTime": "2004-05-03T17:30:08+08:00",
       	"markMessage": {}
       }
 ```
@@ -320,7 +320,7 @@ code: 179
 mac: "mac"
 operationNumber: 1
 data: {
-      	"operationEndTime": ""
+      	"operationEndTime": "2004-05-03T17:30:08+08:00"
       }
 ```
 

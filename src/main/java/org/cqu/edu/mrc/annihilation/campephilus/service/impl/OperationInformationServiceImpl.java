@@ -1,5 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
@@ -11,6 +13,8 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
+import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
@@ -103,6 +107,11 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public boolean saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+        // 首先查询是否存在该条数据，根据operationNumber查询
+        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(operationInformationDO.getOperationNumber());
+        if (null != searchResult) {
+            return false;
+        }
         OperationInformationDO result = operationInformationRepository.saveOperationInformationDO(operationInformationDO);
         if (null == result) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, operationInformationDO.toString());
@@ -114,108 +123,46 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public boolean saveOperationInformationDO(ParseDataDTO parseDataDTO) {
-        Map dataMap = parseDataDTO.getDataMap();
-        int operationNumber = parseDataDTO.getOperationNumber();
-
-        Map<String, Object> operationInfoMap;
-        String patientId;
-        Date operationStartTime;
-        String operationHospitalCode;
-        List<Map<String, Object>> deviceInformation;
-        try {
-            // 检查是否有operationInfo,没有直接返回false
-            if (dataMap.containsKey(DataConstants.OPERATION_INFOMATION)) {
-                operationInfoMap = (Map<String, Object>) dataMap.get(DataConstants.OPERATION_INFOMATION);
-                // 检查是否有operationHospitalCode,没有直接返回false
-                if (operationInfoMap.containsKey(DataConstants.OPERATION_HOSPITAL_CODE)) {
-                    operationHospitalCode = (String) operationInfoMap.get(DataConstants.OPERATION_HOSPITAL_CODE);
-                } else {
-                    return false;
-                }
-
-                // 检查是否有patientId,没有直接返回false
-                if (operationInfoMap.containsKey(DataConstants.PATIENT_ID)) {
-                    patientId = (String) operationInfoMap.get(DataConstants.PATIENT_ID);
-                } else {
-                    return false;
-                }
-
-                // 检查是否有operationStartTime，没有直接返回false
-                if (operationInfoMap.containsKey(DataConstants.OPERATION_START_TIME)) {
-                    operationStartTime = new Date(Long.parseLong((String) operationInfoMap.get(DataConstants.OPERATION_START_TIME)));
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-
-            // 检查是否有deviceInformation,没有直接返回false
-            if (dataMap.containsKey(DataConstants.DEVICE_INFORMATION)) {
-                deviceInformation = (List<Map<String, Object>>) dataMap.get(DataConstants.DEVICE_INFORMATION);
-            } else {
-                return false;
-            }
-        } catch (ClassCastException | NumberFormatException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
+        OperationInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        if (null == parseResult) {
+            return false;
         }
+        if (parseResult.getOperationStartTime() == null || parseResult.getOperationHospitalCode() == null || parseResult.getDeviceInformation() == null) {
+            return false;
+        }
+        parseResult.setOperationEndTime(null);
+        parseResult.setOperationState(OperationStateEnum.IN_PREPARATION.getCode());
+        parseResult.setGmtCreate(new Date());
+        parseResult.setGmtModified(new Date());
 
-        OperationInformationDO operationInformationDO = new OperationInformationDO();
-        operationInformationDO.setOperationNumber(operationNumber);
-        operationInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
-        operationInformationDO.setPatientId(patientId);
-        operationInformationDO.setOperationHospitalCode(operationHospitalCode);
-        operationInformationDO.setDeviceInformation(deviceInformation);
-//        operationInformationDO.setOperationStartTime(operationStartTime);
-//        operationInformationDO.setOperationEndTime(null);
-        operationInformationDO.setOperationState(OperationStateEnum.IN_PREPARATION.getCode());
-        operationInformationDO.setGmtCreate(new Date());
-        operationInformationDO.setGmtModified(new Date());
-
-        return this.saveOperationInformationDO(operationInformationDO);
+        return this.saveOperationInformationDO(parseResult);
     }
 
     @Override
     public boolean updateOperationInformationDO(ParseDataDTO parseDataDTO) {
-        if (null == parseDataDTO) {
+        OperationInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        if (null == parseResult) {
             return false;
         }
 
-        // 通过operationNumber先查询出存储的数据，如果没有也将会报错
-        int operationNumber = parseDataDTO.getOperationNumber();
-        OperationInformationDO operationInformationDO;
+        OperationInformationDO searchResult;
         try {
-            operationInformationDO = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
+            searchResult = operationInformationRepository.findOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
         } catch (IncorrectResultSizeDataAccessException e) {
             return false;
         }
 
-        if (null == operationInformationDO) {
+        if (null == searchResult) {
             return false;
         }
 
         // 重新设定该条数据修改时间
-        operationInformationDO.setGmtModified(new Date());
+        searchResult.setGmtModified(new Date());
 
-        Map dataMap = parseDataDTO.getDataMap();
-
-        Date operationEndTime;
-        try {
-            // 检查是否有operationEndTime,没有直接返回false
-            if (dataMap.containsKey(DataConstants.OPERATION_END_TIME)) {
-                operationEndTime = new Date(Long.parseLong((String) dataMap.get(DataConstants.OPERATION_END_TIME)));
-            } else {
-                return false;
-            }
-        } catch (ClassCastException | NumberFormatException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
-        }
-
-//        operationInformationDO.setOperationEndTime(operationEndTime);
-        operationInformationDO.setOperationState(OperationStateEnum.FINISH.getCode());
-//        operationInformationDO.setOperationTime(operationEndTime.getTime() - operationInformationDO.getOperationStartTime().getTime());
-
-        return this.saveOperationInformationDO(operationInformationDO);
+        BeanUtil.copyPropertiesTargetNotNull(parseResult, searchResult);
+        searchResult.setOperationState(OperationStateEnum.FINISH.getCode());
+        // TODO 没有对OperationTime进行处理，不知道有没有必要
+        return this.saveOperationInformationDO(searchResult);
     }
 
     @Override
@@ -223,4 +170,16 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         return operationInformationRepository.countOperationInformationDOS();
     }
 
+    private OperationInformationDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
+        String jsonData = parseDataDTO.getJsonData();
+        OperationInformationDO operationInformationDO;
+        try {
+            operationInformationDO = new Gson().fromJson(jsonData, OperationInformationDO.class);
+        } catch (JsonSyntaxException exception) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
+        }
+        operationInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
+        operationInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
+        return operationInformationDO;
+    }
 }

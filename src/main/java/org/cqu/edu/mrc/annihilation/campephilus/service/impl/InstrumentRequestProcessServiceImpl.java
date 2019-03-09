@@ -116,8 +116,10 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @return 初次解析后的ParseDataDTO，不会返回空值
      */
     private ParseDataDTO processMsg(InstrumentRequestForm instrumentRequestForm) {
-        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
-                instrumentRequestForm.getOperationNumber(), parseJson(instrumentRequestForm.getData()));
+        //TODO
+        return null;
+//        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
+//                instrumentRequestForm.getOperationNumber(), parseJson(instrumentRequestForm.getData()));
     }
 
     /**

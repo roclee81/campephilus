@@ -115,7 +115,8 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public boolean saveDeviceDO(ParseDataDTO parseDataDTO) {
-        Map dataMap = parseDataDTO.getDataMap();
+        Map dataMap = null;
+//        Map dataMap = parseDataDTO.getData();
         int operationNumber = parseDataDTO.getOperationNumber();
 
         int deviceDataNumber;

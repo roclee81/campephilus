@@ -2,8 +2,6 @@ package org.cqu.edu.mrc.annihilation.campephilus.dto;
 
 import lombok.Data;
 
-import java.util.Map;
-
 /**
  * campephilus
  *
@@ -34,15 +32,15 @@ public class ParseDataDTO {
     /**
      * 数据Map
      */
-    private Map dataMap;
+    private String jsonData;
 
     public ParseDataDTO() {
     }
 
-    public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, Map dataMap) {
+    public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, String jsonData) {
         this.code = code;
         this.macAddress = macAddress;
         this.operationNumber = operationNumber;
-        this.dataMap = dataMap;
+        this.jsonData = jsonData;
     }
 }

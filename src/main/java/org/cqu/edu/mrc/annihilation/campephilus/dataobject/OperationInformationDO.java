@@ -1,6 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.dataobject;
 
 import lombok.Data;
+import org.apache.tomcat.util.modeler.OperationInfo;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -52,33 +53,27 @@ public class OperationInformationDO extends CommonDO {
     private List<Map<String, Object>> deviceInformation;
 
     /**
+     * 手术开始时间
+     */
+    @Field(value = "operation_start_time")
+    private Date operationStartTime;
+
+    /**
+     * 手术结束时间
+     */
+    @Field(value = "operation_end_time")
+    private Date operationEndTime;
+
+    /**
+     * 手术进行的时间
+     */
+    @Field(value = "operation_time")
+    private Long operationTime;
+
+    /**
      * 手术状态
      */
     @Field(value = "operation_state")
     private Integer operationState;
-
-    @Field(value = "operation_info")
-    private OperationInfo operationInfo;
-
-    @Data
-    public static class OperationInfo {
-        /**
-         * 进行手术的所在医院代码 采用国家医院代码,这个需要手术标记人员手动输入
-         */
-        @Field(value = "operation_hospital_code")
-        private String operationHospitalCode;
-
-        /**
-         * 手术开始时间
-         */
-        @Field(value = "operation_start_time")
-        private Date operationStartTime;
-
-        /**
-         * 手术结束时间
-         */
-        @Field(value = "operation_end_time")
-        private Date operationEndTime;
-    }
 }
 

@@ -3,7 +3,6 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.PatientInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +75,7 @@ public class PatientInformationServiceImplTest {
         dataMap.put("patientId", "100077777");
         dataMap.put("patientData", new HashMap<>());
         dataMap.put("preoperativeData", new HashMap<>());
-        parseDataDTO.setDataMap(dataMap);
+//        parseDataDTO.setData(dataMap);
         boolean result = patientInformationService.savePatientInformationDO(parseDataDTO);
 //        Assert.assertTrue(result);
     }
