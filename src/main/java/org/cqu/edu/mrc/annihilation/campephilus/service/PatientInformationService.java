@@ -79,8 +79,9 @@ public interface PatientInformationService {
      * 保存PatientInformationDO信息
      *
      * @param patientInformationDO patientInformationDO实体
+     * @return 是否保存成功
      */
-    void savePatientInformationDO(PatientInformationDO patientInformationDO);
+    boolean savePatientInformationDO(PatientInformationDO patientInformationDO);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到PatientInformationDO来保存信息
@@ -89,4 +90,12 @@ public interface PatientInformationService {
      * @return 是否保存成功
      */
     boolean savePatientInformationDO(ParseDataDTO parseDataDTO);
+
+    /**
+     * 更新PatientInformationDO信息
+     *
+     * @param parseDataDTO 初次解析的数据
+     * @return 是否保存成功
+     */
+    boolean updatePatientInformationDO(ParseDataDTO parseDataDTO);
 }

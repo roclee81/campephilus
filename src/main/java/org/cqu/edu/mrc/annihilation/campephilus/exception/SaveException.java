@@ -1,5 +1,9 @@
 package org.cqu.edu.mrc.annihilation.campephilus.exception;
 
+import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+
 /**
  * campephilus
  *
@@ -9,6 +13,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.exception;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@Slf4j
 public class SaveException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
@@ -17,18 +22,33 @@ public class SaveException extends RuntimeException {
     private String errorMeg;
     private String errorData;
 
-    public SaveException(int code, String msg) {
-        super(msg);
-        this.msg = msg;
-        this.code = code;
-    }
-
     public SaveException(int code, String msg, String errorMeg, String errorData) {
         super(msg);
         this.msg = msg;
         this.code = code;
         this.errorMeg = errorMeg;
         this.errorData = errorData;
+    }
+
+    public SaveException(ResponseEnum responseEnum) {
+        super();
+        this.code = responseEnum.getCode();
+        this.msg = responseEnum.getMsg();
+    }
+
+    /**
+     * 检查保存的结果
+     * 如果保存失败，将抛出异常
+     *
+     * @param result     保存的结果
+     * @param saveObject 保存的对象
+     */
+    public static void checkSaveSuccess(Object result, Object saveObject) {
+        if (null == result) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, saveObject.toString());
+        } else {
+            log.info("Insert the success :{}", saveObject.toString());
+        }
     }
 
     public String getMsg() {

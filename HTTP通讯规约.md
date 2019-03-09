@@ -348,7 +348,7 @@ operationNumber: 1
 data: {}
 ```
 
-* #### 请求发送术后患者情况
+* #### 是发送术后患者情况
 ```
 code: 183
 mac: "mac"

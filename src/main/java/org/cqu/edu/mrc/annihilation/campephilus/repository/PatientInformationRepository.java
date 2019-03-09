@@ -47,6 +47,7 @@ public interface PatientInformationRepository {
      * 保存 PatientInformationDO实体
      *
      * @param patientInformationDO PatientInformationDO实体
+     * @return 保存成功返回保存的对象，如果不成功返回null
      */
-    void savePatientInformationDO(PatientInformationDO patientInformationDO);
+    PatientInformationDO savePatientInformationDO(PatientInformationDO patientInformationDO);
 }

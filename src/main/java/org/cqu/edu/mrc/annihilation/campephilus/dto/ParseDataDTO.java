@@ -30,7 +30,7 @@ public class ParseDataDTO {
     private Integer operationNumber;
 
     /**
-     * 数据Map
+     * 数据jsonData
      */
     private String jsonData;
 

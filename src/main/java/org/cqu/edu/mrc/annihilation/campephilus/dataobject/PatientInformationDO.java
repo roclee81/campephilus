@@ -27,6 +27,12 @@ public class PatientInformationDO extends CommonDO {
     private String patientId;
 
     /**
+     * 数据采集器MAC地址
+     */
+    @Field(value = "collector_mac_address")
+    private String collectorMacAddress;
+
+    /**
      * 手术顺序号 手术的顺序号，唯一
      */
     @Field(value = "operation_number")
@@ -68,17 +74,10 @@ public class PatientInformationDO extends CommonDO {
     @Field(value = "patient_data")
     private Map patientData;
 
-    public PatientInformationDO() {
-    }
-
-    public PatientInformationDO(String patientId, Integer operationNumber, Integer creatorId, Map preoperativeData, Map postoperativeData, Map patientData, Date gmtCreate, Date gmtModified) {
-        super.setGmtCreate(gmtCreate);
-        super.setGmtModified(gmtModified);
-        this.patientId = patientId;
-        this.operationNumber = operationNumber;
-        this.creatorId = creatorId;
-        this.preoperativeData = preoperativeData;
-        this.postoperativeData = postoperativeData;
-        this.patientData = patientData;
-    }
+    /**
+     * 数据状态
+     * 如果处于false就不允许更改了
+     */
+    @Field(value = "data_state")
+    private Boolean dataState;
 }

@@ -56,8 +56,8 @@ public class PatientInformationRepositoryImpl implements PatientInformationRepos
     }
 
     @Override
-    public void savePatientInformationDO(PatientInformationDO patientInformationDO) {
-        mongoOperations.save(patientInformationDO);
+    public PatientInformationDO savePatientInformationDO(PatientInformationDO patientInformationDO) {
+        return mongoOperations.save(patientInformationDO);
     }
 
     private Page<PatientInformationDO> getPatientInformationDOS(Query query, Pageable pageable) {

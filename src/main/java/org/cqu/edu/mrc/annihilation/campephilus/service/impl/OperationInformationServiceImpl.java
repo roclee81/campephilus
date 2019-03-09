@@ -63,7 +63,13 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public OperationInformationDO getOperationInformationDOByOperationNumber(Integer operationNumber) {
-        return operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
+        OperationInformationDO result;
+        try {
+            result = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+        return result;
     }
 
     @Override
@@ -110,14 +116,13 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         // 首先查询是否存在该条数据，根据operationNumber查询
         OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(operationInformationDO.getOperationNumber());
         if (null != searchResult) {
-            return false;
+            if (null == operationInformationDO.getId() || !operationInformationDO.getId().equals(searchResult.getId())) {
+                throw new SaveException(ResponseEnum.DATA_EXISTED);
+            }
         }
+
         OperationInformationDO result = operationInformationRepository.saveOperationInformationDO(operationInformationDO);
-        if (null == result) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data save error", DataConstants.SAVE_ERROR, operationInformationDO.toString());
-        } else {
-            log.info("Insert the success :{}", operationInformationDO.toString());
-        }
+        SaveException.checkSaveSuccess(result, operationInformationDO);
         return true;
     }
 
@@ -145,14 +150,14 @@ public class OperationInformationServiceImpl implements OperationInformationServ
             return false;
         }
 
-        OperationInformationDO searchResult;
-        try {
-            searchResult = operationInformationRepository.findOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
-        } catch (IncorrectResultSizeDataAccessException e) {
+        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
+
+        if (null == searchResult) {
             return false;
         }
 
-        if (null == searchResult) {
+        // 手术状态已经结束就不允许上传数据了
+        if (searchResult.getOperationState().equals(OperationStateEnum.FINISH.getCode())) {
             return false;
         }
 
@@ -171,10 +176,9 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     private OperationInformationDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
-        String jsonData = parseDataDTO.getJsonData();
         OperationInformationDO operationInformationDO;
         try {
-            operationInformationDO = new Gson().fromJson(jsonData, OperationInformationDO.class);
+            operationInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), OperationInformationDO.class);
         } catch (JsonSyntaxException exception) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
         }

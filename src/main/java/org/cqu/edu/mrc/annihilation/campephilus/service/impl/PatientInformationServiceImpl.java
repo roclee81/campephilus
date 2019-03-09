@@ -1,14 +1,22 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.PatientInformationDOConvertPatientInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.PatientInformationDO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.PatientInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.PatientInformationService;
+import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,7 +59,13 @@ public class PatientInformationServiceImpl implements PatientInformationService 
 
     @Override
     public PatientInformationDO getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
-        return patientInformationRepository.findPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
+        PatientInformationDO result;
+        try {
+            result = patientInformationRepository.findPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+        return result;
     }
 
     @Override
@@ -72,74 +86,69 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     }
 
     @Override
-    public void savePatientInformationDO(PatientInformationDO patientInformationDO) {
-        patientInformationRepository.savePatientInformationDO(patientInformationDO);
+    public boolean savePatientInformationDO(PatientInformationDO patientInformationDO) {
+        // 首先查询是否存在该条数据，根据operationNumber查询
+        PatientInformationDO searchResult = this.getPatientInformationDOByOperationNumber(patientInformationDO.getOperationNumber());
+        if (null != searchResult) {
+            if (null == patientInformationDO.getId() || !patientInformationDO.getId().equals(searchResult.getId())) {
+                throw new SaveException(ResponseEnum.DATA_EXISTED);
+            }
+        }
+        PatientInformationDO result = patientInformationRepository.savePatientInformationDO(patientInformationDO);
+        SaveException.checkSaveSuccess(result, patientInformationDO);
+        return true;
     }
 
     @Override
     public boolean savePatientInformationDO(ParseDataDTO parseDataDTO) {
-        Map dataMap = null;
-//        Map dataMap = parseDataDTO.getData();
-        int operationNumber = parseDataDTO.getOperationNumber();
-
-        Map patientData, preoperativeData, postoperativeData;
-        String patientId;
-        try {
-            // 检查是否有patientId,没有直接返回false
-            if (dataMap.containsKey(DataConstants.PATIENT_ID)) {
-                patientId = (String) dataMap.get(DataConstants.PATIENT_ID);
-            } else {
-                return false;
-            }
-        } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-            log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
+        PatientInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        if (null == parseResult) {
             return false;
         }
 
-        // 首先查询是否已有该数据
-        PatientInformationDO patientInformationDO = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
-
-        // 如果不存在则生成部分数据
-        if (null == patientInformationDO) {
-            try {
-                // 检查是否有patientData,没有直接返回false
-                if (dataMap.containsKey(DataConstants.PATIENT_DATA)) {
-                    patientData = (Map) dataMap.get(DataConstants.PATIENT_DATA);
-                } else {
-                    return false;
-                }
-
-                // 检查是否有preoperativeData，没有直接返回false
-                if (dataMap.containsKey(DataConstants.PREOPERATIVE_DATA)) {
-                    preoperativeData = (Map) dataMap.get(DataConstants.PREOPERATIVE_DATA);
-                } else {
-                    return false;
-                }
-            } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-                log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
-                return false;
-            }
-
-            patientInformationDO = new PatientInformationDO(patientId, operationNumber, 0, preoperativeData, new HashMap(16), patientData, new Date(), new Date());
-        } else {
-            // 如果存在首先先更新数据更改时间
-            patientInformationDO.setGmtModified(new Date());
-            try {
-                // 检查是否有postoperativeData，没有直接返回false
-                if (dataMap.containsKey(DataConstants.POSTOPERATIVE_DATA)) {
-                    postoperativeData = (Map) dataMap.get(DataConstants.POSTOPERATIVE_DATA);
-                } else {
-                    return false;
-                }
-            } catch (ClassCastException | NullPointerException | NumberFormatException exception) {
-                log.error("ParseDataDTO:{},Exception:{}", parseDataDTO.toString(), exception.toString());
-                return false;
-            }
-            patientInformationDO.setPostoperativeData(postoperativeData);
+        if (null == parseResult.getPatientId() || null == parseResult.getPatientData() || null == parseResult.getPreoperativeData()) {
+            return false;
         }
 
-        this.savePatientInformationDO(patientInformationDO);
-        log.info("Insert the success :{}", patientInformationDO.toString());
-        return true;
+        parseResult.setDataState(Boolean.TRUE);
+        parseResult.setGmtCreate(new Date());
+        parseResult.setGmtModified(new Date());
+        return this.savePatientInformationDO(parseResult);
+    }
+
+    @Override
+    public boolean updatePatientInformationDO(ParseDataDTO parseDataDTO) {
+        PatientInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        if (null == parseResult) {
+            return false;
+        }
+
+        PatientInformationDO searchResult = this.getPatientInformationDOByPatientIdAndOperationNumber(parseResult.getPatientId(), parseResult.getOperationNumber());
+
+        if (null == searchResult) {
+            return false;
+        }
+
+        if (searchResult.getDataState().equals(Boolean.FALSE)) {
+            return false;
+        }
+
+        // 重新设定该条数据修改时间
+        BeanUtil.copyPropertiesTargetNotNull(parseResult, searchResult);
+        searchResult.setGmtModified(new Date());
+        parseResult.setDataState(Boolean.FALSE);
+        return this.savePatientInformationDO(searchResult);
+    }
+
+    private PatientInformationDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
+        PatientInformationDO patientInformationDO;
+        try {
+            patientInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), PatientInformationDO.class);
+        } catch (JsonSyntaxException exception) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data property parsing error", exception.toString(), parseDataDTO.toString());
+        }
+        patientInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
+        patientInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
+        return patientInformationDO;
     }
 }

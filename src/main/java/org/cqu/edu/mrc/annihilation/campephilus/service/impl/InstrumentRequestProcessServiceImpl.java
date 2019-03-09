@@ -53,21 +53,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.statisticalService = statisticalService;
     }
 
-    /**
-     * 仅解析JSON数据，如果数据有错误，则返回null
-     * 将传入的值为{},将返回一个空的HashMap
-     *
-     * @param jsonBuffer JSON 字符串
-     * @return MedicalDataDTO实体类
-     */
-    private Map parseJson(String jsonBuffer) {
-        try {
-            return new Gson().fromJson(jsonBuffer, Map.class);
-        } catch (JsonSyntaxException jsonSyntaxException) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), DataConstants.DATA_FIELD_FORMAT_ERROR, DataConstants.DATA_FIELD_FORMAT_ERROR, jsonBuffer);
-        }
-    }
-
     @Override
     public ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm) {
 
@@ -116,10 +101,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @return 初次解析后的ParseDataDTO，不会返回空值
      */
     private ParseDataDTO processMsg(InstrumentRequestForm instrumentRequestForm) {
-        //TODO
-        return null;
-//        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
-//                instrumentRequestForm.getOperationNumber(), parseJson(instrumentRequestForm.getData()));
+        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
+                instrumentRequestForm.getOperationNumber(), instrumentRequestForm.getData());
     }
 
     /**
@@ -137,50 +120,67 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
         ParseResultObject parseResultObject = new ParseResultObject();
         parseResultObject.setReturnResult(false);
+        // 解析标志位
+        boolean flag = false;
         int code = parseDataDTO.getCode();
 
         // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
         if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
             parseDataDTO.setOperationNumber(getNewOperationNumber());
             parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDO(parseDataDTO));
+            flag = true;
         }
 
         // 更新手术过程基本信息，即手术结束的信息
         if (RequestEnum.OPERATION_END.getCode().equals(code)) {
             parseResultObject.setReturnResult(operationInformationService.updateOperationInformationDO(parseDataDTO));
+            flag = true;
         }
 
         // 处理传输的医疗仪器数据的情况
         if (RequestEnum.DEVICE_DATA.getCode().equals(code)) {
             parseResultObject.setReturnResult(deviceService.saveDeviceDO(parseDataDTO));
+            flag = true;
         }
 
         // 处理上传或者更新的患者数据的情况
-        if (RequestEnum.PATIENT_INFO.getCode().equals(code) || RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
+        if (RequestEnum.PATIENT_INFO.getCode().equals(code)) {
             parseResultObject.setReturnResult(patientInformationService.savePatientInformationDO(parseDataDTO));
+            flag = true;
+        }
+
+        if (RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
+            parseResultObject.setReturnResult(patientInformationService.updatePatientInformationDO(parseDataDTO));
+            flag = true;
         }
 
         // 处理上传的手术过程中标记的情况
         if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
             parseResultObject.setReturnResult(operationMarkService.saveOperationMarkDO(parseDataDTO));
+            flag = true;
         }
 
         // 处理上传的反馈数据
         if (RequestEnum.FEEDBACK_INFO.getCode().equals(code)) {
             parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
+            flag = true;
         }
 
         // 处理获取版本的请求
         if (RequestEnum.VERSION_REQUEST.getCode().equals(code)) {
             parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
+            flag = true;
         }
 
         // 需要特殊处理的情况都没有的，枚举其余请求，是否存在
-        for (RequestEnum requestEnum : RequestEnum.values()) {
-            if (requestEnum.getCode().equals(code)) {
-                parseResultObject.setReturnResult(true);
+        if (!flag) {
+            for (RequestEnum requestEnum : RequestEnum.values()) {
+                if (requestEnum.getCode().equals(code)) {
+                    parseResultObject.setReturnResult(true);
+                }
             }
         }
+
         return parseResultObject;
     }
 
