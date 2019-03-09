@@ -158,7 +158,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
         // 手术状态已经结束就不允许上传数据了
         if (searchResult.getOperationState().equals(OperationStateEnum.FINISH.getCode())) {
-            return false;
+            throw new SaveException(ResponseEnum.DATA_STATE_FINISHED);
         }
 
         // 重新设定该条数据修改时间

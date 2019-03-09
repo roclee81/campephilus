@@ -45,6 +45,11 @@ public enum ResponseEnum {
     DATA_EXISTED(-6, "数据已经存在"),
 
     /**
+     * 该数据已经处于结束状态
+     */
+    DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
+
+    /**
      * 成功
      */
     SUCCESS(200, "成功"),

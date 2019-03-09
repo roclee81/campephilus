@@ -130,13 +130,13 @@ public class PatientInformationServiceImpl implements PatientInformationService 
         }
 
         if (searchResult.getDataState().equals(Boolean.FALSE)) {
-            return false;
+            throw new SaveException(ResponseEnum.DATA_STATE_FINISHED);
         }
 
         // 重新设定该条数据修改时间
         BeanUtil.copyPropertiesTargetNotNull(parseResult, searchResult);
         searchResult.setGmtModified(new Date());
-        parseResult.setDataState(Boolean.FALSE);
+        searchResult.setDataState(Boolean.FALSE);
         return this.savePatientInformationDO(searchResult);
     }
 

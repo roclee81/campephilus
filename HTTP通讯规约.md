@@ -45,6 +45,16 @@
 * FEEDBACK_INFO_SUCCESS(186, "反馈数据接收成功"),
 
 
+## response code
+* UNKNOWN_ERROR(-1, "未知错误"),
+* DATA_FORMAT_ERROR(-2, "数据格式错误"),
+* CODE_ERROR(-3, "请求的CODE是错误的"),
+* DATA_DOES_NOT_EXIST(-4, "数据不存在"),
+* REQUEST_PARAMETER_DOES_NOT_EXIST(-5, "请求参数不存在"),
+* DATA_EXISTED(-6, "数据已经存在"),
+* DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
+
+
 ## 上传规则
 ###所有时间格式采用ISO8601格式例如2004-05-03T17:30:08+08:00
 
