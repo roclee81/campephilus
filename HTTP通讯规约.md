@@ -128,41 +128,9 @@ data:{
      }
 ```
 
-* #### 服务器也准备完毕，返回operationNumber，可以上传了
+* #### 服务器也准备完毕，返回operationNumber，数据已经保存了
 ```
 code: 152
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-*** #### 准备发送手术设备数据
-```
-code: 153
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-*** #### 回复可以发送发送手术设备数据
-```
-code: 154
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 准备发送病人信息数据
-```
-code: 159
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 可以上传病人数据数据
-```
-code: 160
 mac: "mac"
 operationNumber: 1
 data: {}
@@ -187,85 +155,23 @@ operationNumber: 1
 data: {}
 ```
 
-* #### 发布病人信息发送结束
-```
-code: 163
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 回复收到病人信息发送结束
-```
-code: 164
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 准备发送仪器数据
-```
-code: 165
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 可以发送仪器数据
-```
-code: 166
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
 * #### 发送仪器数据
 ```
 code: 167
 mac: "mac"
 operationNumber: 1
 data: {
-      	"deviceId": "value",
-      	"deviceDataNumber": "",
-      	"deviceData": {}
+      	"deviceId": "test",
+      	"deviceDataNumber": 1,
+      	"deviceData": {
+      		"bloodOxygen": 142
+      	}
       }
 ```
 
 * #### 接收到该条数据
 ```
 code: 168
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 仪器数据发送结束
-```
-code: 169
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 回复收到医疗仪器数据结束信号
-```
-code: 170
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 手术中的标记信息准备发送
-```
-code: 171
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 手术中的标记信息可以发送
-```
-code: 172
 mac: "mac"
 operationNumber: 1
 data: {}
@@ -292,38 +198,6 @@ operationNumber: 1
 data: {}
 ```
 
-* #### 手术标记信息发送完毕
-```
-code: 175
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 手术标记信息发送完毕收到
-```
-code: 176
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 请求手术结束
-```
-code: 177
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 回复手术可以结束
-```
-code: 178
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
 * #### 是手术结束的信息
 ```
 code: 179
@@ -337,22 +211,6 @@ data: {
 * #### 回复收到手术结束的信息
 ```
 code: 180
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 请求发送术后患者情况(平板记录下来operationNumber)
-```
-code: 181
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
-* #### 可以发送术后患者情况(平板记录下来operationNumber)
-```
-code: 182
 mac: "mac"
 operationNumber: 1
 data: {}
@@ -381,9 +239,9 @@ data: {}
 ```
 code: 185
 mac: "mac"
-operationNumber: 1
+operationNumber: -1
 data: {
-          "msg": "使用极其困难,投诉"
+          "message": "使用极其困难,投诉"
       }
 ```
 
@@ -391,6 +249,6 @@ data: {
 ```
 code: 186
 mac: "mac"
-operationNumber: 1
+operationNumber: -1
 data: {}
 ```

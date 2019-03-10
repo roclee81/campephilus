@@ -32,9 +32,8 @@ public class DeviceRepositoryImpl implements DeviceRepository {
     }
 
     @Override
-    public void save(DeviceDO deviceDO, String deviceId) {
-        deviceId = deviceId.toLowerCase();
-        mongoOperations.save(deviceDO, "device_" + deviceId);
+    public DeviceDO saveDeviceDO(DeviceDO deviceDO) {
+        return null != deviceDO.getDeviceId() ? mongoOperations.save(deviceDO, "device_" + deviceDO.getDeviceId().toLowerCase()) : null;
     }
 
     @Override
@@ -43,6 +42,14 @@ public class DeviceRepositoryImpl implements DeviceRepository {
         query.with(pageable);
         return getDeviceDOS(query, deviceId, pageable);
     }
+
+    @Override
+    public DeviceDO findDeviceDOByDeviceIdAndOperationNumberAndDeviceDataNumber(String deviceId, Integer operationNumber, Integer deviceDataNumber) {
+        Query query = Query.query(Criteria.where(DataConstants.OPERATION_NUMBER).is(operationNumber)
+                .and(DataConstants.DEVICE_DATA_NUMBER).is(deviceDataNumber));
+        return getDeviceDO(query, deviceId);
+    }
+
 
     @Override
     public Page<DeviceDO> findDeviceDOSByCollectorMacAddress(String deviceId, String collectorMacAddress, Pageable pageable) {
@@ -69,5 +76,10 @@ public class DeviceRepositoryImpl implements DeviceRepository {
         int count = (int) mongoOperations.count(query, DeviceDO.class, "device_" + deviceId);
         List<DeviceDO> deviceDOList = mongoOperations.find(query, DeviceDO.class, "device_" + deviceId);
         return PageableExecutionUtils.getPage(deviceDOList, pageable, () -> count);
+    }
+
+    private DeviceDO getDeviceDO(Query query, String deviceId) {
+        List<DeviceDO> deviceDOList = mongoOperations.find(query, DeviceDO.class, "device_" + deviceId);
+        return deviceDOList.size() > 0 && deviceDOList.size() < 2 ? deviceDOList.get(0) : null;
     }
 }

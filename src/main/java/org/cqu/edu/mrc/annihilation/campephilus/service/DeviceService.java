@@ -44,22 +44,14 @@ public interface DeviceService {
     List<DeviceDTO> listDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
 
     /**
-     * 通过采集器MAC地址获取采集器所采集的所有DeviceDO信息
+     * 通过唯一的手术顺序号和设备号和设备数据顺序号查询唯一数据
      *
-     * @param collectorMacAddress 采集器MAC地址
-     * @param pageable            分页信息
-     * @return DeviceDO分页信息
+     * @param deviceId         设备的ID
+     * @param operationNumber  手术顺序号唯一
+     * @param deviceDataNumber 设备数据顺序号
+     * @return 如果存在返回对应DeviceDO，不存在返回null，如果查询到两个同样的数据，是数据库出现错误，也是返回null
      */
-    Page<DeviceDO> listDeviceDOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
-
-    /**
-     * 通过采集器MAC地址获取采集器所采集的所有DeviceDTO信息
-     *
-     * @param collectorMacAddress 采集器MAC地址
-     * @param pageable            分页信息
-     * @return DeviceDO列表
-     */
-    List<DeviceDTO> listDeviceDTOByCollectorMacAddress(String collectorMacAddress, Pageable pageable);
+    DeviceDO getDeviceDOByDeviceIdAndOperationNumberAndDeviceDataNumber(String deviceId, Integer operationNumber, Integer deviceDataNumber);
 
     /**
      * 通过设备ID获取该设备的所有数据
@@ -86,9 +78,9 @@ public interface DeviceService {
      * 如果没有会将该仪器添加进deviceInformation属性中
      *
      * @param deviceDO DeviceDO实体
-     * @param deviceId 设备ID
+     * @return 存储完成返回true，失败返回false
      */
-    void saveDeviceDO(DeviceDO deviceDO, String deviceId);
+    boolean saveDeviceDO(DeviceDO deviceDO);
 
     /**
      * 存储数据

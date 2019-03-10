@@ -50,6 +50,11 @@ public enum ResponseEnum {
     DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
 
     /**
+     * 手术没有开始，没有前置数据
+     */
+    OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
+
+    /**
      * 成功
      */
     SUCCESS(200, "成功"),

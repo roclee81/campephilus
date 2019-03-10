@@ -48,6 +48,14 @@ public interface OperationInformationService {
     List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable);
 
     /**
+     * 检查手术状态、如果手术没有准备（即没有数据），或手术状态处于结束，将返回false
+     *
+     * @param operationNumber 手术顺序号
+     * @return 如果手术没有准备（即没有数据），或手术状态处于结束，将返回false
+     */
+    boolean checkOperationState(Integer operationNumber);
+
+    /**
      * 通过手术顺序号查询OperationInformationDO信息
      * operationNumber唯一，所以数据查询到的信息也是唯一的
      * 若有多个值，将会返回null

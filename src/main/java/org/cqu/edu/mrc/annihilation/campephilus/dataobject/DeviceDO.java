@@ -22,10 +22,10 @@ import java.util.Map;
 public class DeviceDO extends CommonDO {
 
     /**
-     * 手术的顺序号，唯一
+     * 一起的SN码
      */
-    @Field(value = "operation_number")
-    private Integer operationNumber;
+    @Field(value = "device_id")
+    private String deviceId;
 
     /**
      * 仪器输出数据的顺序号，每场手术都会从0开始
@@ -38,15 +38,4 @@ public class DeviceDO extends CommonDO {
      */
     @Field(value = "device_data")
     private Map deviceData;
-
-    public DeviceDO() {
-    }
-
-    public DeviceDO(Integer operationNumber, Integer deviceDataNumber, Map deviceData, Date gmtCreate) {
-        super.setGmtCreate(gmtCreate);
-        this.operationNumber = operationNumber;
-        this.deviceDataNumber = deviceDataNumber;
-        this.deviceData = deviceData;
-    }
-
 }

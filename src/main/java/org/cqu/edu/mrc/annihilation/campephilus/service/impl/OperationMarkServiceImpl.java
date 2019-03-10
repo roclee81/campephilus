@@ -1,19 +1,17 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.OperationMarkDOConvertOperationMarkDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationMarkDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationMarkDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.OperationMarkRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationMarkService;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.CheckStateUtil;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * campephilus
@@ -37,10 +34,17 @@ import java.util.Map;
 public class OperationMarkServiceImpl implements OperationMarkService {
 
     private final OperationMarkRepository operationMarkRepository;
+    private final OperationInformationService operationInformationService;
 
     @Autowired
-    public OperationMarkServiceImpl(OperationMarkRepository operationMarkRepository) {
+    public OperationMarkServiceImpl(OperationMarkRepository operationMarkRepository, OperationInformationService operationInformationService) {
         this.operationMarkRepository = operationMarkRepository;
+        this.operationInformationService = operationInformationService;
+    }
+
+    @Override
+    public OperationMarkDO getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress) {
+        return operationMarkRepository.findOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(operationNumber, markNumber, collectorMacAddress);
     }
 
     @Override
@@ -100,38 +104,31 @@ public class OperationMarkServiceImpl implements OperationMarkService {
 
     @Override
     public boolean saveOperationMarkDO(OperationMarkDO operationMarkDO) {
-        // TODO 不知道如何处理保存是否需要验证
-        operationMarkRepository.save(operationMarkDO);
+        // 首先查询是否存在该条数据
+        OperationMarkDO searchResult = getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(
+                operationMarkDO.getOperationNumber(),
+                operationMarkDO.getMarkNumber(),
+                operationMarkDO.getCollectorMacAddress());
+
+        CheckStateUtil.checkState(searchResult, operationInformationService, operationMarkDO.getOperationNumber());
+
+        OperationMarkDO result = operationMarkRepository.save(operationMarkDO);
+        SaveException.checkSaveSuccess(result, operationMarkDO);
         return true;
     }
 
     @Override
     public boolean saveOperationMarkDO(ParseDataDTO parseDataDTO) {
-
-        OperationMarkDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        OperationMarkDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkDO.class);
         if (null == parseResult) {
             return false;
         }
-        if (parseResult.getMarkType() == null || parseResult.getMarkMessage() == null) {
+        if (parseResult.getMarkNumber() == null || parseResult.getMarkType() == null || parseResult.getMarkMessage() == null) {
             return false;
         }
 
         parseResult.setDataState(Boolean.FALSE);
-        parseResult.setGmtCreate(new Date());
-        parseResult.setGmtModified(new Date());
-
         return this.saveOperationMarkDO(parseResult);
     }
 
-    private OperationMarkDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
-        OperationMarkDO operationMarkDO;
-        try {
-            operationMarkDO = new Gson().fromJson(parseDataDTO.getJsonData(), OperationMarkDO.class);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
-        }
-        operationMarkDO.setOperationNumber(parseDataDTO.getOperationNumber());
-        operationMarkDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
-        return operationMarkDO;
-    }
 }

@@ -73,4 +73,8 @@ public class DataConstants {
 
     public static final String SAVE_ERROR = "Save Error";
 
+    public static final String GMT_CREATE = "gmtCreate";
+
+    public static final String GMT_MODIFIED = "gmtModified";
+
 }

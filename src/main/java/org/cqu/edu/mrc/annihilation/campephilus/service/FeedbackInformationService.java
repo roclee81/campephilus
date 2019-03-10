@@ -21,9 +21,9 @@ public interface FeedbackInformationService {
      * 保存FeedbackInformationDO
      *
      * @param feedbackInformationDO 需要保存的实体
-     * @return 如果保存成功返回FeedbackInformationDO，如果没有返回null
+     * @return 如果保存成功返回true，如果没有返回false
      */
-    FeedbackInformationDO saveFeedbackInformationDO(FeedbackInformationDO feedbackInformationDO);
+    boolean saveFeedbackInformationDO(FeedbackInformationDO feedbackInformationDO);
 
     /**
      * 找到ID不为空的所有数据，就是查找所有的数据

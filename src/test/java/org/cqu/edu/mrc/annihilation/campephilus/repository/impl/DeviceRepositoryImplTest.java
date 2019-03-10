@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.repository.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.DeviceDO;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,10 @@ public class DeviceRepositoryImplTest {
     @Test
     public void save() {
         DeviceDO deviceDO = new DeviceDO();
+        deviceDO.setDeviceId("test");
         deviceDO.setDeviceDataNumber(2);
         deviceDO.setOperationNumber(2);
-        deviceRepository.save(deviceDO, "test");
+        deviceRepository.saveDeviceDO(deviceDO);
     }
 
     @Test

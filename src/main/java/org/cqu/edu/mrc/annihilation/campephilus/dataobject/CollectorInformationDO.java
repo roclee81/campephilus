@@ -18,12 +18,6 @@ import java.util.Date;
 public class CollectorInformationDO extends CommonDO{
 
     /**
-     * 采集器的MAC地址
-     */
-    @Field(value = "collector_mac_address")
-    private String collectorMacAddress;
-
-    /**
      * 采集器的状态
      */
     @Field(value = "collector_state")

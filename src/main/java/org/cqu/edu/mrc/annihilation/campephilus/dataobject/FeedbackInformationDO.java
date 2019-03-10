@@ -20,6 +20,6 @@ public class FeedbackInformationDO extends CommonDO{
     /**
      * 反馈信息
      */
-    @Field(value = "msg")
-    private Map<String, Object> msg;
+    @Field(value = "message")
+    private String message;
 }

@@ -21,18 +21,6 @@ import java.util.Map;
 public class OperationMarkDO extends CommonDO {
 
     /**
-     * 手术顺序号 手术的顺序号，唯一
-     */
-    @Field(value = "operation_number")
-    private Integer operationNumber;
-
-    /**
-     * 数据采集器MAC地址
-     */
-    @Field(value = "collector_mac_address")
-    private String collectorMacAddress;
-
-    /**
      * 手术标记序号 手术标记序号,递增,程序实现
      */
     @Field(value = "mark_number")

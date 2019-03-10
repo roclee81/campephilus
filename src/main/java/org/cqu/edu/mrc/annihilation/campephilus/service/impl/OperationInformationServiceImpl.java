@@ -13,6 +13,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,15 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     public List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
         return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+    }
+
+    @Override
+    public boolean checkOperationState(Integer operationNumber) {
+        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(operationNumber);
+        if (null != searchResult) {
+            return !searchResult.getOperationState().equals(OperationStateEnum.FINISH.getCode());
+        }
+        return false;
     }
 
     @Override
@@ -128,7 +138,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public boolean saveOperationInformationDO(ParseDataDTO parseDataDTO) {
-        OperationInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
         if (null == parseResult) {
             return false;
         }
@@ -137,15 +147,12 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         }
         parseResult.setOperationEndTime(null);
         parseResult.setOperationState(OperationStateEnum.IN_PREPARATION.getCode());
-        parseResult.setGmtCreate(new Date());
-        parseResult.setGmtModified(new Date());
-
         return this.saveOperationInformationDO(parseResult);
     }
 
     @Override
     public boolean updateOperationInformationDO(ParseDataDTO parseDataDTO) {
-        OperationInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
         if (null == parseResult) {
             return false;
         }
@@ -153,7 +160,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
 
         if (null == searchResult) {
-            return false;
+            throw new SaveException(ResponseEnum.OPERATION_NOT_READY);
         }
 
         // 手术状态已经结束就不允许上传数据了
@@ -173,17 +180,5 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public Integer countOperationInformationDOS() {
         return operationInformationRepository.countOperationInformationDOS();
-    }
-
-    private OperationInformationDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
-        OperationInformationDO operationInformationDO;
-        try {
-            operationInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), OperationInformationDO.class);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
-        }
-        operationInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
-        operationInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
-        return operationInformationDO;
     }
 }

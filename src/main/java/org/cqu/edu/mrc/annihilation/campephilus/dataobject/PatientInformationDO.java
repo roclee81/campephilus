@@ -27,18 +27,6 @@ public class PatientInformationDO extends CommonDO {
     private String patientId;
 
     /**
-     * 数据采集器MAC地址
-     */
-    @Field(value = "collector_mac_address")
-    private String collectorMacAddress;
-
-    /**
-     * 手术顺序号 手术的顺序号，唯一
-     */
-    @Field(value = "operation_number")
-    private Integer operationNumber;
-
-    /**
      * 创建人编号
      */
     @Field(value = "creator_id")

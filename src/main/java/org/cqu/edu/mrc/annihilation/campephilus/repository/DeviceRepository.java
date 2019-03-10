@@ -22,9 +22,9 @@ public interface DeviceRepository {
      * 保存的时候将按照<code>deviceId</code>字段插入不同的表
      *
      * @param deviceDO 待保存的实体类
-     * @param deviceId 仪器的Id
+     * @return 保存成功返回DeviceDO，失败返回null
      */
-    void save(DeviceDO deviceDO, String deviceId);
+    DeviceDO saveDeviceDO(DeviceDO deviceDO);
 
     /**
      * 通过唯一的手术顺序号和设备号查询数据
@@ -35,6 +35,16 @@ public interface DeviceRepository {
      * @return DeviceDO实体
      */
     Page<DeviceDO> findDeviceDOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable);
+
+    /**
+     * 通过唯一的手术顺序号和设备号和设备数据顺序号查询唯一数据
+     *
+     * @param deviceId         设备的ID
+     * @param operationNumber  手术顺序号唯一
+     * @param deviceDataNumber 设备数据顺序号
+     * @return 如果存在返回对应DeviceDO，不存在返回null，如果查询到两个同样的数据，是数据库出现错误，也是返回null
+     */
+    DeviceDO findDeviceDOByDeviceIdAndOperationNumberAndDeviceDataNumber(String deviceId, Integer operationNumber, Integer deviceDataNumber);
 
     /**
      * 通过采集器MAC地址获取采集器所采集的所有DeviceDO信息

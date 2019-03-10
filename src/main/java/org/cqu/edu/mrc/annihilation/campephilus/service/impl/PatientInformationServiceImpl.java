@@ -14,6 +14,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.repository.PatientInformationRep
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.PatientInformationService;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -101,7 +102,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
 
     @Override
     public boolean savePatientInformationDO(ParseDataDTO parseDataDTO) {
-        PatientInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        PatientInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInformationDO.class);
         if (null == parseResult) {
             return false;
         }
@@ -111,14 +112,12 @@ public class PatientInformationServiceImpl implements PatientInformationService 
         }
 
         parseResult.setDataState(Boolean.TRUE);
-        parseResult.setGmtCreate(new Date());
-        parseResult.setGmtModified(new Date());
         return this.savePatientInformationDO(parseResult);
     }
 
     @Override
     public boolean updatePatientInformationDO(ParseDataDTO parseDataDTO) {
-        PatientInformationDO parseResult = parseParseDataDTOJsonData(parseDataDTO);
+        PatientInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInformationDO.class);
         if (null == parseResult) {
             return false;
         }
@@ -139,17 +138,5 @@ public class PatientInformationServiceImpl implements PatientInformationService 
         searchResult.setGmtModified(new Date());
         searchResult.setDataState(Boolean.FALSE);
         return this.savePatientInformationDO(searchResult);
-    }
-
-    private PatientInformationDO parseParseDataDTOJsonData(ParseDataDTO parseDataDTO) {
-        PatientInformationDO patientInformationDO;
-        try {
-            patientInformationDO = new Gson().fromJson(parseDataDTO.getJsonData(), PatientInformationDO.class);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
-        }
-        patientInformationDO.setOperationNumber(parseDataDTO.getOperationNumber());
-        patientInformationDO.setCollectorMacAddress(parseDataDTO.getMacAddress());
-        return patientInformationDO;
     }
 }

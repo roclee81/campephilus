@@ -23,18 +23,6 @@ import java.util.Map;
 public class OperationInformationDO extends CommonDO {
 
     /**
-     * 手术顺序号
-     */
-    @Field(value = "operation_number")
-    private Integer operationNumber;
-
-    /**
-     * 数据采集器MAC地址
-     */
-    @Field(value = "collector_mac_address")
-    private String collectorMacAddress;
-
-    /**
      * 病人Id
      */
     @Field(value = "patient_id")

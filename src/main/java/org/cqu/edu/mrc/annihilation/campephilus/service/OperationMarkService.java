@@ -21,6 +21,16 @@ import java.util.List;
 public interface OperationMarkService {
 
     /**
+     * 通过operationNumber、markNumber、collectorMacAddress查询该手术的唯一标记信息
+     *
+     * @param operationNumber     手术顺序号
+     * @param markNumber          标记顺序号
+     * @param collectorMacAddress 采集器MAC地址
+     * @return 如果有则返回对应的OperationMarkDO，如果不存在返回null
+     */
+    OperationMarkDO getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress);
+
+    /**
      * 通过手术顺序号查询该手术的所有标记信息
      *
      * @param operationNumber 手术顺序号

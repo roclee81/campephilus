@@ -22,6 +22,18 @@ class CommonDO {
     private String id;
 
     /**
+     * 手术的顺序号，唯一
+     */
+    @Field(value = "operation_number")
+    private Integer operationNumber;
+
+    /**
+     * 采集器的MAC地址
+     */
+    @Field(value = "collector_mac_address")
+    private String collectorMacAddress;
+
+    /**
      * 数据创建时间
      */
     @Field(value = "gmt_create")
