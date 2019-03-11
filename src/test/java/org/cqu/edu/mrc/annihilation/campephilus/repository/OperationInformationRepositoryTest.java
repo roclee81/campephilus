@@ -39,7 +39,7 @@ public class OperationInformationRepositoryTest {
         operationInformationDO.setPatientId("2131231231");
         operationInformationDO.setGmtCreate(new Date());
         operationInformationRepository.saveOperationInformationDO(operationInformationDO);
-//        operationInformationRepository.saveOperationInformationDO(result);
+//        operationInformationRepository.saveOperationInformationDOFromParseDataDTO(result);
     }
 
     @Test

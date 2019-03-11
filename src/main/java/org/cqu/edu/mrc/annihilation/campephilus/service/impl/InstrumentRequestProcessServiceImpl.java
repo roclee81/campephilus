@@ -1,7 +1,5 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * campephilus
@@ -120,64 +119,50 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
         ParseResultObject parseResultObject = new ParseResultObject();
         parseResultObject.setReturnResult(false);
-        // 解析标志位
-        boolean flag = false;
-        int code = parseDataDTO.getCode();
 
-        // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
-        if (RequestEnum.OPERATION_READY.getCode().equals(code)) {
-            parseDataDTO.setOperationNumber(getNewOperationNumber());
-            parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 更新手术过程基本信息，即手术结束的信息
-        if (RequestEnum.OPERATION_END.getCode().equals(code)) {
-            parseResultObject.setReturnResult(operationInformationService.updateOperationInformationDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 处理传输的医疗仪器数据的情况
-        if (RequestEnum.DEVICE_DATA.getCode().equals(code)) {
-            parseResultObject.setReturnResult(deviceService.saveDeviceDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 处理上传或者更新的患者数据的情况
-        if (RequestEnum.PATIENT_INFO.getCode().equals(code)) {
-            parseResultObject.setReturnResult(patientInformationService.savePatientInformationDO(parseDataDTO));
-            flag = true;
-        }
-
-        if (RequestEnum.POSTOPERATIVE_PATIENT_INFO.getCode().equals(code)) {
-            parseResultObject.setReturnResult(patientInformationService.updatePatientInformationDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 处理上传的手术过程中标记的情况
-        if (RequestEnum.OPERATION_MARK.getCode().equals(code)) {
-            parseResultObject.setReturnResult(operationMarkService.saveOperationMarkDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 处理上传的反馈数据
-        if (RequestEnum.FEEDBACK_INFO.getCode().equals(code)) {
-            parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
-            flag = true;
-        }
-
-        // 处理获取版本的请求
-        if (RequestEnum.VERSION_REQUEST.getCode().equals(code)) {
-            parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
-            flag = true;
-        }
-
-        // 需要特殊处理的情况都没有的，枚举其余请求，是否存在
-        if (!flag) {
-            for (RequestEnum requestEnum : RequestEnum.values()) {
-                if (requestEnum.getCode().equals(code)) {
-                    parseResultObject.setReturnResult(true);
-                }
+        switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(parseDataDTO.getCode()))) {
+            // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
+            case OPERATION_READY: {
+                parseDataDTO.setOperationNumber(getNewOperationNumber());
+                parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO));
+                break;
+            }
+            // 更新手术过程基本信息，即手术结束的信息
+            case OPERATION_END: {
+                parseResultObject.setReturnResult(operationInformationService.updateOperationInformationDO(parseDataDTO));
+                break;
+            }
+            // 处理传输的医疗仪器数据的情况
+            case DEVICE_DATA: {
+                parseResultObject.setReturnResult(deviceService.saveDeviceDO(parseDataDTO));
+                break;
+            }
+            // 处理上传或者更新的患者数据的情况
+            case PATIENT_INFO: {
+                parseResultObject.setReturnResult(patientInformationService.savePatientInformationDO(parseDataDTO));
+                break;
+            }
+            case POSTOPERATIVE_PATIENT_INFO: {
+                parseResultObject.setReturnResult(patientInformationService.updatePatientInformationDO(parseDataDTO));
+                break;
+            }
+            // 处理上传的手术过程中标记的情况
+            case OPERATION_MARK: {
+                parseResultObject.setReturnResult(operationMarkService.saveOperationMarkDO(parseDataDTO));
+                break;
+            }
+            // 处理上传的反馈数据
+            case FEEDBACK_INFO:{
+                parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
+                break;
+            }
+            // 处理获取版本的请求
+            case VERSION_REQUEST:{
+                parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
+                break;
+            }
+            default:{
+                break;
             }
         }
 

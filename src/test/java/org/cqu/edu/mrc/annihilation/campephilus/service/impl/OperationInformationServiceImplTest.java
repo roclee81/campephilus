@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
-
 /**
  * @author lx
  * @version V1.0
@@ -72,7 +70,7 @@ public class OperationInformationServiceImplTest {
     public void saveOperationInformationDO() {
         ParseDataDTO parseDataDTO = new ParseDataDTO();
         parseDataDTO.setJsonData("{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"2004-05-03T17:30:08+08:00\",\"deviceInformation\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}");
-        operationInformationService.saveOperationInformationDO(parseDataDTO);
+        operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO);
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lx
@@ -101,10 +102,11 @@ public class StatisticalDO extends CommonDO {
 
     /**
      * 存储当天参与手术的设备
+     * 分为每一次手术进行保存
      * 存储设备的SN码
      */
     @Field(value = "operation_device")
-    private List<String> operationDevice;
+    private List<List<String>> operationDevice;
 
     public static StatisticalDO getStatisticalDOInstance() {
         StatisticalDO statisticalDO = new StatisticalDO();
@@ -130,7 +132,7 @@ public class StatisticalDO extends CommonDO {
         List<Integer> operationHospitalList = new ArrayList<>();
         statisticalDO.setOperationHospital(operationHospitalList);
 
-        List<String> operationDeviceList = new ArrayList<>();
+        List<List<String>> operationDeviceList = new ArrayList<>();
         statisticalDO.setOperationDevice(operationDeviceList);
 
         List<Integer> collectorPerHourRequestNumberList = new ArrayList<>();

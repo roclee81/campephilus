@@ -119,4 +119,13 @@ public enum RequestEnum {
     RequestEnum(Integer code) {
         this.code = code;
     }
+
+    public static RequestEnum matchRequestEnum(Integer code) {
+        for (RequestEnum requestEnum : RequestEnum.values()) {
+            if (requestEnum.getCode().equals(code)) {
+                return requestEnum;
+            }
+        }
+        return null;
+    }
 }

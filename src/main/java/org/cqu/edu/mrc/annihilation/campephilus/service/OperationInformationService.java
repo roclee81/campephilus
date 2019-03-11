@@ -145,7 +145,7 @@ public interface OperationInformationService {
      * @param parseDataDTO 初次解析的数据
      * @return 是否保存成功，OperationInformationDO则保存成功，null则失败
      */
-    boolean saveOperationInformationDO(ParseDataDTO parseDataDTO);
+    boolean saveOperationInformationDOFromParseDataDTO(ParseDataDTO parseDataDTO);
 
     /**
      * 更新存储的数据
