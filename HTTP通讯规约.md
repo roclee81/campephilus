@@ -58,6 +58,8 @@
 
 ## 上传规则
 ###所有时间格式采用ISO8601格式例如2004-05-03T17:30:08+08:00
+##### SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+##### String s = sdf.format(new Date());
 
 ### 1. 所有设备开机时发送
 * 数据上传URL 120.79.151.208:8080/campephilus/instrument/
