@@ -22,7 +22,7 @@ public class ParseDataDTO {
     /**
      * mac地址
      */
-    private String macAddress;
+    private String collectorMacAddress;
 
     /**
      * 手术顺序号
@@ -37,9 +37,9 @@ public class ParseDataDTO {
     public ParseDataDTO() {
     }
 
-    public ParseDataDTO(Integer code, String macAddress, Integer operationNumber, String jsonData) {
+    public ParseDataDTO(Integer code, String collectorMacAddress, Integer operationNumber, String jsonData) {
         this.code = code;
-        this.macAddress = macAddress;
+        this.collectorMacAddress = collectorMacAddress;
         this.operationNumber = operationNumber;
         this.jsonData = jsonData;
     }

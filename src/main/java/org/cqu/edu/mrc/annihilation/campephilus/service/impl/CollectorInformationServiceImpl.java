@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CollectorInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.CollectorStateEnum;
@@ -73,7 +72,7 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
 
     @Override
     public boolean updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
-        String collectorMacAddress = parseDataDTO.getMacAddress();
+        String collectorMacAddress = parseDataDTO.getCollectorMacAddress();
         CollectorInformationDO oldCollectorInformationDO = this.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;
         // 如果数据库中没有对应collectorMacAddress的地址，新建一个，并将CollectorUploadDataTimes、CollectorOperationTimes设置为1

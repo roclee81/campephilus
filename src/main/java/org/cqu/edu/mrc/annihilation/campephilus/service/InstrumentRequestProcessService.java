@@ -1,9 +1,7 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
-import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseResultObject;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
 
 /**
  * campephilus
@@ -41,19 +39,4 @@ public interface InstrumentRequestProcessService {
      * @return 当前的手术顺序号
      */
     Integer getCurrentOperationNumber();
-
-    /**
-     * <ul>
-     * <li>通过解析Code判断请求方式并回复</li>
-     * <li>处理一个大型的分支，目前没有想到有什么其余的方式写该方法
-     * 运行到分支后将进行数据存储处理，将返回执行的结果</li>
-     * <li>在此处不检查传入参数ParseDataDTO的非空情况，因为在表单
-     * 验证后必定不为空</li>
-     * </ul>
-     *
-     * @param parseDataDTO 初次解析的DTO
-     * @return 成功为true，失败false
-     */
-    ParseResultObject processCode(ParseDataDTO parseDataDTO);
-
 }

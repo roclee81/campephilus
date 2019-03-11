@@ -30,7 +30,7 @@ public class ParseJsonUtil {
         }
 
         map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
-        map.put(DataConstants.COLLECTOR_MAC_ADDRESS, parseDataDTO.getMacAddress());
+        map.put(DataConstants.COLLECTOR_MAC_ADDRESS, parseDataDTO.getCollectorMacAddress());
         map.put(DataConstants.GMT_CREATE, new Date());
         map.put(DataConstants.GMT_MODIFIED, new Date());
 

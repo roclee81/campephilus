@@ -53,6 +53,7 @@
 * REQUEST_PARAMETER_DOES_NOT_EXIST(-5, "请求参数不存在"),
 * DATA_EXISTED(-6, "数据已经存在"),
 * DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
+* OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
 
 
 ## 上传规则

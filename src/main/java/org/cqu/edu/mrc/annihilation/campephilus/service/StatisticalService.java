@@ -1,7 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,9 +47,9 @@ public interface StatisticalService {
      * 返回null
      *
      * @param statisticalDO 代保存的对象
-     * @return 保存成功为statisticalDO对象，失败则为null
+     * @return 是否成功
      */
-    StatisticalDO saveStatisticalDO(StatisticalDO statisticalDO);
+    boolean saveStatisticalDO(StatisticalDO statisticalDO);
 
     /**
      * 更新StatisticalDO表
@@ -59,9 +58,9 @@ public interface StatisticalService {
      * 如果statisticalDate字段相同则将扫描输入的statisticalDO对象，将输入对象的数据与原数据叠加
      *
      * @param statisticalDO 待更新的对象
-     * @return 更新成功为statisticalDO对象，失败则为null
+     * @return 是否成功
      */
-    StatisticalDO updateStatisticalDO(StatisticalDO statisticalDO);
+    boolean updateStatisticalDO(StatisticalDO statisticalDO);
 
     /**
      * 通过对应的数据创建的时间区间找到对应的Page<StatisticalDO>
@@ -92,7 +91,7 @@ public interface StatisticalService {
      * 如果没有将创建StatisticalDO记录
      *
      * @param parseDataDTO 待更新的内容呢
-     * @return 更新成功返回StatisticalDO，失败返回null
+     * @return 是否成功
      */
-    StatisticalDO updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO);
+    boolean updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO);
 }

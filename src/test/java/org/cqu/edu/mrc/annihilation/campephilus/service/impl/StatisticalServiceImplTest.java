@@ -2,7 +2,6 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
-import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @author lx
@@ -61,7 +58,7 @@ public class StatisticalServiceImplTest {
         statisticalDO.setTotalValidRequestNumber(123123);
 
         // TODO 没有判断result是否保存要求，是否保存成功
-        StatisticalDO result = statisticalService.updateStatisticalDO(statisticalDO);
+        boolean result = statisticalService.updateStatisticalDO(statisticalDO);
 
     }
 

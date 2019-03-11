@@ -70,7 +70,7 @@ public class PatientInformationServiceImplTest {
         ParseDataDTO parseDataDTO = new ParseDataDTO();
         parseDataDTO.setOperationNumber(5);
         parseDataDTO.setCode(161);
-        parseDataDTO.setMacAddress("00-0f-e2-2e-94-a9");
+        parseDataDTO.setCollectorMacAddress("00-0f-e2-2e-94-a9");
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("patientId", "100077777");
         dataMap.put("patientData", new HashMap<>());

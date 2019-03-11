@@ -1,6 +1,5 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.convertor.VersionInformationDOConvertVersionInformationDTO;
@@ -66,7 +65,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         ParseResultObject parseResultObject = processCode(parseDataDTO);
 
         Map<String, Object> map = new HashMap<>(16);
-        map.put(DataConstants.MAC, parseDataDTO.getMacAddress());
+        map.put(DataConstants.MAC, parseDataDTO.getCollectorMacAddress());
         map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
         map.put(DataConstants.DATA_MAP, parseResultObject.getReturnData());
 
@@ -74,32 +73,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             return new ResultDataDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
-    }
-
-    @Override
-    public Integer getNewOperationNumber() {
-        return operationInformationService.countOperationInformationDOS() + 1;
-    }
-
-    @Override
-    public Integer getCurrentOperationNumber() {
-        return operationInformationService.countOperationInformationDOS();
-    }
-
-    /**
-     * 对接收到的实体类MedicalDataForm进行第一步解析
-     * 将MedicalDataForm转换成ParseDataDTO
-     * 缺少code、mac、operationNumber、dataMap字段直接返回null
-     * 因为手术准备开启阶段也会传operationNumber字段，但值为-1
-     * 由于之前对表单进行了验证，所有4个值都应该不为空
-     * data字段将进行验证，如何没有值需要传入{}
-     *
-     * @param instrumentRequestForm 表单信息
-     * @return 初次解析后的ParseDataDTO，不会返回空值
-     */
-    private ParseDataDTO processMsg(InstrumentRequestForm instrumentRequestForm) {
-        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
-                instrumentRequestForm.getOperationNumber(), instrumentRequestForm.getData());
     }
 
     /**
@@ -114,8 +87,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    @Override
-    public ParseResultObject processCode(ParseDataDTO parseDataDTO) {
+    private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
         ParseResultObject parseResultObject = new ParseResultObject();
         parseResultObject.setReturnResult(false);
 
@@ -166,5 +138,32 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         }
 
         return parseResultObject;
+    }
+
+
+    @Override
+    public Integer getNewOperationNumber() {
+        return operationInformationService.countOperationInformationDOS() + 1;
+    }
+
+    @Override
+    public Integer getCurrentOperationNumber() {
+        return operationInformationService.countOperationInformationDOS();
+    }
+
+    /**
+     * 对接收到的实体类MedicalDataForm进行第一步解析
+     * 将MedicalDataForm转换成ParseDataDTO
+     * 缺少code、mac、operationNumber、dataMap字段直接返回null
+     * 因为手术准备开启阶段也会传operationNumber字段，但值为-1
+     * 由于之前对表单进行了验证，所有4个值都应该不为空
+     * data字段将进行验证，如何没有值需要传入{}
+     *
+     * @param instrumentRequestForm 表单信息
+     * @return 初次解析后的ParseDataDTO，不会返回空值
+     */
+    private ParseDataDTO processMsg(InstrumentRequestForm instrumentRequestForm) {
+        return new ParseDataDTO(instrumentRequestForm.getCode(), instrumentRequestForm.getMac(),
+                instrumentRequestForm.getOperationNumber(), instrumentRequestForm.getData());
     }
 }
