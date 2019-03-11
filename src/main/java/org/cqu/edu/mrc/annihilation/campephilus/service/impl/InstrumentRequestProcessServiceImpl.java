@@ -11,6 +11,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseResultObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,28 +36,29 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationMarkService operationMarkService;
     private final OperationInformationService operationInformationService;
     private final PatientInformationService patientInformationService;
-    private final CollectorInformationService collectorInformationService;
     private final VersionInformationService versionInformationService;
     private final FeedbackInformationService feedbackInformationService;
-    private final StatisticalService statisticalService;
 
     @Autowired
-    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService, OperationMarkService operationMarkService, OperationInformationService operationInformationService, PatientInformationService patientInformationService, CollectorInformationService collectorInformationService, VersionInformationService versionInformationService, FeedbackInformationService feedbackInformationService, StatisticalService statisticalService) {
+    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService,
+                                               OperationMarkService operationMarkService,
+                                               OperationInformationService operationInformationService,
+                                               PatientInformationService patientInformationService,
+                                               VersionInformationService versionInformationService,
+                                               FeedbackInformationService feedbackInformationService) {
         this.deviceService = deviceService;
         this.operationMarkService = operationMarkService;
         this.operationInformationService = operationInformationService;
         this.patientInformationService = patientInformationService;
-        this.collectorInformationService = collectorInformationService;
         this.versionInformationService = versionInformationService;
         this.feedbackInformationService = feedbackInformationService;
-        this.statisticalService = statisticalService;
     }
 
     @Override
     public ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm) {
 
         if (null == instrumentRequestForm) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), "Data format error", "InstrumentRequestForm is null", "");
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
         }
 
         ParseDataDTO parseDataDTO = processMsg(instrumentRequestForm);
@@ -71,10 +73,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         if (!parseResultObject.isReturnResult()) {
             return new ResultDataDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), map);
         }
-        // 保存成功，将对CollectorInformation表进行更改
-        collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess(parseDataDTO);
-        // 添加/更新StatisticalDO表
-        statisticalService.updateStatisticalDO(parseDataDTO);
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
@@ -116,7 +114,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
+    @Override
+    public ParseResultObject processCode(ParseDataDTO parseDataDTO) {
         ParseResultObject parseResultObject = new ParseResultObject();
         parseResultObject.setReturnResult(false);
 
@@ -152,40 +151,20 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 break;
             }
             // 处理上传的反馈数据
-            case FEEDBACK_INFO:{
+            case FEEDBACK_INFO: {
                 parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
                 break;
             }
             // 处理获取版本的请求
-            case VERSION_REQUEST:{
+            case VERSION_REQUEST: {
                 parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
                 break;
             }
-            default:{
+            default: {
                 break;
             }
         }
 
         return parseResultObject;
-    }
-
-    /**
-     * 包装解析后的结果的内部类
-     */
-    @Data
-    private class ParseResultObject {
-        /**
-         * 解析后的结果
-         * 不能为空
-         * true解析成功
-         * false解析失败
-         */
-        private boolean returnResult;
-
-        /**
-         * 解析后返回的消息体，可以为空
-         * 如果没有消息将返回null
-         */
-        private Object returnData;
     }
 }

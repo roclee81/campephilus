@@ -74,15 +74,12 @@ public class CollectorInformationServiceImpl implements CollectorInformationServ
     @Override
     public boolean updateCollectorInformationDOWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
         String collectorMacAddress = parseDataDTO.getMacAddress();
-        CollectorInformationDO oldCollectorInformationDO = collectorInformationRepository.findCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
+        CollectorInformationDO oldCollectorInformationDO = this.getCollectorInformationDOByCollectorMacAddress(collectorMacAddress);
         CollectorInformationDO collectorInformationDO;
         // 如果数据库中没有对应collectorMacAddress的地址，新建一个，并将CollectorUploadDataTimes、CollectorOperationTimes设置为1
         if (null == oldCollectorInformationDO) {
-            collectorInformationDO = new CollectorInformationDO();
+            collectorInformationDO = CollectorInformationDO.getCollectorInformationDOInstance();
             collectorInformationDO.setCollectorMacAddress(collectorMacAddress);
-            collectorInformationDO.setGmtCreate(new Date());
-            collectorInformationDO.setCollectorUploadDataTimes(1L);
-            collectorInformationDO.setCollectorOperationTimes(1);
         } else {
             collectorInformationDO = oldCollectorInformationDO;
             if (parseDataDTO.getCode().equals(RequestEnum.OPERATION_READY.getCode())) {

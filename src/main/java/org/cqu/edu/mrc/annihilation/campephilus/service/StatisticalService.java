@@ -84,14 +84,15 @@ public interface StatisticalService {
     Page<StatisticalDO> listStatisticalDOByGmtModifiedBetween(Date gmtModifiedBefore, Date gmtModifiedAfter, Pageable pageable);
 
     /**
-     * 更新StatisticalDO
+     * 该方法需要确定<code>parseDataDTO</code>中的参数正确才行再AOP中调用
+     * 更新StatisticalDO表中的OperationInformation的相关信息
+     * 更新operationHospital、operationDevice、operationList字段
      * 首先需要判断parseDataDTO中的数据以及请求码
-     * 其次需要判断其中的信息是否等于所要求字段
      * 首先将通过日期查询数据是否有改字段
      * 如果没有将创建StatisticalDO记录
      *
-     * @param parseDataDTO 待保存的信息
-     * @return 如果更新成功，则返回StatisticalDO，更新失败则返回null
+     * @param parseDataDTO 待更新的内容呢
+     * @return 更新成功返回StatisticalDO，失败返回null
      */
-    StatisticalDO updateStatisticalDO(ParseDataDTO parseDataDTO);
+    StatisticalDO updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO);
 }

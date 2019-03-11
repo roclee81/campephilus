@@ -1,5 +1,8 @@
 package org.cqu.edu.mrc.annihilation.campephilus.exception;
 
+import lombok.Data;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+
 /**
  * campephilus
  *
@@ -14,20 +17,20 @@ public class ParseException extends RuntimeException {
 
     private String msg;
     private int code;
-    private String errorMeg;
+    private String errorMsg;
     private String errorData;
 
-    public ParseException(int code, String msg) {
-        super(msg);
-        this.msg = msg;
-        this.code = code;
+    public ParseException(ResponseEnum responseEnum) {
+        super();
+        this.msg = responseEnum.getMsg();
+        this.code = responseEnum.getCode();
     }
 
-    public ParseException(int code, String msg, String errorMeg, String errorData) {
-        super(msg);
-        this.msg = msg;
-        this.code = code;
-        this.errorMeg = errorMeg;
+    public ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
+        super();
+        this.msg = responseEnum.getMsg();
+        this.code = responseEnum.getCode();
+        this.errorMsg = errorMsg;
         this.errorData = errorData;
     }
 
@@ -55,11 +58,11 @@ public class ParseException extends RuntimeException {
         this.errorData = errorData;
     }
 
-    public String getErrorMeg() {
-        return errorMeg;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setErrorMeg(String errorMeg) {
-        this.errorMeg = errorMeg;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

@@ -24,7 +24,7 @@ public class ParseExceptionHandler {
     @ExceptionHandler(value = ParseException.class)
     @ResponseBody
     public ResultVO handleDeviceException(ParseException e) {
-        log.error(e.getErrorMeg(), e.getErrorData());
+        log.error(e.getErrorMsg(), e.getErrorData());
         return new ResultVO(e.getCode(), e.getMsg());
     }
 }

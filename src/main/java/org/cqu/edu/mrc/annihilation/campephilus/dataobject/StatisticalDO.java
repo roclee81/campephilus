@@ -98,7 +98,7 @@ public class StatisticalDO extends CommonDO {
      * 记录当天进行手术的医院，存储医院的代码
      */
     @Field(value = "operation_hospital")
-    private List<Integer> operationHospital;
+    private List<String> operationHospital;
 
     /**
      * 存储当天参与手术的设备
@@ -106,7 +106,7 @@ public class StatisticalDO extends CommonDO {
      * 存储设备的SN码
      */
     @Field(value = "operation_device")
-    private List<List<String>> operationDevice;
+    private List<List<Map<String, Object>>> operationDevice;
 
     public static StatisticalDO getStatisticalDOInstance() {
         StatisticalDO statisticalDO = new StatisticalDO();
@@ -129,10 +129,10 @@ public class StatisticalDO extends CommonDO {
 
         statisticalDO.setCollectorValidRequestNumber(0);
 
-        List<Integer> operationHospitalList = new ArrayList<>();
+        List<String> operationHospitalList = new ArrayList<>();
         statisticalDO.setOperationHospital(operationHospitalList);
 
-        List<List<String>> operationDeviceList = new ArrayList<>();
+        List<List<Map<String, Object>>> operationDeviceList = new ArrayList<>();
         statisticalDO.setOperationDevice(operationDeviceList);
 
         List<Integer> collectorPerHourRequestNumberList = new ArrayList<>();

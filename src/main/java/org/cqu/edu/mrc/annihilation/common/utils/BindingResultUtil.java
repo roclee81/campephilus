@@ -24,7 +24,7 @@ public class BindingResultUtil {
     public static void checkBindingResult(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR.getCode(), DataConstants.DATA_FIELD_FORMAT_ERROR, DataConstants.DATA_FIELD_FORMAT_ERROR, msg);
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, DataConstants.DATA_FIELD_FORMAT_ERROR, msg);
         }
     }
 }

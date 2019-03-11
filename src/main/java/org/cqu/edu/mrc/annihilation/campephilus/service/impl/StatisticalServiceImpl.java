@@ -1,12 +1,12 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,9 +49,11 @@ public class StatisticalServiceImpl implements StatisticalService {
     @Override
     public StatisticalDO saveStatisticalDO(StatisticalDO statisticalDO) {
         // 首先查找有没有该条数据，通过statisticalDate字段去查找
-        StatisticalDO result = this.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
-        if (null != result) {
-            return null;
+        StatisticalDO searchResult = this.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null != searchResult) {
+            if (!searchResult.getId().equals(statisticalDO.getId())) {
+                return null;
+            }
         }
         return statisticalRepository.save(statisticalDO);
     }
@@ -95,10 +97,15 @@ public class StatisticalServiceImpl implements StatisticalService {
     }
 
     @Override
-    public StatisticalDO updateStatisticalDO(ParseDataDTO parseDataDTO) {
-        if (RequestEnum.OPERATION_READY.getCode().equals(parseDataDTO.getCode())) {
-            //TODO 未实现
+    public StatisticalDO updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
+        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
+        StatisticalDO statisticalDO = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == statisticalDO) {
+            statisticalDO = StatisticalDO.getStatisticalDOInstance();
         }
-        return null;
+        statisticalDO.getOperationDevice().add(parseResult.getDeviceInformation());
+        statisticalDO.getOperationHospital().add(parseResult.getOperationHospitalCode());
+        statisticalDO.getOperationList().add(parseResult.getOperationNumber());
+        return this.saveStatisticalDO(statisticalDO);
     }
 }

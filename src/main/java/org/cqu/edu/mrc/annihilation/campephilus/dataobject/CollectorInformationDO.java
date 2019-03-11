@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Document(value = "collector_information")
 @Data
-public class CollectorInformationDO extends CommonDO{
+public class CollectorInformationDO extends CommonDO {
 
     /**
      * 采集器的状态
@@ -40,4 +40,13 @@ public class CollectorInformationDO extends CommonDO{
      */
     @Field(value = "gmt_collector_last_upload_data")
     private Date gmtCollectorLastUploadData;
+
+    public static CollectorInformationDO getCollectorInformationDOInstance() {
+        CollectorInformationDO collectorInformationDO = new CollectorInformationDO();
+        collectorInformationDO.setGmtCreate(new Date());
+        collectorInformationDO.setGmtCreate(new Date());
+        collectorInformationDO.setCollectorUploadDataTimes(1L);
+        collectorInformationDO.setCollectorOperationTimes(1);
+        return collectorInformationDO;
+    }
 }
