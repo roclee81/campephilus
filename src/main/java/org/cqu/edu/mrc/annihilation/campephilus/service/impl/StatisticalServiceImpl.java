@@ -65,28 +65,21 @@ public class StatisticalServiceImpl implements StatisticalService {
     public boolean updateStatisticalDO(StatisticalDO statisticalDO) {
         // 查询记录
         // 首先查找有没有该条数据，通过statisticalDate字段去查找
-        StatisticalDO result = this.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
-        StatisticalDO lastStatisticalDO = this.getLastStatisticalDO();
-        // 首先将通过日期查询数据是否有改字段，在查询时还将通过<code>getLastStatisticalDO()</code>方法去查询
-        // 查询是否statisticalDate字段相同，如果不同，则将直接保存statisticalDO对象
-        boolean statisticalDateIsSame = null == result || !result.getStatisticalDate().equals(lastStatisticalDO.getStatisticalDate());
-        if (statisticalDateIsSame) {
+        StatisticalDO searchResult = this.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == searchResult) {
             return this.saveStatisticalDO(statisticalDO);
         }
         // 如果数据库中拥有该表，需要将数据进行叠加
-        result.getOperationList().addAll(statisticalDO.getOperationList());
-        result.getOperationDevice().addAll(statisticalDO.getOperationDevice());
-        result.getOperationHospital().addAll(statisticalDO.getOperationHospital());
-        result.getPerHourRequestNumber().addAll(statisticalDO.getPerHourRequestNumber());
-        result.getPerHourValidRequestNumber().addAll(statisticalDO.getPerHourValidRequestNumber());
-        result.setCollectorRequestNumber(result.getCollectorRequestNumber() + statisticalDO.getCollectorRequestNumber());
-        result.setCollectorValidRequestNumber(result.getCollectorValidRequestNumber() + statisticalDO.getCollectorValidRequestNumber());
-        result.getCollectorPerHourRequestNumber().addAll(statisticalDO.getCollectorPerHourRequestNumber());
-        result.getCollectorPerHourValidRequestNumber().addAll(statisticalDO.getCollectorPerHourValidRequestNumber());
-        result.setTotalRequestNumber(result.getTotalRequestNumber() + statisticalDO.getTotalRequestNumber());
-        result.setTotalValidRequestNumber(result.getTotalValidRequestNumber() + statisticalDO.getTotalValidRequestNumber());
-        result.setGmtModified(new Date());
-        return this.saveStatisticalDO(result);
+        searchResult.getPerHourRequestNumber().addAll(statisticalDO.getPerHourRequestNumber());
+        searchResult.getPerHourValidRequestNumber().addAll(statisticalDO.getPerHourValidRequestNumber());
+        searchResult.setCollectorRequestNumber(searchResult.getCollectorRequestNumber() + statisticalDO.getCollectorRequestNumber());
+        searchResult.setCollectorValidRequestNumber(searchResult.getCollectorValidRequestNumber() + statisticalDO.getCollectorValidRequestNumber());
+        searchResult.getCollectorPerHourRequestNumber().addAll(statisticalDO.getCollectorPerHourRequestNumber());
+        searchResult.getCollectorPerHourValidRequestNumber().addAll(statisticalDO.getCollectorPerHourValidRequestNumber());
+        searchResult.setTotalRequestNumber(searchResult.getTotalRequestNumber() + statisticalDO.getTotalRequestNumber());
+        searchResult.setTotalValidRequestNumber(searchResult.getTotalValidRequestNumber() + statisticalDO.getTotalValidRequestNumber());
+        searchResult.setGmtModified(new Date());
+        return this.saveStatisticalDO(searchResult);
     }
 
     @Override
@@ -102,13 +95,13 @@ public class StatisticalServiceImpl implements StatisticalService {
     @Override
     public boolean updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
         OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
-        StatisticalDO statisticalDO = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
-        if (null == statisticalDO) {
-            statisticalDO = StatisticalDO.getStatisticalDOInstance();
+        StatisticalDO searchResult = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == searchResult) {
+            searchResult = StatisticalDO.getStatisticalDOInstance();
         }
-        statisticalDO.getOperationDevice().add(parseResult.getDeviceInformation());
-        statisticalDO.getOperationHospital().add(parseResult.getOperationHospitalCode());
-        statisticalDO.getOperationList().add(parseResult.getOperationNumber());
-        return this.saveStatisticalDO(statisticalDO);
+        searchResult.getOperationDevice().add(parseResult.getDeviceInformation());
+        searchResult.getOperationHospital().add(parseResult.getOperationHospitalCode());
+        searchResult.getOperationList().add(parseResult.getOperationNumber());
+        return this.saveStatisticalDO(searchResult);
     }
 }

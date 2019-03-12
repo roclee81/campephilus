@@ -55,7 +55,6 @@
 * DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
 * OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
 
-
 ## 上传规则
 ###所有时间格式采用ISO8601格式例如2004-05-03T17:30:08+08:00
 ##### SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");

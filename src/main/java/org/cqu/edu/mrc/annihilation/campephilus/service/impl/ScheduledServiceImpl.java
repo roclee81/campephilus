@@ -90,11 +90,11 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Scheduled(cron = "* * * * * ?")
     private void handleRequestPreSecond() {
 //        //TODO 在多线程下，统计值会丢失
-//        StatisticalRequestValue.hourRequest += StatisticalRequestValue.secondRequest;
-//        StatisticalRequestValue.hourRequestValid += StatisticalRequestValue.secondValidRequest;
-//        updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
-//        StatisticalRequestValue.secondRequest = 0;
-//        StatisticalRequestValue.secondValidRequest = 0;
+        StatisticalRequestValue.hourRequest += StatisticalRequestValue.secondRequest;
+        StatisticalRequestValue.hourRequestValid += StatisticalRequestValue.secondValidRequest;
+        updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
+        StatisticalRequestValue.secondRequest = 0;
+        StatisticalRequestValue.secondValidRequest = 0;
     }
 
     /**
@@ -110,27 +110,29 @@ public class ScheduledServiceImpl implements ScheduledService {
      */
     @Scheduled(cron = "1 0 * * * ?")
     private void handleRequestPerHour() {
-//        // TODO 日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
-//        StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
-//        // 保存每小时的请求
-//        List<Integer> collectorPerHourRequestList = statisticalDO.getCollectorPerHourRequestNumber();
-//        collectorPerHourRequestList.add(StatisticalRequestValue.hourRequest);
-//        statisticalDO.setCollectorPerHourRequestNumber(collectorPerHourRequestList);
-//
-//        // 保存每小时的有效请求
-//        List<Integer> collectorPerHourValidRequestList = statisticalDO.getCollectorPerHourValidRequestNumber();
-//        collectorPerHourValidRequestList.add(StatisticalRequestValue.hourRequestValid);
-//        statisticalDO.setCollectorPerHourValidRequestNumber(collectorPerHourValidRequestList);
-//
-//        statisticalDO.setTotalRequestNumber(StatisticalRequestValue.hourRequest);
-//        statisticalDO.setTotalValidRequestNumber(StatisticalRequestValue.hourRequestValid);
-//
-//        // TODO 没有判断result是否保存要求，是否保存成功
-//        StatisticalDO result = statisticalService.updateStatisticalDO(statisticalDO);
-//
-//        // 清零
-//        StatisticalRequestValue.hourRequestValid = 0;
-//        StatisticalRequestValue.hourRequest = 0;
+        // TODO 日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
+        StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
+
+        // 保存每小时的请求
+        statisticalDO.getCollectorPerHourRequestNumber().add(StatisticalRequestValue.hourRequest);
+
+        // 保存每小时的有效请求
+        statisticalDO.getCollectorPerHourValidRequestNumber().add(StatisticalRequestValue.hourRequestValid);
+
+        statisticalDO.setCollectorRequestNumber(StatisticalRequestValue.hourRequest);
+
+        statisticalDO.setCollectorValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+
+        statisticalDO.setTotalRequestNumber(StatisticalRequestValue.hourRequest);
+
+        statisticalDO.setTotalValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+
+        // TODO 没有判断result是否保存要求，是否保存成功
+        boolean result = statisticalService.updateStatisticalDO(statisticalDO);
+
+        // 清零
+        StatisticalRequestValue.hourRequestValid = 0;
+        StatisticalRequestValue.hourRequest = 0;
     }
 
     /**
@@ -143,30 +145,30 @@ public class ScheduledServiceImpl implements ScheduledService {
      * @param currentStatisticsRequestDTO 存储于内存中，实时更新
      */
     private void updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO) {
-//        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestValue.secondRequest);
-//        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestValue.secondValidRequest);
-//        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestValue.hourRequest);
-//        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestValue.hourRequestValid);
-//
-//        // 开始统计当天的数据
-//        // 首先查询数据库，得到是否存在对象
-//        StatisticalDO statisticalDO = statisticalService.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
-//        if (null == statisticalDO) {
-//            // 如果不存在则当天的统计信息仅为当前小时的
-//            currentStatisticsRequestDTO.setCurrentDayRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
-//            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
-//            currentStatisticsRequestDTO.setAverageHourRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
-//            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
-//        } else {
-//            // 存在就需要将数据取出，计算总和与平均值
-//            int hourRequestSum = statisticalDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
-//            int hourValidRequestSum = statisticalDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
-//
-//            currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
-//            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
-//
-//            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalDO.getPerHourRequestNumber().size() + 1));
-//            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalDO.getPerHourValidRequestNumber().size() + 1));
-//        }
+        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestValue.secondRequest);
+        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestValue.secondValidRequest);
+        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestValue.hourRequest);
+        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+
+        // 开始统计当天的数据
+        // 首先查询数据库，得到是否存在对象
+        StatisticalDO statisticalDO = statisticalService.getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == statisticalDO) {
+            // 如果不存在则当天的统计信息仅为当前小时的
+            currentStatisticsRequestDTO.setCurrentDayRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(currentStatisticsRequestDTO.getCurrentHourRequestNumber());
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
+        } else {
+            // 存在就需要将数据取出，计算总和与平均值
+            int hourRequestSum = statisticalDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
+            int hourValidRequestSum = statisticalDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
+
+            currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
+            currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
+
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalDO.getPerHourRequestNumber().size() + 1));
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalDO.getPerHourValidRequestNumber().size() + 1));
+        }
     }
 }
