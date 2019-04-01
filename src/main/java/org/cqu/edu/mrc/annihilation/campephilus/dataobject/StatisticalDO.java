@@ -104,6 +104,22 @@ public class StatisticalDO extends CommonDO {
      * 存储当天参与手术的设备
      * 分为每一次手术进行保存
      * 存储设备的SN码
+     * 每一次手术存储一个List
+     * 格式
+     *     "operation_device" : [
+     *         [
+     *             {
+     *                 "deviceType" : 1.0,
+     *                 "serialNumber" : "SN123123",
+     *                 "serviceLife" : 2.0
+     *             },
+     *             {
+     *                 "deviceType" : 2.0,
+     *                 "serialNumber" : "SN1231233",
+     *                 "serviceLife" : 3.0
+     *             }
+     *         ]
+     *         ]
      */
     @Field(value = "operation_device")
     private List<List<Map<String, Object>>> operationDevice;

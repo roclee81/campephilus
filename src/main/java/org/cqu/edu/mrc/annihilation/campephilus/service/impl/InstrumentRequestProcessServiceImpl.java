@@ -2,15 +2,16 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.VersionInformationDOConvertVersionInformationDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
-import org.cqu.edu.mrc.annihilation.campephilus.service.*;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ResultDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.VersionInformationDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.RequestEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.ParseException;
+import org.cqu.edu.mrc.annihilation.campephilus.form.InstrumentRequestForm;
+import org.cqu.edu.mrc.annihilation.campephilus.service.*;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseResultObject;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -129,7 +130,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             }
             // 处理获取版本的请求
             case VERSION_REQUEST: {
-                parseResultObject.setReturnData(VersionInformationDOConvertVersionInformationDTO.convert(versionInformationService.getFirstByOrderByIdDesc()));
+                parseResultObject.setReturnData(ConvertUtil.convert(versionInformationService.getFirstByOrderByIdDesc(), VersionInformationDTO.class));
                 break;
             }
             default: {

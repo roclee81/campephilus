@@ -1,11 +1,11 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.VersionInformationDOConvertVersionInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.VersionInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.VersionInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.VersionInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +48,7 @@ public class VersionInformationServiceImpl implements VersionInformationService 
     @Override
     public VersionInformationDTO getVersionInformationDTO() {
         VersionInformationDO versionInformationDO = versionInformationRepository.findFirstByOrderByIdDesc();
-        return VersionInformationDOConvertVersionInformationDTO.convert(versionInformationDO);
+        return ConvertUtil.convert(versionInformationDO, VersionInformationDTO.class);
     }
 
     @Override

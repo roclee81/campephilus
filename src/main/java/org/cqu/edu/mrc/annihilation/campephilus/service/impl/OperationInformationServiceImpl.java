@@ -1,17 +1,17 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.OperationInformationDOConvertOperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.repository.OperationInformationRepository;
-import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
+import org.cqu.edu.mrc.annihilation.campephilus.repository.OperationInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
@@ -54,7 +54,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
-        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+        return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public OperationInformationDTO getOperationInformationDTOByOperationNumber(Integer operationNumber) {
         OperationInformationDO operationInformationDO = this.getOperationInformationDOByOperationNumber(operationNumber);
-        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDO);
+        return ConvertUtil.convert(operationInformationDO, OperationInformationDTO.class);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
-        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+        return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
-        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+        return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOS(Pageable pageable) {
         Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOS(pageable);
-        return OperationInformationDOConvertOperationInformationDTO.convert(operationInformationDOPage);
+        return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override

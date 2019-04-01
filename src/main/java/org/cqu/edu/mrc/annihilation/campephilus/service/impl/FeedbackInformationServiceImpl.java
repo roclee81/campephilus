@@ -1,7 +1,5 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.FeedbackInformationDOConvertFeedbackInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.FeedbackInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.FeedbackInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
@@ -9,15 +7,13 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.FeedbackInformationRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.FeedbackInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
-import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lx
@@ -64,7 +60,7 @@ public class FeedbackInformationServiceImpl implements FeedbackInformationServic
     @Override
     public List<FeedbackInformationDTO> listFeedbackInformationDTO(Pageable pageable) {
         Page<FeedbackInformationDO> feedbackInformationDOPage = feedbackInformationRepository.findAllByIdNotNull(pageable);
-        return FeedbackInformationDOConvertFeedbackInformationDTO.convert(feedbackInformationDOPage);
+        return ConvertUtil.convert(feedbackInformationDOPage, FeedbackInformationDTO.class);
     }
 
 }

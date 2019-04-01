@@ -1,17 +1,16 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.OperationMarkDOConvertOperationMarkDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationMarkDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.OperationMarkDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.OperationMarkRepository;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationMarkService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.CheckStateUtil;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +54,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable) {
         Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumber(operationNumber, pageable);
-        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+        return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
         Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
-        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+        return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
         Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
-        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+        return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
@@ -88,7 +87,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
         Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
-        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+        return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
         Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
-        return OperationMarkDOConvertOperationMarkDTO.convert(operationMarkDOPage);
+        return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override

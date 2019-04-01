@@ -1,21 +1,16 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.PatientInformationDOConvertPatientInformationDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.PatientInformationDO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.OperationStateEnum;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.PatientInformationRepository;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.PatientInformationDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.PatientInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
@@ -23,9 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * campephilus
@@ -55,7 +48,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     @Override
     public PatientInformationDTO getPatientInformationDTOByOperationNumber(Integer operationNumber) {
         PatientInformationDO patientInformationDO = this.getPatientInformationDOByOperationNumber(operationNumber);
-        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDO);
+        return ConvertUtil.convert(patientInformationDO,PatientInformationDTO.class);
     }
 
     @Override
@@ -72,7 +65,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     @Override
     public PatientInformationDTO getPatientInformationDTOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
         PatientInformationDO patientInformationDO = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
-        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDO);
+        return ConvertUtil.convert(patientInformationDO,PatientInformationDTO.class);
     }
 
     @Override
@@ -83,7 +76,7 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     @Override
     public List<PatientInformationDTO> listPatientInformationDTOSByPatientId(String patientId, Pageable pageable) {
         Page<PatientInformationDO> patientInformationDOPage = this.listPatientInformationDOSByPatientId(patientId, pageable);
-        return PatientInformationDOConvertPatientInformationDTO.convert(patientInformationDOPage);
+        return ConvertUtil.convert(patientInformationDOPage,PatientInformationDTO.class);
     }
 
     @Override

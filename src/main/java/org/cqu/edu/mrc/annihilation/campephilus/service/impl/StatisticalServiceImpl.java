@@ -3,6 +3,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
@@ -14,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author lx
@@ -103,5 +107,45 @@ public class StatisticalServiceImpl implements StatisticalService {
         searchResult.getOperationHospital().add(parseResult.getOperationHospitalCode());
         searchResult.getOperationList().add(parseResult.getOperationNumber());
         return this.saveStatisticalDO(searchResult);
+    }
+
+    @Override
+    public StatisticalDataDTO getStatisticsDataDTO() {
+        // 首先查询数据库中是否有数据，如果没有数据，将直接返回null
+        int totalStatistical = statisticalRepository.countStatisticalDOSByIdNotNull();
+        if (totalStatistical == 0) {
+            return null;
+        }
+        StatisticalDataDTO statisticalDataDTO = new StatisticalDataDTO();
+        //首先得到当天的
+        StatisticalDO searchResult = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
+        if (null == searchResult) {
+            statisticalDataDTO.setCollectorUploadStatisticalDay(null);
+            statisticalDataDTO.setOperationStatisticalDay(null);
+            statisticalDataDTO.setOperationDeviceStatisticalDay(null);
+            statisticalDataDTO.setOperationHospitalStatistical(null);
+        } else {
+            statisticalDataDTO.setCollectorUploadStatisticalDay(searchResult.getCollectorRequestNumber());
+            statisticalDataDTO.setOperationStatisticalDay(searchResult.getOperationList().size());
+            statisticalDataDTO.setOperationDeviceStatisticalDay(getDeviceStatisticalRemoveDuplicates(searchResult.getOperationDevice()));
+            statisticalDataDTO.setOperationHospitalStatistical(searchResult.getOperationHospital().size());
+        }
+
+        // 查询数据库得到StatisticalDataDTO中的字段
+        // 分页查询，得到需要查询多少页
+        int page = totalStatistical / 20;
+        //statisticalRepository.findAllByIdNotNull();
+
+        return null;
+    }
+
+    private int getDeviceStatisticalRemoveDuplicates(List<List<Map<String, Object>>> operationDeviceList) {
+        HashSet<String> hashSet = new HashSet<>();
+        for (List<Map<String, Object>> operationDeviceOnce : operationDeviceList) {
+            for (Map<String, Object> operationDevice : operationDeviceOnce) {
+                hashSet.add(String.valueOf(operationDevice.get("serialNumber")));
+            }
+        }
+        return hashSet.size();
     }
 }

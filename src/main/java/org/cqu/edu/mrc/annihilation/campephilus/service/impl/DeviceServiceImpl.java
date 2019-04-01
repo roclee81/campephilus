@@ -2,23 +2,22 @@ package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.DeviceDOConvertDeviceDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.DeviceDO;
-import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
-import org.cqu.edu.mrc.annihilation.campephilus.repository.DeviceRepository;
-import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.DeviceDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
+import org.cqu.edu.mrc.annihilation.campephilus.repository.DeviceRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DeviceService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.OperationInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.CheckStateUtil;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 
 /**
@@ -60,7 +59,7 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<DeviceDTO> listDeviceDTOSByDeviceIdAndOperationNumber(String deviceId, Integer operationNumber, Pageable pageable) {
         Page<DeviceDO> deviceDOPage = this.listDeviceDOSByDeviceIdAndOperationNumber(deviceId, operationNumber, pageable);
-        return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
+        return ConvertUtil.convert(deviceDOPage,DeviceDTO.class);
     }
 
     @Override
@@ -76,7 +75,7 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<DeviceDTO> listDeviceDTOSByDeviceId(String deviceId, Pageable pageable) {
         Page<DeviceDO> deviceDOPage = this.listDeviceDOSByDeviceId(deviceId, pageable);
-        return DeviceDOConvertDeviceDTO.convert(deviceDOPage);
+        return ConvertUtil.convert(deviceDOPage,DeviceDTO.class);
     }
 
     @Override

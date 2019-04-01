@@ -110,7 +110,10 @@ public class ScheduledServiceImpl implements ScheduledService {
      */
     @Scheduled(cron = "1 0 * * * ?")
     private void handleRequestPerHour() {
-        // TODO 日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
+        // TODO 1.日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
+        //  2.在调用时，如果在更新数据时调用了查询数据库，再将查询得到的值写入到数据库，如果在多线程时另一个aop中的调用也
+        //  会导致数据覆盖，目前应该采用锁
+
         StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
 
         // 保存每小时的请求

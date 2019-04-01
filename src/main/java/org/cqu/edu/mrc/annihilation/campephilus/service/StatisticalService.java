@@ -2,6 +2,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.service;
 
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
+import org.cqu.edu.mrc.annihilation.campephilus.dto.StatisticalDataDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +16,6 @@ import java.util.Date;
  * Description:
  */
 public interface StatisticalService {
-
     /**
      * 通过存储日期找到对应日期的StatisticalDO数据
      *
@@ -94,4 +94,11 @@ public interface StatisticalService {
      * @return 是否成功
      */
     boolean updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO);
+
+    /**
+     * 得到当前的统计信息
+     *
+     * @return 如果没有将返回null
+     */
+    StatisticalDataDTO getStatisticsDataDTO();
 }

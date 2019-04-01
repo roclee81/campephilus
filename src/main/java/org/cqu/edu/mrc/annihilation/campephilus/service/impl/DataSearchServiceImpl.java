@@ -1,9 +1,8 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.convertor.StatisticalDOConvertStatisticalRequestDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.service.*;
-import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
+import org.cqu.edu.mrc.annihilation.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -109,12 +108,17 @@ public class DataSearchServiceImpl implements DataSearchService {
 
     @Override
     public StatisticalRequestDTO listStatisticalData() {
-        return StatisticalDOConvertStatisticalRequestDTO.convert(statisticalService.getLastStatisticalDO());
+        return ConvertUtil.convert(statisticalService.getLastStatisticalDO(),StatisticalRequestDTO.class);
     }
 
     @Override
     public CurrentStatisticsRequestDTO getCurrentStatisticsRequestDTO() {
         return ScheduledServiceImpl.currentStatisticsRequestDTO;
+    }
+
+    @Override
+    public StatisticalDataDTO getStatisticsDataDTO() {
+        return statisticalService.getStatisticsDataDTO();
     }
 
 }

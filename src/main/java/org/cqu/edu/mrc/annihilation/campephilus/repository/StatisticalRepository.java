@@ -58,4 +58,11 @@ public interface StatisticalRepository extends MongoRepository<StatisticalDO, St
      * @return Page<StatisticalDO>
      */
     Page<StatisticalDO> findAllByIdNotNull(Pageable pageable);
+
+    /**
+     * 统计ID不为空的数据有多少条，即统计数据有多少条
+     *
+     * @return 有多少条数据
+     */
+    Integer countStatisticalDOSByIdNotNull();
 }

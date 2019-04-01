@@ -5,7 +5,6 @@ import org.cqu.edu.mrc.annihilation.campephilus.dto.*;
 import org.cqu.edu.mrc.annihilation.campephilus.enums.ResponseEnum;
 import org.cqu.edu.mrc.annihilation.campephilus.form.InformationForm;
 import org.cqu.edu.mrc.annihilation.campephilus.service.DataSearchService;
-import org.cqu.edu.mrc.annihilation.campephilus.service.InstrumentRequestProcessService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.VersionInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.cqu.edu.mrc.annihilation.common.utils.BeanUtil;
@@ -109,7 +108,6 @@ public class DataController {
 
     @GetMapping("/version")
     public ResultVO getVersionData() {
-
         VersionInformationDTO result = dataSearchService.getVersionData();
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), result);
     }
