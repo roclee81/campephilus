@@ -1,10 +1,14 @@
 package org.cqu.edu.mrc.annihilation.campephilus.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.mrc.annihilation.campephilus.constant.DataConstants;
 import org.cqu.edu.mrc.annihilation.campephilus.vo.ResultVO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * campephilus
@@ -29,6 +33,8 @@ public class SaveExceptionHandler {
         if (null != e.getErrorMeg() && null != e.getErrorData()) {
             log.error("SaveException: errorMeg = {}, errorData = {}" , e.getErrorMeg(), e.getErrorData());
         }
-        return new ResultVO(e.getCode(), e.getMsg());
+        Map<String, Object> result = new HashMap<>(2);
+        result.put(DataConstants.DATA_MAP, e.getMsg());
+        return new ResultVO(e.getCode(), result);
     }
 }

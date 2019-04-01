@@ -130,6 +130,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             }
             // 处理获取版本的请求
             case VERSION_REQUEST: {
+                parseResultObject.setReturnResult(true);
                 parseResultObject.setReturnData(ConvertUtil.convert(versionInformationService.getFirstByOrderByIdDesc(), VersionInformationDTO.class));
                 break;
             }
