@@ -69,7 +69,7 @@ public class OperationInformationServiceImplTest {
     @Test
     public void saveOperationInformationDO() {
         ParseDataDTO parseDataDTO = new ParseDataDTO();
-        parseDataDTO.setJsonData("{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"2004-05-03T17:30:08+08:00\",\"deviceInformation\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}");
+        parseDataDTO.setJsonData("{\"patientId\":\"patientId\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"2004-05-03T17:30:08+08:00\",\"device\":[{\"deviceType\":1,\"serialNumber\":\"SN123123\",\"serviceLife\":2},{\"deviceType\":2,\"serialNumber\":\"SN1231233\",\"serviceLife\":3}]}");
         operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO);
     }
 

@@ -15,42 +15,42 @@ public class StatisticalDataDTO {
     /**
      * 手术次数的统计，总的数量
      */
-    private Integer operationStatistical;
+    private Integer operationTotal;
 
     /**
      * 采集器上传数量统计，总的数量
      */
-    private Long collectorUploadStatistical;
+    private Long collectorUploadTotal;
 
     /**
      * 手术参与医院数量，总的数量
      */
-    private Integer operationHospitalStatistical;
+    private Integer operationHospitalTotal;
 
     /**
      * 手术中使用到的仪器，总的数量
      * 通过仪器的SN统计
      */
-    private Integer operationDeviceStatistical;
+    private Integer operationDeviceTotal;
 
     /**
      * 当天的手术次数的统计
      */
-    private Integer operationStatisticalDay;
+    private Integer operation;
 
     /**
      * 当天的采集器上传数量统计
      */
-    private Integer collectorUploadStatisticalDay;
+    private Integer collectorUpload;
 
     /**
      * 当天的手术参与医院数量
      */
-    private Integer operationHospitalStatisticalDay;
+    private Integer operationHospital;
 
     /**
      * 当天的手术中使用到的仪器
      * 通过仪器的SN统计
      */
-    private Integer operationDeviceStatisticalDay;
+    private Integer operationDevice;
 }

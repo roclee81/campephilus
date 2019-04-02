@@ -1,13 +1,11 @@
 package org.cqu.edu.mrc.annihilation.campephilus.dataobject;
 
 import lombok.Data;
-import org.apache.tomcat.util.modeler.OperationInfo;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * campephilus
@@ -37,8 +35,8 @@ public class OperationInformationDO extends CommonDO {
     /**
      * 手术中使用的设备信息 标明设备的ID及设备型号
      */
-    @Field(value = "device_information")
-    private List<Map<String, Object>> deviceInformation;
+    @Field(value = "device")
+    private List<DeviceCommon> device;
 
     /**
      * 手术开始时间

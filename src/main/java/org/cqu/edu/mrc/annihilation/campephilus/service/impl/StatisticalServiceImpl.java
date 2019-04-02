@@ -1,5 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
+import org.cqu.edu.mrc.annihilation.campephilus.dataobject.DeviceCommon;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
@@ -8,16 +9,18 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
+import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalValue;
+import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lx
@@ -30,15 +33,17 @@ import java.util.Map;
 public class StatisticalServiceImpl implements StatisticalService {
 
     private final StatisticalRepository statisticalRepository;
+    private final StatisticalValue statisticalValue;
 
     @Autowired
-    public StatisticalServiceImpl(StatisticalRepository statisticalRepository) {
+    public StatisticalServiceImpl(StatisticalRepository statisticalRepository, StatisticalValue statisticalValue) {
         this.statisticalRepository = statisticalRepository;
+        this.statisticalValue = statisticalValue;
     }
 
     @Override
     public StatisticalDO getStatisticalDOByStatisticalDate(String statisticalDate) {
-        return statisticalRepository.findStatisticalDOByStatisticalDate(statisticalDate);
+        return statisticalRepository.findStatisticalDOByDate(statisticalDate);
     }
 
     @Override
@@ -74,14 +79,14 @@ public class StatisticalServiceImpl implements StatisticalService {
             return this.saveStatisticalDO(statisticalDO);
         }
         // 如果数据库中拥有该表，需要将数据进行叠加
-        searchResult.getPerHourRequestNumber().addAll(statisticalDO.getPerHourRequestNumber());
-        searchResult.getPerHourValidRequestNumber().addAll(statisticalDO.getPerHourValidRequestNumber());
-        searchResult.setCollectorRequestNumber(searchResult.getCollectorRequestNumber() + statisticalDO.getCollectorRequestNumber());
-        searchResult.setCollectorValidRequestNumber(searchResult.getCollectorValidRequestNumber() + statisticalDO.getCollectorValidRequestNumber());
-        searchResult.getCollectorPerHourRequestNumber().addAll(statisticalDO.getCollectorPerHourRequestNumber());
-        searchResult.getCollectorPerHourValidRequestNumber().addAll(statisticalDO.getCollectorPerHourValidRequestNumber());
-        searchResult.setTotalRequestNumber(searchResult.getTotalRequestNumber() + statisticalDO.getTotalRequestNumber());
-        searchResult.setTotalValidRequestNumber(searchResult.getTotalValidRequestNumber() + statisticalDO.getTotalValidRequestNumber());
+        searchResult.getPerHourCollectorUploadList().addAll(statisticalDO.getPerHourCollectorUploadList());
+        searchResult.getPerHourCollectorValidUploadList().addAll(statisticalDO.getPerHourCollectorValidUploadList());
+        searchResult.setCollectorUpload(searchResult.getCollectorUpload() + statisticalDO.getCollectorUpload());
+        searchResult.setCollectorValidUpload(searchResult.getCollectorValidUpload() + statisticalDO.getCollectorValidUpload());
+        searchResult.getPerHourCollectorUploadList().addAll(statisticalDO.getPerHourCollectorUploadList());
+        searchResult.getPerHourCollectorValidUploadList().addAll(statisticalDO.getPerHourCollectorValidUploadList());
+        searchResult.setRequest(searchResult.getRequest() + statisticalDO.getRequest());
+        searchResult.setCollectorValidUpload(searchResult.getCollectorValidUpload() + statisticalDO.getCollectorValidUpload());
         searchResult.setGmtModified(new Date());
         return this.saveStatisticalDO(searchResult);
     }
@@ -103,9 +108,9 @@ public class StatisticalServiceImpl implements StatisticalService {
         if (null == searchResult) {
             searchResult = StatisticalDO.getStatisticalDOInstance();
         }
-        searchResult.getOperationDevice().add(parseResult.getDeviceInformation());
-        searchResult.getOperationHospital().add(parseResult.getOperationHospitalCode());
-        searchResult.getOperationList().add(parseResult.getOperationNumber());
+        searchResult.getDeviceList().add(parseResult.getDevice());
+        searchResult.getHospitalList().add(parseResult.getOperationHospitalCode());
+        searchResult.getOperationNumberList().add(parseResult.getOperationNumber());
         return this.saveStatisticalDO(searchResult);
     }
 
@@ -120,30 +125,62 @@ public class StatisticalServiceImpl implements StatisticalService {
         //首先得到当天的
         StatisticalDO searchResult = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
         if (null == searchResult) {
-            statisticalDataDTO.setCollectorUploadStatisticalDay(null);
-            statisticalDataDTO.setOperationStatisticalDay(null);
-            statisticalDataDTO.setOperationDeviceStatisticalDay(null);
-            statisticalDataDTO.setOperationHospitalStatistical(null);
+            statisticalDataDTO.setCollectorUpload(null);
+            statisticalDataDTO.setOperation(null);
+            statisticalDataDTO.setOperationDevice(null);
+            statisticalDataDTO.setOperationHospital(null);
         } else {
-            statisticalDataDTO.setCollectorUploadStatisticalDay(searchResult.getCollectorRequestNumber());
-            statisticalDataDTO.setOperationStatisticalDay(searchResult.getOperationList().size());
-            statisticalDataDTO.setOperationDeviceStatisticalDay(getDeviceStatisticalRemoveDuplicates(searchResult.getOperationDevice()));
-            statisticalDataDTO.setOperationHospitalStatistical(searchResult.getOperationHospital().size());
+            statisticalDataDTO.setCollectorUpload(searchResult.getCollectorUpload());
+            statisticalDataDTO.setOperation(searchResult.getOperationNumberList().size());
+            statisticalDataDTO.setOperationDevice(getDeviceStatisticalRemoveDuplicates(searchResult.getDeviceList()));
+            statisticalDataDTO.setOperationHospital(searchResult.getHospitalList().size());
         }
+        statisticalDataDTO.setCollectorUploadTotal(statisticalValue.getCollectorUploadTotal());
+        statisticalDataDTO.setOperationTotal(statisticalValue.getOperationTotal());
+        statisticalDataDTO.setOperationDeviceTotal(statisticalValue.getDeviceNumber().size());
+        statisticalDataDTO.setOperationHospitalTotal(statisticalValue.getHospitalNumber().size());
 
-        // 查询数据库得到StatisticalDataDTO中的字段
-        // 分页查询，得到需要查询多少页
-        int page = totalStatistical / 20;
-        //statisticalRepository.findAllByIdNotNull();
-
-        return null;
+        return statisticalDataDTO;
     }
 
-    private int getDeviceStatisticalRemoveDuplicates(List<List<Map<String, Object>>> operationDeviceList) {
+    /**
+     * 初始化StatisticalValue
+     * 需要查询遍历数据库表来形成值
+     */
+    private void initStatisticalValue() {
+        int totalStatistical = statisticalRepository.countStatisticalDOSByIdNotNull();
+        // 查询数据库得到StatisticalDataDTO中的字段
+        // 分页查询，得到需要查询多少页
+        int totalPage = totalStatistical / 20;
+        for (int page = 0; page <= totalPage; page++) {
+            Page<StatisticalDO> statisticalDOPage =
+                    statisticalRepository.findAllByIdNotNull(PageRequest.of(page, DataBaseConstant.I_PAGE_SIZE));
+            statisticalDOPage.stream().forEach(statisticalDO -> {
+
+                statisticalValue.setCollectorUploadTotal(
+                        statisticalValue.getCollectorUploadTotal() + statisticalDO.getCollectorUpload());
+
+                statisticalValue.getCollectorUploadList().add(statisticalDO.getCollectorUpload());
+
+                statisticalValue.getOperationNumberList().add(statisticalDO.getOperationNumberList().size());
+
+                statisticalValue.setOperationTotal(statisticalValue.getOperationTotal() + statisticalDO.getOperationNumberList().size());
+
+//                statisticalDO.getDeviceList().forEach(deviceCommons -> {
+//                    statisticalValue.getDeviceNumber().add(deviceCommons);
+//                });
+                // TODO
+
+                statisticalValue.getHospitalNumber().addAll(statisticalDO.getHospitalList());
+            });
+        }
+    }
+
+    private int getDeviceStatisticalRemoveDuplicates(List<List<DeviceCommon>> operationDeviceList) {
         HashSet<String> hashSet = new HashSet<>();
-        for (List<Map<String, Object>> operationDeviceOnce : operationDeviceList) {
-            for (Map<String, Object> operationDevice : operationDeviceOnce) {
-                hashSet.add(String.valueOf(operationDevice.get("serialNumber")));
+        for (List<DeviceCommon> operationDeviceOnce : operationDeviceList) {
+            for (DeviceCommon deviceCommon : operationDeviceOnce) {
+                hashSet.add(deviceCommon.getSerialNumber());
             }
         }
         return hashSet.size();

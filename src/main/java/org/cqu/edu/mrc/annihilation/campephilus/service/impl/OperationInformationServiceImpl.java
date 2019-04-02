@@ -137,7 +137,7 @@ public class OperationInformationServiceImpl implements OperationInformationServ
         if (null == parseResult) {
             return false;
         }
-        if (parseResult.getOperationStartTime() == null || parseResult.getOperationHospitalCode() == null || parseResult.getDeviceInformation() == null) {
+        if (parseResult.getOperationStartTime() == null || parseResult.getOperationHospitalCode() == null || parseResult.getDevice() == null) {
             return false;
         }
         parseResult.setOperationEndTime(null);

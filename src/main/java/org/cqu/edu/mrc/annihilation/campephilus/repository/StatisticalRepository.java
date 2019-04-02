@@ -19,10 +19,10 @@ public interface StatisticalRepository extends MongoRepository<StatisticalDO, St
     /**
      * 通过存储日期找到对应日期的StatisticalDO数据
      *
-     * @param statisticalDate 统计的日期，例如：2019-02-25
+     * @param date 统计的日期，例如：2019-02-25
      * @return 对应日期的StatisticalDO数据，如果没有为null
      */
-    StatisticalDO findStatisticalDOByStatisticalDate(String statisticalDate);
+    StatisticalDO findStatisticalDOByDate(String date);
 
     /**
      * 通过对应的数据创建的时间区间找到对应的Page<StatisticalDO>

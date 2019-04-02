@@ -10,6 +10,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationServ
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
 import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
+import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalValue;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
@@ -40,11 +41,13 @@ public class ScheduledServiceImpl implements ScheduledService {
 
     private final CollectorInformationService collectorInformationService;
     private final StatisticalService statisticalService;
+    private final StatisticalValue statisticalValue;
 
     @Autowired
-    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalService statisticalService) {
+    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalService statisticalService, StatisticalValue statisticalValue) {
         this.collectorInformationService = collectorInformationService;
         this.statisticalService = statisticalService;
+        this.statisticalValue = statisticalValue;
     }
 
     /**
@@ -101,14 +104,14 @@ public class ScheduledServiceImpl implements ScheduledService {
      * 处理每小时采集器的请求，即将每小时的请求数量存储，保存成在一个小时的请求量，以及无效请求
      * 每一小时存储一次，直接存储到数据中
      * 无需数据是否存在
-     * 在*：00：01触发具体时间如下：
-     * 2019/3/2 2:00:01
-     * 2019/3/2 3:00:01
-     * 2019/3/2 4:00:01
-     * 2019/3/2 5:00:01
-     * 2019/3/2 6:00:01
+     * 在*：59：59触发具体时间如下：
+     * 2019/3/2 2:59:59
+     * 2019/3/2 3:59:59
+     * 2019/3/2 4:59:59
+     * 2019/3/2 5:59:59
+     * 2019/3/2 6:59:59
      */
-    @Scheduled(cron = "1 0 * * * ?")
+    @Scheduled(cron = "59 59 * * * ?")
     private void handleRequestPerHour() {
         // TODO 1.日期之后未更新，检查到可能是该方法调用时，输入的日期还是前一天的
         //  2.在调用时，如果在更新数据时调用了查询数据库，再将查询得到的值写入到数据库，如果在多线程时另一个aop中的调用也
@@ -116,19 +119,29 @@ public class ScheduledServiceImpl implements ScheduledService {
 
         StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
 
+        // 保存采集器目前的上传数量
+        statisticalDO.setCollectorUpload(StatisticalRequestValue.hourRequest);
+
+        // 保存采集器目前的有效上传数量
+        statisticalDO.setCollectorValidUpload(StatisticalRequestValue.hourRequestValid);
+
+        // 保存采集器每小时的请求
+        statisticalDO.getPerHourCollectorUploadList().add(StatisticalRequestValue.hourRequest);
+
+        // 保存采集器每小时的有效请求
+        statisticalDO.getPerHourCollectorValidUploadList().add(StatisticalRequestValue.hourRequestValid);
+
+        // 保存目前的上传数量
+        statisticalDO.setRequest(StatisticalRequestValue.hourRequest);
+
+        // 保存目前的有效上传数量
+        statisticalDO.setValidRequest(StatisticalRequestValue.hourRequestValid);
+
         // 保存每小时的请求
-        statisticalDO.getCollectorPerHourRequestNumber().add(StatisticalRequestValue.hourRequest);
+        statisticalDO.getPerHourRequestList().add(StatisticalRequestValue.hourRequest);
 
         // 保存每小时的有效请求
-        statisticalDO.getCollectorPerHourValidRequestNumber().add(StatisticalRequestValue.hourRequestValid);
-
-        statisticalDO.setCollectorRequestNumber(StatisticalRequestValue.hourRequest);
-
-        statisticalDO.setCollectorValidRequestNumber(StatisticalRequestValue.hourRequestValid);
-
-        statisticalDO.setTotalRequestNumber(StatisticalRequestValue.hourRequest);
-
-        statisticalDO.setTotalValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+        statisticalDO.getPerHourValidRequestList().add(StatisticalRequestValue.hourRequestValid);
 
         // TODO 没有判断result是否保存要求，是否保存成功
         boolean result = statisticalService.updateStatisticalDO(statisticalDO);
@@ -164,14 +177,17 @@ public class ScheduledServiceImpl implements ScheduledService {
             currentStatisticsRequestDTO.setAverageHourValidRequestNumber(currentStatisticsRequestDTO.getCurrentHourValidRequestNumber());
         } else {
             // 存在就需要将数据取出，计算总和与平均值
-            int hourRequestSum = statisticalDO.getTotalRequestNumber() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
-            int hourValidRequestSum = statisticalDO.getTotalValidRequestNumber() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
+            int hourRequestSum = statisticalDO.getRequest() + currentStatisticsRequestDTO.getCurrentHourRequestNumber();
+            int hourValidRequestSum = statisticalDO.getCollectorValidUpload() + currentStatisticsRequestDTO.getCurrentHourValidRequestNumber();
 
             currentStatisticsRequestDTO.setCurrentDayRequestNumber(hourRequestSum);
             currentStatisticsRequestDTO.setCurrentDayValidRequestNumber(hourValidRequestSum);
 
-            currentStatisticsRequestDTO.setAverageHourRequestNumber(hourRequestSum / (statisticalDO.getPerHourRequestNumber().size() + 1));
-            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(hourValidRequestSum / (statisticalDO.getPerHourValidRequestNumber().size() + 1));
+            currentStatisticsRequestDTO.setAverageHourRequestNumber(
+                    hourRequestSum / (statisticalDO.getPerHourCollectorUploadList().size() + 1));
+
+            currentStatisticsRequestDTO.setAverageHourValidRequestNumber(
+                    hourValidRequestSum / (statisticalDO.getPerHourCollectorValidUploadList().size() + 1));
         }
     }
 }

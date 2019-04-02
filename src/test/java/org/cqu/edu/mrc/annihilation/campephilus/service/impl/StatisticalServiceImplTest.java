@@ -45,17 +45,17 @@ public class StatisticalServiceImplTest {
 
         StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
         // 保存每小时的请求
-        List<Integer> collectorPerHourRequestList = statisticalDO.getCollectorPerHourRequestNumber();
+        List<Integer> collectorPerHourRequestList = statisticalDO.getPerHourCollectorUploadList();
         collectorPerHourRequestList.add(33333);
-        statisticalDO.setCollectorPerHourRequestNumber(collectorPerHourRequestList);
+        statisticalDO.setPerHourCollectorUploadList(collectorPerHourRequestList);
 
         // 保存每小时的有效请求
-        List<Integer> collectorPerHourValidRequestList = statisticalDO.getCollectorPerHourValidRequestNumber();
+        List<Integer> collectorPerHourValidRequestList = statisticalDO.getPerHourCollectorValidUploadList();
         collectorPerHourValidRequestList.add(12312312);
-        statisticalDO.setCollectorPerHourValidRequestNumber(collectorPerHourValidRequestList);
+        statisticalDO.setPerHourCollectorValidUploadList(collectorPerHourValidRequestList);
 
-        statisticalDO.setTotalRequestNumber(123);
-        statisticalDO.setTotalValidRequestNumber(123123);
+        statisticalDO.setRequest(123);
+        statisticalDO.setCollectorValidUpload(123123);
 
         // TODO 没有判断result是否保存要求，是否保存成功
         boolean result = statisticalService.updateStatisticalDO(statisticalDO);

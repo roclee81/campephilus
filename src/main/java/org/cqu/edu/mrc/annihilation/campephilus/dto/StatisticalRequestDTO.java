@@ -39,7 +39,7 @@ public class StatisticalRequestDTO {
      * 每小时请求数量
      * 存储的格式按照perHourRequestNumber[0]代表0~1点的统计
      * 一共索引为0~23
-     * perHourRequestNumber[23]代表23~24点的统计值
+     * perHourCollectorUploadStatistical[23]代表23~24点的统计值
      */
     @Field(value = "per_hour_request_number")
     private List<Integer> perHourRequestNumber;
@@ -48,7 +48,7 @@ public class StatisticalRequestDTO {
      * 每小时有效请求数量
      * 存储的格式按照perHourRequestNumber[0]代表0~1点的统计
      * 一共索引为0~23
-     * perHourRequestNumber[23]代表23~24点的统计值
+     * perHourCollectorUploadStatistical[23]代表23~24点的统计值
      */
     @Field(value = "per_valid_hour_request_number")
     private List<Integer> perHourValidRequestNumber;

@@ -31,11 +31,11 @@ public class StatisticalRepositoryTest {
         StatisticalDO statisticalDO = new StatisticalDO();
         statisticalDO.setGmtCreate(new Date());
         statisticalDO.setGmtModified(new Date());
-        statisticalDO.setStatisticalDate("2019/02/25");
+        statisticalDO.setDate("2019/02/25");
         List<Integer> integerList = new ArrayList<>();
         integerList.add(1212);
         integerList.add(1232131);
-        statisticalDO.setPerHourRequestNumber(integerList);
+        statisticalDO.setPerHourCollectorUploadList(integerList);
         StatisticalDO result = statisticalRepository.save(statisticalDO);
         Assert.assertNotNull(result);
     }

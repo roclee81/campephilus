@@ -51,7 +51,7 @@ public class InstrumentRequestProcessServiceImplTest {
         InstrumentRequestForm instrumentRequestForm2 = new InstrumentRequestForm();
         instrumentRequestForm2.setCode(151);
         instrumentRequestForm2.setMac("00-0f-e2-2e-94-a9");
-        instrumentRequestForm2.setData("{\"patientId\":\"1022\",\"operationCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
+        instrumentRequestForm2.setData("{\"patientId\":\"1022\",\"operationCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"device\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO2 = dataStorageService.processInstrumentData(instrumentRequestForm2);
         //Assert.assertEquals((int) resultDataDTO2.getCode(), -2);
     }
@@ -62,7 +62,7 @@ public class InstrumentRequestProcessServiceImplTest {
         InstrumentRequestForm instrumentRequestForm3 = new InstrumentRequestForm();
         instrumentRequestForm3.setCode(151);
         instrumentRequestForm3.setOperationNumber(-2);
-        instrumentRequestForm3.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"deviceInformation\":{\"test\":\"i123\"}}");
+        instrumentRequestForm3.setData("{\"patientId\":\"1022\",\"operationHospitalCode\":\"0147\",\"operationStartTime\":\"1546493024000\",\"device\":{\"test\":\"i123\"}}");
         ResultDataDTO resultDataDTO3 = dataStorageService.processInstrumentData(instrumentRequestForm3);
         //Assert.assertEquals((int) resultDataDTO3.getCode(), -2);
     }
@@ -85,7 +85,7 @@ public class InstrumentRequestProcessServiceImplTest {
         instrumentRequestForm5.setCode(155);
         instrumentRequestForm5.setOperationNumber(dataStorageService.getCurrentOperationNumber());
         instrumentRequestForm5.setMac("00-0f-e2-2e-94-a9");
-        instrumentRequestForm5.setData("{\"deviceInformation\":{}}");
+        instrumentRequestForm5.setData("{\"device\":{}}");
         ResultDataDTO resultDataDTO5 = dataStorageService.processInstrumentData(instrumentRequestForm5);
         Assert.assertEquals((int) resultDataDTO5.getCode(), 156);
     }
