@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Before;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
-import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
+import org.cqu.edu.mrc.annihilation.campephilus.cache.StatisticalRequestCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,7 @@ public class StatisticalAspect {
 
     @Before(value = InstrumentRequestPoint)
     public void statisticalUpdateRequest() {
-        StatisticalRequestValue.secondRequest++;
+        StatisticalRequestCache.secondRequest++;
     }
 
     /**

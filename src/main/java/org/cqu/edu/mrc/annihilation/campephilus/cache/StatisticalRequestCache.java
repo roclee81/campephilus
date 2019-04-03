@@ -1,4 +1,4 @@
-package org.cqu.edu.mrc.annihilation.campephilus.value;
+package org.cqu.edu.mrc.annihilation.campephilus.cache;
 
 /**
  * @author lx
@@ -7,7 +7,7 @@ package org.cqu.edu.mrc.annihilation.campephilus.value;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class StatisticalRequestValue {
+public class StatisticalRequestCache {
 
     /**
      * 每秒数据上传的请求数量

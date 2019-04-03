@@ -101,8 +101,8 @@ public class StatisticalDO{
     /**
      * 记录当天进行手术的医院，存储医院的代码
      */
-    @Field(value = "hospital_list")
-    private List<String> hospitalList;
+    @Field(value = "hospital_code_list")
+    private List<String> hospitalCodeList;
 
     /**
      * 存储当天参与手术的设备
@@ -167,7 +167,7 @@ public class StatisticalDO{
         statisticalDO.setOperationNumberList(statisticalOperationNumberList);
 
         List<String> statisticalOperationHospitalList = new ArrayList<>();
-        statisticalDO.setHospitalList(statisticalOperationHospitalList);
+        statisticalDO.setHospitalCodeList(statisticalOperationHospitalList);
 
         List<List<DeviceCommon>> statisticalOperationDevice = new ArrayList<>();
         statisticalDO.setDeviceList(statisticalOperationDevice);

@@ -1,4 +1,4 @@
-package org.cqu.edu.mrc.annihilation.campephilus.value;
+package org.cqu.edu.mrc.annihilation.campephilus.cache;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -13,16 +13,16 @@ import java.util.List;
  * @date 2019/4/1 20:13
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 用于缓存统计的数据，减少查询数据的次数
  * total代表所有数据
  */
 @Data
 @Component
-public class StatisticalValue {
-
+public class StatisticalCache {
     /**
      * 参与医院的代号
      */
-    private HashSet<String> hospitalNumber;
+    private HashSet<String> hospitalCode;
 
     /**
      * 参与仪器的SN码
@@ -30,7 +30,7 @@ public class StatisticalValue {
     private HashSet<String> deviceNumber;
 
     /**
-     * 每天手术顺序号
+     * 每天完成的手术次数
      */
     private List<Integer> operationNumberList;
 
@@ -49,8 +49,8 @@ public class StatisticalValue {
      */
     private Long collectorUploadTotal;
 
-    public StatisticalValue() {
-        this.hospitalNumber = new HashSet<>();
+    public StatisticalCache() {
+        this.hospitalCode = new HashSet<>();
         this.deviceNumber = new HashSet<>();
         this.operationNumberList = new ArrayList<>();
         this.operationTotal = 0;

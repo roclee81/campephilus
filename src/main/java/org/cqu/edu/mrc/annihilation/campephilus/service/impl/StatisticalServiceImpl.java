@@ -1,6 +1,6 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.mrc.annihilation.campephilus.dataobject.DeviceCommon;
+import org.cqu.edu.mrc.annihilation.campephilus.cache.StatisticalCache;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.OperationInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.ParseDataDTO;
@@ -9,7 +9,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.repository.StatisticalRepository;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
 import org.cqu.edu.mrc.annihilation.campephilus.utils.ParseJsonUtil;
-import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalValue;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.RemoveDuplicatesUtil;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * @author lx
@@ -33,12 +31,12 @@ import java.util.List;
 public class StatisticalServiceImpl implements StatisticalService {
 
     private final StatisticalRepository statisticalRepository;
-    private final StatisticalValue statisticalValue;
+    private final StatisticalCache statisticalCache;
 
     @Autowired
-    public StatisticalServiceImpl(StatisticalRepository statisticalRepository, StatisticalValue statisticalValue) {
+    public StatisticalServiceImpl(StatisticalRepository statisticalRepository, StatisticalCache statisticalCache) {
         this.statisticalRepository = statisticalRepository;
-        this.statisticalValue = statisticalValue;
+        this.statisticalCache = statisticalCache;
     }
 
     @Override
@@ -109,7 +107,7 @@ public class StatisticalServiceImpl implements StatisticalService {
             searchResult = StatisticalDO.getStatisticalDOInstance();
         }
         searchResult.getDeviceList().add(parseResult.getDevice());
-        searchResult.getHospitalList().add(parseResult.getOperationHospitalCode());
+        searchResult.getHospitalCodeList().add(parseResult.getOperationHospitalCode());
         searchResult.getOperationNumberList().add(parseResult.getOperationNumber());
         return this.saveStatisticalDO(searchResult);
     }
@@ -132,13 +130,13 @@ public class StatisticalServiceImpl implements StatisticalService {
         } else {
             statisticalDataDTO.setCollectorUpload(searchResult.getCollectorUpload());
             statisticalDataDTO.setOperation(searchResult.getOperationNumberList().size());
-            statisticalDataDTO.setOperationDevice(getDeviceStatisticalRemoveDuplicates(searchResult.getDeviceList()));
-            statisticalDataDTO.setOperationHospital(searchResult.getHospitalList().size());
+            statisticalDataDTO.setOperationDevice(RemoveDuplicatesUtil.getDeviceSetRemoveDuplicates(searchResult.getDeviceList()).size());
+            statisticalDataDTO.setOperationHospital(searchResult.getHospitalCodeList().size());
         }
-        statisticalDataDTO.setCollectorUploadTotal(statisticalValue.getCollectorUploadTotal());
-        statisticalDataDTO.setOperationTotal(statisticalValue.getOperationTotal());
-        statisticalDataDTO.setOperationDeviceTotal(statisticalValue.getDeviceNumber().size());
-        statisticalDataDTO.setOperationHospitalTotal(statisticalValue.getHospitalNumber().size());
+        statisticalDataDTO.setCollectorUploadTotal(statisticalCache.getCollectorUploadTotal());
+        statisticalDataDTO.setOperationTotal(statisticalCache.getOperationTotal());
+        statisticalDataDTO.setOperationDeviceTotal(statisticalCache.getDeviceNumber().size());
+        statisticalDataDTO.setOperationHospitalTotal(statisticalCache.getHospitalCode().size());
 
         return statisticalDataDTO;
     }
@@ -157,32 +155,22 @@ public class StatisticalServiceImpl implements StatisticalService {
                     statisticalRepository.findAllByIdNotNull(PageRequest.of(page, DataBaseConstant.I_PAGE_SIZE));
             statisticalDOPage.stream().forEach(statisticalDO -> {
 
-                statisticalValue.setCollectorUploadTotal(
-                        statisticalValue.getCollectorUploadTotal() + statisticalDO.getCollectorUpload());
+                statisticalCache.setCollectorUploadTotal(
+                        statisticalCache.getCollectorUploadTotal() + statisticalDO.getCollectorUpload());
 
-                statisticalValue.getCollectorUploadList().add(statisticalDO.getCollectorUpload());
+                statisticalCache.getCollectorUploadList().add(statisticalDO.getCollectorUpload());
 
-                statisticalValue.getOperationNumberList().add(statisticalDO.getOperationNumberList().size());
+                statisticalCache.getOperationNumberList().add(statisticalDO.getOperationNumberList().size());
 
-                statisticalValue.setOperationTotal(statisticalValue.getOperationTotal() + statisticalDO.getOperationNumberList().size());
+                statisticalCache.setOperationTotal(statisticalCache.getOperationTotal() + statisticalDO.getOperationNumberList().size());
 
 //                statisticalDO.getDeviceList().forEach(deviceCommons -> {
 //                    statisticalValue.getDeviceNumber().add(deviceCommons);
 //                });
                 // TODO
 
-                statisticalValue.getHospitalNumber().addAll(statisticalDO.getHospitalList());
+                statisticalCache.getHospitalCode().addAll(statisticalDO.getHospitalCodeList());
             });
         }
-    }
-
-    private int getDeviceStatisticalRemoveDuplicates(List<List<DeviceCommon>> operationDeviceList) {
-        HashSet<String> hashSet = new HashSet<>();
-        for (List<DeviceCommon> operationDeviceOnce : operationDeviceList) {
-            for (DeviceCommon deviceCommon : operationDeviceOnce) {
-                hashSet.add(deviceCommon.getSerialNumber());
-            }
-        }
-        return hashSet.size();
     }
 }

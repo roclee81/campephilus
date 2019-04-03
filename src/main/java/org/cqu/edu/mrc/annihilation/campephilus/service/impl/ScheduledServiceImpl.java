@@ -1,6 +1,8 @@
 package org.cqu.edu.mrc.annihilation.campephilus.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.mrc.annihilation.campephilus.cache.StatisticalCache;
+import org.cqu.edu.mrc.annihilation.campephilus.cache.StatisticalRequestCache;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.CollectorInformationDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dataobject.StatisticalDO;
 import org.cqu.edu.mrc.annihilation.campephilus.dto.CurrentStatisticsRequestDTO;
@@ -9,8 +11,7 @@ import org.cqu.edu.mrc.annihilation.campephilus.exception.SaveException;
 import org.cqu.edu.mrc.annihilation.campephilus.service.CollectorInformationService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.ScheduledService;
 import org.cqu.edu.mrc.annihilation.campephilus.service.StatisticalService;
-import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalRequestValue;
-import org.cqu.edu.mrc.annihilation.campephilus.value.StatisticalValue;
+import org.cqu.edu.mrc.annihilation.campephilus.utils.RemoveDuplicatesUtil;
 import org.cqu.edu.mrc.annihilation.common.constant.DataBaseConstant;
 import org.cqu.edu.mrc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.mrc.annihilation.common.utils.DateUtil;
@@ -41,13 +42,13 @@ public class ScheduledServiceImpl implements ScheduledService {
 
     private final CollectorInformationService collectorInformationService;
     private final StatisticalService statisticalService;
-    private final StatisticalValue statisticalValue;
+    private final StatisticalCache statisticalCache;
 
     @Autowired
-    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalService statisticalService, StatisticalValue statisticalValue) {
+    public ScheduledServiceImpl(CollectorInformationService collectorInformationService, StatisticalService statisticalService, StatisticalCache statisticalCache) {
         this.collectorInformationService = collectorInformationService;
         this.statisticalService = statisticalService;
-        this.statisticalValue = statisticalValue;
+        this.statisticalCache = statisticalCache;
     }
 
     /**
@@ -93,11 +94,11 @@ public class ScheduledServiceImpl implements ScheduledService {
     @Scheduled(cron = "* * * * * ?")
     private void handleRequestPreSecond() {
 //        //TODO 在多线程下，统计值会丢失
-        StatisticalRequestValue.hourRequest += StatisticalRequestValue.secondRequest;
-        StatisticalRequestValue.hourRequestValid += StatisticalRequestValue.secondValidRequest;
+        StatisticalRequestCache.hourRequest += StatisticalRequestCache.secondRequest;
+        StatisticalRequestCache.hourRequestValid += StatisticalRequestCache.secondValidRequest;
         updateCurrentStatisticsRequestDTO(currentStatisticsRequestDTO);
-        StatisticalRequestValue.secondRequest = 0;
-        StatisticalRequestValue.secondValidRequest = 0;
+        StatisticalRequestCache.secondRequest = 0;
+        StatisticalRequestCache.secondValidRequest = 0;
     }
 
     /**
@@ -117,38 +118,50 @@ public class ScheduledServiceImpl implements ScheduledService {
         //  2.在调用时，如果在更新数据时调用了查询数据库，再将查询得到的值写入到数据库，如果在多线程时另一个aop中的调用也
         //  会导致数据覆盖，目前应该采用锁
 
-        StatisticalDO statisticalDO = StatisticalDO.getStatisticalDOInstance();
+        StatisticalDO tempStatisticalDO = StatisticalDO.getStatisticalDOInstance();
 
         // 保存采集器目前的上传数量
-        statisticalDO.setCollectorUpload(StatisticalRequestValue.hourRequest);
+        tempStatisticalDO.setCollectorUpload(StatisticalRequestCache.hourRequest);
 
         // 保存采集器目前的有效上传数量
-        statisticalDO.setCollectorValidUpload(StatisticalRequestValue.hourRequestValid);
+        tempStatisticalDO.setCollectorValidUpload(StatisticalRequestCache.hourRequestValid);
 
         // 保存采集器每小时的请求
-        statisticalDO.getPerHourCollectorUploadList().add(StatisticalRequestValue.hourRequest);
+        tempStatisticalDO.getPerHourCollectorUploadList().add(StatisticalRequestCache.hourRequest);
 
         // 保存采集器每小时的有效请求
-        statisticalDO.getPerHourCollectorValidUploadList().add(StatisticalRequestValue.hourRequestValid);
+        tempStatisticalDO.getPerHourCollectorValidUploadList().add(StatisticalRequestCache.hourRequestValid);
 
         // 保存目前的上传数量
-        statisticalDO.setRequest(StatisticalRequestValue.hourRequest);
+        tempStatisticalDO.setRequest(StatisticalRequestCache.hourRequest);
 
         // 保存目前的有效上传数量
-        statisticalDO.setValidRequest(StatisticalRequestValue.hourRequestValid);
+        tempStatisticalDO.setValidRequest(StatisticalRequestCache.hourRequestValid);
 
         // 保存每小时的请求
-        statisticalDO.getPerHourRequestList().add(StatisticalRequestValue.hourRequest);
+        tempStatisticalDO.getPerHourRequestList().add(StatisticalRequestCache.hourRequest);
 
         // 保存每小时的有效请求
-        statisticalDO.getPerHourValidRequestList().add(StatisticalRequestValue.hourRequestValid);
+        tempStatisticalDO.getPerHourValidRequestList().add(StatisticalRequestCache.hourRequestValid);
 
         // TODO 没有判断result是否保存要求，是否保存成功
-        boolean result = statisticalService.updateStatisticalDO(statisticalDO);
+        boolean result = statisticalService.updateStatisticalDO(tempStatisticalDO);
+
+        // 更新StatisticalValue
+        updateStatisticalCache(tempStatisticalDO);
 
         // 清零
-        StatisticalRequestValue.hourRequestValid = 0;
-        StatisticalRequestValue.hourRequest = 0;
+        StatisticalRequestCache.hourRequestValid = 0;
+        StatisticalRequestCache.hourRequest = 0;
+    }
+
+    private void updateStatisticalCache(StatisticalDO tempStatisticalDO) {
+        statisticalCache.getHospitalCode().addAll(tempStatisticalDO.getHospitalCodeList());
+        statisticalCache.getDeviceNumber().addAll(RemoveDuplicatesUtil.getDeviceSetRemoveDuplicates(tempStatisticalDO.getDeviceList()));
+        statisticalCache.getOperationNumberList().get();
+        statisticalCache.getHospitalCode().addAll(tempStatisticalDO.getHospitalCodeList());
+        statisticalCache.setOperationTotal(statisticalCache.getOperationTotal() + tempStatisticalDO.getOperationNumberList().size());
+        statisticalCache.setCollectorUploadTotal(statisticalCache.getCollectorUploadTotal() + tempStatisticalDO.getCollectorUpload());
     }
 
     /**
@@ -161,10 +174,10 @@ public class ScheduledServiceImpl implements ScheduledService {
      * @param currentStatisticsRequestDTO 存储于内存中，实时更新
      */
     private void updateCurrentStatisticsRequestDTO(CurrentStatisticsRequestDTO currentStatisticsRequestDTO) {
-        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestValue.secondRequest);
-        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestValue.secondValidRequest);
-        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestValue.hourRequest);
-        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestValue.hourRequestValid);
+        currentStatisticsRequestDTO.setCurrentSecondRequestNumber(StatisticalRequestCache.secondRequest);
+        currentStatisticsRequestDTO.setCurrentSecondValidRequestNumber(StatisticalRequestCache.secondValidRequest);
+        currentStatisticsRequestDTO.setCurrentHourRequestNumber(StatisticalRequestCache.hourRequest);
+        currentStatisticsRequestDTO.setCurrentHourValidRequestNumber(StatisticalRequestCache.hourRequestValid);
 
         // 开始统计当天的数据
         // 首先查询数据库，得到是否存在对象
