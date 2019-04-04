@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dto.ParseDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.core.service.OperationInformationService;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationInformationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

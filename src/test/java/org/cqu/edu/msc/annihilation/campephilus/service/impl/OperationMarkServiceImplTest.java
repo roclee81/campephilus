@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.service.impl.OperationMarkServiceImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl.OperationMarkServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

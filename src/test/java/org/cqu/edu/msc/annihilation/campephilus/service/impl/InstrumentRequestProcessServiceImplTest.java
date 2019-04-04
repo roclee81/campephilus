@@ -1,8 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dto.ResultDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.core.form.InstrumentRequestForm;
-import org.cqu.edu.msc.annihilation.campephilus.core.service.impl.InstrumentRequestProcessServiceImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ResultDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.form.InstrumentRequestForm;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl.InstrumentRequestProcessServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

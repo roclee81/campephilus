@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.StatisticalDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.service.StatisticalService;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.StatisticalDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.StatisticalService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.repository;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.FeedbackInformationDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.repository.FeedbackInformationRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.FeedbackInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.FeedbackInformationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

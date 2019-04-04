@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.CollectorInformationDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.service.CollectorInformationService;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.CollectorInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.service.CollectorInformationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

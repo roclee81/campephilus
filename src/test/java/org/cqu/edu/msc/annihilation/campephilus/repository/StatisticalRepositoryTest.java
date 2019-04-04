@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.repository;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.StatisticalDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.repository.StatisticalRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.StatisticalDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.StatisticalRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

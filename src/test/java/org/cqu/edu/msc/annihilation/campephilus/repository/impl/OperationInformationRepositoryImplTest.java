@@ -1,8 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.repository.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.repository.impl.OperationInformationRepositoryImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.impl.OperationInformationRepositoryImpl;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtil;
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.OperationInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationInformationDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

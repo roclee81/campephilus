@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.repository.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.DeviceDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.repository.impl.DeviceRepositoryImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.DeviceDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.impl.DeviceRepositoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

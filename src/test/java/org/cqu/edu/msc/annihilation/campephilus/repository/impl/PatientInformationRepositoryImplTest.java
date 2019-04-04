@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.repository.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.PatientInformationDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.repository.impl.PatientInformationRepositoryImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.PatientInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.impl.PatientInformationRepositoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.core.dataobject.PatientInformationDO;
-import org.cqu.edu.msc.annihilation.campephilus.core.dto.ParseDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.core.dto.PatientInformationDTO;
-import org.cqu.edu.msc.annihilation.campephilus.core.service.impl.PatientInformationServiceImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.PatientInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.PatientInformationDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl.PatientInformationServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
