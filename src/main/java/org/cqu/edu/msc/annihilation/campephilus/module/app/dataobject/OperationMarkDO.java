@@ -1,9 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.jboss.logging.Field;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import java.util.Map;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@Document(value = "operation_mark")
+@Entity
 @Data
 public class OperationMarkDO extends CommonDO {
 

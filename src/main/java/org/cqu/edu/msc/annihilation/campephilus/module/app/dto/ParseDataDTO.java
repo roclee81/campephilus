@@ -2,6 +2,8 @@ package org.cqu.edu.msc.annihilation.campephilus.module.app.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * campephilus
  *
@@ -12,7 +14,9 @@ import lombok.Data;
  * Description:
  */
 @Data
-public class ParseDataDTO {
+public class ParseDataDTO implements Serializable {
+
+    private static final long serialVersionUID = 8299220035788542152L;
 
     /**
      * 数据传输操作码

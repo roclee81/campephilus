@@ -1,8 +1,16 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.statistical.aspect;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * @author lx
@@ -18,51 +26,46 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StatisticalAspect {
 
-//    private final AmqpTemplate amqpTemplate;
-//
-//    private final String InstrumentRequestPoint = "execution(public * InstrumentRequestController.processInstrumentData(..))";
-//    private final String saveOperationInformationDOFromParseDataDTOPoint = "execution(public * OperationInformationService.saveOperationInformationDOFromParseDataDTO(..))";
-//
-//    @Autowired
-//    public StatisticalAspect(AmqpTemplate amqpTemplate) {
-//        this.amqpTemplate = amqpTemplate;
-//    }
-//
-//    @Before(value = InstrumentRequestPoint)
-//    public void statisticalInstrumentRequest() {
-//        amqpTemplate.convertAndSend("campephilus", "instrumentRequest", "now : " + new Date());
-////        StatisticalRequestCache.secondRequest++;
-//    }
-//
-//    /**
-//     * 在第一次接收到手术信息的时候调用
-//     */
-//    @AfterReturning(value = saveOperationInformationDOFromParseDataDTOPoint, returning = "result")
-//    public void statisticalOperationInformation(JoinPoint joinPoint, boolean result) {
-//        amqpTemplate.convertAndSend("campephilus", "saveOperationInformationDO", new MessageVO(result, joinPoint));
-////        if (result) {
-////            // 获取目标方法的参数信息
-////            Object[] obj = joinPoint.getArgs();
-////            if (obj[0] instanceof ParseDataDTO) {
-////                // AOP检测到仪器上传了手术开始信息，将调用StatisticalService来更新
-////                statisticalService.updateStatisticalDOOperationInformationWhenUpdateSuccess((ParseDataDTO) obj[0]);
-////            }
-////        }
-//    }
-//
-//    /**
-//     * 在接收采集器信息并通过验证时
-//     */
-//    @AfterReturning(value = saveOperationInformationDOFromParseDataDTOPoint, returning = "result")
-//    public void statisticalCollectorInformation(JoinPoint joinPoint, boolean result) {
-//        amqpTemplate.convertAndSend("campephilus", "collectorInformation", new MessageVO(result, joinPoint));
+    private final AmqpTemplate amqpTemplate;
 
-//        if (returnResult) {
-//            // 获取目标方法的参数信息
-//            Object[] obj = joinPoint.getArgs();
-//            if (obj[0] instanceof ParseDataDTO) {
-//                collectorInformationService.updateCollectorInformationDOWhenUpdateSuccess((ParseDataDTO) obj[0]);
-//            }
-//        }
-//    }
+    private final String saveOperationInformationDOFromParseDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationInformationService.saveOperationInformationDOFromParseDataDTO(..))";
+    private final String InstrumentRequestPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.app.controller.InstrumentRequestController.processInstrumentData(..))";
+
+    @Autowired
+    public StatisticalAspect(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
+
+    @Before(value = InstrumentRequestPoint)
+    public void statisticalInstrumentRequest() {
+        amqpTemplate.convertAndSend("campephilus", "instrumentRequest", "now : " + new Date());
+    }
+
+    /**
+     * 在第一次接收到手术信息的时候调用
+     */
+    @AfterReturning(value = saveOperationInformationDOFromParseDataDTOPoint, returning = "result")
+    public void statisticalOperationInformation(JoinPoint joinPoint, boolean result) {
+        if (result) {
+            // 获取目标方法的参数信息
+            Object[] obj = joinPoint.getArgs();
+            if (obj[0] instanceof ParseDataDTO) {
+                amqpTemplate.convertAndSend("campephilus", "saveOperationInformationDO", obj[0]);
+            }
+        }
+    }
+
+    /**
+     * 在接收采集器信息并通过验证时
+     */
+    @AfterReturning(value = saveOperationInformationDOFromParseDataDTOPoint, returning = "result")
+    public void statisticalCollectorInformation(JoinPoint joinPoint, boolean result) {
+        if (result) {
+            // 获取目标方法的参数信息
+            Object[] obj = joinPoint.getArgs();
+            if (obj[0] instanceof ParseDataDTO) {
+                amqpTemplate.convertAndSend("campephilus", "saveOperationInformationDOFromParseDataDTO", obj[0]);
+            }
+        }
+    }
 }

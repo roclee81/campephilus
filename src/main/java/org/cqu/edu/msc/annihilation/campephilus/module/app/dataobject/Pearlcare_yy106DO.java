@@ -7,51 +7,48 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * campephilus
- *
  * @author lx
  * @version V1.0
- * @date 2018/12/19 22:42
+ * @date 2019/4/11 17:37
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "operation_info")
-public class OperationInformationDO {
-
+@Table(schema = "pearlcare_yy106_data")
+public class Pearlcare_yy106DO {
     /**
-     * 手术顺序号
+     * 自动增长
      */
     @Id
     @GeneratedValue
-    @Column(name = "operation_id")
-    private Integer operationId;
+    @Column(name = "pk_pearlcare_yy106_id")
+    private Integer pearlcareYY106Id;
 
     /**
-     * 手术名称
+     *
      */
-    @Column(name = "operation_name")
-    private String operationName;
+    @Column(name = "BS")
+    private Integer BS;
 
     /**
-     * 手术开始时间
+     *
      */
-    @Column(name = "operation_start_time")
-    private Date operationStartTime;
+    @Column(name = "EMG")
+    private Integer EMG;
 
     /**
-     * 手术结束时间
+     *
      */
-    @Column(name = "operation_end_time")
-    private Date operationEndTime;
+    @Column(name = "SQI")
+    private Integer SQI;
 
     /**
-     * 手术状态
+     *
      */
-    @Column(name = "operation_state")
-    private Integer operationState;
+    @Column(name = "CSI")
+    private Integer CSI;
 
     /**
      * 数据创建时间
@@ -64,5 +61,10 @@ public class OperationInformationDO {
      */
     @Column(name = "gmt_modified")
     private Date gmtModified;
-}
 
+    /**
+     * 手术顺序号
+     */
+    @Column(name = "operation_id")
+    private Integer operationId;
+}

@@ -94,7 +94,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
 
         switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(parseDataDTO.getCode()))) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
-            case OPERATION_READY: {
+                case OPERATION_READY: {
                 parseDataDTO.setOperationNumber(getNewOperationNumber());
                 parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO));
                 break;

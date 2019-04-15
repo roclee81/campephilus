@@ -17,6 +17,6 @@ public class FeedbackInformationDO extends CommonDO{
     /**
      * 反馈信息
      */
-    @Field(value = "statistical")
+    @Field(value = "message")
     private String message;
 }

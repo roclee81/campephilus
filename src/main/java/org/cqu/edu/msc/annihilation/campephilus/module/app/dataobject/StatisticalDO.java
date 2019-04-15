@@ -2,8 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject;
 
 import lombok.Data;
 import org.cqu.edu.msc.annihilation.common.utils.DateUtil;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.jboss.logging.Field;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,18 +1,15 @@
 spring:
-  #mongo配置
-  data:
-    mongodb:
-      host: 120.79.151.208
-      port: 27017
-      username: mrc206
-      password: mrc206$mrc206
-      database: campephilus
-  rabbitmq:
-    host: 120.79.151.208
-    port: 5672
-    password: campephilus
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     username: campephilus
-    virtual-host: /campephilus
+    password: yplBTG6yeu6pw61k
+    url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus?characterEncoding=utf-8&useSSL=false
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    password: guest
+    username: guest
+    virtual-host: /
 
 #  redis:
 #    # Redis数据库索引（默认为0）

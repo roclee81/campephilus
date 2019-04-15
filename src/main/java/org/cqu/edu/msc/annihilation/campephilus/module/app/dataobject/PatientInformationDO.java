@@ -40,7 +40,7 @@ public class PatientInformationDO extends CommonDO {
      * },
      * 用于评分等环节，目前未使用
      */
-    @Field(value = "preoperative_Data")
+    @Field(value = "preoperative_data")
     private Map preoperativeData;
 
     /**
@@ -52,7 +52,7 @@ public class PatientInformationDO extends CommonDO {
      * },
      * 用于评分等环节，目前未使用
      */
-    @Field(value = "postoperative_Data")
+    @Field(value = "postoperative_data")
     private Map postoperativeData;
 
     /**
