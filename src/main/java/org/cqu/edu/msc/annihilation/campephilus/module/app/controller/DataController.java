@@ -5,7 +5,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.form.InformationForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.DataSearchService;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.service.VersionInformationService;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BeanUtil;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;

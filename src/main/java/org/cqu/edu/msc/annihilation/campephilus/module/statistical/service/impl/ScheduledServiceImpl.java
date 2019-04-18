@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.CollectorStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.service.CollectorInformationService;
 import org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.ScheduledService;
 import org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.StatisticalService;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.utils.RemoveDuplicatesUtil;

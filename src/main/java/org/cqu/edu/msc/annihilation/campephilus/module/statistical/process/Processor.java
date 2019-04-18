@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.statistical.process;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.service.CollectorInformationService;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationInformationService;
 import org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.StatisticalService;
 import org.springframework.amqp.rabbit.annotation.Exchange;
