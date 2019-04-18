@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.statistical.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.StatisticalDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.StatisticalDataDTO;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.CollectorInformationDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.CollectorInformationDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.springframework.data.domain.Page;

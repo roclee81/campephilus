@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationMarkDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.OperationMarkDTO;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public interface OperationMarkService {
      * @param collectorMacAddress 采集器MAC地址
      * @return 如果有则返回对应的OperationMarkDO，如果不存在返回null
      */
-    OperationMarkDO getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress);
+    OperationMarkInfo getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress);
 
     /**
      * 通过手术顺序号查询该手术的所有标记信息
@@ -37,7 +37,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
+    Page<OperationMarkInfo> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable);
 
     /**
      * 通过手术顺序号查询该手术的所有标记信息
@@ -56,7 +56,7 @@ public interface OperationMarkService {
      * @param pageable        分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
+    Page<OperationMarkInfo> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable);
 
     /**
      * 通过手术顺序号查询该手术的所有标记信息
@@ -75,7 +75,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
+    Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之前的所有标记信息
@@ -93,7 +93,7 @@ public interface OperationMarkService {
      * @param pageable      分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
+    Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询之后的所有标记信息
@@ -112,7 +112,7 @@ public interface OperationMarkService {
      * @param pageable       分页信息
      * @return OperationMarkDO的分页信息
      */
-    Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
+    Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术标记的时间查询中间一段时间的所有标记信息
@@ -127,10 +127,10 @@ public interface OperationMarkService {
     /**
      * 保存数据
      *
-     * @param operationMarkDO operationMarkDO实体
+     * @param operationMarkInfo operationMarkDO实体
      * @return 保存成功为true
      */
-    boolean saveOperationMarkDO(OperationMarkDO operationMarkDO);
+    boolean saveOperationMarkDO(OperationMarkInfo operationMarkInfo);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationMarkDO来保存信息

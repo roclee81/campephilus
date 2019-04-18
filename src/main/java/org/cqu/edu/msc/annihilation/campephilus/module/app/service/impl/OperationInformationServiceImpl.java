@@ -1,8 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationInformationDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.OperationInformationDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.OperationStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
@@ -42,24 +42,24 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
+    public Page<OperationInfo> listOperationInformationDOSByPatientId(String patientId, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByPatientId(patientId, pageable);
     }
 
     @Override
-    public Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable) {
+    public Page<OperationInfo> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationState(operationState, pageable);
     }
 
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByPatientId(String patientId, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
+        Page<OperationInfo> operationInformationDOPage = this.listOperationInformationDOSByPatientId(patientId, pageable);
         return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
     public boolean checkOperationState(Integer operationNumber) {
-        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(operationNumber);
+        OperationInfo searchResult = this.getOperationInformationDOByOperationNumber(operationNumber);
         if (null != searchResult) {
             return !searchResult.getOperationState().equals(OperationStateEnum.FINISH.getCode());
         }
@@ -67,8 +67,8 @@ public class OperationInformationServiceImpl implements OperationInformationServ
     }
 
     @Override
-    public OperationInformationDO getOperationInformationDOByOperationNumber(Integer operationNumber) {
-        OperationInformationDO result;
+    public OperationInfo getOperationInformationDOByOperationNumber(Integer operationNumber) {
+        OperationInfo result;
         try {
             result = operationInformationRepository.findOperationInformationDOByOperationNumber(operationNumber);
         } catch (IncorrectResultSizeDataAccessException e) {
@@ -79,61 +79,61 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public OperationInformationDTO getOperationInformationDTOByOperationNumber(Integer operationNumber) {
-        OperationInformationDO operationInformationDO = this.getOperationInformationDOByOperationNumber(operationNumber);
-        return ConvertUtil.convert(operationInformationDO, OperationInformationDTO.class);
+        OperationInfo operationInfo = this.getOperationInformationDOByOperationNumber(operationNumber);
+        return ConvertUtil.convert(operationInfo, OperationInformationDTO.class);
     }
 
     @Override
-    public Page<OperationInformationDO> listOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
+    public Page<OperationInfo> listOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
     }
 
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
+        Page<OperationInfo> operationInformationDOPage = this.listOperationInformationDOSByOperationStartTimeBetween(operationStartTimeBefore, operationStartTimeAfter, pageable);
         return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
-    public Page<OperationInformationDO> listOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
+    public Page<OperationInfo> listOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
     }
 
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
+        Page<OperationInfo> operationInformationDOPage = this.listOperationInformationDOSByOperationTimeBetween(operationTimeBefore, operationTimeAfter, pageable);
         return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
-    public Page<OperationInformationDO> listOperationInformationDOS(Pageable pageable) {
+    public Page<OperationInfo> listOperationInformationDOS(Pageable pageable) {
         return operationInformationRepository.findOperationInformationDOS(pageable);
     }
 
     @Override
     public List<OperationInformationDTO> listOperationInformationDTOS(Pageable pageable) {
-        Page<OperationInformationDO> operationInformationDOPage = this.listOperationInformationDOS(pageable);
+        Page<OperationInfo> operationInformationDOPage = this.listOperationInformationDOS(pageable);
         return ConvertUtil.convert(operationInformationDOPage, OperationInformationDTO.class);
     }
 
     @Override
-    public boolean saveOperationInformationDO(OperationInformationDO operationInformationDO) {
+    public boolean saveOperationInformationDO(OperationInfo operationInfo) {
         // 首先查询是否存在该条数据，根据operationNumber查询
-        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(operationInformationDO.getOperationNumber());
+        OperationInfo searchResult = this.getOperationInformationDOByOperationNumber(operationInfo.getOperationNumber());
         if (null != searchResult) {
-            if (null == operationInformationDO.getId() || !operationInformationDO.getId().equals(searchResult.getId())) {
+            if (null == operationInfo.getId() || !operationInfo.getId().equals(searchResult.getId())) {
                 throw new SaveException(ResponseEnum.DATA_EXISTED);
             }
         }
 
-        OperationInformationDO result = operationInformationRepository.saveOperationInformationDO(operationInformationDO);
-        SaveException.checkSaveSuccess(result, operationInformationDO);
+        OperationInfo result = operationInformationRepository.saveOperationInformationDO(operationInfo);
+        SaveException.checkSaveSuccess(result, operationInfo);
         return true;
     }
 
     @Override
     public boolean saveOperationInformationDOFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
+        OperationInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class);
         if (null == parseResult) {
             return false;
         }
@@ -147,12 +147,12 @@ public class OperationInformationServiceImpl implements OperationInformationServ
 
     @Override
     public boolean updateOperationInformationDO(ParseDataDTO parseDataDTO) {
-        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
+        OperationInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class);
         if (null == parseResult) {
             return false;
         }
 
-        OperationInformationDO searchResult = this.getOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
+        OperationInfo searchResult = this.getOperationInformationDOByOperationNumber(parseDataDTO.getOperationNumber());
 
         if (null == searchResult) {
             throw new SaveException(ResponseEnum.OPERATION_NOT_READY);

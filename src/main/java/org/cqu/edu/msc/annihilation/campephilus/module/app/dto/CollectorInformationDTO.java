@@ -1,7 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.dto;
 
 import lombok.Data;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.CollectorInformationDO;
 
 import java.util.List;
 

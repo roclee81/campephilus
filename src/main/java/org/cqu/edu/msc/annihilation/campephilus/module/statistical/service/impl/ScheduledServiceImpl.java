@@ -1,8 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.CollectorInformationDO;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.StatisticalDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.CurrentStatisticsRequestDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.CollectorStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;

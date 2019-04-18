@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationMarkDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.OperationMarkRepository;
@@ -42,83 +42,83 @@ public class OperationMarkServiceImpl implements OperationMarkService {
     }
 
     @Override
-    public OperationMarkDO getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress) {
+    public OperationMarkInfo getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(Integer operationNumber, Integer markNumber, String collectorMacAddress) {
         return operationMarkRepository.findOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(operationNumber, markNumber, collectorMacAddress);
     }
 
     @Override
-    public Page<OperationMarkDO> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
+    public Page<OperationMarkInfo> listOperationMarkDOSByOperationNumber(Integer operationNumber, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByOperationNumber(operationNumber, pageable);
     }
 
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumber(Integer operationNumber, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumber(operationNumber, pageable);
+        Page<OperationMarkInfo> operationMarkDOPage = this.listOperationMarkDOSByOperationNumber(operationNumber, pageable);
         return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
-    public Page<OperationMarkDO> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
+    public Page<OperationMarkInfo> listOperationMarkDOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
     }
 
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByOperationNumberAndMarkType(Integer operationNumber, Integer markType, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
+        Page<OperationMarkInfo> operationMarkDOPage = this.listOperationMarkDOSByOperationNumberAndMarkType(operationNumber, markType, pageable);
         return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
-    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
+    public Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
     }
 
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBefore(Date markTimeBefore, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
+        Page<OperationMarkInfo> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBefore(markTimeBefore, pageable);
         return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
-    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
+    public Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
     }
 
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeAfter(Date markTimeAfter, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
+        Page<OperationMarkInfo> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeAfter(markTimeAfter, pageable);
         return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
-    public Page<OperationMarkDO> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
+    public Page<OperationMarkInfo> listOperationMarkDOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
         return operationMarkRepository.findOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
     }
 
     @Override
     public List<OperationMarkDTO> listOperationMarkDTOSByMarkTimeBetween(Date markTimeBefore, Date markTimeAfter, Pageable pageable) {
-        Page<OperationMarkDO> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
+        Page<OperationMarkInfo> operationMarkDOPage = this.listOperationMarkDOSByMarkTimeBetween(markTimeBefore, markTimeAfter, pageable);
         return ConvertUtil.convert(operationMarkDOPage, OperationMarkDTO.class);
     }
 
     @Override
-    public boolean saveOperationMarkDO(OperationMarkDO operationMarkDO) {
+    public boolean saveOperationMarkDO(OperationMarkInfo operationMarkInfo) {
         // 首先查询是否存在该条数据
-        OperationMarkDO searchResult = getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(
-                operationMarkDO.getOperationNumber(),
-                operationMarkDO.getMarkNumber(),
-                operationMarkDO.getCollectorMacAddress());
+        OperationMarkInfo searchResult = getOperationMarkDOByOperationNumberAndMarkNumberAndCollectorMacAddress(
+                operationMarkInfo.getOperationNumber(),
+                operationMarkInfo.getMarkNumber(),
+                operationMarkInfo.getCollectorMacAddress());
 
-        CheckStateUtil.checkState(searchResult, operationInformationService, operationMarkDO.getOperationNumber());
+        CheckStateUtil.checkState(searchResult, operationInformationService, operationMarkInfo.getOperationNumber());
 
-        OperationMarkDO result = operationMarkRepository.save(operationMarkDO);
-        SaveException.checkSaveSuccess(result, operationMarkDO);
+        OperationMarkInfo result = operationMarkRepository.save(operationMarkInfo);
+        SaveException.checkSaveSuccess(result, operationMarkInfo);
         return true;
     }
 
     @Override
     public boolean saveOperationMarkDO(ParseDataDTO parseDataDTO) {
-        OperationMarkDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkDO.class);
+        OperationMarkInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkInfo.class);
         if (null == parseResult) {
             return false;
         }

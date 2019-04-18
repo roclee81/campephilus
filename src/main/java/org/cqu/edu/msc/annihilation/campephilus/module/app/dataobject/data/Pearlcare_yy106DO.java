@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject;
+package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.data;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,7 +16,7 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "pearlcare_yy106_data")
+@Table(schema = "data_pearlcare_yy106")
 public class Pearlcare_yy106DO {
     /**
      * 自动增长

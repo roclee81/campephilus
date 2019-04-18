@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.PatientInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
@@ -41,19 +41,19 @@ public class PatientInformationServiceImpl implements PatientInformationService 
     }
 
     @Override
-    public PatientInformationDO getPatientInformationDOByOperationNumber(Integer operationNumber) {
+    public PatientInfo getPatientInformationDOByOperationNumber(Integer operationNumber) {
         return patientInformationRepository.findPatientInformationDOByOperationNumber(operationNumber);
     }
 
     @Override
     public PatientInformationDTO getPatientInformationDTOByOperationNumber(Integer operationNumber) {
-        PatientInformationDO patientInformationDO = this.getPatientInformationDOByOperationNumber(operationNumber);
-        return ConvertUtil.convert(patientInformationDO,PatientInformationDTO.class);
+        PatientInfo patientInfo = this.getPatientInformationDOByOperationNumber(operationNumber);
+        return ConvertUtil.convert(patientInfo,PatientInformationDTO.class);
     }
 
     @Override
-    public PatientInformationDO getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
-        PatientInformationDO result;
+    public PatientInfo getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
+        PatientInfo result;
         try {
             result = patientInformationRepository.findPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
         } catch (IncorrectResultSizeDataAccessException e) {
@@ -64,38 +64,38 @@ public class PatientInformationServiceImpl implements PatientInformationService 
 
     @Override
     public PatientInformationDTO getPatientInformationDTOByPatientIdAndOperationNumber(String patientId, Integer operationNumber) {
-        PatientInformationDO patientInformationDO = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
-        return ConvertUtil.convert(patientInformationDO,PatientInformationDTO.class);
+        PatientInfo patientInfo = this.getPatientInformationDOByPatientIdAndOperationNumber(patientId, operationNumber);
+        return ConvertUtil.convert(patientInfo,PatientInformationDTO.class);
     }
 
     @Override
-    public Page<PatientInformationDO> listPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
+    public Page<PatientInfo> listPatientInformationDOSByPatientId(String patientId, Pageable pageable) {
         return patientInformationRepository.findPatientInformationDOSByPatientId(patientId, pageable);
     }
 
     @Override
     public List<PatientInformationDTO> listPatientInformationDTOSByPatientId(String patientId, Pageable pageable) {
-        Page<PatientInformationDO> patientInformationDOPage = this.listPatientInformationDOSByPatientId(patientId, pageable);
+        Page<PatientInfo> patientInformationDOPage = this.listPatientInformationDOSByPatientId(patientId, pageable);
         return ConvertUtil.convert(patientInformationDOPage,PatientInformationDTO.class);
     }
 
     @Override
-    public boolean savePatientInformationDO(PatientInformationDO patientInformationDO) {
+    public boolean savePatientInformationDO(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据operationNumber查询
-        PatientInformationDO searchResult = this.getPatientInformationDOByOperationNumber(patientInformationDO.getOperationNumber());
+        PatientInfo searchResult = this.getPatientInformationDOByOperationNumber(patientInfo.getOperationNumber());
         if (null != searchResult) {
-            if (null == patientInformationDO.getId() || !patientInformationDO.getId().equals(searchResult.getId())) {
+            if (null == patientInfo.getId() || !patientInfo.getId().equals(searchResult.getId())) {
                 throw new SaveException(ResponseEnum.DATA_EXISTED);
             }
         }
-        PatientInformationDO result = patientInformationRepository.savePatientInformationDO(patientInformationDO);
-        SaveException.checkSaveSuccess(result, patientInformationDO);
+        PatientInfo result = patientInformationRepository.savePatientInformationDO(patientInfo);
+        SaveException.checkSaveSuccess(result, patientInfo);
         return true;
     }
 
     @Override
     public boolean savePatientInformationDO(ParseDataDTO parseDataDTO) {
-        PatientInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInformationDO.class);
+        PatientInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class);
         if (null == parseResult) {
             return false;
         }
@@ -110,12 +110,12 @@ public class PatientInformationServiceImpl implements PatientInformationService 
 
     @Override
     public boolean updatePatientInformationDO(ParseDataDTO parseDataDTO) {
-        PatientInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInformationDO.class);
+        PatientInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class);
         if (null == parseResult) {
             return false;
         }
 
-        PatientInformationDO searchResult = this.getPatientInformationDOByPatientIdAndOperationNumber(parseResult.getPatientId(), parseResult.getOperationNumber());
+        PatientInfo searchResult = this.getPatientInformationDOByPatientIdAndOperationNumber(parseResult.getPatientId(), parseResult.getOperationNumber());
 
         if (null == searchResult) {
             return false;

@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.VersionInformationDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.VersionInformationRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.VersionInformationDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.form.InformationForm;

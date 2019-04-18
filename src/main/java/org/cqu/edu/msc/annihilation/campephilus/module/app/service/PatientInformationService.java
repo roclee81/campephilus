@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.PatientInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.PatientInformationDTO;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ public interface PatientInformationService {
      * @param operationNumber 手术顺序号
      * @return PatientInformationDO实体
      */
-    PatientInformationDO getPatientInformationDOByOperationNumber(Integer operationNumber);
+    PatientInfo getPatientInformationDOByOperationNumber(Integer operationNumber);
 
     /**
      * 通过operationNumber得到PatientInformationDTO
@@ -45,7 +45,7 @@ public interface PatientInformationService {
      * @param operationNumber 手术顺序号
      * @return PatientInformationDO实体
      */
-    PatientInformationDO getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
+    PatientInfo getPatientInformationDOByPatientIdAndOperationNumber(String patientId, Integer operationNumber);
 
     /**
      * 通过patientId和operationNumber得到PatientInformationDTO
@@ -64,7 +64,7 @@ public interface PatientInformationService {
      * @param pageable  分页信息
      * @return PatientInformationDO分页信息
      */
-    Page<PatientInformationDO> listPatientInformationDOSByPatientId(String patientId, Pageable pageable);
+    Page<PatientInfo> listPatientInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * 通过患者的ID得到PatientInformationDTO信息
@@ -78,10 +78,10 @@ public interface PatientInformationService {
     /**
      * 保存PatientInformationDO信息
      *
-     * @param patientInformationDO patientInformationDO实体
+     * @param patientInfo patientInformationDO实体
      * @return 是否保存成功
      */
-    boolean savePatientInformationDO(PatientInformationDO patientInformationDO);
+    boolean savePatientInformationDO(PatientInfo patientInfo);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到PatientInformationDO来保存信息

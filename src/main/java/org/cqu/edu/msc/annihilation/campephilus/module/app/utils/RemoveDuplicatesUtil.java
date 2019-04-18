@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.DeviceCommon;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.DeviceInfo;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.List;
  * Description:
  */
 public class RemoveDuplicatesUtil {
-    public static HashSet<String> getDeviceSetRemoveDuplicates(List<List<DeviceCommon>> deviceList) {
+    public static HashSet<String> getDeviceSetRemoveDuplicates(List<List<DeviceInfo>> deviceList) {
         HashSet<String> hashSet = new HashSet<>();
-        for (List<DeviceCommon> devices : deviceList) {
-            for (DeviceCommon deviceCommon : devices) {
-                hashSet.add(deviceCommon.getSerialNumber());
+        for (List<DeviceInfo> devices : deviceList) {
+            for (DeviceInfo deviceInfo : devices) {
+                hashSet.add(deviceInfo.getSerialNumber());
             }
         }
         return hashSet;

@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.OperationInformationDTO;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public interface OperationInformationService {
      * @param pageable  分页信息
      * @return PatientIdOperationNumberDO分页信息
      */
-    Page<OperationInformationDO> listOperationInformationDOSByPatientId(String patientId, Pageable pageable);
+    Page<OperationInfo> listOperationInformationDOSByPatientId(String patientId, Pageable pageable);
 
     /**
      * 通过手术状态查询OperationInformationNumberDO信息
@@ -36,7 +36,7 @@ public interface OperationInformationService {
      * @param pageable       分页信息
      * @return OperationInformationDO分页信息
      */
-    Page<OperationInformationDO> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable);
+    Page<OperationInfo> listOperationInformationDOSByOperationState(Integer operationState, Pageable pageable);
 
     /**
      * 通过患者的ID查询PatientIdOperationNumberDTO信息
@@ -63,7 +63,7 @@ public interface OperationInformationService {
      * @param operationNumber 手术顺序号
      * @return OperationInformationDO分页信息
      */
-    OperationInformationDO getOperationInformationDOByOperationNumber(Integer operationNumber);
+    OperationInfo getOperationInformationDOByOperationNumber(Integer operationNumber);
 
     /**
      * 通过手术顺序号查询OperationInformationDTO信息
@@ -83,7 +83,7 @@ public interface OperationInformationService {
      * @param pageable                 分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> listOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
+    Page<OperationInfo> listOperationInformationDOSByOperationStartTimeBetween(Date operationStartTimeBefore, Date operationStartTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术开始时间的查询这一段时间的所有数据
@@ -103,7 +103,7 @@ public interface OperationInformationService {
      * @param pageable            分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> listOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable);
+    Page<OperationInfo> listOperationInformationDOSByOperationTimeBetween(Long operationTimeBefore, Long operationTimeAfter, Pageable pageable);
 
     /**
      * 通过输入的手术进行时间的查询这一段时间的所有数据
@@ -121,7 +121,7 @@ public interface OperationInformationService {
      * @param pageable 分页信息
      * @return OperationInformationDO的分页信息
      */
-    Page<OperationInformationDO> listOperationInformationDOS(Pageable pageable);
+    Page<OperationInfo> listOperationInformationDOS(Pageable pageable);
 
     /**
      * 得到所有的OperationInformationDTO的信息
@@ -134,10 +134,10 @@ public interface OperationInformationService {
     /**
      * 保存OperationInformationDO
      *
-     * @param operationInformationDO OperationInformationDO信息
+     * @param operationInfo OperationInformationDO信息
      * @return 是否保存成功
      */
-    boolean saveOperationInformationDO(OperationInformationDO operationInformationDO);
+    boolean saveOperationInformationDO(OperationInfo operationInfo);
 
     /**
      * 通过ParseDataDTO中的信息解析后得到OperationInformationDO来保存信息

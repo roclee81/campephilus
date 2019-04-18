@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject;
+package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,8 +18,8 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "operation_info")
-public class OperationInformationDO {
+@Table(schema = "info_operation")
+public class OperationInfo {
 
     /**
      * 手术顺序号

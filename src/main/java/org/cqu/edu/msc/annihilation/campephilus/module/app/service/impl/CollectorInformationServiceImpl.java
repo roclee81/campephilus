@@ -1,13 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.CollectorInformationDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.CollectorInformationDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.CollectorStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.RequestEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.CollectorInformationRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.CollectorInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;

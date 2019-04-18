@@ -1,12 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.OperationInformationDO;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.utils.RemoveDuplicatesUtil;
 import org.cqu.edu.msc.annihilation.campephilus.module.statistical.cache.StatisticalCache;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.StatisticalDO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dto.StatisticalDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.StatisticalRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.statistical.service.StatisticalService;
@@ -101,7 +100,7 @@ public class StatisticalServiceImpl implements StatisticalService {
 
     @Override
     public boolean updateStatisticalDOOperationInformationWhenUpdateSuccess(ParseDataDTO parseDataDTO) {
-        OperationInformationDO parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInformationDO.class);
+        OperationInfo parseResult = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class);
         StatisticalDO searchResult = getStatisticalDOByStatisticalDate(DateUtil.getCurrentDateString());
         if (null == searchResult) {
             searchResult = StatisticalDO.getStatisticalDOInstance();
