@@ -23,7 +23,7 @@ public class HospitalInfo {
      */
     @Id
     @Column(name = "pk_hospital_id")
-    private Integer hospitalId;
+    private String hospitalId;
 
     /**
      * 医院名称
