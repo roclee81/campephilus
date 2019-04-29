@@ -2,6 +2,8 @@ package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationMarkInfo;
 
+import java.util.List;
+
 /**
  * @author lx
  * @version V1.0
@@ -12,4 +14,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.Opera
 public interface OperationMarkInfoService {
 
     void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo);
+
+    List<OperationMarkInfo> listAllOperationMarkInfo();
+
+    List<OperationMarkInfo> listAllOperationMarkInfo(int page, int size);
 }

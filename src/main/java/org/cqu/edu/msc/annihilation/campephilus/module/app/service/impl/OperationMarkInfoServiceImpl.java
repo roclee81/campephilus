@@ -5,7 +5,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveExcepti
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationMarkInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lx
@@ -26,8 +30,19 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @Override
     public void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
-        // Id自动设置，不存在重复，所以不需要检查
+        // Id自动设置，不存在重复，所以不需要检查，不需要锁
         OperationMarkInfo result = operationMarkInfoRepository.save(operationMarkInfo);
         SaveException.checkSaveSuccess(result, operationMarkInfo);
+    }
+
+    @Override
+    public List<OperationMarkInfo> listAllOperationMarkInfo() {
+        return operationMarkInfoRepository.findAll();
+    }
+
+    @Override
+    public List<OperationMarkInfo> listAllOperationMarkInfo(int page, int size) {
+        Page<OperationMarkInfo> searchResult = operationMarkInfoRepository.findAll(PageRequest.of(page, size));
+        return searchResult.getContent();
     }
 }

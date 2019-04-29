@@ -3,10 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -21,16 +18,22 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "info_patient")
+@Table(name = "info_patient")
 public class PatientInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    @Id
+    @GeneratedValue
+    @Column(name = "pk_id")
+    private Integer id;
 
     /**
      * 病人身份证号，主键
      */
-    @Id
     @Column(name = "pk_patient_id")
-    private Integer patientId;
-
+    private String patientId;
 
     /**
      * 住院号

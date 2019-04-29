@@ -2,6 +2,8 @@ package org.cqu.edu.msc.annihilation.campephilus.module.app.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.PatientInfo;
 
+import java.util.List;
+
 /**
  * @author lx
  * @version V1.0
@@ -12,4 +14,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.Patie
 public interface PatientInfoService {
 
     void savePatientInfo(PatientInfo patientInfo);
+
+    List<PatientInfo> listAllPatientInfo(int page, int size);
 }

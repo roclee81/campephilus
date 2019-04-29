@@ -5,7 +5,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveExcepti
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.DeviceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lx
@@ -36,4 +40,11 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         DeviceInfo result = deviceInfoRepository.save(deviceInfo);
         SaveException.checkSaveSuccess(result, deviceInfo);
     }
+
+    @Override
+    public List<DeviceInfo> listAllDeviceInfo(int page, int size) {
+        Page<DeviceInfo> searchResult = deviceInfoRepository.findAll(PageRequest.of(page, size));
+        return searchResult.getContent();
+    }
+
 }

@@ -5,8 +5,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveExcepti
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.HospitalInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.HospitalInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,4 +39,11 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
         HospitalInfo result = hospitalInfoRepository.save(hospitalInfo);
         SaveException.checkSaveSuccess(result, hospitalInfo);
     }
+
+    @Override
+    public List<HospitalInfo> listAllOperationInfo(int page, int size) {
+        Page<HospitalInfo> searchResult = hospitalInfoRepository.findAll(PageRequest.of(page, size));
+        return searchResult.getContent();
+    }
+
 }

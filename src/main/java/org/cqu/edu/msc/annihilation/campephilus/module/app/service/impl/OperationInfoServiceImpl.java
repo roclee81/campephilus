@@ -5,8 +5,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveExcepti
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,4 +38,11 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         OperationInfo result = operationInfoRepository.save(operationInfo);
         SaveException.checkSaveSuccess(result, operationInfo);
     }
+
+    @Override
+    public List<OperationInfo> listAllOperationInfo(int page, int size) {
+        Page<OperationInfo> searchResult = operationInfoRepository.findAll(PageRequest.of(page, size));
+        return searchResult.getContent();
+    }
+
 }

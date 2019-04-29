@@ -17,7 +17,7 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "info_device")
+@Table(name = "info_device")
 public class DeviceInfo {
 
     /**

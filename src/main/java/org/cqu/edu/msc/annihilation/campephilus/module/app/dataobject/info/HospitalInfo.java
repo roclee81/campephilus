@@ -16,7 +16,7 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "info_hospital")
+@Table(name = "info_hospital")
 public class HospitalInfo {
     /**
      * 全国医院序列号，唯一

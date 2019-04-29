@@ -18,7 +18,7 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Data
-@Table(schema = "info_operation")
+@Table(name = "info_operation")
 public class OperationInfo {
 
     /**
