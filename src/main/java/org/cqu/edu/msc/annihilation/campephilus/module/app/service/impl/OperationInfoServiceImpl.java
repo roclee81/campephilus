@@ -27,7 +27,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
-    public void saveOperationInfo(OperationInfo operationInfo) {
+    public synchronized void saveOperationInfo(OperationInfo operationInfo) {
         Optional searchResult = operationInfoRepository.findById(operationInfo.getOperationId());
         if (searchResult.isPresent()) {
             return;

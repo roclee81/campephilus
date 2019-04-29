@@ -27,7 +27,7 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
     }
 
     @Override
-    public void saveHospitalInfo(HospitalInfo hospitalInfo) {
+    public synchronized void saveHospitalInfo(HospitalInfo hospitalInfo) {
         // 首先查询是否存在该条数据，根据hospitalId查询
         Optional searchResultOptional = hospitalInfoRepository.findById(hospitalInfo.getHospitalId());
         if (searchResultOptional.isPresent()) {
