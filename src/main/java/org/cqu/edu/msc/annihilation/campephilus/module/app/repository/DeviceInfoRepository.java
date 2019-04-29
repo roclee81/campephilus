@@ -12,5 +12,7 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface DeviceInfoRepository extends JpaRepository<Integer, DeviceInfo> {
+public interface DeviceInfoRepository extends JpaRepository<DeviceInfo, Integer> {
+
+    DeviceInfo findDeviceInfoByDeviceProducerAndDeviceSerialNumber(String deviceProducer, String deviceSerialNumber);
 }

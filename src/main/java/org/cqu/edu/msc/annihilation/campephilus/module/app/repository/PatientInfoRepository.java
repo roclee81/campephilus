@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface PatientInfoRepository extends JpaRepository<Integer, PatientInfo> {
+public interface PatientInfoRepository extends JpaRepository<PatientInfo, Integer> {
 
 }

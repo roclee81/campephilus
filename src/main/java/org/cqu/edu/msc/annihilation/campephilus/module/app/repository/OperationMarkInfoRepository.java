@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface OperationMarkInfoRepository extends JpaRepository<Integer, OperationMarkInfo> {
+public interface OperationMarkInfoRepository extends JpaRepository<OperationMarkInfo, Integer> {
 
 }
