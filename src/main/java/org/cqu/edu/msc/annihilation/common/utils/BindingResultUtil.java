@@ -1,8 +1,8 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.app.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.ParseException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.springframework.validation.BindingResult;
 
 import java.util.Objects;
