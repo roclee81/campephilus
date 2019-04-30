@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationMarkInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationMarkInfoService;
@@ -36,13 +37,19 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     }
 
     @Override
-    public List<OperationMarkInfo> listAllOperationMarkInfo() {
-        return operationMarkInfoRepository.findAll();
-    }
-
-    @Override
     public List<OperationMarkInfo> listAllOperationMarkInfo(int page, int size) {
         Page<OperationMarkInfo> searchResult = operationMarkInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
+    }
+
+    @Override
+    public void updateOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
+        // 检查operationMarkInfo的id来判断是否是更新数据，同时判断是否存在该id的数据
+        Integer id = operationMarkInfo.getMarkId();
+        if (null == id || operationMarkInfoRepository.findById(id).isEmpty()) {
+            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
+        }
+        OperationMarkInfo result = operationMarkInfoRepository.save(operationMarkInfo);
+        SaveException.checkSaveSuccess(result, operationMarkInfo);
     }
 }

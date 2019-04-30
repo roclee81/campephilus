@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.DeviceInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.DeviceInfoService;
@@ -42,9 +43,19 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
     }
 
     @Override
+    public synchronized void updateDeviceInfo(DeviceInfo deviceInfo) {
+        // 检查deviceInfo的id来判断是否是更新数据，同时判断是否存在该id的数据
+        Integer id = deviceInfo.getId();
+        if (null == id || deviceInfoRepository.findById(id).isEmpty()) {
+            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
+        }
+        DeviceInfo result = deviceInfoRepository.save(deviceInfo);
+        SaveException.checkSaveSuccess(result, deviceInfo);
+    }
+
+    @Override
     public List<DeviceInfo> listAllDeviceInfo(int page, int size) {
         Page<DeviceInfo> searchResult = deviceInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
     }
-
 }

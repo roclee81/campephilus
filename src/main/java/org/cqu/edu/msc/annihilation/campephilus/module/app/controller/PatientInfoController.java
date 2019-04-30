@@ -40,10 +40,17 @@ public class PatientInfoController {
                 new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
     }
 
+    @PostMapping(value = "/save")
+    public ResultVO saveOperationInfo(@Valid PatientInfo patientInfo, BindingResult bindingResult) {
+        BindingResultUtil.checkBindingResult(bindingResult);
+        patientInfoService.savePatientInfo(patientInfo);
+        return ResultVO.success();
+    }
+
     @PostMapping(value = "/update")
     public ResultVO updateOperationInfo(@Valid PatientInfo patientInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
-        patientInfoService.savePatientInfo(patientInfo);
+        patientInfoService.updatePatientInfo(patientInfo);
         return ResultVO.success();
     }
 

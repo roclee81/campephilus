@@ -16,4 +16,6 @@ public interface OperationInfoService {
     void saveOperationInfo(OperationInfo operationInfo);
 
     List<OperationInfo> listAllOperationInfo(int page, int size);
+
+    void updateOperationInfo(OperationInfo operationInfo);
 }

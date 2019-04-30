@@ -15,5 +15,7 @@ public interface DeviceInfoService {
 
     void saveDeviceInfo(DeviceInfo deviceInfo);
 
+    void updateDeviceInfo(DeviceInfo deviceInfo);
+
     List<DeviceInfo> listAllDeviceInfo(int page, int size);
 }

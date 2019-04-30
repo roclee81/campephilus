@@ -40,10 +40,17 @@ public class OperationMarkInfoController {
                 new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
     }
 
+    @PostMapping(value = "/save")
+    public ResultVO saveOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
+        BindingResultUtil.checkBindingResult(bindingResult);
+        operationMarkInfoService.saveOperationMarkInfo(operationMarkInfo);
+        return ResultVO.success();
+    }
+
     @PostMapping(value = "/update")
     public ResultVO updateOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
-        operationMarkInfoService.saveOperationMarkInfo(operationMarkInfo);
+        operationMarkInfoService.updateOperationMarkInfo(operationMarkInfo);
         return ResultVO.success();
     }
 

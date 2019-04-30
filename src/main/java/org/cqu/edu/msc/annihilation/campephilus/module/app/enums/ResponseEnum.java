@@ -55,6 +55,11 @@ public enum ResponseEnum {
     OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
 
     /**
+     * 更新失败，ID字段错误或为空
+     */
+    UPDATE_ID_ERROR(-9, "更新失败，ID字段错误或为空"),
+
+    /**
      * 成功
      */
     SUCCESS(200, "成功"),

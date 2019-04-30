@@ -15,7 +15,7 @@ public interface OperationMarkInfoService {
 
     void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo);
 
-    List<OperationMarkInfo> listAllOperationMarkInfo();
-
     List<OperationMarkInfo> listAllOperationMarkInfo(int page, int size);
+
+    void updateOperationMarkInfo(OperationMarkInfo operationMarkInfo);
 }

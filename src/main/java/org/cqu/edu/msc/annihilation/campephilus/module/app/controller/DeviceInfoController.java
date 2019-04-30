@@ -40,10 +40,17 @@ public class DeviceInfoController {
                 new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
     }
 
+    @PostMapping(value = "/save")
+    public ResultVO saveDeviceInfo(@Valid DeviceInfo deviceInfo, BindingResult bindingResult) {
+        BindingResultUtil.checkBindingResult(bindingResult);
+        deviceInfoService.saveDeviceInfo(deviceInfo);
+        return ResultVO.success();
+    }
+
     @PostMapping(value = "/update")
     public ResultVO updateDeviceInfo(@Valid DeviceInfo deviceInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
-        deviceInfoService.saveDeviceInfo(deviceInfo);
+        deviceInfoService.updateDeviceInfo(deviceInfo);
         return ResultVO.success();
     }
 }

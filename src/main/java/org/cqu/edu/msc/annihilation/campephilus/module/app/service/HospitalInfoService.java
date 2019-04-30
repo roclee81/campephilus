@@ -16,4 +16,6 @@ public interface HospitalInfoService {
     void saveHospitalInfo(HospitalInfo hospitalInfo);
 
     List<HospitalInfo> listAllOperationInfo(int page, int size);
+
+    void updateHospitalInfo(HospitalInfo hospitalInfo);
 }

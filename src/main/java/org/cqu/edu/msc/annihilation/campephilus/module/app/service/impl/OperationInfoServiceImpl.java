@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.app.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.app.dataobject.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.app.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.app.service.OperationInfoService;
@@ -31,6 +32,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
 
     @Override
     public synchronized void saveOperationInfo(OperationInfo operationInfo) {
+        checkId(operationInfo);
         Optional searchResult = operationInfoRepository.findById(operationInfo.getOperationId());
         if (searchResult.isPresent()) {
             return;
@@ -43,6 +45,23 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     public List<OperationInfo> listAllOperationInfo(int page, int size) {
         Page<OperationInfo> searchResult = operationInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
+    }
+
+    @Override
+    public void updateOperationInfo(OperationInfo operationInfo) {
+        checkId(operationInfo);
+        Optional searchResult = operationInfoRepository.findById(operationInfo.getOperationId());
+        if (searchResult.isEmpty()) {
+            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
+        }
+        OperationInfo result = operationInfoRepository.save(operationInfo);
+        SaveException.checkSaveSuccess(result, operationInfo);
+    }
+
+    private void checkId(OperationInfo operationInfo) {
+        if (null == operationInfo.getOperationId()) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR);
+        }
     }
 
 }
