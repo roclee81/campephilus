@@ -23,6 +23,7 @@ public class ParseDataDTO {
     private String collectorMacAddress;
 
     /**
+     *
      * 手术顺序号
      */
     private Integer operationNumber;

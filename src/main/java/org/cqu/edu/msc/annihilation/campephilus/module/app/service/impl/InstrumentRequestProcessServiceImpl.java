@@ -78,10 +78,12 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * 验证后必定不为空</li>
      * </ul>
      *
+     *
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
     private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
+
         ParseResultObject parseResultObject = new ParseResultObject();
         parseResultObject.setReturnResult(false);
 
