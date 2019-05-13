@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info.OperationMarkInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 
 import java.util.List;
 

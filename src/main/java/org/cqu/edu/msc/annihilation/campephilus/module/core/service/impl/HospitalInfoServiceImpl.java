@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info.HospitalInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.HospitalInfoRepository;
@@ -34,7 +34,7 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
     public synchronized void saveHospitalInfo(HospitalInfo hospitalInfo) {
         checkId(hospitalInfo);
         // 首先查询是否存在该条数据，根据hospitalId查询
-        Optional searchResultOptional = hospitalInfoRepository.findById(hospitalInfo.getHospitalId());
+        Optional searchResultOptional = hospitalInfoRepository.findById(hospitalInfo.getHospitalCode());
         if (searchResultOptional.isPresent()) {
             return;
         }
@@ -52,7 +52,7 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
     public void updateHospitalInfo(HospitalInfo hospitalInfo) {
         checkId(hospitalInfo);
         // 首先查询是否存在该条数据，根据hospitalId查询
-        Optional searchResultOptional = hospitalInfoRepository.findById(hospitalInfo.getHospitalId());
+        Optional searchResultOptional = hospitalInfoRepository.findById(hospitalInfo.getHospitalCode());
         if (searchResultOptional.isEmpty()) {
             throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
         }
@@ -61,7 +61,7 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
     }
 
     private void checkId(HospitalInfo hospitalInfo) {
-        if (null == hospitalInfo.getHospitalId()) {
+        if (null == hospitalInfo.getHospitalCode()) {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR);
         }
     }

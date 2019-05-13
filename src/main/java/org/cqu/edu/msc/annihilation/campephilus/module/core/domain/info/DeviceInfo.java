@@ -1,9 +1,13 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -14,6 +18,7 @@ import java.util.Date;
  * Description:
  * 医疗仪器的基础属性
  */
+@DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
@@ -24,33 +29,37 @@ public class DeviceInfo {
      * 自动增长ID
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_id")
     private Integer id;
 
     /**
      * 设备生产厂商
      */
+    @NotBlank(message = "deviceCode must cannot empty")
     @Column(name = "device_code")
     private String deviceCode;
 
     /**
      * 设备序列号，不一定唯一
      */
+    @NotBlank(message = "deviceSerialNumber must cannot empty")
     @Column(name = "device_serial_number")
     private String deviceSerialNumber;
 
     /**
      * 设备购买时间
      */
+    @NotBlank(message = "deviceProduceDate must cannot empty")
     @Column(name = "device_produce_date")
-    private Date deviceProduceDate;
+    private String deviceProduceDate;
 
     /**
      * 仪器的使用年限
      */
+    @NotNull(message = "deviceServiceLife must cannot empty")
     @Column(name = "device_service_life")
-    private Integer deviceServiceLife;
+    private BigDecimal deviceServiceLife;
 
     /**
      * 数据创建时间

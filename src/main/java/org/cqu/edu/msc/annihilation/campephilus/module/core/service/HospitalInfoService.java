@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info.HospitalInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 
 import java.util.List;
 

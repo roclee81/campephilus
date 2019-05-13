@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

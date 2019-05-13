@@ -1,6 +1,7 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.data;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
@@ -23,7 +25,7 @@ public class Norwamd_9002sDO {
      * 自动增长
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_norwamd_9002s_id")
     private Integer norwamd9002sId;
 

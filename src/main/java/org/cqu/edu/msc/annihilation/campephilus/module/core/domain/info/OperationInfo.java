@@ -1,9 +1,12 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.dataobject.info;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -15,6 +18,7 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
@@ -25,25 +29,28 @@ public class OperationInfo {
      * 手术顺序号
      */
     @Id
-    @GeneratedValue
-    @Column(name = "operation_id")
-    private Integer operationId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_operation_number")
+    private Integer operationNumber;
 
     /**
      * 手术名称
      */
+    @NotBlank(message = "operationName must cannot empty")
     @Column(name = "operation_name")
     private String operationName;
 
     /**
      * 手术开始时间
      */
+    @NotNull(message = "operationStartTime must cannot empty")
     @Column(name = "operation_start_time")
     private Date operationStartTime;
 
     /**
      * 手术结束时间
      */
+    @NotNull(message = "operationEndTime must cannot empty")
     @Column(name = "operation_end_time")
     private Date operationEndTime;
 
