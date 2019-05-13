@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
@@ -35,26 +34,27 @@ public class DeviceInfoController {
     }
 
     @GetMapping("/")
-    public ResultVO listDeviceInfo(@RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "size", defaultValue = "20") int size) {
+    public ResponseEntity<ResultVO> listDeviceInfo(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                   @RequestParam(value = "size", defaultValue = "20") int size) {
         List<DeviceInfo> searchResult = deviceInfoService.listAllDeviceInfo(page, size);
-        return searchResult.size() == 0 ? ResultVO.dataNotExist() :
-                new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
+        if (searchResult.size() != 0) {
+            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping(value = "/")
+    @PostMapping("/")
     public ResponseEntity<ResultVO> saveDeviceInfo(@Valid DeviceInfo deviceInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         deviceInfoService.saveDeviceInfo(deviceInfo);
-        return new ResponseEntity<>(ResultVO.success(), HttpStatus.OK);
-//        deviceInfoService.saveDeviceInfo(deviceInfo);
-//        return ResultVO.success();
+        return new ResponseEntity<>(ResultVO.success(deviceInfo), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/")
-    public ResultVO updateDeviceInfo(@Valid DeviceInfo deviceInfo, BindingResult bindingResult) {
+    @PutMapping("/")
+    public ResponseEntity<ResultVO> updateDeviceInfo(@Valid DeviceInfo deviceInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         deviceInfoService.updateDeviceInfo(deviceInfo);
-        return ResultVO.success();
+        return new ResponseEntity<>(ResultVO.success(deviceInfo), HttpStatus.OK);
     }
 }

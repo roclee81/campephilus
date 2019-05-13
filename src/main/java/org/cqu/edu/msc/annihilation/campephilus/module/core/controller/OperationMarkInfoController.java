@@ -2,11 +2,12 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,26 +33,29 @@ public class OperationMarkInfoController {
         this.operationMarkInfoService = operationMarkInfoService;
     }
 
-    @GetMapping("/list")
-    public ResultVO listOperationMarkInfo(@RequestParam(value = "page", defaultValue = "0") int page,
-                                          @RequestParam(value = "size", defaultValue = "20") int size) {
+    @GetMapping("/")
+    public ResponseEntity<ResultVO> listOperationMarkInfo(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                          @RequestParam(value = "size", defaultValue = "20") int size) {
         List<OperationMarkInfo> searchResult = operationMarkInfoService.listAllOperationMarkInfo(page, size);
-        return searchResult.size() == 0 ? ResultVO.dataNotExist() :
-                new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
+        if (searchResult.size() != 0) {
+            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping(value = "/save")
-    public ResultVO saveOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
+    @PostMapping("/")
+    public ResponseEntity<ResultVO> saveOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         operationMarkInfoService.saveOperationMarkInfo(operationMarkInfo);
-        return ResultVO.success();
+        return new ResponseEntity<>(ResultVO.success(operationMarkInfo), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/update")
-    public ResultVO updateOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
+    @PutMapping("/")
+    public ResponseEntity<ResultVO> updateOperationInfo(@Valid OperationMarkInfo operationMarkInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         operationMarkInfoService.updateOperationMarkInfo(operationMarkInfo);
-        return ResultVO.success();
+        return new ResponseEntity<>(ResultVO.success(operationMarkInfo), HttpStatus.OK);
     }
 
 }

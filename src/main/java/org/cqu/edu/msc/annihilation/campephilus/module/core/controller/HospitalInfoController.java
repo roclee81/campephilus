@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
@@ -35,28 +34,27 @@ public class HospitalInfoController {
     }
 
     @GetMapping("/")
-    public ResultVO listHospitalInfo(@RequestParam(value = "page", defaultValue = "0") int page,
+    public ResponseEntity<ResultVO> listHospitalInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                            @RequestParam(value = "size", defaultValue = "20") int size) {
-//        return hospitalInfoService.listAllOperationInfo(page,size)
-//                .stream().findFirst().ifPresent();
-
-
         List<HospitalInfo> searchResult = hospitalInfoService.listAllOperationInfo(page, size);
-        return searchResult.size() == 0 ? ResultVO.dataNotExist() :
-                new ResultVO(ResponseEnum.SUCCESS.getCode(), searchResult);
+        if (searchResult.size() != 0) {
+            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping(value = "/")
+    @PostMapping("/")
     public ResponseEntity<ResultVO> saveHospitalInfo(@Valid HospitalInfo hospitalInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         hospitalInfoService.saveHospitalInfo(hospitalInfo);
-        return new ResponseEntity<>(ResultVO.success(), HttpStatus.OK);
+        return new ResponseEntity<>(ResultVO.success(hospitalInfo), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/")
-    public ResultVO updateHospitalInfo(@Valid HospitalInfo hospitalInfo, BindingResult bindingResult) {
+    @PutMapping("/")
+    public ResponseEntity<ResultVO> updateHospitalInfo(@Valid HospitalInfo hospitalInfo, BindingResult bindingResult) {
         BindingResultUtil.checkBindingResult(bindingResult);
         hospitalInfoService.updateHospitalInfo(hospitalInfo);
-        return ResultVO.success();
+        return new ResponseEntity<>(ResultVO.success(hospitalInfo), HttpStatus.OK);
     }
 }

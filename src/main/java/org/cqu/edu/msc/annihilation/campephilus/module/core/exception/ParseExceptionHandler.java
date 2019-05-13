@@ -3,6 +3,8 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,10 +29,10 @@ public class ParseExceptionHandler {
      */
     @ExceptionHandler(value = ParseException.class)
     @ResponseBody
-    public ResultVO handleDeviceException(ParseException e) {
+    public ResponseEntity<ResultVO> handleDeviceException(ParseException e) {
         log.error(e.getErrorMsg(), e.getErrorData());
         Map<String, Object> result = new HashMap<>(2);
         result.put(DataConstants.DATA_MAP, e.getMsg());
-        return new ResultVO(e.getCode(), result);
+        return new ResponseEntity<>(new ResultVO(e.getCode(), result), HttpStatus.BAD_REQUEST);
     }
 }

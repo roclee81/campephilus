@@ -34,6 +34,13 @@ public class ResultVO extends HashMap<String, Object> implements Serializable {
         return resultVO;
     }
 
+    public static ResultVO success(Object object) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.put(DataConstants.CODE, ResponseEnum.SUCCESS.getCode());
+        resultVO.put(DataConstants.MSG, object);
+        return resultVO;
+    }
+
     public static ResultVO success(String msg) {
         ResultVO resultVO = new ResultVO();
         resultVO.put("data", msg);
@@ -66,7 +73,9 @@ public class ResultVO extends HashMap<String, Object> implements Serializable {
     }
 
     public static ResultVO success() {
-        return new ResultVO();
+        ResultVO resultVO = new ResultVO();
+        resultVO.put(DataConstants.CODE, ResponseEnum.SUCCESS.getCode());
+        return resultVO;
     }
 
     @Override
