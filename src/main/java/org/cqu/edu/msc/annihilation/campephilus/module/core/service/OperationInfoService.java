@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface OperationInfoService {
     List<OperationInfo> listAllOperationInfo(int page, int size);
 
     void updateOperationInfo(OperationInfo operationInfo);
+
+    void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
 }

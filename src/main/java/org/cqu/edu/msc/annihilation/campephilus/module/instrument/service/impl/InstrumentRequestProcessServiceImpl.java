@@ -2,23 +2,17 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.form.InstrumentRequestForm;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.VersionInformationDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseResultObject;
 import org.cqu.edu.msc.annihilation.common.utils.ConvertUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -38,34 +32,31 @@ import java.util.Objects;
 @Slf4j
 public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
+    private final AfterOperationInfoService afterOperationInfoService;
+    private final BeforeOperationInfoService beforeOperationInfoService;
+    private final DeviceHospitalRelationInfoService deviceHospitalRelationInfoService;
     private final DeviceInfoService deviceInfoService;
     private final HospitalInfoService hospitalInfoService;
     private final OperationInfoService operationInfoService;
     private final OperationMarkInfo operationMarkInfo;
     private final PatientInfoService patientInfoService;
 
-    @Autowired
-    public InstrumentRequestProcessServiceImpl(DeviceServiceImpl deviceService,
-                                               OperationMarkService operationMarkService,
-                                               OperationInformationService operationInformationService,
-                                               PatientInformationService patientInformationService,
-                                               VersionInformationService versionInformationService,
-                                               FeedbackInformationService feedbackInformationService) {
-        this.deviceService = deviceService;
-        this.operationMarkService = operationMarkService;
-        this.operationInformationService = operationInformationService;
-        this.patientInformationService = patientInformationService;
-        this.versionInformationService = versionInformationService;
-        this.feedbackInformationService = feedbackInformationService;
+    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfo operationMarkInfo, PatientInfoService patientInfoService) {
+        this.afterOperationInfoService = afterOperationInfoService;
+        this.beforeOperationInfoService = beforeOperationInfoService;
+        this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;
+        this.deviceInfoService = deviceInfoService;
+        this.hospitalInfoService = hospitalInfoService;
+        this.operationInfoService = operationInfoService;
+        this.operationMarkInfo = operationMarkInfo;
+        this.patientInfoService = patientInfoService;
     }
 
     @Override
     public ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm) {
-
         if (null == instrumentRequestForm) {
             throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
         }
-
         ParseDataDTO parseDataDTO = processMsg(instrumentRequestForm);
 
         ParseResultObject parseResultObject = processCode(parseDataDTO);
@@ -99,8 +90,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
 
         switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(parseDataDTO.getCode()))) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
-                case OPERATION_READY: {
+            case OPERATION_READY: {
                 parseDataDTO.setOperationNumber(getNewOperationNumber());
+                operationInfoService.saveOperationInfoFromParseDataDTO(parseDataDTO);
+
+
                 parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO));
                 break;
             }

@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +57,11 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         }
         OperationInfo result = operationInfoRepository.save(operationInfo);
         SaveException.checkSaveSuccess(result, operationInfo);
+    }
+
+    @Override
+    public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
+
     }
 
     private void checkId(OperationInfo operationInfo) {

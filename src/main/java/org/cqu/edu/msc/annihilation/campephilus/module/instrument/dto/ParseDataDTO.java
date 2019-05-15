@@ -1,6 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -13,6 +15,8 @@ import java.io.Serializable;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class ParseDataDTO implements Serializable {
 
@@ -37,14 +41,4 @@ public class ParseDataDTO implements Serializable {
      * 数据jsonData
      */
     private String jsonData;
-
-    public ParseDataDTO() {
-    }
-
-    public ParseDataDTO(Integer code, String collectorMacAddress, Integer operationNumber, String jsonData) {
-        this.code = code;
-        this.collectorMacAddress = collectorMacAddress;
-        this.operationNumber = operationNumber;
-        this.jsonData = jsonData;
-    }
 }

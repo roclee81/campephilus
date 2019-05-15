@@ -1,9 +1,9 @@
 CREATE TABLE `campephilus`.`info_device`
 (
     `pk_id`                SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `device_code`          VARCHAR(45)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
-    `device_serial_number` VARCHAR(45)       NOT NULL COMMENT '设备序列号，不一定唯一',
-    `device_produce_date`  VARCHAR(10)       NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
+    `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
+    `device_serial_number` VARCHAR(32)       NOT NULL COMMENT '设备序列号，不一定唯一',
+    `device_produce_date`  VARCHAR(16)       NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
     `device_service_life`  TINYINT           NOT NULL COMMENT '设备使用年限',
     `gmt_create`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -12,10 +12,10 @@ CREATE TABLE `campephilus`.`info_device`
 
 CREATE TABLE `campephilus`.`info_hospital`
 (
-    `pk_hospital_code` VARCHAR(45) NOT NULL COMMENT '全国医院序列号，唯一',
-    `hospital_name`    VARCHAR(45) NOT NULL COMMENT '医院名称',
-    `hospital_area`    VARCHAR(45) NOT NULL COMMENT '医院区域',
-    `hospital_level`   VARCHAR(45) NOT NULL COMMENT '医院的等级3甲等',
+    `pk_hospital_code` VARCHAR(32) NOT NULL COMMENT '全国医院序列号，唯一',
+    `hospital_name`    VARCHAR(32) NOT NULL COMMENT '医院名称',
+    `hospital_area`    VARCHAR(32) NOT NULL COMMENT '医院区域',
+    `hospital_level`   VARCHAR(32) NOT NULL COMMENT '医院的等级3甲等',
     `gmt_create`       DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`     DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`pk_hospital_code`)
@@ -24,13 +24,20 @@ CREATE TABLE `campephilus`.`info_hospital`
 CREATE TABLE `campephilus`.`info_operation`
 (
     `pk_operation_number`  INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '手术顺序号',
-    `operation_name`       VARCHAR(45)  NOT NULL COMMENT '手术名称',
+    `operation_name`       VARCHAR(64)  NOT NULL COMMENT '手术名称',
     `operation_start_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术开始时间',
     `operation_end_time`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术结束时间',
     `operation_state`      TINYINT      NOT NULL COMMENT '手术状态',
+    `operation_device`     TEXT         NOT NULL COMMENT '手术设备 存储格式eg 以JSON List方式
+        [{"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",},
+     	{"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",},
+        {"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",},
+        {"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",},
+        {"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",},
+        {"deviceCode": "12","deviceSerialNumber": "2008-12-21-abcde",}],',
     `gmt_create`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `hospital_code`        VARCHAR(45)  NOT NULL COMMENT '医院国内代号，外键连接医院信息表',
+    `hospital_code`        VARCHAR(32)  NOT NULL COMMENT '医院国内代号，外键连接医院信息表',
     PRIMARY KEY (pk_operation_number)
 ) COMMENT '手术信息表4';
 
@@ -78,7 +85,7 @@ CREATE TABLE `campephilus`.`info_before_operation`
     `patient_id`             INT UNSIGNED      NOT NULL COMMENT '病人身份证号',
     `admission_number`       VARCHAR(32)       NOT NULL COMMENT '住院号',
     PRIMARY KEY (pk_before_operation_id)
-) ) COMMENT '病人术前诊断信息表10';
+) COMMENT '病人术前诊断信息表10';
 
 CREATE TABLE `campephilus`.`info_after_operation`
 (
