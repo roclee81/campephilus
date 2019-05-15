@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +12,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface BeforeOperationInfo extends JpaRepository<BeforeOperationInfo, Integer> {
+public interface BeforeOperationInfoRepository extends JpaRepository<BeforeOperationInfo, Integer> {
+    BeforeOperationInfo findBeforeOperationInfoByAdmissionNumber(String admissionNumber);
 }

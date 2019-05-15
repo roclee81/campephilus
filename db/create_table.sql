@@ -105,12 +105,12 @@ CREATE TABLE `campephilus`.`info_after_operation`
 CREATE TABLE `campephilus`.`info_device_hospital_relation`
 (
     `pk_id`                   SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `device_producer`         VARCHAR(45)          NOT NULL COMMENT '设备生产厂商',
+    `device_code`             VARCHAR(45)          NOT NULL COMMENT '设备生产厂商',
     `device_serial_number`    VARCHAR(45)          NOT NULL COMMENT '设备序列号，不一定唯一',
     `hospital_id`             VARCHAR(45)          NOT NULL COMMENT '全国医院序列号，唯一',
     `device_produce_date`     VARCHAR(10)          NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
     `device_purchase_address` VARCHAR(45)          NOT NULL COMMENT '购买地址',
-    `device_comment`       TEXT                 NOT NULL COMMENT '仪器的备注信息',
+    `device_comment`          TEXT                 NOT NULL COMMENT '仪器的备注信息',
     `gmt_create`              DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`            DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_id)

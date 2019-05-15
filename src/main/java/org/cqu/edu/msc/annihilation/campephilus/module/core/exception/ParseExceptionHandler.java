@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

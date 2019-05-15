@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

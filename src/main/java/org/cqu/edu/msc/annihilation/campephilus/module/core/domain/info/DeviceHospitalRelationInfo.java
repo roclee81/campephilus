@@ -30,10 +30,10 @@ public class DeviceHospitalRelationInfo {
     private Integer id;
 
     /**
-     * 设备生产厂商
+     * 设备生产厂商编号
      */
-    @Column(name = "device_producer")
-    private String deviceProducer;
+    @Column(name = "device_code")
+    private String deviceCode;
 
     /**
      * 设备序列号，不一定唯一

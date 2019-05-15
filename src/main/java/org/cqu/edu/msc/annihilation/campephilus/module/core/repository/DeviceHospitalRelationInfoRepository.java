@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DeviceHospitalRelationInfoRepository extends JpaRepository<DeviceHospitalRelationInfo, Integer> {
+    DeviceHospitalRelationInfo findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(String deviceCode, String deviceSerialNumber);
 }

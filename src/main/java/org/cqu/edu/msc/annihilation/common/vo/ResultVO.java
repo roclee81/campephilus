@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.vo;
+package org.cqu.edu.msc.annihilation.common.vo;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.ReplyConstants;
