@@ -169,25 +169,6 @@ operationNumber: 1
 data: {}
 ```
 
-* #### 上传病人数据
-```
-code: 161
-mac: "mac"
-operationNumber: 1
-data: {
-      	"patientId": "value",
-      	"patientData": {},
-      	"preoperativeData": {}
-      }
-```
-* #### 接收到病人数据
-```
-code: 162
-mac: "mac"
-operationNumber: 1
-data: {}
-```
-
 * #### 发送仪器数据
 ```
 code: 167
@@ -197,7 +178,7 @@ data: {
       	"deviceId": "test",
       	"deviceDataNumber": 1,
       	"deviceData": {
-      		"bloodOxygen": 142
+      	"bloodOxygen": 142
       	}
       }
 ```
@@ -216,11 +197,15 @@ code: 173
 mac: "mac"
 operationNumber: 1
 data: {
-      	"markNumber": 1,
-      	"markType": 1,
-        "markTime": "2004-05-03T17:30:08+08:00",
-      	"markMessage": {}
-      }
+        "operationMarkInfo": {
+            "markType": "",
+            "eventType": "",
+            "event": "",
+            "way": "",
+            "dose": "",
+            "specialSituation":""
+        }
+     }
 ```
 
 * #### 收到该标记信息

@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -73,6 +74,13 @@ public class OperationMarkInfo {
     @NotBlank(message = "specialSituation must cannot empty")
     @Column(name = "special_situation")
     private String specialSituation;
+
+    /**
+     * 标记信息标记的时间
+     */
+    @NotNull(message = "mark_time must cannot empty")
+    @Column(name = "mark_time")
+    private Date markTime;
 
     /**
      * 数据创建时间

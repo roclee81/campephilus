@@ -5,6 +5,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,6 +60,12 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         }
         PatientInfo result = patientInfoRepository.save(patientInfo);
         SaveException.checkSaveSuccess(result, patientInfo);
+    }
+
+    @Override
+    public void savePatientInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
+        PatientInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class);
+        this.savePatientInfo(parseObject);
     }
 
     private void checkId(PatientInfo patientInfo) {

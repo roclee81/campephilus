@@ -21,4 +21,6 @@ public interface OperationInfoService {
     void updateOperationInfo(OperationInfo operationInfo);
 
     void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
+
+    Integer countOperationInfo();
 }

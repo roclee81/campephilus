@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
@@ -11,8 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseResultObject;
-import org.cqu.edu.msc.annihilation.common.utils.ConvertUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -38,17 +35,17 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final DeviceInfoService deviceInfoService;
     private final HospitalInfoService hospitalInfoService;
     private final OperationInfoService operationInfoService;
-    private final OperationMarkInfo operationMarkInfo;
+    private final OperationMarkInfoService operationMarkInfoService;
     private final PatientInfoService patientInfoService;
 
-    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfo operationMarkInfo, PatientInfoService patientInfoService) {
+    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService) {
         this.afterOperationInfoService = afterOperationInfoService;
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
         this.operationInfoService = operationInfoService;
-        this.operationMarkInfo = operationMarkInfo;
+        this.operationMarkInfoService = operationMarkInfoService;
         this.patientInfoService = patientInfoService;
     }
 
@@ -59,16 +56,13 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         }
         ParseDataDTO parseDataDTO = processMsg(instrumentRequestForm);
 
-        ParseResultObject parseResultObject = processCode(parseDataDTO);
+        String parseReturnData = processCode(parseDataDTO);
 
         Map<String, Object> map = new HashMap<>(16);
         map.put(DataConstants.MAC, parseDataDTO.getCollectorMacAddress());
         map.put(DataConstants.OPERATION_NUMBER, parseDataDTO.getOperationNumber());
-        map.put(DataConstants.DATA_MAP, parseResultObject.getReturnData());
+        map.put(DataConstants.DATA_MAP, parseReturnData);
 
-        if (!parseResultObject.isReturnResult()) {
-            return new ResultDataDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), map);
-        }
         return new ResultDataDTO(parseDataDTO.getCode() + 1, map);
     }
 
@@ -84,72 +78,57 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    private ParseResultObject processCode(ParseDataDTO parseDataDTO) {
-        ParseResultObject parseResultObject = new ParseResultObject();
-        parseResultObject.setReturnResult(false);
-
+    private String processCode(ParseDataDTO parseDataDTO) {
+        // 解析后的结果，等待返回结果
+        String parseReturnData = null;
         switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(parseDataDTO.getCode()))) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
             case OPERATION_READY: {
                 parseDataDTO.setOperationNumber(getNewOperationNumber());
                 operationInfoService.saveOperationInfoFromParseDataDTO(parseDataDTO);
-
-
-                parseResultObject.setReturnResult(operationInformationService.saveOperationInformationDOFromParseDataDTO(parseDataDTO));
+                patientInfoService.savePatientInfoFromParseDataDTO(parseDataDTO);
+                beforeOperationInfoService.saveBeforeOperationInfoFromDataDTO(parseDataDTO);
                 break;
             }
             // 更新手术过程基本信息，即手术结束的信息
             case OPERATION_END: {
-                parseResultObject.setReturnResult(operationInformationService.updateOperationInformationDO(parseDataDTO));
                 break;
             }
             // 处理传输的医疗仪器数据的情况
             case DEVICE_DATA: {
-                parseResultObject.setReturnResult(deviceService.saveDeviceDO(parseDataDTO));
-                break;
-            }
-            // 处理上传或者更新的患者数据的情况
-            case PATIENT_INFO: {
-                parseResultObject.setReturnResult(patientInformationService.savePatientInformationDO(parseDataDTO));
+                //TODO 等待解析过程
                 break;
             }
             case POSTOPERATIVE_PATIENT_INFO: {
-                parseResultObject.setReturnResult(patientInformationService.updatePatientInformationDO(parseDataDTO));
+                // TODO 是外包还是接入数据库，待定
                 break;
             }
             // 处理上传的手术过程中标记的情况
             case OPERATION_MARK: {
-                parseResultObject.setReturnResult(operationMarkService.saveOperationMarkDO(parseDataDTO));
+                operationMarkInfoService.saveOperationMarkInfoFromParseDTO(parseDataDTO);
                 break;
             }
             // 处理上传的反馈数据
             case FEEDBACK_INFO: {
-                parseResultObject.setReturnResult(feedbackInformationService.saveFeedbackInformationDO(parseDataDTO));
+                // TODO 是外包还是接入数据库，待定
                 break;
             }
             // 处理获取版本的请求
             case VERSION_REQUEST: {
-                parseResultObject.setReturnResult(true);
-                parseResultObject.setReturnData(ConvertUtil.convert(versionInformationService.getFirstByOrderByIdDesc(), VersionInformationDTO.class));
+                // TODO 目前先不管，可能会变为http restful方式实现
                 break;
             }
             default: {
-                break;
+                throw new ParseException(ResponseEnum.CODE_ERROR);
             }
         }
-
-        return parseResultObject;
+        return parseReturnData;
     }
 
 
     @Override
     public Integer getNewOperationNumber() {
-        return operationInformationService.countOperationInformationDOS() + 1;
-    }
-
-    @Override
-    public Integer getCurrentOperationNumber() {
-        return operationInformationService.countOperationInformationDOS();
+        return operationInfoService.countOperationInfo() + 1;
     }
 
     /**

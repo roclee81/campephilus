@@ -31,12 +31,4 @@ public interface InstrumentRequestProcessService {
      * @return 下一个新的手术顺序号
      */
     Integer getNewOperationNumber();
-
-    /**
-     * 得到当前的手术顺序号
-     * 根据operationInformation表计算得到表
-     *
-     * @return 当前的手术顺序号
-     */
-    Integer getCurrentOperationNumber();
 }

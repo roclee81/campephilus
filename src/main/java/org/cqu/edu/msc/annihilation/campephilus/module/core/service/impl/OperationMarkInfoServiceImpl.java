@@ -5,6 +5,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,5 +53,11 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
         }
         OperationMarkInfo result = operationMarkInfoRepository.save(operationMarkInfo);
         SaveException.checkSaveSuccess(result, operationMarkInfo);
+    }
+
+    @Override
+    public void saveOperationMarkInfoFromParseDTO(ParseDataDTO parseDataDTO) {
+        OperationMarkInfo parsrObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkInfo.class);
+        this.saveOperationMarkInfo(parsrObject);
     }
 }

@@ -50,6 +50,7 @@ CREATE TABLE `campephilus`.`info_operation_mark`
     `way`               VARCHAR(32)  NOT NULL COMMENT '途径',
     `dose`              VARCHAR(32)  NOT NULL COMMENT '剂量',
     `special_situation` VARCHAR(32) COMMENT '不良反应/特殊情况',
+    `mark_time`         DATETIME     NOT NULL COMMENT '标记信息标记的时间',
     `gmt_create`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `operation_number`  INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',

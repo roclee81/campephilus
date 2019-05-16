@@ -6,6 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveExcept
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,7 +62,14 @@ public class OperationInfoServiceImpl implements OperationInfoService {
 
     @Override
     public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
+        OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class);
+        parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
+        this.saveOperationInfo(parseObject);
+    }
 
+    @Override
+    public Integer countOperationInfo() {
+        return Math.toIntExact(operationInfoRepository.count());
     }
 
     private void checkId(OperationInfo operationInfo) {

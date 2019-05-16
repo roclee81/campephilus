@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface PatientInfoService {
     List<PatientInfo> listAllPatientInfo(int page, int size);
 
     void updatePatientInfo(PatientInfo patientInfo);
+
+    void savePatientInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
 }

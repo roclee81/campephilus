@@ -19,7 +19,8 @@ public class ParseJsonUtil {
 
     @SuppressWarnings("unchecked")
     public static <T> T parseJsonString(ParseDataDTO parseDataDTO, Class<T> classOfT) {
-        // JSON合并ParseDataDTO中的macAddress，operationNumber，jsonData字段
+
+        // 首先将JSON字符串转换为MAP
         Map<String, Object> map;
         try {
             map = new Gson().fromJson(parseDataDTO.getJsonData(), Map.class);
@@ -27,8 +28,8 @@ public class ParseJsonUtil {
             throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
         }
 
+        // 将MAP转换为类
         String json = new Gson().toJson(map);
-
         T object;
         try {
             object = new Gson().fromJson(json, classOfT);

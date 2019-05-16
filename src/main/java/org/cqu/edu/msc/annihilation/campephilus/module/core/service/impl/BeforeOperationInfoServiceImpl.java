@@ -5,6 +5,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.BeforeOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -55,5 +57,11 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
     public List<BeforeOperationInfo> listAllBeforeOperationInfo(int page, int size) {
         Page<BeforeOperationInfo> searchResult = beforeOperationInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
+    }
+
+    @Override
+    public void saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
+        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class);
+        this.saveBeforeOperationInfo(parseObject);
     }
 }
