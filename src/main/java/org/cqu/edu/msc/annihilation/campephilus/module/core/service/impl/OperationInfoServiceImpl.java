@@ -39,7 +39,12 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         if (searchResult.isPresent()) {
             return;
         }
-        OperationInfo result = operationInfoRepository.save(operationInfo);
+        OperationInfo result = null;
+        try {
+            result = operationInfoRepository.save(operationInfo);
+        } catch (Exception e) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), result.toString());
+        }
         SaveException.checkSaveSuccess(result, operationInfo);
     }
 

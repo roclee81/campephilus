@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.BeforeOperationInfoRepository;
@@ -38,7 +39,12 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
             // 判断到存在该仪器存在，则直接返回，不抛出异常
             return;
         }
-        BeforeOperationInfo result = beforeOperationInfoRepository.save(beforeOperationInfo);
+        BeforeOperationInfo result = null;
+        try {
+            result = beforeOperationInfoRepository.save(beforeOperationInfo);
+        } catch (Exception e) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), result.toString());
+        }
         SaveException.checkSaveSuccess(result, beforeOperationInfo);
     }
 
@@ -49,7 +55,12 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
         if (null == id || beforeOperationInfoRepository.findById(id).isEmpty()) {
             throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
         }
-        BeforeOperationInfo result = beforeOperationInfoRepository.save(beforeOperationInfo);
+        BeforeOperationInfo result;
+        try {
+            result = beforeOperationInfoRepository.save(beforeOperationInfo);
+        } catch (Exception e) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR);
+        }
         SaveException.checkSaveSuccess(result, beforeOperationInfo);
     }
 
@@ -61,7 +72,9 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
 
     @Override
     public void saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
+        PatientInfo parsePatientInfo = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class, "patientInfo");
         BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class, "beforeOperationInfo");
+        parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
         this.saveBeforeOperationInfo(parseObject);
     }
 }

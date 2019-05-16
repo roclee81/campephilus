@@ -117,7 +117,7 @@ operationNumber: -1
 data: {
     "operationInfo": {
         "operationName": "胸腔开孔",
-        "deviceInfo": "[{
+        "deviceInfo": [{
                 "deviceCode": "12",
                 "deviceSerialNumber": "2008-12-21-abcde"
             },
@@ -137,7 +137,7 @@ data: {
                 "deviceCode": "12",
                 "deviceSerialNumber": "2008-12-21-abcde"
             }
-        ]",
+        ],
     },
     "patientInfo": {
         "hospitalCode": "医院代号",

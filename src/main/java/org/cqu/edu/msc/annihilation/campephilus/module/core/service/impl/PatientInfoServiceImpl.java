@@ -39,7 +39,12 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         if (null != searchResult) {
             return;
         }
-        PatientInfo result = patientInfoRepository.save(patientInfo);
+        PatientInfo result = null;
+        try {
+            result = patientInfoRepository.save(patientInfo);
+        } catch (Exception e) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), result.toString());
+        }
         SaveException.checkSaveSuccess(result, patientInfo);
     }
 
@@ -64,7 +69,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 
     @Override
     public void savePatientInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        PatientInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class,"patientInfo");
+        PatientInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class, "patientInfo");
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
         this.savePatientInfo(parseObject);
     }
