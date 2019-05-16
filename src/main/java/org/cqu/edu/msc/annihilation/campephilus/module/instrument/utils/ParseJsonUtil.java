@@ -38,4 +38,26 @@ public class ParseJsonUtil {
         }
         return object;
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T parseJsonString(ParseDataDTO parseDataDTO, Class<T> classOfT, String className) {
+
+        // 首先将JSON字符串转换为MAP
+        Map<String, Object> map;
+        try {
+            map = new Gson().fromJson(parseDataDTO.getJsonData(), Map.class);
+        } catch (JsonSyntaxException exception) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), parseDataDTO.toString());
+        }
+
+        // 将MAP转换为类
+        String json = new Gson().toJson(map.get(className));
+        T object;
+        try {
+            object = new Gson().fromJson(json, classOfT);
+        } catch (JsonSyntaxException exception) {
+            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), json);
+        }
+        return object;
+    }
 }

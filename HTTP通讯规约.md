@@ -117,7 +117,7 @@ operationNumber: -1
 data: {
     "operationInfo": {
         "operationName": "胸腔开孔",
-        "deviceInfo": [{
+        "deviceInfo": "[{
                 "deviceCode": "12",
                 "deviceSerialNumber": "2008-12-21-abcde"
             },
@@ -137,24 +137,24 @@ data: {
                 "deviceCode": "12",
                 "deviceSerialNumber": "2008-12-21-abcde"
             }
-        ],
+        ]",
     },
     "patientInfo": {
         "hospitalCode": "医院代号",
         "operationName": "手术名称",
-        "patientId": "病人身份证号",
-        "admissionNumber": "住院号",
-        "sex": "性别0--男，1--女",
+        "patientId": "5000115165156156156",
+        "admissionNumber": "dsadasdas",
+        "sex": 0,
         "birthDate": "出生日期",
-        "height": "身高",
-        "weight": "体重",
-        "age": "年龄"
+        "height": 170,
+        "weight": 70,
+        "age": 26
     },
     "beforeOperationInfo": {
         "anesthesiaMode": "麻醉方式",
-        "isUrgent": "是否急诊",
-        "isStrong": "是否增强",
-        "ASALevel": "ASA等级",
+        "isUrgent": 0,
+        "isStrong": 0,
+        "ASALevel": 0,
         "medicalHistory": "既往病史",
         "specialCase": "特殊情况"
     }

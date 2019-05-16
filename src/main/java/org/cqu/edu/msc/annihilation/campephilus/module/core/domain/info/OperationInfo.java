@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * campephilus
@@ -53,6 +54,12 @@ public class OperationInfo {
     @NotNull(message = "operationEndTime must cannot empty")
     @Column(name = "operation_end_time")
     private Date operationEndTime;
+
+    /**
+     * 用于保存手术中采用的设备，临时存储，存储时将会转换为String
+     */
+    @Transient
+    private List deviceInfo;
 
     /**
      * 手术设备，直接保存了JSON字符串

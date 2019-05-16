@@ -62,8 +62,9 @@ public class OperationInfoServiceImpl implements OperationInfoService {
 
     @Override
     public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class);
+        OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
+        parseObject.setOperationDevice(String.join(",", parseObject.getDeviceInfo()));
         this.saveOperationInfo(parseObject);
     }
 

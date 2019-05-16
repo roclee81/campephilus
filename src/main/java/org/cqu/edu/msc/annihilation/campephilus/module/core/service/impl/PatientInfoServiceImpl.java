@@ -33,7 +33,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 
     @Override
     public synchronized void savePatientInfo(PatientInfo patientInfo) {
-        checkId(patientInfo);
         // 首先查询是否存在该条数据，根据patientId和admissionNumber查询
         PatientInfo searchResult = patientInfoRepository.findPatientInfoByPatientIdAndAdmissionNumber(
                 patientInfo.getPatientId(), patientInfo.getAdmissionNumber());
@@ -52,6 +51,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 
     @Override
     public synchronized void updatePatientInfo(PatientInfo patientInfo) {
+        checkId(patientInfo);
         // 首先查询是否存在该条数据，根据patientId和admissionNumber查询
         PatientInfo searchResult = patientInfoRepository.findPatientInfoByPatientIdAndAdmissionNumber(
                 patientInfo.getPatientId(), patientInfo.getAdmissionNumber());
@@ -64,7 +64,8 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 
     @Override
     public void savePatientInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        PatientInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class);
+        PatientInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class,"patientInfo");
+        parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
         this.savePatientInfo(parseObject);
     }
 

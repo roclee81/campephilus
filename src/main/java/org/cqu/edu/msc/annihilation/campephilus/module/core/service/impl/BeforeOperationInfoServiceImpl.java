@@ -61,7 +61,7 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
 
     @Override
     public void saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
-        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class);
+        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class, "beforeOperationInfo");
         this.saveBeforeOperationInfo(parseObject);
     }
 }

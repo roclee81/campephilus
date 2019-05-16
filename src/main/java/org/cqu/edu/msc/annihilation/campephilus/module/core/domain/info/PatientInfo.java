@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -33,10 +34,10 @@ public class PatientInfo {
     private Integer id;
 
     /**
-     * 病人身份证号，主键
+     * 病人身份证号
      */
     @NotBlank(message = "patientId must cannot empty")
-    @Column(name = "pk_patient_id")
+    @Column(name = "patient_id")
     private String patientId;
 
     /**
@@ -49,7 +50,7 @@ public class PatientInfo {
     /**
      * 性别0--男，1--女
      */
-    @NotBlank(message = "sex must cannot empty")
+    @NotNull(message = "sex must cannot empty")
     @Column(name = "sex")
     private Integer sex;
 
@@ -70,7 +71,7 @@ public class PatientInfo {
     /**
      * 年龄
      */
-    @NotBlank(message = "age must cannot empty")
+    @NotNull(message = "age must cannot empty")
     @Column(name = "age")
     private Integer age;
 
@@ -89,6 +90,7 @@ public class PatientInfo {
     /**
      * 手术顺序号
      */
-    @Column(name = "operation_id")
-    private Integer operationId;
+    @NotNull(message = "operationNumber must cannot empty")
+    @Column(name = "operation_number")
+    private Integer operationNumber;
 }

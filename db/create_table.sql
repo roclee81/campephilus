@@ -60,7 +60,7 @@ CREATE TABLE `campephilus`.`info_operation_mark`
 CREATE TABLE `campephilus`.`info_patient`
 (
     `pk_id`            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
-    `pk_patient_id`    VARCHAR(32)       NOT NULL COMMENT '病人身份证号',
+    `patient_id`    VARCHAR(32)       NOT NULL COMMENT '病人身份证号',
     `admission_number` VARCHAR(32)       NOT NULL COMMENT '住院号',
     `sex`              TINYINT           NOT NULL COMMENT '性别0--男，1--女',
     `height`           TINYINT UNSIGNED  NOT NULL COMMENT '身高',
@@ -83,7 +83,6 @@ CREATE TABLE `campephilus`.`info_before_operation`
     `special_case`           TEXT              NOT NULL COMMENT '特殊情况',
     `gmt_create`             DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `patient_id`             INT UNSIGNED      NOT NULL COMMENT '病人身份证号',
     `admission_number`       VARCHAR(32)       NOT NULL COMMENT '住院号',
     PRIMARY KEY (pk_before_operation_id)
 ) COMMENT '病人术前诊断信息表10';
