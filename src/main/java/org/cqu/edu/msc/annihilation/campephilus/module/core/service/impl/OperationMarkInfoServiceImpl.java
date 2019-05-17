@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +45,8 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @Override
     public void updateOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
-        // 检查operationMarkInfo的id来判断是否是更新数据，同时判断是否存在该id的数据
-        Integer id = operationMarkInfo.getMarkId();
-        if (null == id || operationMarkInfoRepository.findById(id).isEmpty()) {
-            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
-        }
-        OperationMarkInfo result = operationMarkInfoRepository.save(operationMarkInfo);
-        SaveException.checkSaveSuccess(result, operationMarkInfo);
+        // 更新字段，同时检查是否更新成功，不成功则抛出异常
+        ServiceUpdateUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getMarkId(), operationMarkInfo);
     }
 
     @Override

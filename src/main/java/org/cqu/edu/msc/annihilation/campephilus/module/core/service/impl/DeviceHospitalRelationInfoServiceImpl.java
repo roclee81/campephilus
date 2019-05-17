@@ -1,11 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceHospitalRelationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,24 +31,19 @@ public class DeviceHospitalRelationInfoServiceImpl implements DeviceHospitalRela
     @Override
     public void saveDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
         // 首先查询是否存在该条数据，根据AdmissionNumber查询
-        DeviceHospitalRelationInfo searchResult = deviceHospitalRelationInfoRepository
-                .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
-                        deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber());
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(searchResult);
+        SaveException.checkDataIsExist(deviceHospitalRelationInfoRepository
+                .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
+                        deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceSaveUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
     }
 
     @Override
     public void updateDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
-        // 检查beforeOperationInfo的AdmissionNumber来判断是否是更新数据，同时判断是否存在该AdmissionNumber的数据
-        Integer id = deviceHospitalRelationInfo.getId();
-        if (null == id || deviceHospitalRelationInfoRepository.findById(id).isEmpty()) {
-            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
-        }
-        DeviceHospitalRelationInfo result = deviceHospitalRelationInfoRepository.save(deviceHospitalRelationInfo);
-        SaveException.checkSaveSuccess(result, deviceHospitalRelationInfo);
+        // 更新字段，同时检查是否更新成功，不成功则抛出异常
+        ServiceUpdateUtils.updateObjectAndCheckSuccess(
+                deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo.getId(), deviceHospitalRelationInfo);
     }
 
     @Override

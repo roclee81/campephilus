@@ -1,11 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author lx
@@ -35,10 +34,8 @@ public class OperationInfoServiceImpl implements OperationInfoService {
 
     @Override
     public synchronized void saveOperationInfo(OperationInfo operationInfo) {
-        checkId(operationInfo);
-        Optional searchResult = operationInfoRepository.findById(operationInfo.getOperationNumber());
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(searchResult);
+        SaveException.checkDataIsExist(operationInfoRepository.findById(operationInfo.getOperationNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceSaveUtils.saveObjectAndCheckSuccess(operationInfoRepository, operationInfo);
     }
@@ -51,13 +48,8 @@ public class OperationInfoServiceImpl implements OperationInfoService {
 
     @Override
     public void updateOperationInfo(OperationInfo operationInfo) {
-        checkId(operationInfo);
-        Optional searchResult = operationInfoRepository.findById(operationInfo.getOperationNumber());
-        if (searchResult.isEmpty()) {
-            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
-        }
-        OperationInfo result = operationInfoRepository.save(operationInfo);
-        SaveException.checkSaveSuccess(result, operationInfo);
+        // 更新字段，同时检查是否更新成功，不成功则抛出异常
+        ServiceUpdateUtils.updateObjectAndCheckSuccess(operationInfoRepository, operationInfo.getOperationNumber(), operationInfo);
     }
 
     @Override
@@ -72,11 +64,4 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     public Integer countOperationInfo() {
         return Math.toIntExact(operationInfoRepository.count());
     }
-
-    private void checkId(OperationInfo operationInfo) {
-        if (null == operationInfo.getOperationNumber()) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR);
-        }
-    }
-
 }

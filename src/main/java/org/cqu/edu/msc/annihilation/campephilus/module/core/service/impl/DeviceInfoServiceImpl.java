@@ -1,11 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,23 +33,17 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
     @Override
     public synchronized void saveDeviceInfo(DeviceInfo deviceInfo) {
         // 首先查询是否存在该条数据，根据deviceProducer和deviceSerialNumber查询
-        DeviceInfo searchResult = deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
-                deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber());
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(searchResult);
+        SaveException.checkDataIsExist(deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
+                deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceSaveUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
     }
 
     @Override
     public synchronized void updateDeviceInfo(DeviceInfo deviceInfo) {
-        // 检查deviceInfo的id来判断是否是更新数据，同时判断是否存在该id的数据
-        Integer id = deviceInfo.getId();
-        if (null == id || deviceInfoRepository.findById(id).isEmpty()) {
-            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
-        }
-        DeviceInfo result = deviceInfoRepository.save(deviceInfo);
-        SaveException.checkSaveSuccess(result, deviceInfo);
+        // 更新字段，同时检查是否更新成功，不成功则抛出异常
+        ServiceUpdateUtils.updateObjectAndCheckSuccess(deviceInfoRepository, deviceInfo.getId(), deviceInfo);
     }
 
     @Override

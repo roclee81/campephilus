@@ -2,11 +2,11 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.BeforeOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.data.domain.Page;
@@ -34,28 +34,18 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
     @Override
     public void saveBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo) {
         // 首先查询是否存在该条数据，根据AdmissionNumber查询
-        BeforeOperationInfo searchResult = beforeOperationInfoRepository
-                .findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber());
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(searchResult);
+        SaveException.checkDataIsExist(beforeOperationInfoRepository
+                .findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceSaveUtils.saveObjectAndCheckSuccess(beforeOperationInfoRepository, beforeOperationInfo);
     }
 
     @Override
     public void updateBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo) {
-        // 检查beforeOperationInfo的AdmissionNumber来判断是否是更新数据，同时判断是否存在该AdmissionNumber的数据
-        Integer id = beforeOperationInfo.getBeforeOperationId();
-        if (null == id || beforeOperationInfoRepository.findById(id).isEmpty()) {
-            throw new SaveException(ResponseEnum.UPDATE_ID_ERROR);
-        }
-        BeforeOperationInfo result;
-        try {
-            result = beforeOperationInfoRepository.save(beforeOperationInfo);
-        } catch (Exception e) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR);
-        }
-        SaveException.checkSaveSuccess(result, beforeOperationInfo);
+        // 更新字段，同时检查是否更新成功，不成功则抛出异常
+        ServiceUpdateUtils.updateObjectAndCheckSuccess(
+                beforeOperationInfoRepository, beforeOperationInfo.getBeforeOperationId(), beforeOperationInfo);
     }
 
     @Override
