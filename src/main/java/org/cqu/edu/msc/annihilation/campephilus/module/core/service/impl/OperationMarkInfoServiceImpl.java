@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,8 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @Override
     public void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
-        // Id自动设置，不存在重复，所以不需要检查，不需要锁
-        OperationMarkInfo result = operationMarkInfoRepository.save(operationMarkInfo);
-        SaveException.checkSaveSuccess(result, operationMarkInfo);
+        // 判断保存是否成功，不成功将抛出异常
+        ServiceSaveUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
     @Override

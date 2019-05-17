@@ -5,6 +5,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstan
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.common.enums.ErrorEnum;
 
+import java.util.Optional;
+
 /**
  * campephilus
  *
@@ -59,6 +61,21 @@ public class SaveException extends RuntimeException {
             log.info("Insert the success :{}", saveObject.toString());
         }
     }
+
+    public static void checkDataIsExist(Object searchResult) {
+        if (null != searchResult) {
+            // 判断到存在该仪器存在，则直接返回，抛出异常
+            throw new SaveException(ResponseEnum.DATA_EXISTED);
+        }
+    }
+
+    public static void checkDataIsExist(Optional searchResult) {
+        if (searchResult.isPresent()) {
+            // 判断到存在该仪器存在，则直接返回，抛出异常
+            throw new SaveException(ResponseEnum.DATA_EXISTED);
+        }
+    }
+
 
     public String getMsg() {
         return msg;

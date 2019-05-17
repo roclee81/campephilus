@@ -6,6 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.BeforeOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.data.domain.Page;
@@ -35,17 +36,10 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
         // 首先查询是否存在该条数据，根据AdmissionNumber查询
         BeforeOperationInfo searchResult = beforeOperationInfoRepository
                 .findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber());
-        if (null != searchResult) {
-            // 判断到存在该仪器存在，则直接返回，不抛出异常
-            return;
-        }
-        BeforeOperationInfo result = null;
-        try {
-            result = beforeOperationInfoRepository.save(beforeOperationInfo);
-        } catch (Exception e) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), result.toString());
-        }
-        SaveException.checkSaveSuccess(result, beforeOperationInfo);
+        // 判断到存在该仪器存在，则直接返回，抛出异常
+        SaveException.checkDataIsExist(searchResult);
+        // 判断保存是否成功，不成功将抛出异常
+        ServiceSaveUtils.saveObjectAndCheckSuccess(beforeOperationInfoRepository, beforeOperationInfo);
     }
 
     @Override

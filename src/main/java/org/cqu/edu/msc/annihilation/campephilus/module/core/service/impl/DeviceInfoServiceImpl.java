@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,12 +35,10 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         // 首先查询是否存在该条数据，根据deviceProducer和deviceSerialNumber查询
         DeviceInfo searchResult = deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
                 deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber());
-        if (null != searchResult) {
-            // 判断到存在该仪器存在，则直接返回，不抛出异常
-            return;
-        }
-        DeviceInfo result = deviceInfoRepository.save(deviceInfo);
-        SaveException.checkSaveSuccess(result, deviceInfo);
+        // 判断到存在该仪器存在，则直接返回，抛出异常
+        SaveException.checkDataIsExist(searchResult);
+        // 判断保存是否成功，不成功将抛出异常
+        ServiceSaveUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
     }
 
     @Override

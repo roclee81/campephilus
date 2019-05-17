@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,10 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         // 首先查询是否存在该条数据，根据patientId和admissionNumber查询
         PatientInfo searchResult = patientInfoRepository.findPatientInfoByPatientIdAndAdmissionNumber(
                 patientInfo.getPatientId(), patientInfo.getAdmissionNumber());
-        if (null != searchResult) {
-            return;
-        }
-        PatientInfo result = null;
-        try {
-            result = patientInfoRepository.save(patientInfo);
-        } catch (Exception e) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), result.toString());
-        }
-        SaveException.checkSaveSuccess(result, patientInfo);
+        // 判断到存在该仪器存在，则直接返回，抛出异常
+        SaveException.checkDataIsExist(searchResult);
+        // 判断保存是否成功，不成功将抛出异常
+        ServiceSaveUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
     }
 
     @Override
