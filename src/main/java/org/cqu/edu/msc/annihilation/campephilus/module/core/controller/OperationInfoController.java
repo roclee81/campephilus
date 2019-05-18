@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,8 @@ public class OperationInfoController {
 
     @GetMapping("/")
     public ResponseEntity<ResultVO> listOperationInfo(@RequestParam(value = "page", defaultValue = "0") int page,
-                                      @RequestParam(value = "size", defaultValue = "20") int size) {
-        List<OperationInfo> searchResult = operationInfoService.listAllOperationInfo(page, size);
-        if (searchResult.size() != 0) {
-            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
-        }
+                                                      @RequestParam(value = "size", defaultValue = "20") int size) {
+        return ControllerListUtils.getResultVOResponseEntity(operationInfoService.listAllOperationInfo(page, size));
     }
 
     @PostMapping("/")

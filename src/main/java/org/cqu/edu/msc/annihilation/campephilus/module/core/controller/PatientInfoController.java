@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,7 @@ public class PatientInfoController {
     @GetMapping("/")
     public ResponseEntity<ResultVO> listPatientInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                                     @RequestParam(value = "size", defaultValue = "20") int size) {
-        List<PatientInfo> searchResult = patientInfoService.listAllPatientInfo(page, size);
-        if (searchResult.size() != 0) {
-            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
-        }
+        return ControllerListUtils.getResultVOResponseEntity(patientInfoService.listAllPatientInfo(page, size));
     }
 
     @PostMapping("/")

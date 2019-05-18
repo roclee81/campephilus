@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,7 @@ public class DeviceInfoController {
     @GetMapping("/")
     public ResponseEntity<ResultVO> listDeviceInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                                    @RequestParam(value = "size", defaultValue = "20") int size) {
-        List<DeviceInfo> searchResult = deviceInfoService.listAllDeviceInfo(page, size);
-        if (searchResult.size() != 0) {
-            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
-        }
+        return ControllerListUtils.getResultVOResponseEntity(deviceInfoService.listAllDeviceInfo(page, size));
     }
 
     @PostMapping("/")

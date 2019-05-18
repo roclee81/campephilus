@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.http.HttpStatus;
@@ -32,12 +33,7 @@ public class AfterOperationInfoController {
     @GetMapping("/")
     public ResponseEntity<ResultVO> listAfterOperationInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                                            @RequestParam(value = "size", defaultValue = "20") int size) {
-        List<AfterOperationInfo> searchResult = afterOperationInfoService.listAllAfterOperationInfo(page, size);
-        if (searchResult.size() != 0) {
-            return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(ResultVO.dataNotExist(), HttpStatus.NOT_FOUND);
-        }
+        return ControllerListUtils.getResultVOResponseEntity(afterOperationInfoService.listAllAfterOperationInfo(page, size));
     }
 
     @PostMapping("/")
