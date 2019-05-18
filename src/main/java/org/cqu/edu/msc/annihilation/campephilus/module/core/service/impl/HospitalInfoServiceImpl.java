@@ -51,4 +51,23 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
         ServiceUpdateUtils.updateObjectAndCheckSuccess(hospitalInfoRepository, hospitalInfo.getHospitalCode(), hospitalInfo);
     }
 
+    @Override
+    public void save(HospitalInfo hospitalInfo) {
+        this.saveHospitalInfo(hospitalInfo);
+    }
+
+    @Override
+    public void update(HospitalInfo hospitalInfo) {
+        this.updateHospitalInfo(hospitalInfo);
+    }
+
+    @Override
+    public List<HospitalInfo> listAll(int page, int size) {
+        return this.listAllOperationInfo(page, size);
+    }
+
+    @Override
+    public void delete(HospitalInfo hospitalInfo) {
+
+    }
 }

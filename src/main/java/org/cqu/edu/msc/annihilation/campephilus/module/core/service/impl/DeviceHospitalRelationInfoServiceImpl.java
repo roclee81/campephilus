@@ -51,4 +51,24 @@ public class DeviceHospitalRelationInfoServiceImpl implements DeviceHospitalRela
         Page<DeviceHospitalRelationInfo> searchResult = deviceHospitalRelationInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
     }
+
+    @Override
+    public void save(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
+        this.saveDeviceHospitalRelationInfo(deviceHospitalRelationInfo);
+    }
+
+    @Override
+    public void update(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
+        this.updateDeviceHospitalRelationInfo(deviceHospitalRelationInfo);
+    }
+
+    @Override
+    public List<DeviceHospitalRelationInfo> listAll(int page, int size) {
+        return this.listAllDeviceHospitalRelationInfo(page, size);
+    }
+
+    @Override
+    public void delete(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
+
+    }
 }

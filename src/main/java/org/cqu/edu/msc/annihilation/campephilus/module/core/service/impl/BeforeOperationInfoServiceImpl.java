@@ -61,4 +61,24 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
         parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
         this.saveBeforeOperationInfo(parseObject);
     }
+
+    @Override
+    public void save(BeforeOperationInfo beforeOperationInfo) {
+        this.saveBeforeOperationInfo(beforeOperationInfo);
+    }
+
+    @Override
+    public void update(BeforeOperationInfo beforeOperationInfo) {
+        this.updateBeforeOperationInfo(beforeOperationInfo);
+    }
+
+    @Override
+    public List<BeforeOperationInfo> listAll(int page, int size) {
+        return this.listAllBeforeOperationInfo(page, size);
+    }
+
+    @Override
+    public void delete(BeforeOperationInfo beforeOperationInfo) {
+
+    }
 }

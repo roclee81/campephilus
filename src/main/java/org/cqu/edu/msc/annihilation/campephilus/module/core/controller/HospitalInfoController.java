@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
-import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtil;
+import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author lx
@@ -37,20 +38,18 @@ public class HospitalInfoController {
     @GetMapping("/")
     public ResponseEntity<ResultVO> listHospitalInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                                      @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerListUtils.getResultVOResponseEntity(hospitalInfoService.listAllOperationInfo(page, size));
+        return ControllerListUtils.listAllResultVOResponseEntity(hospitalInfoService.listAllOperationInfo(page, size));
     }
 
     @PostMapping("/")
     public ResponseEntity<ResultVO> saveHospitalInfo(@Valid HospitalInfo hospitalInfo, BindingResult bindingResult) {
-        BindingResultUtil.checkBindingResult(bindingResult);
-        hospitalInfoService.saveHospitalInfo(hospitalInfo);
-        return new ResponseEntity<>(ResultVO.success(hospitalInfo), HttpStatus.OK);
+        BindingResultUtils.checkBindingResult(bindingResult);
+        return ControllerSaveUtils.saveResultVOResponseEntity(hospitalInfoService, hospitalInfo);
     }
 
     @PutMapping("/")
     public ResponseEntity<ResultVO> updateHospitalInfo(@Valid HospitalInfo hospitalInfo, BindingResult bindingResult) {
-        BindingResultUtil.checkBindingResult(bindingResult);
-        hospitalInfoService.updateHospitalInfo(hospitalInfo);
-        return new ResponseEntity<>(ResultVO.success(hospitalInfo), HttpStatus.OK);
+        BindingResultUtils.checkBindingResult(bindingResult);
+        return ControllerUpdateUtils.updateResultVOResponseEntity(hospitalInfoService, hospitalInfo);
     }
 }

@@ -51,7 +51,27 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @Override
     public void saveOperationMarkInfoFromParseDTO(ParseDataDTO parseDataDTO) {
-        OperationMarkInfo parsrObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkInfo.class);
-        this.saveOperationMarkInfo(parsrObject);
+        OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkInfo.class);
+        this.saveOperationMarkInfo(parseObject);
+    }
+
+    @Override
+    public void save(OperationMarkInfo operationMarkInfo) {
+        this.saveOperationMarkInfo(operationMarkInfo);
+    }
+
+    @Override
+    public void update(OperationMarkInfo operationMarkInfo) {
+        this.updateOperationMarkInfo(operationMarkInfo);
+    }
+
+    @Override
+    public List<OperationMarkInfo> listAll(int page, int size) {
+        return this.listAllOperationMarkInfo(page, size);
+    }
+
+    @Override
+    public void delete(OperationMarkInfo operationMarkInfo) {
+
     }
 }

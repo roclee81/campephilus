@@ -11,8 +11,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface DeviceInfoService {
-
+public interface DeviceInfoService extends ServiceFactory<DeviceInfo>{
     void saveDeviceInfo(DeviceInfo deviceInfo);
 
     void updateDeviceInfo(DeviceInfo deviceInfo);

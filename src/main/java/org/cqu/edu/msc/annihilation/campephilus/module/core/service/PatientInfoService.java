@@ -12,8 +12,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface PatientInfoService {
-
+public interface PatientInfoService extends ServiceFactory<PatientInfo> {
     void savePatientInfo(PatientInfo patientInfo);
 
     List<PatientInfo> listAllPatientInfo(int page, int size);

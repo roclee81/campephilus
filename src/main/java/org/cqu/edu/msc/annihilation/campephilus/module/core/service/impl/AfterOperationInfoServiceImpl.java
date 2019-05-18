@@ -50,4 +50,24 @@ public class AfterOperationInfoServiceImpl implements AfterOperationInfoService 
         Page<AfterOperationInfo> searchResult = afterOperationInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
     }
+
+    @Override
+    public void save(AfterOperationInfo afterOperationInfo) {
+        this.saveAfterOperationInfo(afterOperationInfo);
+    }
+
+    @Override
+    public void update(AfterOperationInfo afterOperationInfo) {
+        this.updateAfterOperationInfo(afterOperationInfo);
+    }
+
+    @Override
+    public List<AfterOperationInfo> listAll(int page, int size) {
+        return this.listAllAfterOperationInfo(page, size);
+    }
+
+    @Override
+    public void delete(AfterOperationInfo afterOperationInfo) {
+
+    }
 }

@@ -51,4 +51,24 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         Page<DeviceInfo> searchResult = deviceInfoRepository.findAll(PageRequest.of(page, size));
         return searchResult.getContent();
     }
+
+    @Override
+    public void save(DeviceInfo deviceInfo) {
+        this.saveDeviceInfo(deviceInfo);
+    }
+
+    @Override
+    public void update(DeviceInfo deviceInfo) {
+        this.updateDeviceInfo(deviceInfo);
+    }
+
+    @Override
+    public List<DeviceInfo> listAll(int page, int size) {
+        return this.listAllDeviceInfo(page, size);
+    }
+
+    @Override
+    public void delete(DeviceInfo deviceInfo) {
+
+    }
 }

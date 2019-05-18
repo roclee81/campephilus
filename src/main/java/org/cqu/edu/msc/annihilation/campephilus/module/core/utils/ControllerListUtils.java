@@ -22,7 +22,7 @@ public class ControllerListUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResponseEntity<ResultVO> getResultVOResponseEntity(List<T> searchResult) {
+    public static <T> ResponseEntity<ResultVO> listAllResultVOResponseEntity(List<T> searchResult) {
         if (searchResult.size() != 0) {
             return new ResponseEntity<>(ResultVO.success(searchResult), HttpStatus.OK);
         } else {

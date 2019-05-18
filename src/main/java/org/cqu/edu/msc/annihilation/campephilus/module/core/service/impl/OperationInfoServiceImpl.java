@@ -64,4 +64,24 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     public Integer countOperationInfo() {
         return Math.toIntExact(operationInfoRepository.count());
     }
+
+    @Override
+    public void save(OperationInfo operationInfo) {
+        this.saveOperationInfo(operationInfo);
+    }
+
+    @Override
+    public void update(OperationInfo operationInfo) {
+        this.updateOperationInfo(operationInfo);
+    }
+
+    @Override
+    public List<OperationInfo> listAll(int page, int size) {
+        return this.listAllOperationInfo(page, size);
+    }
+
+    @Override
+    public void delete(OperationInfo operationInfo) {
+
+    }
 }

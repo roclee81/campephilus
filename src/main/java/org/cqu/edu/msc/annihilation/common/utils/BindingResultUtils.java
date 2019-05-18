@@ -14,7 +14,7 @@ import java.util.Objects;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class BindingResultUtil {
+public class BindingResultUtils {
 
     /**
      * 检测bindingResult是否又错误，如果又错误将抛出ParseException异常

@@ -61,4 +61,24 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
         this.savePatientInfo(parseObject);
     }
+
+    @Override
+    public void save(PatientInfo patientInfo) {
+        this.savePatientInfo(patientInfo);
+    }
+
+    @Override
+    public void update(PatientInfo patientInfo) {
+        this.updatePatientInfo(patientInfo);
+    }
+
+    @Override
+    public List<PatientInfo> listAll(int page, int size) {
+        return this.listAllPatientInfo(page, size);
+    }
+
+    @Override
+    public void delete(PatientInfo patientInfo) {
+
+    }
 }
