@@ -12,7 +12,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface BeforeOperationInfoService extends ServiceFactory<BeforeOperationInfo>{
+public interface BeforeOperationInfoCRUDService extends CRUDService<BeforeOperationInfo> {
     void saveBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo);
 
     void updateBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo);

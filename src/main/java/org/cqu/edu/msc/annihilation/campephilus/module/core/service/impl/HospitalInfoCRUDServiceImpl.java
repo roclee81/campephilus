@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.HospitalInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.HospitalInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class HospitalInfoServiceImpl implements HospitalInfoService {
+public class HospitalInfoCRUDServiceImpl implements HospitalInfoCRUDService {
 
     private final HospitalInfoRepository hospitalInfoRepository;
 
     @Autowired
-    public HospitalInfoServiceImpl(HospitalInfoRepository hospitalInfoRepository) {
+    public HospitalInfoCRUDServiceImpl(HospitalInfoRepository hospitalInfoRepository) {
         this.hospitalInfoRepository = hospitalInfoRepository;
     }
 

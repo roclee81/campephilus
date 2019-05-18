@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
@@ -23,12 +23,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class OperationInfoServiceImpl implements OperationInfoService {
+public class OperationInfoCRUDServiceImpl implements OperationInfoCRUDService {
 
     private final OperationInfoRepository operationInfoRepository;
 
     @Autowired
-    public OperationInfoServiceImpl(OperationInfoRepository operationInfoRepository) {
+    public OperationInfoCRUDServiceImpl(OperationInfoRepository operationInfoRepository) {
         this.operationInfoRepository = operationInfoRepository;
     }
 

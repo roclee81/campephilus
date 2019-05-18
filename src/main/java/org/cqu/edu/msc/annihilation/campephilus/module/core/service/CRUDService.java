@@ -1,7 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
-
 import java.util.List;
 
 /**
@@ -11,12 +9,31 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface ServiceFactory<T> {
+public interface CRUDService<T> {
+
+    /**
+     *  保存
+     * @param t
+     */
     void save(T t);
 
+    /**
+     * 更新
+     * @param t
+     */
     void update(T t);
 
+    /**
+     * 列出所有的数据，根据分页信息
+     * @param page
+     * @param size
+     * @return
+     */
     List<T> listAll(int page, int size);
 
+    /**
+     * 删除
+     * @param t
+     */
     void delete(T t);
 }

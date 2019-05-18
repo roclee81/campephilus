@@ -4,7 +4,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOp
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.BeforeOperationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
@@ -23,11 +23,11 @@ import java.util.List;
  * Description:
  */
 @Service
-public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoService {
+public class BeforeOperationInfoCRUDServiceImpl implements BeforeOperationInfoCRUDService {
 
     private final BeforeOperationInfoRepository beforeOperationInfoRepository;
 
-    public BeforeOperationInfoServiceImpl(BeforeOperationInfoRepository beforeOperationInfoRepository) {
+    public BeforeOperationInfoCRUDServiceImpl(BeforeOperationInfoRepository beforeOperationInfoRepository) {
         this.beforeOperationInfoRepository = beforeOperationInfoRepository;
     }
 

@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.ServiceFactory;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CRUDService;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ public class ControllerSaveUtils {
     /**
      * 包装返回类
      *
-     * @param serviceFactory
+     * @param CRUDService
      * @param t
      * @param <T>
      * @return
      */
-    public static <T> ResponseEntity<ResultVO> saveResultVOResponseEntity(ServiceFactory<T> serviceFactory, T t) {
-        serviceFactory.save(t);
+    public static <T> ResponseEntity<ResultVO> saveResultVOResponseEntity(CRUDService<T> CRUDService, T t) {
+        CRUDService.save(t);
         return new ResponseEntity<>(ResultVO.success(t), HttpStatus.OK);
     }
 }

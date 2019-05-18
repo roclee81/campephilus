@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class DeviceInfoServiceImpl implements DeviceInfoService {
+public class DeviceInfoCRUDServiceImpl implements DeviceInfoCRUDService {
 
     private final DeviceInfoRepository deviceInfoRepository;
 
     @Autowired
-    public DeviceInfoServiceImpl(DeviceInfoRepository deviceInfoRepository) {
+    public DeviceInfoCRUDServiceImpl(DeviceInfoRepository deviceInfoRepository) {
         this.deviceInfoRepository = deviceInfoRepository;
     }
 

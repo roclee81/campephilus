@@ -2,14 +2,13 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +27,10 @@ import javax.validation.Valid;
 @Slf4j
 public class PatientInfoController {
 
-    private final PatientInfoService patientInfoService;
+    private final PatientInfoCRUDService patientInfoService;
 
     @Autowired
-    public PatientInfoController(PatientInfoService patientInfoService) {
+    public PatientInfoController(PatientInfoCRUDService patientInfoService) {
         this.patientInfoService = patientInfoService;
     }
 

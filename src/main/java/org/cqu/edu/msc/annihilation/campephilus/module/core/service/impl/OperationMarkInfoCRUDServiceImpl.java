@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationMarkInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
@@ -22,12 +22,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
+public class OperationMarkInfoCRUDServiceImpl implements OperationMarkInfoCRUDService {
 
     private final OperationMarkInfoRepository operationMarkInfoRepository;
 
     @Autowired
-    public OperationMarkInfoServiceImpl(OperationMarkInfoRepository operationMarkInfoRepository) {
+    public OperationMarkInfoCRUDServiceImpl(OperationMarkInfoRepository operationMarkInfoRepository) {
         this.operationMarkInfoRepository = operationMarkInfoRepository;
     }
 

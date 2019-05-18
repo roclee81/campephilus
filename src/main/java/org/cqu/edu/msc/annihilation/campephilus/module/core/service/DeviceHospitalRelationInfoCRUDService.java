@@ -11,7 +11,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface DeviceHospitalRelationInfoService extends ServiceFactory<DeviceHospitalRelationInfo> {
+public interface DeviceHospitalRelationInfoCRUDService extends CRUDService<DeviceHospitalRelationInfo> {
     void saveDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo);
 
     void updateDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo);

@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.AfterOperationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoCRUDService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.data.domain.Page;
@@ -20,11 +20,11 @@ import java.util.List;
  * Description:
  */
 @Service
-public class AfterOperationInfoServiceImpl implements AfterOperationInfoService {
+public class AfterOperationInfoCRUDServiceImpl implements AfterOperationInfoCRUDService {
 
     private final AfterOperationInfoRepository afterOperationInfoRepository;
 
-    public AfterOperationInfoServiceImpl(AfterOperationInfoRepository afterOperationInfoRepository) {
+    public AfterOperationInfoCRUDServiceImpl(AfterOperationInfoRepository afterOperationInfoRepository) {
         this.afterOperationInfoRepository = afterOperationInfoRepository;
     }
 
