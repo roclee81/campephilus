@@ -29,16 +29,16 @@ import java.util.Objects;
 @Slf4j
 public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
-    private final AfterOperationInfoCRUDService afterOperationInfoService;
-    private final BeforeOperationInfoCRUDService beforeOperationInfoService;
-    private final DeviceHospitalRelationInfoCRUDService deviceHospitalRelationInfoService;
-    private final DeviceInfoCRUDService deviceInfoService;
-    private final HospitalInfoCRUDService hospitalInfoService;
-    private final OperationInfoCRUDService operationInfoService;
-    private final OperationMarkInfoCRUDService operationMarkInfoService;
-    private final PatientInfoCRUDService patientInfoService;
+    private final AfterOperationInfoService afterOperationInfoService;
+    private final BeforeOperationInfoService beforeOperationInfoService;
+    private final DeviceHospitalRelationInfoService deviceHospitalRelationInfoService;
+    private final DeviceInfoService deviceInfoService;
+    private final HospitalInfoService hospitalInfoService;
+    private final OperationInfoService operationInfoService;
+    private final OperationMarkInfoService operationMarkInfoService;
+    private final PatientInfoService patientInfoService;
 
-    public InstrumentRequestProcessServiceImpl(AfterOperationInfoCRUDService afterOperationInfoService, BeforeOperationInfoCRUDService beforeOperationInfoService, DeviceHospitalRelationInfoCRUDService deviceHospitalRelationInfoService, DeviceInfoCRUDService deviceInfoService, HospitalInfoCRUDService hospitalInfoService, OperationInfoCRUDService operationInfoService, OperationMarkInfoCRUDService operationMarkInfoService, PatientInfoCRUDService patientInfoService) {
+    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService) {
         this.afterOperationInfoService = afterOperationInfoService;
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;

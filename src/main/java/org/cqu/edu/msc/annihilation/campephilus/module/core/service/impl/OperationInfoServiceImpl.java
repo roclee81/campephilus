@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
@@ -23,12 +23,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class OperationInfoCRUDServiceImpl implements OperationInfoCRUDService {
+public class OperationInfoServiceImpl implements OperationInfoService {
 
     private final OperationInfoRepository operationInfoRepository;
 
     @Autowired
-    public OperationInfoCRUDServiceImpl(OperationInfoRepository operationInfoRepository) {
+    public OperationInfoServiceImpl(OperationInfoRepository operationInfoRepository) {
         this.operationInfoRepository = operationInfoRepository;
     }
 
@@ -56,7 +56,9 @@ public class OperationInfoCRUDServiceImpl implements OperationInfoCRUDService {
     public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
         OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
-        parseObject.setOperationDevice(String.join(",", parseObject.getDeviceInfo()));
+
+        // TODO
+//        parseObject.setOperationDevice(String.join(",", parseObject.getDeviceInfo()));
         this.saveOperationInfo(parseObject);
     }
 

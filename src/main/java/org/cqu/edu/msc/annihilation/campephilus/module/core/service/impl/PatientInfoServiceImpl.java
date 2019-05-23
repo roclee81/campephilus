@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.PatientInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
@@ -23,12 +23,12 @@ import java.util.List;
  * Description:
  */
 @Service
-public class PatientInfoCRUDServiceImpl implements PatientInfoCRUDService {
+public class PatientInfoServiceImpl implements PatientInfoService {
 
     private final PatientInfoRepository patientInfoRepository;
 
     @Autowired
-    public PatientInfoCRUDServiceImpl(PatientInfoRepository patientInfoRepository) {
+    public PatientInfoServiceImpl(PatientInfoRepository patientInfoRepository) {
         this.patientInfoRepository = patientInfoRepository;
     }
 

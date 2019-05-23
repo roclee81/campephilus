@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
@@ -24,9 +24,9 @@ import javax.validation.Valid;
 @RequestMapping(value = "/deviceHospitalRelationInfo")
 public class DeviceHospitalRelationInfoController {
 
-    private final DeviceHospitalRelationInfoCRUDService deviceHospitalRelationInfoService;
+    private final DeviceHospitalRelationInfoService deviceHospitalRelationInfoService;
 
-    public DeviceHospitalRelationInfoController(DeviceHospitalRelationInfoCRUDService deviceHospitalRelationInfoService) {
+    public DeviceHospitalRelationInfoController(DeviceHospitalRelationInfoService deviceHospitalRelationInfoService) {
         this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;
     }
 

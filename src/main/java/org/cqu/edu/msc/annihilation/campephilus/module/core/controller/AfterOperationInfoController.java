@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
@@ -24,9 +24,9 @@ import javax.validation.Valid;
 @RequestMapping(value = "/afterOperationInfo")
 public class AfterOperationInfoController {
 
-    private final AfterOperationInfoCRUDService afterOperationInfoService;
+    private final AfterOperationInfoService afterOperationInfoService;
 
-    public AfterOperationInfoController(AfterOperationInfoCRUDService afterOperationInfoService) {
+    public AfterOperationInfoController(AfterOperationInfoService afterOperationInfoService) {
         this.afterOperationInfoService = afterOperationInfoService;
     }
 

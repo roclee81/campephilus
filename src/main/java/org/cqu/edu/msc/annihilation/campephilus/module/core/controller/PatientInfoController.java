@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
@@ -27,10 +27,10 @@ import javax.validation.Valid;
 @Slf4j
 public class PatientInfoController {
 
-    private final PatientInfoCRUDService patientInfoService;
+    private final PatientInfoService patientInfoService;
 
     @Autowired
-    public PatientInfoController(PatientInfoCRUDService patientInfoService) {
+    public PatientInfoController(PatientInfoService patientInfoService) {
         this.patientInfoService = patientInfoService;
     }
 

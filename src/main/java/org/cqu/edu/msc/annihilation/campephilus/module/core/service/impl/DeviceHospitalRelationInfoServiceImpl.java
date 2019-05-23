@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceHospitalRelationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.data.domain.Page;
@@ -20,11 +20,11 @@ import java.util.List;
  * Description:
  */
 @Service
-public class DeviceHospitalRelationInfoCRUDServiceImpl implements DeviceHospitalRelationInfoCRUDService {
+public class DeviceHospitalRelationInfoServiceImpl implements DeviceHospitalRelationInfoService {
 
     private final DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository;
 
-    public DeviceHospitalRelationInfoCRUDServiceImpl(DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository) {
+    public DeviceHospitalRelationInfoServiceImpl(DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository) {
         this.deviceHospitalRelationInfoRepository = deviceHospitalRelationInfoRepository;
     }
 

@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
@@ -27,10 +27,10 @@ import javax.validation.Valid;
 @Slf4j
 public class DeviceInfoController {
 
-    private final DeviceInfoCRUDService deviceInfoService;
+    private final DeviceInfoService deviceInfoService;
 
     @Autowired
-    public DeviceInfoController(DeviceInfoCRUDService deviceInfoService) {
+    public DeviceInfoController(DeviceInfoService deviceInfoService) {
         this.deviceInfoService = deviceInfoService;
     }
 

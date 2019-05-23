@@ -22,7 +22,7 @@ import java.util.Date;
 public class DeviceInfoServiceTest {
 
     @Autowired
-    private DeviceInfoCRUDService deviceInfoService;
+    private DeviceInfoService deviceInfoService;
 
     @Test
     public void saveDeviceInfo() {

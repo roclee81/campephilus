@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoCRUDService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerListUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ControllerUpdateUtils;
@@ -27,10 +27,10 @@ import javax.validation.Valid;
 @Slf4j
 public class OperationInfoController {
 
-    private final OperationInfoCRUDService operationInfoService;
+    private final OperationInfoService operationInfoService;
 
     @Autowired
-    public OperationInfoController(OperationInfoCRUDService operationInfoService) {
+    public OperationInfoController(OperationInfoService operationInfoService) {
         this.operationInfoService = operationInfoService;
     }
 
