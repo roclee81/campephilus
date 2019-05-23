@@ -19,5 +19,5 @@ public interface BeforeOperationInfoService extends CRUDService<BeforeOperationI
 
     List<BeforeOperationInfo> listAllBeforeOperationInfo(int page, int size);
 
-    void saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO);
+    BeforeOperationInfo saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO);
 }

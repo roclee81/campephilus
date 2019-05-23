@@ -59,7 +59,7 @@ public class OperationInfo {
      * 用于保存手术中采用的设备，临时存储，存储时将会转换为String
      */
     @Transient
-    private List deviceInfo;
+    private List<String> deviceInfo;
 
     /**
      * 手术设备，直接保存了JSON字符串

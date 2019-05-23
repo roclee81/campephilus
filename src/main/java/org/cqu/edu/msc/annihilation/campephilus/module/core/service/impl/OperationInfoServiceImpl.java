@@ -56,7 +56,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
         OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
-
+        // 这里由于上传是按照list形式上传，所以该处需要将list转成String来
         // TODO
 //        parseObject.setOperationDevice(String.join(",", parseObject.getDeviceInfo()));
         this.saveOperationInfo(parseObject);

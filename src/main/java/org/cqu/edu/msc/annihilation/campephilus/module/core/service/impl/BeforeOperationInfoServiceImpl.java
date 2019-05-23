@@ -55,11 +55,12 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
     }
 
     @Override
-    public void saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
+    public BeforeOperationInfo saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
         PatientInfo parsePatientInfo = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class, "patientInfo");
         BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class, "beforeOperationInfo");
         parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
         this.saveBeforeOperationInfo(parseObject);
+        return parseObject;
     }
 
     @Override
