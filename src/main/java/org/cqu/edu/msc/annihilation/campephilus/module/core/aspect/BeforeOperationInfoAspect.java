@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,11 +19,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class BeforeOperationInfoAspect {
 
+    private final AmqpTemplate amqpTemplate;
+
     private final String saveBeforeOperationInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService.saveBeforeOperationInfoFromDataDTO(..))";
+
+    public BeforeOperationInfoAspect(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
 
     @AfterReturning(value = saveBeforeOperationInfoFromDataDTOPoint, returning = "returnResult")
     public void saveBeforeOperationInfoFromDataDTOPoint(BeforeOperationInfo returnResult) {
-            log.info(returnResult.toString());
-//            streamClient.output().send()
+        amqpTemplate.convertAndSend("campephilus", returnResult.toString());
     }
 }

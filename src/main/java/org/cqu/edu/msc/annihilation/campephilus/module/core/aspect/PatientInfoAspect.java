@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,11 +17,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class PatientInfoAspect {
 
+    private final AmqpTemplate amqpTemplate;
+
     private final String savePatientInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService.savePatientInfoFromDataDTO(..))";
+
+    public PatientInfoAspect(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
 
     @AfterReturning(value = savePatientInfoFromDataDTOPoint, returning = "returnResult")
     public void savePatientInfoFromDataDTOPoint(PatientInfo returnResult) {
-//        log.info(returnResult.toString());
-//            streamClient.output().send()
+        amqpTemplate.convertAndSend("campephilus", returnResult.toString());
     }
 }

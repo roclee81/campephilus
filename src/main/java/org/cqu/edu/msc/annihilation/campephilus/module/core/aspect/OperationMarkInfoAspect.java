@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,11 +17,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class OperationMarkInfoAspect {
 
+    private final AmqpTemplate amqpTemplate;
+
     private final String saveOperationMarkInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService.saveOperationMarkInfoFromDataDTO(..))";
+
+    public OperationMarkInfoAspect(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
 
     @AfterReturning(value = saveOperationMarkInfoFromDataDTOPoint, returning = "returnResult")
     public void saveOperationMarkInfoFromDataDTOPoint(OperationMarkInfo returnResult) {
-//        log.info(returnResult.toString());
-//            streamClient.output().send()
+        amqpTemplate.convertAndSend("campephilus", returnResult.toString());
     }
 }
