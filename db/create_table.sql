@@ -1,4 +1,4 @@
-CREATE TABLE `campephilus`.`info_device`
+CREATE TABLE `info_device`
 (
     `pk_id`                SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
@@ -10,7 +10,7 @@ CREATE TABLE `campephilus`.`info_device`
     PRIMARY KEY (`pk_id`)
 ) COMMENT '设备信息表，信息需要手动输入';
 
-CREATE TABLE `campephilus`.`info_hospital`
+CREATE TABLE `info_hospital`
 (
     `pk_hospital_code` VARCHAR(32) NOT NULL COMMENT '全国医院序列号，唯一',
     `hospital_name`    VARCHAR(32) NOT NULL COMMENT '医院名称',
@@ -21,7 +21,7 @@ CREATE TABLE `campephilus`.`info_hospital`
     PRIMARY KEY (`pk_hospital_code`)
 ) COMMENT '医院信息表，信息需要手动输入';
 
-CREATE TABLE `campephilus`.`info_operation`
+CREATE TABLE `info_operation`
 (
     `pk_operation_number`  INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '手术顺序号',
     `operation_name`       VARCHAR(64)  NOT NULL COMMENT '手术名称',
@@ -41,7 +41,7 @@ CREATE TABLE `campephilus`.`info_operation`
     PRIMARY KEY (pk_operation_number)
 ) COMMENT '手术信息表4';
 
-CREATE TABLE `campephilus`.`info_operation_mark`
+CREATE TABLE `info_operation_mark`
 (
     `pk_mark_id`        INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
     `mark_type`         VARCHAR(32)  NOT NULL COMMENT '标记类型',
@@ -57,10 +57,10 @@ CREATE TABLE `campephilus`.`info_operation_mark`
     PRIMARY KEY (pk_mark_id)
 ) COMMENT '标记信息表7';
 
-CREATE TABLE `campephilus`.`info_patient`
+CREATE TABLE `info_patient`
 (
     `pk_id`            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
-    `patient_id`    VARCHAR(32)       NOT NULL COMMENT '病人身份证号',
+    `patient_id`       VARCHAR(32)       NOT NULL COMMENT '病人身份证号',
     `admission_number` VARCHAR(32)       NOT NULL COMMENT '住院号',
     `sex`              TINYINT           NOT NULL COMMENT '性别0--男，1--女',
     `height`           TINYINT UNSIGNED  NOT NULL COMMENT '身高',
@@ -72,7 +72,7 @@ CREATE TABLE `campephilus`.`info_patient`
     PRIMARY KEY (pk_id)
 ) COMMENT '病人信息表9';
 
-CREATE TABLE `campephilus`.`info_before_operation`
+CREATE TABLE `info_before_operation`
 (
     `pk_before_operation_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `anesthesia_mode`        VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
@@ -87,7 +87,7 @@ CREATE TABLE `campephilus`.`info_before_operation`
     PRIMARY KEY (pk_before_operation_id)
 ) COMMENT '病人术前诊断信息表10';
 
-CREATE TABLE `campephilus`.`info_after_operation`
+CREATE TABLE `info_after_operation`
 (
     `pk_after_operation_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `feedback_content`      TEXT              NOT NULL COMMENT '反馈信息',
@@ -98,18 +98,18 @@ CREATE TABLE `campephilus`.`info_after_operation`
     PRIMARY KEY (pk_after_operation_id)
 ) COMMENT '病人术后反馈表11';
 
-# CREATE TABLE `campephilus`.`collector_info`
-# (
-#     `pk_collector_id`  INT UNSIGNED NOT NULL PRIMARY KEY,
-#     `app_version`      VARCHAR(45)  NOT NULL COMMENT '',
-#     `hardware_version` VARCHAR(45)  NOT NULL,
-#     `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-#     `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-#     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
-#     PRIMARY KEY (pk_collector_id)
-# ) COMMENT '采集器信息表8';
+# CREATE TABLE `collector_info`
+# # (
+# #     `pk_collector_id`  INT UNSIGNED NOT NULL PRIMARY KEY,
+# #     `app_version`      VARCHAR(45)  NOT NULL COMMENT '',
+# #     `hardware_version` VARCHAR(45)  NOT NULL,
+# #     `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+# #     `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+# #     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
+# #     PRIMARY KEY (pk_collector_id)
+# # ) COMMENT '采集器信息表8';
 
-CREATE TABLE `campephilus`.`info_device_hospital_relation`
+CREATE TABLE `info_device_hospital_relation`
 (
     `pk_id`                   SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `device_code`             VARCHAR(45)          NOT NULL COMMENT '设备生产厂商',
@@ -123,7 +123,7 @@ CREATE TABLE `campephilus`.`info_device_hospital_relation`
     PRIMARY KEY (pk_id)
 ) COMMENT '医院——医疗设备关系表3';
 
-CREATE TABLE `campephilus`.`data_norwamd_9002s`
+CREATE TABLE `data_norwamd_9002s`
 (
     `pk_norwamd_9002s_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
     `BS`                  TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
@@ -136,7 +136,7 @@ CREATE TABLE `campephilus`.`data_norwamd_9002s`
     PRIMARY KEY (pk_norwamd_9002s_id)
 ) COMMENT '诺和9002s的数据表5';
 
-CREATE TABLE `campephilus`.`data_pearlcare_yy106`
+CREATE TABLE `data_pearlcare_yy106`
 (
     `pk_pearlcare_yy106_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
     `SQI`                   TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
