@@ -3,8 +3,8 @@ CREATE TABLE `info_device`
     `pk_id`                SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
     `device_serial_number` VARCHAR(32)       NOT NULL COMMENT '设备序列号，不一定唯一',
-    `device_produce_date`  VARCHAR(16)       NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
-    `device_service_life`  TINYINT           NOT NULL COMMENT '设备使用年限',
+    `device_produce_date`  TIME              NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
+    `device_service_life`  FLOAT             NOT NULL COMMENT '设备使用年限',
     `gmt_create`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`pk_id`)
@@ -93,7 +93,6 @@ CREATE TABLE `info_after_operation`
     `feedback_content`      TEXT              NOT NULL COMMENT '反馈信息',
     `gmt_create`            DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`          DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `patient_id`            INT UNSIGNED      NOT NULL COMMENT '病人身份证号',
     `admission_number`      VARCHAR(32)       NOT NULL COMMENT '住院号',
     PRIMARY KEY (pk_after_operation_id)
 ) COMMENT '病人术后反馈表11';
@@ -115,7 +114,7 @@ CREATE TABLE `info_device_hospital_relation`
     `device_code`             VARCHAR(45)          NOT NULL COMMENT '设备生产厂商',
     `device_serial_number`    VARCHAR(45)          NOT NULL COMMENT '设备序列号，不一定唯一',
     `hospital_id`             VARCHAR(45)          NOT NULL COMMENT '全国医院序列号，唯一',
-    `device_produce_date`     VARCHAR(10)          NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
+    `device_produce_date`     TIME                 NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
     `device_purchase_address` VARCHAR(45)          NOT NULL COMMENT '购买地址',
     `device_comment`          TEXT                 NOT NULL COMMENT '仪器的备注信息',
     `gmt_create`              DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

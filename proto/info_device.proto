@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+
+message DeviceInfo {
+
+    /**
+     * 自动增长ID
+     */
+    int32 id = 1;
+
+    /**
+     * 设备生产厂商
+     */
+    string deviceCode = 2;
+
+    /**
+     * 设备序列号，不一定唯一
+     */
+    string deviceSerialNumber = 3;
+
+    /**
+     * 设备购买时间
+     */
+    string deviceProduceDate = 4;
+
+    /**
+     * 仪器的使用年限
+     */
+    float deviceServiceLife = 5;
+}

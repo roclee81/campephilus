@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+
+message PatientInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 id = 1;
+
+    /**
+     * 病人身份证号
+     */
+    string patientId = 2;
+
+    /**
+     * 住院号
+     */
+    string admissionNumber = 3;
+
+    /**
+     * 性别0--男，1--女
+     */
+    int32 sex = 4;
+
+    /**
+     * 体重
+     */
+    int32 height = 5;
+
+    /**
+     * 体重
+     */
+    int32 weight = 6;
+
+    /**
+     * 年龄
+     */
+    int32 age = 7;
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationNumber = 8;
+}

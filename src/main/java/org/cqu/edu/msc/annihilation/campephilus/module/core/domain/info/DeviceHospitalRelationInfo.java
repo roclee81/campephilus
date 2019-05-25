@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -51,7 +52,7 @@ public class DeviceHospitalRelationInfo {
      * 设备购买时间 eg: 2017-08-01
      */
     @Column(name = "device_produce_date")
-    private String deviceProduceDate;
+    private Time deviceProduceDate;
 
     /**
      * 购买地址
@@ -76,5 +77,4 @@ public class DeviceHospitalRelationInfo {
      */
     @Column(name = "gmt_modified")
     private Date gmtModified;
-
 }

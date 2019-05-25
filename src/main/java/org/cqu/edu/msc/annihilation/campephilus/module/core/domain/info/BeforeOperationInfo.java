@@ -40,13 +40,13 @@ public class BeforeOperationInfo {
      * 是否急诊
      */
     @Column(name = "is_urgent")
-    private Integer isUrgent;
+    private Boolean isUrgent;
 
     /**
      * 是否增强
      */
     @Column(name = "is_strong")
-    private Integer isStrong;
+    private Boolean isStrong;
 
     /**
      * ASA等级

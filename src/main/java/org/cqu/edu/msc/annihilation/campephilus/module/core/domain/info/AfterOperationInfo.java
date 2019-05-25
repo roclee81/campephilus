@@ -49,13 +49,6 @@ public class AfterOperationInfo {
     private Date gmtModified;
 
     /**
-     * 病人身份证号
-     */
-    @NotBlank(message = "patientId must cannot empty")
-    @Column(name = "patient_id")
-    private String patientId;
-
-    /**
      * 住院号
      */
     @NotBlank(message = "admissionNumber must cannot empty")

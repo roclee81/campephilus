@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+
+message OperationMarkInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 markId = 1;
+
+    /**
+     * 标记类型
+     */
+    int32 markType = 2;
+
+    /**
+     * 事件类型
+     */
+    string eventType = 3;
+
+    /**
+     * 事件
+     */
+    string event = 4;
+
+    /**
+     * 途径
+     */
+    string way = 5;
+
+    /**
+     * 剂量
+     */
+    string dose = 6;
+
+    /**
+     * 不良反应/特殊情况
+     */
+    string specialSituation = 7;
+
+    /**
+     * 标记信息标记的时间
+     */
+    int64 markTime = 8;
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationId = 9;
+}

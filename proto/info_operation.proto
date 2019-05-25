@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+
+message OperationInfo {
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationNumber = 1;
+
+    /**
+     * 手术名称
+     */
+    string operationName = 2;
+
+    /**
+     * 手术开始时间
+     */
+    int64 operationStartTime = 3;
+
+    /**
+     * 手术结束时间
+     */
+    int64 operationEndTime = 4;
+
+    /**
+     * 手术设备，直接保存了JSON字符串
+     */
+    string operationDevice = 5;
+
+    /**
+     * 手术状态
+     */
+    int32 operationState = 6;
+}

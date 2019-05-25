@@ -64,6 +64,7 @@ public class OperationInfo {
     /**
      * 手术设备，直接保存了JSON字符串
      */
+    // TODO 需要更改
     @NotBlank(message = "operationDevice must cannot empty")
     @Column(name = "operation_device")
     private String operationDevice;

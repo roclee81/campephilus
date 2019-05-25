@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+
+message DeviceHospitalRelationInfo {
+
+    /**
+    * 标记id，自动增长
+    */
+    int32 id = 1;
+
+    /**
+     * 设备生产厂商编号
+     */
+    string deviceCode = 2;
+
+    /**
+     * 设备序列号，不一定唯一
+     */
+    string deviceSerialNumber = 3;
+
+    /**
+     * 全国医院序列号，唯一
+     */
+    string hospitalId = 4;
+
+    /**
+     * 设备购买时间 eg: 2017-08-01
+     */
+
+    string deviceProduceDate = 5;
+
+    /**
+     * 购买地址
+     */
+    string devicePurchaseAddress = 6;
+
+    /**
+     * 仪器的备注信息
+     */
+    string deviceComment = 7;
+}

@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -50,16 +50,17 @@ public class DeviceInfo {
     /**
      * 设备购买时间
      */
+    // TODO 等待转换成Date形式进行优化
     @NotBlank(message = "deviceProduceDate must cannot empty")
     @Column(name = "device_produce_date")
-    private String deviceProduceDate;
+    private Time deviceProduceDate;
 
     /**
      * 仪器的使用年限
      */
     @NotNull(message = "deviceServiceLife must cannot empty")
     @Column(name = "device_service_life")
-    private BigDecimal deviceServiceLife;
+    private Float deviceServiceLife;
 
     /**
      * 数据创建时间
