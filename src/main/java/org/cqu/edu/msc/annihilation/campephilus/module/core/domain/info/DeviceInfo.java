@@ -50,7 +50,6 @@ public class DeviceInfo {
     /**
      * 设备购买时间
      */
-    // TODO 等待转换成Date形式进行优化
     @NotBlank(message = "deviceProduceDate must cannot empty")
     @Column(name = "device_produce_date")
     private Time deviceProduceDate;

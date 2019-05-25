@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo;
+package protobuf.pojo;
 
 message AfterOperationInfo {
 
