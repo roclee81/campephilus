@@ -10,7 +10,7 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class DateUtil {
+public class DateUtils {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:instrument");
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,5 +25,9 @@ public class DateUtil {
         synchronized (SIMPLE_DATE_FORMAT) {
             return SIMPLE_DATE_FORMAT.format(specifiedDate);
         }
+    }
+
+    public static long convertLong(Date date) {
+        return date.getTime() / 1000;
     }
 }

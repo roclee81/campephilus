@@ -12,19 +12,22 @@ import java.util.List;
 public interface CRUDService<T> {
 
     /**
-     *  保存
+     * 保存
+     *
      * @param t
      */
     void save(T t);
 
     /**
      * 更新
+     *
      * @param t
      */
     void update(T t);
 
     /**
      * 列出所有的数据，根据分页信息
+     *
      * @param page
      * @param size
      * @return
@@ -33,6 +36,7 @@ public interface CRUDService<T> {
 
     /**
      * 删除
+     *
      * @param t
      */
     void delete(T t);

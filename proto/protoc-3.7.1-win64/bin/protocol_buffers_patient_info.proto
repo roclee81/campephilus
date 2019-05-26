@@ -1,6 +1,9 @@
 syntax = "proto3";
 
-package protobuf.pojo;
+package poji;
+
+option java_package = "org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo";
+option java_outer_classname = "PatientInfoProtos";
 
 message PatientInfo {
 

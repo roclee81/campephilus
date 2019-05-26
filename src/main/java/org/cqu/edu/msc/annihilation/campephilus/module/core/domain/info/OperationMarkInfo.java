@@ -38,7 +38,7 @@ public class OperationMarkInfo {
      */
     @NotBlank(message = "markType must cannot empty")
     @Column(name = "mark_type")
-    private String markType;
+    private Integer markType;
 
     /**
      * 事件类型

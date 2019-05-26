@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.aspect;
+package org.cqu.edu.msc.annihilation.campephilus.module.message.aspect;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;

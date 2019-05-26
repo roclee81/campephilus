@@ -59,14 +59,14 @@ public class PatientInfo {
      */
     @NotBlank(message = "height must cannot empty")
     @Column(name = "height")
-    private String height;
+    private Integer height;
 
     /**
      * 体重
      */
     @NotBlank(message = "weight must cannot empty")
     @Column(name = "weight")
-    private String weight;
+    private Integer weight;
 
     /**
      * 年龄
