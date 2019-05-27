@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.message.consumer;
+package org.cqu.edu.msc.annihilation.campephilus.module.message.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -13,12 +13,19 @@ import org.springframework.stereotype.Component;
  * Description:
  */
 @Component
-@EnableBinding(StreamClient.class)
+@EnableBinding(StreamConsumer.class)
 @Slf4j
-public class StreamReceiver {
+public class StreamConsumerBinding {
 
-    @StreamListener(StreamClient.OUTPUT_CHANNEL)
-    public void processOutput(Object message) {
-        log.info("StreamReceiver:{}", message);
+    @StreamListener(StreamConsumer.INPUT_CHANNEL)
+    public void processInput(Object message) {
+        System.out.println("processInput " + message);
     }
+
+    @StreamListener(StreamProvider.OUTPUT_CHANNEL)
+    public void processOutput(Object message) {
+        System.out.println("processOutput " + message);
+    }
+
+
 }

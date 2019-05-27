@@ -14,14 +14,11 @@ spring:
     virtual-host: /campephilus
   cloud:
     stream:
-#      rabbit:
-#        bindings:
-#        input_campephilus_channel:
-#          content-type: application/x-protobuf
       rabbit:
         bindings:
-          input_campephilus_channel:
+          campephilus_channel:
             content-type: application/x-protobuf
+
 server:
   servlet:
     context-path: /campephilus
