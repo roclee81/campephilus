@@ -14,7 +14,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ConvertUtil {
+public class ConvertUtils {
 
     public static <T, R> R convert(T source, Class<R> destClass) {
         if (null == source) {

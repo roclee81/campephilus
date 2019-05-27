@@ -12,9 +12,16 @@ spring:
     username: campephilus
     password: campephilus
     virtual-host: /campephilus
-    publisher-confirms: false
-    publisher-returns: false
-
+  cloud:
+    stream:
+#      rabbit:
+#        bindings:
+#        input_campephilus_channel:
+#          content-type: application/x-protobuf
+      rabbit:
+        bindings:
+          input_campephilus_channel:
+            content-type: application/x-protobuf
 server:
   servlet:
     context-path: /campephilus

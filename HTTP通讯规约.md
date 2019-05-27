@@ -6,7 +6,7 @@
 * REGISTER_SUCCESS(100, "开机注册成功"),
 * VERSION_REQUEST(101, "请求版本号"),
 * VERSION_REQUEST_SUCCESS(102, "版本号请求成功"),
-* DATA_FORMAT_ERROR(-2,"数据格式错误"),
+* DATA_FORMAT_ERROR(-2,"数据格式错误"), 
 * OPERATION_READY(151,"准备要开始新的手术，获取operationNumber"),
 * OPERATION_READY_SUCCESS(152,"服务器准备完毕，可以开始手术了"),
 * OPERATION_DEVICE_READY(153,"准备开始发送手术设备信息"),

@@ -1,0 +1,258 @@
+syntax = "proto3";
+
+package poji;
+
+option java_package = "org.cqu.edu.msc.annihilation.campephilus.module.message.protobuf.pojo";
+option java_outer_classname = "MessageProtocolBuffers";
+
+message AfterOperationInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 afterOperationId = 1;
+
+    /**
+     * 反馈信息
+     */
+    string feedbackContent = 2;
+
+    /**
+     * 住院号
+     */
+    string admissionNumber = 3;
+}
+
+message BeforeOperationInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 beforeOperationId = 1;
+
+    /**
+     * 麻醉方式
+     */
+    string anesthesiaMode = 2;
+
+    /**
+     * 是否急诊
+     */
+    bool isUrgent = 3;
+
+    /**
+     * 是否增强
+     */
+    bool isStrong = 4;
+
+    /**
+     * ASA等级
+     */
+    int32 ASALevel = 5;
+
+    /**
+     * 既往病史
+     */
+    string medicalHistory = 6;
+
+    /**
+     * 特殊情况
+     */
+    string specialCase = 7;
+
+    /**
+     * 住院号
+     */
+    string admissionNumber = 8;
+}
+
+message DeviceHospitalRelationInfo {
+
+    /**
+    * 标记id，自动增长
+    */
+    int32 id = 1;
+
+    /**
+     * 设备生产厂商编号
+     */
+    string deviceCode = 2;
+
+    /**
+     * 设备序列号，不一定唯一
+     */
+    string deviceSerialNumber = 3;
+
+    /**
+     * 全国医院序列号，唯一
+     */
+    string hospitalId = 4;
+
+    /**
+     * 设备购买时间 eg: 2017-08-01
+     */
+
+    string deviceProduceDate = 5;
+
+    /**
+     * 购买地址
+     */
+    string devicePurchaseAddress = 6;
+
+    /**
+     * 仪器的备注信息
+     */
+    string deviceComment = 7;
+}
+
+message DeviceInfo {
+
+    /**
+     * 自动增长ID
+     */
+    int32 id = 1;
+
+    /**
+     * 设备生产厂商
+     */
+    string deviceCode = 2;
+
+    /**
+     * 设备序列号，不一定唯一
+     */
+    string deviceSerialNumber = 3;
+
+    /**
+     * 设备购买时间
+     */
+    string deviceProduceDate = 4;
+
+    /**
+     * 仪器的使用年限
+     */
+    float deviceServiceLife = 5;
+}
+
+message OperationInfo {
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationNumber = 1;
+
+    /**
+     * 手术名称
+     */
+    string operationName = 2;
+
+    /**
+     * 手术开始时间
+     */
+    int64 operationStartTime = 3;
+
+    /**
+     * 手术结束时间
+     */
+    int64 operationEndTime = 4;
+
+    /**
+     * 手术设备，直接保存了JSON字符串
+     */
+    string operationDevice = 5;
+
+    /**
+     * 手术状态
+     */
+    int32 operationState = 6;
+}
+
+message OperationMarkInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 markId = 1;
+
+    /**
+     * 标记类型
+     */
+    int32 markType = 2;
+
+    /**
+     * 事件类型
+     */
+    string eventType = 3;
+
+    /**
+     * 事件
+     */
+    string event = 4;
+
+    /**
+     * 途径
+     */
+    string way = 5;
+
+    /**
+     * 剂量
+     */
+    string dose = 6;
+
+    /**
+     * 不良反应/特殊情况
+     */
+    string specialSituation = 7;
+
+    /**
+     * 标记信息标记的时间
+     */
+    int64 markTime = 8;
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationId = 9;
+}
+
+message PatientInfo {
+
+    /**
+     * 标记id，自动增长
+     */
+    int32 id = 1;
+
+    /**
+     * 病人身份证号
+     */
+    string patientId = 2;
+
+    /**
+     * 住院号
+     */
+    string admissionNumber = 3;
+
+    /**
+     * 性别0--男，1--女
+     */
+    int32 sex = 4;
+
+    /**
+     * 体重
+     */
+    int32 height = 5;
+
+    /**
+     * 体重
+     */
+    int32 weight = 6;
+
+    /**
+     * 年龄
+     */
+    int32 age = 7;
+
+    /**
+     * 手术顺序号
+     */
+    int32 operationNumber = 8;
+}

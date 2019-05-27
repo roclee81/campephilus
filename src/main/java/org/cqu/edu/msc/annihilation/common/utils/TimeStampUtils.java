@@ -10,7 +10,7 @@ import java.util.Date;
  * Description:
  * 时间戳工具类
  */
-public class TimeStampUtil {
+public class TimeStampUtils {
 
     /**
      * 得到当前的时间戳

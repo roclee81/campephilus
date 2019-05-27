@@ -1,12 +1,10 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +16,7 @@ import java.util.Set;
  * 对实体类进行判断
  * 判断实体类中属性是否为空
  */
-public class BeanUtil {
+public class BeanUtils {
 
     public static Pageable getPageable(int page, int size) {
         Pageable pageable;
@@ -81,7 +79,7 @@ public class BeanUtil {
      * @param target 需要复制的对象
      */
     public static void copyPropertiesTargetNotNull(Object source, Object target) {
-        BeanUtils.copyProperties(source, target, getNotNullPropertyNames(target));
+        org.springframework.beans.BeanUtils.copyProperties(source, target, getNotNullPropertyNames(target));
     }
 
 }
