@@ -12,7 +12,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface StreamProvider {
 
-    String OUTPUT_CHANNEL = "output_campephilus_channel";
+    String OUTPUT_CHANNEL = "output_campephilus";
 
     @Output(StreamProvider.OUTPUT_CHANNEL)
     MessageChannel output();

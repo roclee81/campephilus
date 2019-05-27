@@ -12,11 +12,8 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface StreamConsumer {
 
-    String INPUT_CHANNEL = "input_campephilus_channel";
+    String INPUT_CHANNEL = "input_campephilus";
 
     @Input(StreamConsumer.INPUT_CHANNEL)
     SubscribableChannel input();
-
-    @Input(StreamProvider.OUTPUT_CHANNEL)
-    SubscribableChannel providerInput();
 }

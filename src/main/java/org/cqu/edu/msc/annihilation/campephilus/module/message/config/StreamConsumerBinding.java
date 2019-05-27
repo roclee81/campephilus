@@ -21,11 +21,4 @@ public class StreamConsumerBinding {
     public void processInput(Object message) {
         System.out.println("processInput " + message);
     }
-
-    @StreamListener(StreamProvider.OUTPUT_CHANNEL)
-    public void processOutput(Object message) {
-        System.out.println("processOutput " + message);
-    }
-
-
 }

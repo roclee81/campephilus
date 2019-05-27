@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author lx
  * @version V1.0
@@ -39,15 +41,15 @@ public class RabbitMqReceiverTest {
         beforeOperationInfo.setMedicalHistory("ss");
         beforeOperationInfo.setSpecialCase("sda");
 
-        for (int i = 0; i < 100000; i++) {
-//            try {
-//                TimeUnit.MICROSECONDS.sleep(50);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        for (int i = 0; i < 10000; i++) {
+            try {
+                TimeUnit.MICROSECONDS.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("send" + i);
             byte[] message = ProtoConvertUtils.convert(beforeOperationInfo);
-            streamProvider.output().send(MessageBuilder.withPayload(i).build());
+            streamProvider.output().send(MessageBuilder.withPayload(message).build());
         }
     }
 
