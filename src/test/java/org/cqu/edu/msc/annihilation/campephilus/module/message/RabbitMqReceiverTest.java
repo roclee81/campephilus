@@ -28,10 +28,29 @@ public class RabbitMqReceiverTest {
     @Autowired
     private StreamProvider streamProvider;
 
+    BeforeOperationInfo beforeOperationInfo = new BeforeOperationInfo();
+
+    class myThread implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    TimeUnit.MICROSECONDS.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                byte[] message = ProtoConvertUtils.convert(beforeOperationInfo);
+                streamProvider.output().send(MessageBuilder.withPayload(message).build());
+            }
+
+        }
+    }
+
     @Test
     public void test() {
 
-        BeforeOperationInfo beforeOperationInfo = new BeforeOperationInfo();
+
         beforeOperationInfo.setAdmissionNumber("11");
         beforeOperationInfo.setAnesthesiaMode("ss");
         beforeOperationInfo.setASALevel(1);
@@ -41,16 +60,20 @@ public class RabbitMqReceiverTest {
         beforeOperationInfo.setMedicalHistory("ss");
         beforeOperationInfo.setSpecialCase("sda");
 
-        for (int i = 0; i < 10000; i++) {
-            try {
-                TimeUnit.MICROSECONDS.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("send" + i);
-            byte[] message = ProtoConvertUtils.convert(beforeOperationInfo);
-            streamProvider.output().send(MessageBuilder.withPayload(message).build());
-        }
+
+        myThread myThread = new myThread();
+        myThread.run();
+
+//        for (int i = 0; i < 10000; i++) {
+//            try {
+//                TimeUnit.MICROSECONDS.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println("send" + i);
+//            byte[] message = ProtoConvertUtils.convert(beforeOperationInfo);
+//            streamProvider.output().send(MessageBuilder.withPayload(message).build());
+//        }
     }
 
 }

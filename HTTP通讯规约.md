@@ -117,28 +117,21 @@ operationNumber: -1
 data: {
     "operationInfo": {
         "operationName": "胸腔开孔",
-        "deviceInfo": [{
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            },
-            {
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            }, {
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            }, {
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            }, {
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            }, {
-                "deviceCode": "12",
-                "deviceSerialNumber": "2008-12-21-abcde"
-            }
-        ],
     },
+    "info_operation_device": {
+        "deviceCode0": "12",
+        "deviceSerialNumber0": "2008-12-21-abcde",
+        "deviceCode1": "12",
+        "deviceSerialNumber1": "2008-12-21-abcde",
+        "deviceCode2": "12",
+        "deviceSerialNumber2": "2008-12-21-abcde",
+        "deviceCode3": "12",
+        "deviceSerialNumber3": "2008-12-21-abcde",
+        "deviceCode4": "12",
+        "deviceSerialNumber4": "2008-12-21-abcde",
+        "deviceCode5": "12",
+        "deviceSerialNumber5": "2008-12-21-abcde",
+    ],
     "patientInfo": {
         "hospitalCode": "医院代号",
         "operationName": "手术名称",

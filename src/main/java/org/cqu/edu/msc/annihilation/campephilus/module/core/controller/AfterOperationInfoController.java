@@ -62,7 +62,7 @@ public class AfterOperationInfoController {
             @ApiImplicitParam(name = "AfterOperationInfo", value = "AfterOperationInfo JSON对象", required = true, dataType = "AfterOperationInfo"),
     })
     @PutMapping("/")
-    public ResponseEntity<ResultVO> updateDeviceInfo(@Valid AfterOperationInfo afterOperationInfo, BindingResult bindingResult) {
+    public ResponseEntity<ResultVO> updateAfterOperationInfo(@Valid AfterOperationInfo afterOperationInfo, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
         return ControllerUpdateUtils.updateResultVOResponseEntity(afterOperationInfoService, afterOperationInfo);
     }

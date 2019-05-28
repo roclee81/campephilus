@@ -39,7 +39,7 @@ public class BeforeOperationInfoController {
             @ApiImplicitParam(name = "size", value = "每页显示的个数", required = true, dataType = "int")
     })
     @GetMapping("/")
-    public ResponseEntity<ResultVO> listAfterOperationInfo(@RequestParam(value = "page", defaultValue = "0") int page,
+    public ResponseEntity<ResultVO> listBeforeOperationInfo(@RequestParam(value = "page", defaultValue = "0") int page,
                                                            @RequestParam(value = "size", defaultValue = "20") int size) {
         return ControllerListUtils.listAllResultVOResponseEntity(beforeOperationInfoService.listAllBeforeOperationInfo(page, size));
     }
