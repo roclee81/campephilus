@@ -57,14 +57,14 @@ public class PatientInfo {
     /**
      * 体重
      */
-    @NotBlank(message = "height must cannot empty")
+    @NotNull(message = "height must cannot empty")
     @Column(name = "height")
     private Integer height;
 
     /**
      * 体重
      */
-    @NotBlank(message = "weight must cannot empty")
+    @NotNull(message = "weight must cannot empty")
     @Column(name = "weight")
     private Integer weight;
 

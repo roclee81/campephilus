@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 
 /**
  * @author lx
@@ -10,4 +11,5 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
  * Description:
  */
 public interface OperationDeviceInfoService extends CRUDService<OperationDeviceInfo>{
+    void saveOperationDeviceInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
 }

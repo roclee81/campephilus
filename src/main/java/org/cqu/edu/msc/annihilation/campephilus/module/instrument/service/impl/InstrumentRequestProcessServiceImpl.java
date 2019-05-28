@@ -11,6 +11,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataD
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +38,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationInfoService operationInfoService;
     private final OperationMarkInfoService operationMarkInfoService;
     private final PatientInfoService patientInfoService;
+    private final OperationDeviceInfoService operationDeviceInfoService;
 
-    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService) {
+    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService) {
         this.afterOperationInfoService = afterOperationInfoService;
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;
@@ -47,6 +49,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.operationInfoService = operationInfoService;
         this.operationMarkInfoService = operationMarkInfoService;
         this.patientInfoService = patientInfoService;
+        this.operationDeviceInfoService = operationDeviceInfoService;
     }
 
     @Override
@@ -78,7 +81,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    private String processCode(ParseDataDTO parseDataDTO) {
+    @Transactional(rollbackFor = Exception.class)
+    String processCode(ParseDataDTO parseDataDTO) {
         // 解析后的结果，等待返回结果
         String parseReturnData = null;
         switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(parseDataDTO.getCode()))) {
@@ -86,7 +90,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             case OPERATION_READY: {
                 // TODO 需要添加事务
                 parseDataDTO.setOperationNumber(getNewOperationNumber());
-//                operationInfoService.saveOperationInfoFromParseDataDTO(parseDataDTO);
+                operationInfoService.saveOperationInfoFromParseDataDTO(parseDataDTO);
+                operationDeviceInfoService.saveOperationDeviceInfoFromParseDataDTO(parseDataDTO);
                 patientInfoService.savePatientInfoFromParseDataDTO(parseDataDTO);
                 beforeOperationInfoService.saveBeforeOperationInfoFromDataDTO(parseDataDTO);
                 break;

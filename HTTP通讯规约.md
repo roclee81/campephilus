@@ -116,9 +116,10 @@ mac: "mac"
 operationNumber: -1
 data: {
     "operationInfo": {
-        "operationName": "胸腔开孔",
+        "hospitalCode": "0156161",
+        "operationName": "胸腔开孔"
     },
-    "info_operation_device": {
+    "operationDeviceInfo": {
         "deviceCode0": "12",
         "deviceSerialNumber0": "2008-12-21-abcde",
         "deviceCode1": "12",
@@ -130,8 +131,8 @@ data: {
         "deviceCode4": "12",
         "deviceSerialNumber4": "2008-12-21-abcde",
         "deviceCode5": "12",
-        "deviceSerialNumber5": "2008-12-21-abcde",
-    ],
+        "deviceSerialNumber5": "2008-12-21-abcde"
+    },
     "patientInfo": {
         "hospitalCode": "医院代号",
         "operationName": "手术名称",
@@ -145,8 +146,8 @@ data: {
     },
     "beforeOperationInfo": {
         "anesthesiaMode": "麻醉方式",
-        "isUrgent": 0,
-        "isStrong": 0,
+        "isUrgent": true,
+        "isStrong": true,
         "ASALevel": 0,
         "medicalHistory": "既往病史",
         "specialCase": "特殊情况"

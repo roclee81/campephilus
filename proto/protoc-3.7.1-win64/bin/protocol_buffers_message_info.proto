@@ -156,14 +156,9 @@ message OperationInfo {
     int64 operationEndTime = 4;
 
     /**
-     * 手术设备，直接保存了JSON字符串
-     */
-    string operationDevice = 5;
-
-    /**
      * 手术状态
      */
-    int32 operationState = 6;
+    int32 operationState = 5;
 }
 
 message OperationMarkInfo {

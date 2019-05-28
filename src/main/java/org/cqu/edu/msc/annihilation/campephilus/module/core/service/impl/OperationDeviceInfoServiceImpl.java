@@ -6,6 +6,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.Operation
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationDeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,5 +56,12 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
     @Override
     public void delete(OperationDeviceInfo operationDeviceInfo) {
 
+    }
+
+    @Override
+    public void saveOperationDeviceInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
+        OperationDeviceInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationDeviceInfo.class, "operationDeviceInfo");
+        parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
+        this.save(parseObject);
     }
 }

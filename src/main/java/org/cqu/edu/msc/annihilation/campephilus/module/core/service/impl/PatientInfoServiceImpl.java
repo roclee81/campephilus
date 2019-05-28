@@ -36,8 +36,8 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     public synchronized void savePatientInfo(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据patientId和admissionNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(patientInfoRepository.findPatientInfoByPatientIdAndAdmissionNumber(
-                patientInfo.getPatientId(), patientInfo.getAdmissionNumber()));
+        SaveException.checkDataIsExist(patientInfoRepository.findPatientInfoByAdmissionNumber(
+                patientInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceSaveUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
     }
