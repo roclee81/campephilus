@@ -9,7 +9,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface CRUDService<T> {
+public interface CrudService<T> {
 
     /**
      * 保存

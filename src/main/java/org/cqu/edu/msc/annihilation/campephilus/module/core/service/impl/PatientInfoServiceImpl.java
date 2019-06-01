@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         SaveException.checkDataIsExist(patientInfoRepository.findPatientInfoByAdmissionNumber(
                 patientInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     @Override
     public synchronized void updatePatientInfo(PatientInfo patientInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(
+        ServiceCrudUtils.updateObjectAndCheckSuccess(
                 patientInfoRepository, patientInfo.getAdmissionNumber(), patientInfo);
     }
 

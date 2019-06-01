@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.common.utils;
+package org.cqu.edu.msc.annihilation.campephilus.common.utils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

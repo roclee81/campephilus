@@ -1,9 +1,9 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
+package org.cqu.edu.msc.annihilation.campephilus.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.common.enums.ErrorEnum;
+import org.cqu.edu.msc.annihilation.campephilus.common.constant.DataConstants;
+import org.cqu.edu.msc.annihilation.campephilus.common.enums.ErrorEnum;
+import org.cqu.edu.msc.annihilation.campephilus.common.enums.ResponseEnum;
 
 import java.util.Optional;
 
@@ -73,6 +73,13 @@ public class SaveException extends RuntimeException {
         if (searchResult.isPresent()) {
             // 判断到存在该仪器存在，则直接返回，抛出异常
             throw new SaveException(ResponseEnum.DATA_EXISTED);
+        }
+    }
+
+    public static void checkDataIsNotExist(Optional searchResult) {
+        if (searchResult.isEmpty()) {
+            // 判断到存在该仪器存在，则直接返回，抛出异常
+            throw new SaveException(ResponseEnum.DATA_NOT_EXIST);
         }
     }
 

@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,13 +36,13 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         SaveException.checkDataIsExist(deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
                 deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
     }
 
     @Override
     public synchronized void updateDeviceInfo(DeviceInfo deviceInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(deviceInfoRepository, deviceInfo.getId(), deviceInfo);
+        ServiceCrudUtils.updateObjectAndCheckSuccess(deviceInfoRepository, deviceInfo.getId(), deviceInfo);
     }
 
     @Override

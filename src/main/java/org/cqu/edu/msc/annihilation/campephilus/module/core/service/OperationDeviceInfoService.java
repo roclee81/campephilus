@@ -10,6 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataD
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface OperationDeviceInfoService extends CRUDService<OperationDeviceInfo>{
+public interface OperationDeviceInfoService extends CrudService<OperationDeviceInfo> {
     void saveOperationDeviceInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
 }

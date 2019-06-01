@@ -1,10 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     @Override
     public void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     @Override
     public void updateOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getMarkId(), operationMarkInfo);
+        ServiceCrudUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getMarkId(), operationMarkInfo);
     }
 
     @Override

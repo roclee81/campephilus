@@ -11,7 +11,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface HospitalInfoService extends CRUDService<HospitalInfo> {
+public interface HospitalInfoService extends CrudService<HospitalInfo> {
     void saveHospitalInfo(HospitalInfo hospitalInfo);
 
     List<HospitalInfo> listAllOperationInfo(int page, int size);

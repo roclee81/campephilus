@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsExist(operationInfoRepository.findById(operationInfo.getOperationNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(operationInfoRepository, operationInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(operationInfoRepository, operationInfo);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     @Override
     public void updateOperationInfo(OperationInfo operationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(operationInfoRepository, operationInfo.getOperationNumber(), operationInfo);
+        ServiceCrudUtils.updateObjectAndCheckSuccess(operationInfoRepository, operationInfo.getOperationNumber(), operationInfo);
     }
 
     @Override

@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.DeviceHospitalRelationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.DeviceHospitalRelationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -36,13 +35,13 @@ public class DeviceHospitalRelationInfoServiceImpl implements DeviceHospitalRela
                 .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
                         deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
     }
 
     @Override
     public void updateDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(
+        ServiceCrudUtils.updateObjectAndCheckSuccess(
                 deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo.getId(), deviceHospitalRelationInfo);
     }
 

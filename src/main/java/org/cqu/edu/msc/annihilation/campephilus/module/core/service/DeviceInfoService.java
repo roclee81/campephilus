@@ -11,7 +11,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface DeviceInfoService extends CRUDService<DeviceInfo> {
+public interface DeviceInfoService extends CrudService<DeviceInfo> {
     void saveDeviceInfo(DeviceInfo deviceInfo);
 
     void updateDeviceInfo(DeviceInfo deviceInfo);

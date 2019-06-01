@@ -1,11 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.AfterOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.AfterOperationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceSaveUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.utils.ServiceUpdateUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -35,13 +34,13 @@ public class AfterOperationInfoServiceImpl implements AfterOperationInfoService 
         SaveException.checkDataIsExist(afterOperationInfoRepository
                 .findAfterOperationInfoByAdmissionNumber(afterOperationInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceSaveUtils.saveObjectAndCheckSuccess(afterOperationInfoRepository, afterOperationInfo);
+        ServiceCrudUtils.saveObjectAndCheckSuccess(afterOperationInfoRepository, afterOperationInfo);
     }
 
     @Override
     public void updateAfterOperationInfo(AfterOperationInfo afterOperationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceUpdateUtils.updateObjectAndCheckSuccess(
+        ServiceCrudUtils.updateObjectAndCheckSuccess(
                 afterOperationInfoRepository, afterOperationInfo.getAfterOperationId(), afterOperationInfo);
     }
 

@@ -1,14 +1,11 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
+package org.cqu.edu.msc.annihilation.campephilus.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.campephilus.common.utils.ResultUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * campephilus
@@ -28,13 +25,11 @@ public class SaveExceptionHandler {
      */
     @ExceptionHandler(value = SaveException.class)
     @ResponseBody
-    public ResultVO handleDeviceException(SaveException e) {
+    public ResponseEntity handleDeviceException(SaveException e) {
         // 传递的值有错误信息，才将日志保存
         if (null != e.getErrorMeg() && null != e.getErrorData()) {
             log.error("SaveException: errorMeg = {}, errorData = {}" , e.getErrorMeg(), e.getErrorData());
         }
-        Map<String, Object> result = new HashMap<>(2);
-        result.put(DataConstants.DATA_MAP, e.getMsg());
-        return new ResultVO(e.getCode(), result);
+        return ResultUtils.error(e.getCode(), e.getMsg());
     }
 }

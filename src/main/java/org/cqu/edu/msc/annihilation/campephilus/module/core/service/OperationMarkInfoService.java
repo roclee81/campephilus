@@ -12,7 +12,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface OperationMarkInfoService extends CRUDService<OperationMarkInfo> {
+public interface OperationMarkInfoService extends CrudService<OperationMarkInfo> {
     void saveOperationMarkInfo(OperationMarkInfo operationMarkInfo);
 
     List<OperationMarkInfo> listAllOperationMarkInfo(int page, int size);

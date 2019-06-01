@@ -1,6 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
+package org.cqu.edu.msc.annihilation.campephilus.common.exception;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.ResponseEnum;
+import org.cqu.edu.msc.annihilation.campephilus.common.enums.ResponseEnum;
 
 /**
  * campephilus

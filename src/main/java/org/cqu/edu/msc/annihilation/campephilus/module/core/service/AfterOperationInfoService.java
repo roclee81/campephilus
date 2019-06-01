@@ -11,7 +11,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface AfterOperationInfoService extends CRUDService<AfterOperationInfo> {
+public interface AfterOperationInfoService extends CrudService<AfterOperationInfo> {
     void saveAfterOperationInfo(AfterOperationInfo afterOperationInfo);
 
     void updateAfterOperationInfo(AfterOperationInfo afterOperationInfo);
