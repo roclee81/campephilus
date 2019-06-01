@@ -20,26 +20,25 @@ public abstract class BaseController<T> {
 
     protected abstract CrudService<T> getCrudService();
 
-    @GetMapping("/")
+    @GetMapping("")
     ResponseEntity list(@RequestParam(value = "page", defaultValue = "0") int page,
                         @RequestParam(value = "size", defaultValue = "20") int size) {
         return ControllerCrudUtils.listAllResponseEntity(getCrudService().listAll(page, size));
     }
 
-
-    @PostMapping("/")
+    @PostMapping("")
     ResponseEntity save(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
         return ControllerCrudUtils.saveResponseEntity(getCrudService(), t);
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     ResponseEntity update(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
         return ControllerCrudUtils.updateResponseEntity(getCrudService(), t);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("")
     ResponseEntity delete(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
         return ControllerCrudUtils.deleteResponseEntity(getCrudService(), t);

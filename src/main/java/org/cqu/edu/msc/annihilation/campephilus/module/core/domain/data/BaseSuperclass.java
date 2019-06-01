@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -39,6 +40,7 @@ class BaseSuperclass {
     /**
      * 手术顺序号
      */
+    @NotNull(message = "operationNumber must cannot empty")
     @Column(name = "operation_number")
     private Integer operationNumber;
 }

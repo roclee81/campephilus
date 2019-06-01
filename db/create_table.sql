@@ -118,10 +118,10 @@ CREATE TABLE `info_device_hospital_relation`
 CREATE TABLE `data_norwamd_9002s`
 (
     `pk_id`            INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
-    `BS`               TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `EMG`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `SQI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `CSI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `BS`               TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `EMG`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `SQI`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `CSI`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
     `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
@@ -131,10 +131,10 @@ CREATE TABLE `data_norwamd_9002s`
 CREATE TABLE `data_pearlcare_yy106`
 (
     `pk_id`            INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
-    `SQI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `AI`               TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `EMG`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `BSR`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `SQI`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `AI`               TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `EMG`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
+    `BSR`              TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
     `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
