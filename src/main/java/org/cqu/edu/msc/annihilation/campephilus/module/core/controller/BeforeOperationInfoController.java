@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

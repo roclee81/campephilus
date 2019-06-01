@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class OperationMarkInfoAspect {
 
-    private final String saveOperationMarkInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.OperationMarkInfoService.saveOperationMarkInfoFromDataDTO(..))";
+    private final String saveOperationMarkInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService.saveOperationMarkInfoFromDataDTO(..))";
 
     @AfterReturning(value = saveOperationMarkInfoFromDataDTOPoint, returning = "returnResult")
     public void saveOperationMarkInfoFromDataDTOPoint(OperationMarkInfo returnResult) {

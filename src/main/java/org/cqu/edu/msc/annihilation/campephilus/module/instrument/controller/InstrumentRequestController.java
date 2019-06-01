@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.form.InstrumentRequestForm;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
 import org.springframework.beans.factory.annotation.Autowired;

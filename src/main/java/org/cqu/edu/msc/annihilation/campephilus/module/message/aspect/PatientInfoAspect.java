@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class PatientInfoAspect {
 
-    private final String savePatientInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.PatientInfoService.savePatientInfoFromDataDTO(..))";
+    private final String savePatientInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService.savePatientInfoFromDataDTO(..))";
 
     @AfterReturning(value = savePatientInfoFromDataDTOPoint, returning = "returnResult")
     public void savePatientInfoFromDataDTOPoint(PatientInfo returnResult) {

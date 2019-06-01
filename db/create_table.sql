@@ -36,7 +36,7 @@ CREATE TABLE `info_operation`
 
 CREATE TABLE `info_operation_mark`
 (
-    `pk_mark_id`        INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
+    `pk_id`        INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
     `mark_type`         TINYINT      NOT NULL COMMENT '标记类型',
     `event_type`        VARCHAR(32)  NOT NULL COMMENT '事件类型',
     `event`             VARCHAR(32)  NOT NULL COMMENT '事件',
@@ -67,7 +67,7 @@ CREATE TABLE `info_patient`
 
 CREATE TABLE `info_before_operation`
 (
-    `pk_before_operation_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
+    `pk_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `anesthesia_mode`        VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
     `is_urgent`              TINYINT           NOT NULL COMMENT '是否急诊',
     `is_strong`              TINYINT           NOT NULL COMMENT '是否增强',
@@ -77,7 +77,7 @@ CREATE TABLE `info_before_operation`
     `gmt_create`             DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `admission_number`       VARCHAR(32)       NOT NULL COMMENT '住院号',
-    PRIMARY KEY (pk_before_operation_id)
+    PRIMARY KEY (pk_id)
 ) COMMENT '病人术前诊断信息表10';
 
 CREATE TABLE `info_after_operation`
@@ -117,28 +117,28 @@ CREATE TABLE `info_device_hospital_relation`
 
 CREATE TABLE `data_norwamd_9002s`
 (
-    `pk_norwamd_9002s_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
-    `BS`                  TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `EMG`                 TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `SQI`                 TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `CSI`                 TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `gmt_create`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `operation_number`    INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
-    PRIMARY KEY (pk_norwamd_9002s_id)
+    `pk_id`            INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
+    `BS`               TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `EMG`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `SQI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `CSI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
+    PRIMARY KEY (pk_id)
 ) COMMENT '诺和9002s的数据表5';
 
 CREATE TABLE `data_pearlcare_yy106`
 (
-    `pk_pearlcare_yy106_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
-    `SQI`                   TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `AI`                    TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `EMG`                   TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `BSR`                   TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
-    `gmt_create`            DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `operation_number`      INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
-    PRIMARY KEY (pk_pearlcare_yy106_id)
+    `pk_id`            INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自动增长',
+    `SQI`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `AI`               TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `EMG`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `BSR`              TINYINT      NOT NULL COMMENT '0-100 无效值 -1',
+    `gmt_create`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
+    PRIMARY KEY (pk_id)
 ) COMMENT '普可yy106的数据表6';
 
 CREATE TABLE `info_operation_device`

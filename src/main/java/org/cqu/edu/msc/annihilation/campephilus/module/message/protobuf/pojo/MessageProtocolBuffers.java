@@ -6313,7 +6313,7 @@ public final class MessageProtocolBuffers {
      * 手术顺序号
      * </pre>
      *
-     * <code>int32 operationId = 9;</code>
+     * <code>int32 operationNumber = 9;</code>
      */
     int getOperationId();
   }
@@ -6713,7 +6713,7 @@ public final class MessageProtocolBuffers {
      * 手术顺序号
      * </pre>
      *
-     * <code>int32 operationId = 9;</code>
+     * <code>int32 operationNumber = 9;</code>
      */
     public int getOperationId() {
       return operationId_;
@@ -7758,7 +7758,7 @@ public final class MessageProtocolBuffers {
        * 手术顺序号
        * </pre>
        *
-       * <code>int32 operationId = 9;</code>
+       * <code>int32 operationNumber = 9;</code>
        */
       public int getOperationId() {
         return operationId_;
@@ -7769,7 +7769,7 @@ public final class MessageProtocolBuffers {
        * 手术顺序号
        * </pre>
        *
-       * <code>int32 operationId = 9;</code>
+       * <code>int32 operationNumber = 9;</code>
        */
       public Builder setOperationId(int value) {
         
@@ -7783,7 +7783,7 @@ public final class MessageProtocolBuffers {
        * 手术顺序号
        * </pre>
        *
-       * <code>int32 operationId = 9;</code>
+       * <code>int32 operationNumber = 9;</code>
        */
       public Builder clearOperationId() {
         

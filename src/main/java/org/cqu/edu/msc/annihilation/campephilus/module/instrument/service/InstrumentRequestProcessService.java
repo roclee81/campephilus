@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.form.InstrumentRequestForm;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 
 /**

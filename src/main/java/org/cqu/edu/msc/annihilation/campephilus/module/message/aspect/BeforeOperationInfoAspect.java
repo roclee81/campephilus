@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class BeforeOperationInfoAspect {
 
-    private final String saveBeforeOperationInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.BeforeOperationInfoService.saveBeforeOperationInfoFromDataDTO(..))";
+    private final String saveBeforeOperationInfoFromDataDTOPoint = "execution(public * org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeOperationInfoService.saveBeforeOperationInfoFromDataDTO(..))";
 
     @AfterReturning(value = saveBeforeOperationInfoFromDataDTOPoint, returning = "returnResult")
     public void saveBeforeOperationInfoFromDataDTOPoint(BeforeOperationInfo returnResult) {
