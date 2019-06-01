@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
 
-import org.cqu.edu.msc.annihilation.campephilus.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.campephilus.common.utils.ControllerCrudUtils;
+import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
+import org.cqu.edu.msc.annihilation.common.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

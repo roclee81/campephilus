@@ -1,7 +1,7 @@
-package org.cqu.edu.msc.annihilation.campephilus.common.utils;
+package org.cqu.edu.msc.annihilation.common.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.common.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.campephilus.common.enums.ResponseEnum;
+import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

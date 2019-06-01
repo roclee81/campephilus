@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.common.enums;
+package org.cqu.edu.msc.annihilation.common.enums;
 
 import lombok.Getter;
 

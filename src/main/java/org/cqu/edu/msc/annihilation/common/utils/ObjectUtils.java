@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.common.utils;
+package org.cqu.edu.msc.annihilation.common.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

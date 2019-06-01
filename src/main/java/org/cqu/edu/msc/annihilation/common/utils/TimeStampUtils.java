@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.common.utils;
+package org.cqu.edu.msc.annihilation.common.utils;
 
 import java.util.Calendar;
 import java.util.Date;

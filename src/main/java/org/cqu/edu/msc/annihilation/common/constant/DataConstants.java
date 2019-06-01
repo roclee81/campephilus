@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.common.constant;
+package org.cqu.edu.msc.annihilation.common.constant;
 
 /**
  * realdata
