@@ -27,8 +27,8 @@ public class AfterOperationInfo {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "`pk_after_operation_id")
-    private Integer afterOperationId;
+    @Column(name = "pk_id")
+    private Integer id;
 
     /**
      * 反馈信息

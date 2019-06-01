@@ -36,7 +36,7 @@ CREATE TABLE `info_operation`
 
 CREATE TABLE `info_operation_mark`
 (
-    `pk_id`        INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
+    `pk_id`             INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
     `mark_type`         TINYINT      NOT NULL COMMENT '标记类型',
     `event_type`        VARCHAR(32)  NOT NULL COMMENT '事件类型',
     `event`             VARCHAR(32)  NOT NULL COMMENT '事件',
@@ -47,7 +47,7 @@ CREATE TABLE `info_operation_mark`
     `gmt_create`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `operation_number`  INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
-    PRIMARY KEY (pk_mark_id)
+    PRIMARY KEY (pk_id)
 ) COMMENT '标记信息表7';
 
 CREATE TABLE `info_patient`
@@ -67,27 +67,27 @@ CREATE TABLE `info_patient`
 
 CREATE TABLE `info_before_operation`
 (
-    `pk_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
-    `anesthesia_mode`        VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
-    `is_urgent`              TINYINT           NOT NULL COMMENT '是否急诊',
-    `is_strong`              TINYINT           NOT NULL COMMENT '是否增强',
-    `ASA_level`              TINYINT           NOT NULL COMMENT 'ASA等级',
-    `medical_history`        TEXT              NOT NULL COMMENT '既往病史',
-    `special_case`           TEXT              NOT NULL COMMENT '特殊情况',
-    `gmt_create`             DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `admission_number`       VARCHAR(32)       NOT NULL COMMENT '住院号',
+    `pk_id`            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
+    `anesthesia_mode`  VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
+    `is_urgent`        TINYINT           NOT NULL COMMENT '是否急诊',
+    `is_strong`        TINYINT           NOT NULL COMMENT '是否增强',
+    `ASA_level`        TINYINT           NOT NULL COMMENT 'ASA等级',
+    `medical_history`  TEXT              NOT NULL COMMENT '既往病史',
+    `special_case`     TEXT              NOT NULL COMMENT '特殊情况',
+    `gmt_create`       DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`     DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `admission_number` VARCHAR(32)       NOT NULL COMMENT '住院号',
     PRIMARY KEY (pk_id)
 ) COMMENT '病人术前诊断信息表10';
 
 CREATE TABLE `info_after_operation`
 (
-    `pk_after_operation_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
-    `feedback_content`      TEXT              NOT NULL COMMENT '反馈信息',
-    `gmt_create`            DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`          DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `admission_number`      VARCHAR(32)       NOT NULL COMMENT '住院号',
-    PRIMARY KEY (pk_after_operation_id)
+    `pk_id`            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
+    `feedback_content` TEXT              NOT NULL COMMENT '反馈信息',
+    `gmt_create`       DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`     DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `admission_number` VARCHAR(32)       NOT NULL COMMENT '住院号',
+    PRIMARY KEY (pk_id)
 ) COMMENT '病人术后反馈表11';
 
 # CREATE TABLE `collector_info`

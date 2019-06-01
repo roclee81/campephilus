@@ -54,7 +54,7 @@ public class RabbitMqReceiverTest {
         beforeOperationInfo.setAdmissionNumber("11");
         beforeOperationInfo.setAnesthesiaMode("ss");
         beforeOperationInfo.setASALevel(1);
-        beforeOperationInfo.setBeforeOperationId(13211);
+        beforeOperationInfo.setId(13211);
         beforeOperationInfo.setIsStrong(true);
         beforeOperationInfo.setIsUrgent(true);
         beforeOperationInfo.setMedicalHistory("ss");

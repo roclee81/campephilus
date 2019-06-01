@@ -27,8 +27,8 @@ public class BeforeOperationInfo {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_before_operation_id")
-    private Integer beforeOperationId;
+    @Column(name = "pk_id")
+    private Integer id;
 
     /**
      * 麻醉方式

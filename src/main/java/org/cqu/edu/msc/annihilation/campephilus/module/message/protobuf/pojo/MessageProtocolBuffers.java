@@ -24,7 +24,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 afterOperationId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     int getAfterOperationId();
 
@@ -166,7 +166,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 afterOperationId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     public int getAfterOperationId() {
       return afterOperationId_;
@@ -603,7 +603,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 afterOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public int getAfterOperationId() {
         return afterOperationId_;
@@ -614,7 +614,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 afterOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder setAfterOperationId(int value) {
         
@@ -628,7 +628,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 afterOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder clearAfterOperationId() {
         
@@ -887,7 +887,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 beforeOperationId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     int getBeforeOperationId();
 
@@ -1128,7 +1128,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 beforeOperationId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     public int getBeforeOperationId() {
       return beforeOperationId_;
@@ -1782,7 +1782,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 beforeOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public int getBeforeOperationId() {
         return beforeOperationId_;
@@ -1793,7 +1793,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 beforeOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder setBeforeOperationId(int value) {
         
@@ -1807,7 +1807,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 beforeOperationId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder clearBeforeOperationId() {
         
@@ -6183,7 +6183,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 markId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     int getMarkId();
 
@@ -6451,7 +6451,7 @@ public final class MessageProtocolBuffers {
      * 标记id，自动增长
      * </pre>
      *
-     * <code>int32 markId = 1;</code>
+     * <code>int32 id = 1;</code>
      */
     public int getMarkId() {
       return markId_;
@@ -7165,7 +7165,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 markId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public int getMarkId() {
         return markId_;
@@ -7176,7 +7176,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 markId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder setMarkId(int value) {
         
@@ -7190,7 +7190,7 @@ public final class MessageProtocolBuffers {
        * 标记id，自动增长
        * </pre>
        *
-       * <code>int32 markId = 1;</code>
+       * <code>int32 id = 1;</code>
        */
       public Builder clearMarkId() {
         

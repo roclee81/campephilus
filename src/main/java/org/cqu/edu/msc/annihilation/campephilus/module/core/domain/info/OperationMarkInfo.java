@@ -30,8 +30,8 @@ public class OperationMarkInfo {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_mark_id")
-    private Integer markId;
+    @Column(name = "pk_id")
+    private Integer id;
 
     /**
      * 标记类型

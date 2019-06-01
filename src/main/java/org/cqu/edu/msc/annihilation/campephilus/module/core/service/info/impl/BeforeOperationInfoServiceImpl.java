@@ -44,7 +44,7 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
     public void updateBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudUtils.updateObjectAndCheckSuccess(
-                beforeOperationInfoRepository, beforeOperationInfo.getBeforeOperationId(), beforeOperationInfo);
+                beforeOperationInfoRepository, beforeOperationInfo.getId(), beforeOperationInfo);
     }
 
     @Override

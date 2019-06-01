@@ -41,7 +41,7 @@ public class AfterOperationInfoServiceImpl implements AfterOperationInfoService 
     public void updateAfterOperationInfo(AfterOperationInfo afterOperationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudUtils.updateObjectAndCheckSuccess(
-                afterOperationInfoRepository, afterOperationInfo.getAfterOperationId(), afterOperationInfo);
+                afterOperationInfoRepository, afterOperationInfo.getId(), afterOperationInfo);
     }
 
     @Override

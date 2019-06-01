@@ -45,7 +45,7 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     @Override
     public void updateOperationMarkInfo(OperationMarkInfo operationMarkInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getMarkId(), operationMarkInfo);
+        ServiceCrudUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getId(), operationMarkInfo);
     }
 
     @Override
