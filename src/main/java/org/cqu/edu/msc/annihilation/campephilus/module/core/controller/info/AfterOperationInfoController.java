@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AfterOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(value = "/afterOperationInfo")
+@RequestMapping(value = "/info/afterOperation")
 public class AfterOperationInfoController extends BaseController<AfterOperationInfo> {
 
     private final AfterOperationInfoService afterOperationInfoService;
@@ -25,7 +26,7 @@ public class AfterOperationInfoController extends BaseController<AfterOperationI
     }
 
     @Override
-    CrudService<AfterOperationInfo> getCrudService() {
+    protected CrudService<AfterOperationInfo> getCrudService() {
         return afterOperationInfoService;
     }
 }

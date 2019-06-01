@@ -1,6 +1,7 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
-@RequestMapping(value = "/operationMarkInfo")
+@RequestMapping(value = "/info/operationMark")
 @Slf4j
-public class OperationMarkInfoController extends BaseController<OperationMarkInfo>{
+public class OperationMarkInfoController extends BaseController<OperationMarkInfo> {
 
     private final OperationMarkInfoService operationMarkInfoService;
 
@@ -28,7 +29,7 @@ public class OperationMarkInfoController extends BaseController<OperationMarkInf
     }
 
     @Override
-    CrudService<OperationMarkInfo> getCrudService() {
+    protected CrudService<OperationMarkInfo> getCrudService() {
         return operationMarkInfoService;
     }
 }

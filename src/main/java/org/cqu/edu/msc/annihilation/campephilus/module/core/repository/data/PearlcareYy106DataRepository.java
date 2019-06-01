@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Pearlcare_yy106Data;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.PearlcareYy106Data;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface Pearlcare_yy106DataRepository extends JpaRepository<Pearlcare_yy106Data, Integer> {
+public interface PearlcareYy106DataRepository extends JpaRepository<PearlcareYy106Data, Integer> {
 
 }

@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
-@RequestMapping(value = "/operationDeviceInfo")
-public class OperationDeviceInfoController extends BaseController<OperationDeviceInfo>{
+@RequestMapping(value = "/info/operationDevice")
+public class OperationDeviceInfoController extends BaseController<OperationDeviceInfo> {
 
     private final OperationDeviceInfoService operationDeviceInfoService;
 
@@ -27,7 +28,7 @@ public class OperationDeviceInfoController extends BaseController<OperationDevic
 
 
     @Override
-    CrudService<OperationDeviceInfo> getCrudService() {
+    protected CrudService<OperationDeviceInfo> getCrudService() {
         return operationDeviceInfoService;
     }
 

@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
-@RequestMapping(value = "/beforeOperationInfo")
-public class BeforeOperationInfoController extends BaseController<BeforeOperationInfo>{
+@RequestMapping(value = "/info/beforeOperation")
+public class BeforeOperationInfoController extends BaseController<BeforeOperationInfo> {
 
     private final BeforeOperationInfoService beforeOperationInfoService;
 
@@ -24,7 +25,7 @@ public class BeforeOperationInfoController extends BaseController<BeforeOperatio
     }
 
     @Override
-    CrudService<BeforeOperationInfo> getCrudService() {
+    protected CrudService<BeforeOperationInfo> getCrudService() {
         return beforeOperationInfoService;
     }
 }

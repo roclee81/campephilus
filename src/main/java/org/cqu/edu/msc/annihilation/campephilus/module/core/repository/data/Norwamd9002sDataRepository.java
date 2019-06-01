@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd_9002SData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface Norwamd_9002sDataRepository extends JpaRepository<Norwamd_9002SData, Integer> {
+public interface Norwamd9002sDataRepository extends JpaRepository<Norwamd9002sData, Integer> {
 
 }

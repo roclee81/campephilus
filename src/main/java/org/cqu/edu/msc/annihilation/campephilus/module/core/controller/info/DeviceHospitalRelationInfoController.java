@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
-@RequestMapping(value = "/deviceHospitalRelationInfo")
-public class DeviceHospitalRelationInfoController extends BaseController<DeviceHospitalRelationInfo>{
+@RequestMapping(value = "/info/deviceHospitalRelation")
+public class DeviceHospitalRelationInfoController extends BaseController<DeviceHospitalRelationInfo> {
 
     private final DeviceHospitalRelationInfoService deviceHospitalRelationInfoService;
 
@@ -24,7 +25,7 @@ public class DeviceHospitalRelationInfoController extends BaseController<DeviceH
     }
 
     @Override
-    CrudService<DeviceHospitalRelationInfo> getCrudService() {
+    protected CrudService<DeviceHospitalRelationInfo> getCrudService() {
         return deviceHospitalRelationInfoService;
     }
 

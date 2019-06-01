@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 public abstract class BaseController<T> {
 
-    abstract CrudService<T> getCrudService();
+    protected abstract CrudService<T> getCrudService();
 
     @GetMapping("/")
     ResponseEntity list(@RequestParam(value = "page", defaultValue = "0") int page,

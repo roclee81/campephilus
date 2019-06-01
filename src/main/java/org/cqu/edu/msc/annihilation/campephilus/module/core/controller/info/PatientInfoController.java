@@ -1,6 +1,7 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.controller;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Description:
  */
 @RestController
-@RequestMapping(value = "/patientInfo")
+@RequestMapping(value = "/info/patient")
 @Slf4j
 public class PatientInfoController extends BaseController<PatientInfo> {
 
@@ -28,7 +29,7 @@ public class PatientInfoController extends BaseController<PatientInfo> {
     }
 
     @Override
-    CrudService<PatientInfo> getCrudService() {
+    protected CrudService<PatientInfo> getCrudService() {
         return patientInfoService;
     }
 }

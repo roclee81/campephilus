@@ -5,14 +5,12 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author lx
  * @version V1.0
- * @date 2019/4/11 17:26
+ * @date 2019/4/11 17:37
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
@@ -21,8 +19,8 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_norwamd_9002s")
-public class Norwamd_9002SData extends BaseSuperclass {
+@Table(name = "data_pearlcare_yy106")
+public class PearlcareYy106Data extends BaseSuperclass {
 
     /**
      *

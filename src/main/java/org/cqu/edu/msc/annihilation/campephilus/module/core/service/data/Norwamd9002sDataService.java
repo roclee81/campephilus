@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd_9002SData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 
 /**
@@ -10,6 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface Norwamd_9002sDataService extends CrudService<Norwamd_9002SData> {
+public interface Norwamd9002sDataService extends CrudService<Norwamd9002sData> {
 
 }
