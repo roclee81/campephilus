@@ -191,20 +191,31 @@ code: 173
 mac: "mac"
 operationNumber: 1
 data: {
-        "operationMarkInfo": {
-            "markType": "",
-            "eventType": "",
-            "event": "",
-            "way": "",
-            "dose": "",
-            "specialSituation":""
-        }
+          raw
      }
 ```
 
 * #### 收到该标记信息
 ```
 code: 174
+mac: "mac"
+operationNumber: 1
+data: {}
+```
+
+* #### 发送手术开始的信息
+```
+code: 177
+mac: "mac"
+operationNumber: 1
+data: {
+      	"operationStartTime": "2004-05-03T17:30:08+08:00"
+      }
+```
+
+* #### 收到手术结束的信息
+```
+code: 178
 mac: "mac"
 operationNumber: 1
 data: {}

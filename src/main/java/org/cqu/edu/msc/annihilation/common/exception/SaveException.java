@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.common.enums.ErrorEnum;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -17,7 +18,8 @@ import java.util.Optional;
  * Description:
  */
 @Slf4j
-public class SaveException extends RuntimeException {
+public class SaveException extends RuntimeException implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private String msg;

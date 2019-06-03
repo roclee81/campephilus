@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OperationInfoRepository extends JpaRepository<OperationInfo, Integer> {
 
+    OperationInfo findByOperationNumber(int operationNumber);
 }

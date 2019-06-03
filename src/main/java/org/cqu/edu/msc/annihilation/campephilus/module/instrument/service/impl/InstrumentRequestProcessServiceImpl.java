@@ -98,6 +98,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             }
             // 更新手术过程基本信息，即手术结束的信息
             case OPERATION_END: {
+                operationInfoService.updateOperationTimeParseDataDTO(parseDataDTO);
+                break;
+            }
+            case OPERATION_START:{
+
                 break;
             }
             // 处理传输的医疗仪器数据的情况

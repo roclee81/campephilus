@@ -90,9 +90,9 @@ public enum RequestEnum {
     OPERATION_MARK_END(175),
 
     /**
-     * 请求手术结束
+     * 是手术开始的信息
      */
-    OPERATION_END_READY(177),
+    OPERATION_START(177),
 
     /**
      * 是手术结束的信息
