@@ -63,4 +63,9 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
         parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
         this.save(parseObject);
     }
+
+    @Override
+    public OperationDeviceInfo listByOperationNumber(int operationNumber) {
+        return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
+    }
 }

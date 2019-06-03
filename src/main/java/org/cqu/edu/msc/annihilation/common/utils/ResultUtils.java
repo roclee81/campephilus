@@ -38,4 +38,8 @@ public class ResultUtils {
         result.put(DataConstants.MSG, msg);
         return result;
     }
+
+    public static ResponseEntity checkAndReturn(Object object) {
+        return null == object ? notFound() : success(object);
+    }
 }

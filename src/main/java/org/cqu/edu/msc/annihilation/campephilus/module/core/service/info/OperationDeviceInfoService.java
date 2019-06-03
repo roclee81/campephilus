@@ -13,4 +13,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataD
  */
 public interface OperationDeviceInfoService extends CrudService<OperationDeviceInfo> {
     void saveOperationDeviceInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
+
+    OperationDeviceInfo listByOperationNumber(int operationNumber);
 }

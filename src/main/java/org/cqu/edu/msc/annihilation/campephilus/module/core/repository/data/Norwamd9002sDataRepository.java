@@ -15,3 +15,4 @@ import org.springframework.stereotype.Repository;
 public interface Norwamd9002sDataRepository extends JpaRepository<Norwamd9002sData, Integer> {
 
 }
+
