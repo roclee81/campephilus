@@ -1,5 +1,7 @@
-package org.cqu.edu.msc.annihilation.common.exception;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.common.enums.ErrorEnum;
@@ -17,7 +19,9 @@ import java.util.Optional;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
+@Data
 public class SaveException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -83,38 +87,5 @@ public class SaveException extends RuntimeException implements Serializable {
             // 判断到存在该仪器存在，则直接返回，抛出异常
             throw new SaveException(ResponseEnum.DATA_NOT_EXIST);
         }
-    }
-
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getErrorMeg() {
-        return errorMeg;
-    }
-
-    public void setErrorMeg(String errorMeg) {
-        this.errorMeg = errorMeg;
-    }
-
-    public String getErrorData() {
-        return errorData;
-    }
-
-    public void setErrorData(String errorData) {
-        this.errorData = errorData;
     }
 }

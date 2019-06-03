@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.*;
 import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.common.exception.ParseException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;

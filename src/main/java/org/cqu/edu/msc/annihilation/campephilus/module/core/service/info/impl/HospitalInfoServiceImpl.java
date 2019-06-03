@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.common.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.HospitalInfoRepository;

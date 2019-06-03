@@ -1,6 +1,10 @@
-package org.cqu.edu.msc.annihilation.common.exception;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
+
+import java.io.Serializable;
 
 /**
  * campephilus
@@ -11,7 +15,9 @@ import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ParseException extends RuntimeException {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class ParseException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String msg;
@@ -31,37 +37,5 @@ public class ParseException extends RuntimeException {
         this.code = responseEnum.getCode();
         this.errorMsg = errorMsg;
         this.errorData = errorData;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getErrorData() {
-        return errorData;
-    }
-
-    public void setErrorData(String errorData) {
-        this.errorData = errorData;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 }

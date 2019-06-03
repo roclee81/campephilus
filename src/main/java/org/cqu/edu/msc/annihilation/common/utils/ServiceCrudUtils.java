@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.common.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.validation.ValidationException;
