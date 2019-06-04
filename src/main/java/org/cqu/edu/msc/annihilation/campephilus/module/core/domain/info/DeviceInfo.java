@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
@@ -23,8 +24,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "info_device")
-public class DeviceInfo {
+public class DeviceInfo implements Serializable {
 
+    private static final long serialVersionUID = 233410313766289238L;
     /**
      * 自动增长ID
      */

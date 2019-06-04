@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author lx
@@ -22,8 +23,9 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(name = "data_norwamd_9002s")
-public class Norwamd9002sData extends BaseSuperclass {
+public class Norwamd9002sData extends BaseSuperclass implements Serializable {
 
+    private static final long serialVersionUID = -3302167041948046696L;
     /**
      *
      */

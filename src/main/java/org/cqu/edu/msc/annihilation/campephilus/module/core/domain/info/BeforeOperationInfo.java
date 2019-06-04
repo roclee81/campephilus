@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,8 +21,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "info_before_operation")
-public class BeforeOperationInfo {
+public class BeforeOperationInfo implements Serializable {
 
+    private static final long serialVersionUID = 2308270897924254358L;
     /**
      * 标记id，自动增长
      */

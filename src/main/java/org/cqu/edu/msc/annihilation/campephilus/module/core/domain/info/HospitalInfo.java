@@ -4,8 +4,12 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +24,10 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "info_hospital")
-public class HospitalInfo {
+public class HospitalInfo implements Serializable {
+
+    private static final long serialVersionUID = 1754584679477101566L;
+
     /**
      * 全国医院序列号，唯一
      */

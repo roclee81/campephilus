@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author lx
@@ -20,8 +21,9 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "data_pearlcare_yy106")
-public class PearlcareYy106Data extends BaseSuperclass {
+public class PearlcareYy106Data extends BaseSuperclass implements Serializable {
 
+    private static final long serialVersionUID = -6622470603257802385L;
     /**
      *
      */

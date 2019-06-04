@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -22,8 +23,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "info_operation_device")
-public class OperationDeviceInfo {
+public class OperationDeviceInfo implements Serializable {
 
+    private static final long serialVersionUID = -7456701585085979233L;
     /**
      * 手术顺序号
      */

@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -23,8 +24,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "info_operation_mark")
-public class OperationMarkInfo {
+public class OperationMarkInfo implements Serializable {
 
+    private static final long serialVersionUID = -4892589808381433198L;
     /**
      * 标记id，自动增长
      */
