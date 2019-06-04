@@ -6,26 +6,10 @@ spring:
     username: campephilus
     password: yplBTG6yeu6pw61k
     url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus-test?characterEncoding=utf-8&useSSL=false
-  cloud:
-    stream:
-      bindings:
-        input_campephilus:
-          destination: message-campephilus-exchange
-#          content-type: application/x-protobuf
-        output_campephilus:
-          destination: message-campephilus-exchange
-#          content-type: application/x-protobuf
-      binders:
-        defaultRabbit:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: 192.168.206.204
-                port: 5672
-                username: campephilus
-                password: campephilus
-                virtual-host: /campephilus
+
+  redis:
+    host: 192.168.206.204
+
 
 server:
   servlet:

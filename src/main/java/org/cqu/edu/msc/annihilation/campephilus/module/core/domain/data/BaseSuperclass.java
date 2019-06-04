@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
-class BaseSuperclass {
+public class BaseSuperclass {
 
     /**
      * 自动增长
@@ -36,6 +36,12 @@ class BaseSuperclass {
      */
     @Column(name = "gmt_modified")
     private Date gmtModified;
+
+    /**
+     * 序列号
+     */
+    @Column(name = "device_serial_number")
+    private String serialNumber;
 
     /**
      * 手术顺序号
