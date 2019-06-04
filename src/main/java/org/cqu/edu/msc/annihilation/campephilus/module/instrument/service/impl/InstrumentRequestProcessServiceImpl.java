@@ -81,7 +81,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param parseDataDTO 初次解析的DTO
      * @return 成功为true，失败false
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     String processCode(ParseDataDTO parseDataDTO) {
         // 解析后的结果，等待返回结果
         String parseReturnData = null;
