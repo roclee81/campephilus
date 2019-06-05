@@ -3,10 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lx
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/data")
+@CrossOrigin
 public class DataController {
 
     private final RedisTemplate<String, Object> redisTemplate;

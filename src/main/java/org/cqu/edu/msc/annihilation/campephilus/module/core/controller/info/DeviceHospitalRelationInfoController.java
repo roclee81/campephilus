@@ -4,6 +4,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseContr
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/info/deviceHospitalRelation")
 public class DeviceHospitalRelationInfoController extends BaseController<DeviceHospitalRelationInfo> {

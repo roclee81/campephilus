@@ -7,10 +7,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lx
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/info/operationDevice")
 public class OperationDeviceInfoController extends BaseController<OperationDeviceInfo> {

@@ -6,6 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientI
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/info/patient")
 @Slf4j

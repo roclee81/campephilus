@@ -25,10 +25,12 @@ public class Norwamd9002sDataServiceTest {
     @Test
     public void save() {
         Norwamd9002sData norwamd9002sData = new Norwamd9002sData();
-        norwamd9002sData.setBS(1);
-        norwamd9002sData.setCSI(1);
+        norwamd9002sData.setEMG(88);
+        norwamd9002sData.setBS(12);
+        norwamd9002sData.setCSI(13);
+        norwamd9002sData.setSQI(99);
         norwamd9002sData.setOperationNumber(1);
-        norwamd9002sData.setSerialNumber("121");
+        norwamd9002sData.setSerialNumber("2dd21-abcde");
         norwamd9002sDataService.save(norwamd9002sData);
     }
 
