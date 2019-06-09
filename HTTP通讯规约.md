@@ -74,21 +74,6 @@ data: {}
 code、mac、operationNumber、data为必填字段
 
 
-* #### 设备开机注册(未使用)
-```
-code: 99
-mac: "mac"
-operationNumber: -1
-data: {}
-```
-
-* #### 服务器将回复(未使用)
-```
-code: 100
-mac: "mac"
-operationNumber: -1
-data: {}
-```
 
 * #### 请求版本号
 ```
@@ -103,10 +88,7 @@ data: {}
 code: 102
 mac: "mac"
 operationNumber: -1
-data: {
-      	"applicationVersion": "0.1.0",
-      	"collectorVersion": "0.1.0"
-      }
+data: {}
 ```
 
 * #### 准备要开始手术了(手术开始准备,请求operationNumber)
@@ -168,13 +150,7 @@ data: {}
 code: 167
 mac: "mac"
 operationNumber: 1
-data: {
-      	"deviceId": "test",
-      	"deviceDataNumber": 1,
-      	"deviceData": {
-      	"bloodOxygen": 142
-      	}
-      }
+data: {"data":"#32#322342342342342342342#"}
 ```
 
 * #### 接收到数据
@@ -190,9 +166,7 @@ data: {}
 code: 173
 mac: "mac"
 operationNumber: 1
-data: {
-          raw
-     }
+data: {"mark" : "#12#123123123#"}
 ```
 
 * #### 收到该标记信息
@@ -258,13 +232,13 @@ operationNumber: 1
 data: {}
 ```
 
-* #### 发送用户反馈信息
+* #### 发送采集器日志信息
 ```
 code: 185
 mac: "mac"
 operationNumber: -1
 data: {
-          "message": "使用极其困难,投诉"
+          "errorMessage": "error"
       }
 ```
 
