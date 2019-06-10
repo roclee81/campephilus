@@ -116,8 +116,6 @@ data: {
         "deviceSerialNumber5": "2008-12-21-abcde"
     },
     "patientInfo": {
-        "hospitalCode": "医院代号",
-        "operationName": "手术名称",
         "patientId": "5000115165156156156",
         "admissionNumber": "dsadasdas",
         "sex": 0,
