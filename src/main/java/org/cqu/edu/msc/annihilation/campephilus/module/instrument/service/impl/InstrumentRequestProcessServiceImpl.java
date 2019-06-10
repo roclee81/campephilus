@@ -101,12 +101,12 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 break;
             }
             case OPERATION_START: {
+                operationInfoService.updateOperationTimeParseDataDTO(parseDataDTO);
                 break;
             }
             // 处理传输的医疗仪器数据的情况
             case DEVICE_DATA: {
                 deviceDataService.saveDeviceData(parseDataDTO.getOperationNumber(), parseDataDTO.getJsonData());
-                //TODO 等待解析过程
                 break;
             }
             case POSTOPERATIVE_PATIENT_INFO: {
@@ -125,7 +125,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             }
             // 处理获取版本的请求
             case VERSION_REQUEST: {
-                // TODO 目前先不管，可能会变为http restful方式实现
+                // TODO 目前先不管，返回空即可，可能会变为http restful方式实现
                 break;
             }
             default: {

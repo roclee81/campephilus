@@ -1,13 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
+import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,10 +36,10 @@ public class InstrumentRequestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity processInstrumentData(@Valid InstrumentRequestForm instrumentRequestForm, BindingResult bindingResult) {
+    public ResultDataDTO processInstrumentData(@Valid InstrumentRequestForm instrumentRequestForm, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
 
         ResultDataDTO resultDataDTO = instrumentRequestProcessService.processInstrumentData(instrumentRequestForm);
-        return ResultUtils.success(resultDataDTO);
+        return resultDataDTO;
     }
 }

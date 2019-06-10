@@ -1,13 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.common.utils.ServiceCrudUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,9 +49,10 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     public void updateOperationTimeParseDataDTO(ParseDataDTO parseDataDTO) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(parseDataDTO.getOperationNumber());
-        // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(queryResult);
-        OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
+        // 判断到数据不存在则抛出错误
+        SaveException.checkDataIsNotExist(queryResult);
+        // TODO 代码重复性较高
+        OperationInfo parseObject = ParseJsonUtil.parseTimeJsonString(parseDataDTO);
         if (null != parseObject.getOperationStartTime()) {
             queryResult.setOperationStartTime(parseObject.getOperationStartTime());
         } else if (null != parseObject.getOperationEndTime()) {
@@ -59,7 +60,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         } else {
             throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
         }
-        this.save(queryResult);
+        this.update(queryResult);
     }
 
     @Override
