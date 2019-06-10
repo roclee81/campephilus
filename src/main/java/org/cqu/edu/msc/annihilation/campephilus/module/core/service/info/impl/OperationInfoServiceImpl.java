@@ -67,7 +67,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(operationNumber);
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(queryResult);
+        SaveException.checkDataIsNotExist(queryResult);
         return queryResult.getOperationState();
     }
 

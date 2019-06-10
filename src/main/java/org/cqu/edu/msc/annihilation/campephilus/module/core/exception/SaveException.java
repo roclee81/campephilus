@@ -88,4 +88,11 @@ public class SaveException extends RuntimeException implements Serializable {
             throw new SaveException(ResponseEnum.DATA_NOT_EXIST);
         }
     }
+
+    public static void checkDataIsNotExist(Object searchResult) {
+        if (null == searchResult) {
+            // 判断到存在该仪器存在，则直接返回，抛出异常
+            throw new SaveException(ResponseEnum.DATA_NOT_EXIST);
+        }
+    }
 }
