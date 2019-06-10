@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.*;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
@@ -30,26 +31,24 @@ import java.util.Objects;
 @Slf4j
 public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
-    private final AfterOperationInfoService afterOperationInfoService;
     private final BeforeOperationInfoService beforeOperationInfoService;
-    private final DeviceHospitalRelationInfoService deviceHospitalRelationInfoService;
     private final DeviceInfoService deviceInfoService;
     private final HospitalInfoService hospitalInfoService;
     private final OperationInfoService operationInfoService;
     private final OperationMarkInfoService operationMarkInfoService;
     private final PatientInfoService patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
+    private final DeviceDataService deviceDataService;
 
-    public InstrumentRequestProcessServiceImpl(AfterOperationInfoService afterOperationInfoService, BeforeOperationInfoService beforeOperationInfoService, DeviceHospitalRelationInfoService deviceHospitalRelationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService) {
-        this.afterOperationInfoService = afterOperationInfoService;
+    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
-        this.deviceHospitalRelationInfoService = deviceHospitalRelationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
         this.operationInfoService = operationInfoService;
         this.operationMarkInfoService = operationMarkInfoService;
         this.patientInfoService = patientInfoService;
         this.operationDeviceInfoService = operationDeviceInfoService;
+        this.deviceDataService = deviceDataService;
     }
 
     @Override
@@ -101,12 +100,13 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 operationInfoService.updateOperationTimeParseDataDTO(parseDataDTO);
                 break;
             }
-            case OPERATION_START:{
-
+            case OPERATION_START: {
+                deviceDataService.saveDeviceData(parseDataDTO.getOperationNumber(), parseDataDTO.getJsonData());
                 break;
             }
             // 处理传输的医疗仪器数据的情况
             case DEVICE_DATA: {
+
                 //TODO 等待解析过程
                 break;
             }

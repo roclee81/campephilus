@@ -18,4 +18,7 @@ public interface OperationInfoService extends CrudService<OperationInfo> {
     Integer countOperationInfo();
 
     void updateOperationTimeParseDataDTO(ParseDataDTO parseDataDTO);
+
+    int getOperationStateByOperationNumber(int operationNumber);
+
 }

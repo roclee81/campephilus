@@ -48,8 +48,8 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     @Override
     public void updateOperationTimeParseDataDTO(ParseDataDTO parseDataDTO) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
-        // 判断到存在该仪器存在，则直接返回，抛出异常
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(parseDataDTO.getOperationNumber());
+        // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsExist(queryResult);
         OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
         if (null != parseObject.getOperationStartTime()) {
@@ -60,6 +60,15 @@ public class OperationInfoServiceImpl implements OperationInfoService {
             throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
         }
         this.save(queryResult);
+    }
+
+    @Override
+    public int getOperationStateByOperationNumber(int operationNumber) {
+        // 首先查询是否存在该条数据，根据OperationNumber查询
+        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(operationNumber);
+        // 判断到存在该仪器存在，则直接返回，抛出异常
+        SaveException.checkDataIsExist(queryResult);
+        return queryResult.getOperationState();
     }
 
     @Override

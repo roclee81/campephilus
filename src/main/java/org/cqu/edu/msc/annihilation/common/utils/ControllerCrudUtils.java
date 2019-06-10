@@ -28,6 +28,17 @@ public class ControllerCrudUtils {
     /**
      * 包装返回类
      *
+     * @param searchResult
+     * @param <T>
+     * @return
+     */
+    public static ResponseEntity listResponseEntity(Object searchResult) {
+        return null != searchResult ? ResultUtils.success(searchResult) : ResultUtils.notFound();
+    }
+
+    /**
+     * 包装返回类
+     *
      * @param crudService
      * @param t
      * @param <T>
