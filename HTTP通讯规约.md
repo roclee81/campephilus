@@ -56,9 +56,7 @@
 * OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
 
 ## 上传规则
-###所有时间格式采用ISO8601格式例如2004-05-03T17:30:08+08:00
-##### SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-##### String s = sdf.format(new Date());
+###所有时间格式采用TimeStamp格式1552012460277
 
 ### 1. 所有设备开机时发送
 * 数据上传URL 120.79.151.208:8080/campephilus/instrument/
