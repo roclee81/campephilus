@@ -121,7 +121,6 @@ data: {
         "patientId": "5000115165156156156",
         "admissionNumber": "dsadasdas",
         "sex": 0,
-        "birthDate": "出生日期",
         "height": 170,
         "weight": 70,
         "age": 26
