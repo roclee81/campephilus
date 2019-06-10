@@ -101,12 +101,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 break;
             }
             case OPERATION_START: {
-                deviceDataService.saveDeviceData(parseDataDTO.getOperationNumber(), parseDataDTO.getJsonData());
                 break;
             }
             // 处理传输的医疗仪器数据的情况
             case DEVICE_DATA: {
-
+                deviceDataService.saveDeviceData(parseDataDTO.getOperationNumber(), parseDataDTO.getJsonData());
                 //TODO 等待解析过程
                 break;
             }

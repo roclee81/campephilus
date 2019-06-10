@@ -10,7 +10,4 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service;
 public interface DeviceDataService {
 
     void saveDeviceData(Integer operationNumber, String jsonData);
-
-    void saveDeviceData(String data);
-
 }

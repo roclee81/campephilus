@@ -27,8 +27,8 @@ public class PearlcareYy106Data extends BaseSuperclass implements Serializable {
     /**
      *
      */
-    @Column(name = "BS")
-    private Integer BS;
+    @Column(name = "AI")
+    private Integer AI;
 
     /**
      *
@@ -45,6 +45,6 @@ public class PearlcareYy106Data extends BaseSuperclass implements Serializable {
     /**
      *
      */
-    @Column(name = "CSI")
-    private Integer CSI;
+    @Column(name = "BSR")
+    private Integer BSR;
 }

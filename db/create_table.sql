@@ -124,7 +124,7 @@ CREATE TABLE `data_norwamd_9002s`
     `CSI`                  TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
     `gmt_create`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `device_serial_number` VARCHAR(32)  NOT NULL COMMENT '设备序列号，不一定唯一',
+    `device_serial_number` VARCHAR(32)  NOT NULL DEFAULT '-1' COMMENT '设备序列号，不一定唯一',
     `operation_number`     INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
     PRIMARY KEY (pk_id)
 ) COMMENT '诺和9002s的数据表5';
@@ -138,7 +138,7 @@ CREATE TABLE `data_pearlcare_yy106`
     `BSR`                  TINYINT      NOT NULL DEFAULT -1 COMMENT '0-100 无效值 -1',
     `gmt_create`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `device_serial_number` VARCHAR(32)  NOT NULL COMMENT '设备序列号，不一定唯一',
+    `device_serial_number` VARCHAR(32)  NOT NULL DEFAULT '-1' COMMENT '设备序列号，不一定唯一',
     `operation_number`     INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
     PRIMARY KEY (pk_id)
 ) COMMENT '普可yy106的数据表6';

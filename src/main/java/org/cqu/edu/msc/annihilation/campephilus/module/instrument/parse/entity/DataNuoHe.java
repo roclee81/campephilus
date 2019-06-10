@@ -1,0 +1,66 @@
+package org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity;
+
+/**
+ * 诺和的数据实体类
+ * @author cz
+ */
+public class DataNuoHe {
+
+    private String CSI;
+    private String BS;
+    private String SQI;
+    private String EMG;
+    private String serialNumber;
+
+    public String getCSI() {
+        return CSI;
+    }
+
+    public void setCSI(String CSI) {
+        this.CSI = CSI;
+    }
+
+    public String getBS() {
+        return BS;
+    }
+
+    public void setBS(String BS) {
+        this.BS = BS;
+    }
+
+    public String getSQI() {
+        return SQI;
+    }
+
+    public void setSQI(String SQI) {
+        this.SQI = SQI;
+    }
+
+    public String getEMG() {
+        return EMG;
+    }
+
+    public void setEMG(String EMG) {
+        this.EMG = EMG;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+
+    @Override
+    public String toString() {
+        return "DataNuoHe{" +
+                "CSI='" + CSI + '\'' +
+                ", BS='" + BS + '\'' +
+                ", SQI='" + SQI + '\'' +
+                ", EMG='" + EMG + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                '}';
+    }
+}
