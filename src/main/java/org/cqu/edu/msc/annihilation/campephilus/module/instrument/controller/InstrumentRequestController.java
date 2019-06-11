@@ -39,7 +39,6 @@ public class InstrumentRequestController {
     public ResultDataDTO processInstrumentData(@Valid InstrumentRequestForm instrumentRequestForm, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
 
-        ResultDataDTO resultDataDTO = instrumentRequestProcessService.processInstrumentData(instrumentRequestForm);
-        return resultDataDTO;
+        return instrumentRequestProcessService.processInstrumentData(instrumentRequestForm);
     }
 }

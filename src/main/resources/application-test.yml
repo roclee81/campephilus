@@ -9,10 +9,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: campephilus
     password: yplBTG6yeu6pw61k
-    url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus-test?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://rm-wz90i0nbmc54e83r4968.mysql.rds.aliyuncs.com/campephilus-test?characterEncoding=utf-8&useSSL=false
 
   redis:
-    host: 192.168.206.204
+    host: r-wz97709w2x1bqvu9tn.redis.rds.aliyuncs.com
+    password: 7@V8nwnFUKtzBaB6
 
 server:
   servlet:

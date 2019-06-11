@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.parser;
 
+
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataPuKe;
 
 /**
@@ -16,7 +17,7 @@ public class ParsePuKe {
      * 数据格式: FF 01 04 05 62 00 64
      * 长度固定，格式固定
      */
-    public static DataPuKe parseData(String deviceData){
+    public static DataPuKe parseData(String deviceData, String serialNumber){
         DataPuKe dataPuKe = new DataPuKe();
 
         if (verifyData(deviceData)){
@@ -30,6 +31,7 @@ public class ParsePuKe {
             dataPuKe.setBSR("" + BSR);
             dataPuKe.setEMG("" + EMG);
             dataPuKe.setSQI("" + SQI);
+            dataPuKe.setSerialNumber(serialNumber);
         }
 
         return dataPuKe;

@@ -6,10 +6,29 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity;
  */
 public class DataNuoHe {
 
+    /**
+     * CSI
+     */
     private String CSI;
+
+    /**
+     * BS
+     */
     private String BS;
+
+    /**
+     * SQI
+     */
     private String SQI;
+
+    /**
+     * EMG
+     */
     private String EMG;
+
+    /**
+     * 序列号
+     */
     private String serialNumber;
 
     public String getCSI() {

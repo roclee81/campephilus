@@ -6,10 +6,30 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity;
  */
 public class DataPuKe {
 
+    /**
+     * AI
+     */
     private String Ai;
+
+    /**
+     * BSR
+     */
     private String BSR;
+
+    /**
+     * EMG
+     */
     private String EMG;
+
+    /**
+     * SQI
+     */
     private String SQI;
+
+    /**
+     * 序列号
+     */
+    private String serialNumber;
 
     public String getAi() {
         return Ai;
@@ -41,6 +61,14 @@ public class DataPuKe {
 
     public void setSQI(String SQI) {
         this.SQI = SQI;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Override
