@@ -41,6 +41,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
             if ("30".equals(key)) {
                 DataNuoHe dataNuoHe = (DataNuoHe) result.get("30");
                 Norwamd9002sData norwamd9002sData = new Norwamd9002sData();
+                norwamd9002sData.setSerialNumber(dataNuoHe.getSerialNumber());
                 norwamd9002sData.setOperationNumber(operationNumber);
                 norwamd9002sData.setBS(Integer.parseInt(dataNuoHe.getBS()));
                 norwamd9002sData.setSQI(Integer.parseInt(dataNuoHe.getSQI()));
@@ -50,6 +51,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
             } else if ("31".equals(key)) {
                 DataPuKe dataPuKe = (DataPuKe) result.get("31");
                 PearlcareYy106Data pearlcareYy106Data = new PearlcareYy106Data();
+                pearlcareYy106Data.setSerialNumber(dataPuKe.getSerialNumber());
                 pearlcareYy106Data.setOperationNumber(operationNumber);
                 pearlcareYy106Data.setEMG(Integer.parseInt(dataPuKe.getEMG()));
                 pearlcareYy106Data.setSQI(Integer.parseInt(dataPuKe.getSQI()));
