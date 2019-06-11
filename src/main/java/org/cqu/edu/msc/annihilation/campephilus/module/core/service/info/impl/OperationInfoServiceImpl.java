@@ -55,8 +55,10 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         OperationInfo parseObject = ParseJsonUtil.parseTimeJsonString(parseDataDTO);
         if (null != parseObject.getOperationStartTime()) {
             queryResult.setOperationStartTime(parseObject.getOperationStartTime());
+            queryResult.setOperationState(1);
         } else if (null != parseObject.getOperationEndTime()) {
             queryResult.setOperationEndTime(parseObject.getOperationEndTime());
+            queryResult.setOperationState(2);
         } else {
             throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
         }

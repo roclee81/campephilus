@@ -33,7 +33,7 @@ public class DataAspect<T extends BaseSuperclass> {
         Object[] objects = point.getArgs();
         T t = (T) objects[0];
         t.setGmtCreate(new Date());
-        String key = "on:" + t.getOperationNumber() + "sn" + t.getSerialNumber();
+        String key = "on:" + t.getOperationNumber() + "sn:" + t.getSerialNumber();
         redisTemplate.opsForValue().set(key, t);
     }
 }

@@ -27,7 +27,7 @@ public class DataController {
     @GetMapping("/")
     public ResponseEntity list(@RequestParam("operationNumber") String operationNumber,
                                @RequestParam("serialNumber") String serialNumber) {
-        String key = "on:" + operationNumber + "sn" + serialNumber;
+        String key = "on:" + operationNumber + "sn:" + serialNumber;
         Object value = redisTemplate.opsForValue().get(key);
         // TODO 判断是否为空
         return ResultUtils.checkAndReturn(value);
