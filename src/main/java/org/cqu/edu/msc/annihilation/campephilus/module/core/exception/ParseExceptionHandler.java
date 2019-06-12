@@ -1,8 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
-import org.springframework.http.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +23,7 @@ public class ParseExceptionHandler {
      */
     @ExceptionHandler(value = ParseException.class)
     @ResponseBody
-    public ResponseEntity handleDeviceException(ParseException e) {
-        return ResultUtils.error(e.getCode(), e.getMsg());
+    public ResultVO handleDeviceException(ParseException e) {
+        return ResultVO.error(e.getCode(), e.getMsg());
     }
 }

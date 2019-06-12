@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.common.utils;
+package org.cqu.edu.msc.annihilation.campephilus.utils;
 
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;

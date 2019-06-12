@@ -1,8 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.common.utils.ResultUtils;
-import org.springframework.http.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,11 +24,11 @@ public class SaveExceptionHandler {
      */
     @ExceptionHandler(value = SaveException.class)
     @ResponseBody
-    public ResponseEntity handleDeviceException(SaveException e) {
+    public ResultVO handleDeviceException(SaveException e) {
         // 传递的值有错误信息，才将日志保存
         if (null != e.getErrorMeg() && null != e.getErrorData()) {
-            log.error("SaveException: errorMeg = {}, errorData = {}" , e.getErrorMeg(), e.getErrorData());
+            log.error("SaveException: errorMeg = {}, errorData = {}", e.getErrorMeg(), e.getErrorData());
         }
-        return ResultUtils.error(e.getCode(), e.getMsg());
+        return ResultVO.error(e.getCode(), e.getMsg());
     }
 }

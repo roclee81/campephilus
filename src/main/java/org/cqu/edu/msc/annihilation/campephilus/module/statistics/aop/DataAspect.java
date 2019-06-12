@@ -28,6 +28,7 @@ public class DataAspect<T extends BaseSuperclass> {
         this.redisTemplate = redisTemplate;
     }
 
+    @SuppressWarnings("unchecked")
     @AfterReturning(value = saveDataPoint)
     public void saveDataPoint(JoinPoint point) {
         Object[] objects = point.getArgs();

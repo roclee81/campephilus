@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
-import org.cqu.edu.msc.annihilation.common.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;

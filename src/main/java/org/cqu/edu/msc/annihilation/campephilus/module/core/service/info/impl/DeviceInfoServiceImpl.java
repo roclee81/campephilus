@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
-import org.cqu.edu.msc.annihilation.common.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceInfoService;
