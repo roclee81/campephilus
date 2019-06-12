@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
  */
 @Data
 @Valid
-public class InstrumentRequestForm {
+public class InstrumentForm {
 
     /**
      * 数据传输操作码

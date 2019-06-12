@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 import java.util.List;
 
@@ -20,5 +20,5 @@ public interface PatientInfoService extends CrudService<PatientInfo> {
 
     void updatePatientInfo(PatientInfo patientInfo);
 
-    void savePatientInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
+    void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }

@@ -5,7 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseExcep
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
@@ -34,9 +34,9 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
-    public void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        OperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationInfo.class, "operationInfo");
-        parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
+    public void saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+        OperationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationInfo.class, "operationInfo");
+        parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         this.save(parseObject);
     }
 
@@ -46,13 +46,13 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
-    public void updateOperationTimeParseDataDTO(ParseDataDTO parseDataDTO) {
+    public void updateOperationTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
-        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(parseDataDTO.getOperationNumber());
+        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
         SaveException.checkDataIsNotExist(queryResult);
         // TODO 代码重复性较高
-        OperationInfo parseObject = ParseJsonUtil.parseTimeJsonString(parseDataDTO);
+        OperationInfo parseObject = ParseJsonUtil.parseTimeJsonString(instrumentForm);
         if (null != parseObject.getOperationStartTime()) {
             queryResult.setOperationStartTime(parseObject.getOperationStartTime());
             queryResult.setOperationState(1);

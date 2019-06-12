@@ -1,11 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationDeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,9 +58,9 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
     }
 
     @Override
-    public void saveOperationDeviceInfoFromParseDataDTO(ParseDataDTO parseDataDTO) {
-        OperationDeviceInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationDeviceInfo.class, "operationDeviceInfo");
-        parseObject.setOperationNumber(parseDataDTO.getOperationNumber());
+    public void saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+        OperationDeviceInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationDeviceInfo.class, "operationDeviceInfo");
+        parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         this.save(parseObject);
     }
 

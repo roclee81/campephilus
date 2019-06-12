@@ -1,7 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto;
 
 import lombok.Data;
+import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,13 +25,18 @@ public class ResultDataDTO {
     /**
      * 包含信息的Msg
      */
-    private Map msg;
+    private Map<String, Object> msg;
 
-    public ResultDataDTO() {
-    }
-
-    public ResultDataDTO(Integer code, Map msg) {
+    private ResultDataDTO(Integer code, Map<String, Object> msg) {
         this.code = code;
         this.msg = msg;
     }
+
+    public static ResultDataDTO convert(Integer code, Object mac, Object operationNumber) {
+        Map<String, Object> map = new HashMap<>(4);
+        map.put(DataConstants.MAC, mac);
+        map.put(DataConstants.OPERATION_NUMBER, operationNumber);
+        return new ResultDataDTO(code, map);
+    }
+
 }

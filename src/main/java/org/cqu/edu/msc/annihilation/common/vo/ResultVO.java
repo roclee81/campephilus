@@ -2,8 +2,6 @@ package org.cqu.edu.msc.annihilation.common.vo;
 
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
-import java.io.Serializable;
-
 /**
  * @author lx
  * @version V1.0
@@ -11,9 +9,7 @@ import java.io.Serializable;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ResultVO implements Serializable {
-
-    private static final long serialVersionUID = -3317912514177592875L;
+public class ResultVO {
 
     private Integer code;
 
@@ -48,13 +44,19 @@ public class ResultVO implements Serializable {
         return null == object ? notFound() : success(object);
     }
 
-    @Override
-    public String toString() {
-        return "ResultVO{" +
-                "code=" + code +
-                ", msg=" + msg +
-                '}';
+    public Integer getCode() {
+        return code;
     }
 
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
+    public Object getMsg() {
+        return msg;
+    }
+
+    public void setMsg(Object msg) {
+        this.msg = msg;
+    }
 }

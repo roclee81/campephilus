@@ -1,10 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,8 +49,8 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     }
 
     @Override
-    public void saveOperationMarkInfoFromParseDTO(ParseDataDTO parseDataDTO) {
-        OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, OperationMarkInfo.class);
+    public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+        OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo.class);
         this.saveOperationMarkInfo(parseObject);
     }
 

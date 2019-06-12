@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 /**
  * @author lx
@@ -13,11 +13,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataD
  */
 public interface OperationInfoService extends CrudService<OperationInfo> {
 
-    void saveOperationInfoFromParseDataDTO(ParseDataDTO parseDataDTO);
+    void saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
     Integer countOperationInfo();
 
-    void updateOperationTimeParseDataDTO(ParseDataDTO parseDataDTO);
+    void updateOperationTimeFromInstrumentForm(InstrumentForm instrumentForm);
 
     int getOperationStateByOperationNumber(int operationNumber);
 

@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentRequestForm;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 
 /**
@@ -19,10 +19,10 @@ public interface InstrumentRequestProcessService {
      * 解析并且处理表单信息
      * 处理完成后将返回ResultDataDTO
      *
-     * @param instrumentRequestForm 接收到的表单
+     * @param instrumentForm 接收到的表单
      * @return 返回的DTO
      */
-    ResultDataDTO processInstrumentData(InstrumentRequestForm instrumentRequestForm);
+    ResultDataDTO processInstrumentData(InstrumentForm instrumentForm);
 
     /**
      * 得到新的手术顺序号

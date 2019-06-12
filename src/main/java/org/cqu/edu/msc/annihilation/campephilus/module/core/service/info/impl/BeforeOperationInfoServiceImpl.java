@@ -1,12 +1,12 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.BeforeOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeOperationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,9 +54,9 @@ public class BeforeOperationInfoServiceImpl implements BeforeOperationInfoServic
     }
 
     @Override
-    public BeforeOperationInfo saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO) {
-        PatientInfo parsePatientInfo = ParseJsonUtil.parseJsonString(parseDataDTO, PatientInfo.class, "patientInfo");
-        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(parseDataDTO, BeforeOperationInfo.class, "beforeOperationInfo");
+    public BeforeOperationInfo saveBeforeOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+        PatientInfo parsePatientInfo = ParseJsonUtil.parseJsonString(instrumentForm, PatientInfo.class, "patientInfo");
+        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, BeforeOperationInfo.class, "beforeOperationInfo");
         parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
         this.saveBeforeOperationInfo(parseObject);
         return parseObject;

@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ParseDataDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 import java.util.List;
 
@@ -20,5 +20,5 @@ public interface BeforeOperationInfoService extends CrudService<BeforeOperationI
 
     List<BeforeOperationInfo> listAllBeforeOperationInfo(int page, int size);
 
-    BeforeOperationInfo saveBeforeOperationInfoFromDataDTO(ParseDataDTO parseDataDTO);
+    BeforeOperationInfo saveBeforeOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }
