@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lx
@@ -35,7 +36,7 @@ public class DataAspect<T extends BaseSuperclass> {
         T t = (T) objects[0];
         t.setGmtCreate(new Date());
         String key = "on:" + t.getOperationNumber() + "sn:" + t.getSerialNumber();
-        // TODO 应该加上超时时间
         redisTemplate.opsForValue().set(key, t);
+        redisTemplate.expire(key,30, TimeUnit.SECONDS);
     }
 }

@@ -21,7 +21,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils listAllResponseEntity(List<T> searchResult) {
+    public static <T> ResultVOUtils listAll(List<T> searchResult) {
         return searchResult.size() != 0 ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
@@ -32,7 +32,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static ResultVOUtils listResponseEntity(Object searchResult) {
+    public static ResultVOUtils list(Object searchResult) {
         return null != searchResult ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
@@ -44,7 +44,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils saveResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils save(CrudService<T> crudService, T t) {
         crudService.save(t);
         return ResultVOUtils.success(t);
     }
@@ -57,7 +57,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils updateResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils update(CrudService<T> crudService, T t) {
         crudService.update(t);
         return ResultVOUtils.success(t);
     }
@@ -70,7 +70,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils deleteResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils delete(CrudService<T> crudService, T t) {
         crudService.delete(t);
         return ResultVOUtils.success(t);
     }

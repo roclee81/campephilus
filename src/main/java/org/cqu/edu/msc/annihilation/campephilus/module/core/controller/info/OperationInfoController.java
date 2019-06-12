@@ -36,9 +36,9 @@ public class OperationInfoController extends BaseController<OperationInfo> {
     }
 
     @GetMapping("/state")
-    ResultVOUtils getOperationState(@RequestParam(value = "operationNumber", defaultValue = "0") int operationNumber) {
+    ResultVOUtils getOperationState(@RequestParam(value = "operationNumber", defaultValue = "1") int operationNumber) {
         int operationState = operationInfoService.getOperationStateByOperationNumber(operationNumber);
-        return ControllerCrudUtils.listResponseEntity(operationState);
+        return ControllerCrudUtils.list(operationState);
     }
 
 }

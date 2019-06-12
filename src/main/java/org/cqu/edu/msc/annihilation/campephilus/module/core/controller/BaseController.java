@@ -23,24 +23,24 @@ public abstract class BaseController<T> {
     @GetMapping("")
     ResultVOUtils list(@RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAllResponseEntity(getCrudService().listAll(page, size));
+        return ControllerCrudUtils.listAll(getCrudService().listAll(page, size));
     }
 
     @PostMapping("")
     ResultVOUtils save(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return ControllerCrudUtils.saveResponseEntity(getCrudService(), t);
+        return ControllerCrudUtils.save(getCrudService(), t);
     }
 
     @PutMapping("")
     ResultVOUtils update(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return ControllerCrudUtils.updateResponseEntity(getCrudService(), t);
+        return ControllerCrudUtils.update(getCrudService(), t);
     }
 
     @DeleteMapping("")
     ResultVOUtils delete(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return ControllerCrudUtils.deleteResponseEntity(getCrudService(), t);
+        return ControllerCrudUtils.delete(getCrudService(), t);
     }
 }

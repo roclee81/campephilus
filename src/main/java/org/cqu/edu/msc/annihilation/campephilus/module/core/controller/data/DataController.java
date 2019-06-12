@@ -28,7 +28,6 @@ public class DataController {
                               @RequestParam("serialNumber") String serialNumber) {
         String key = "on:" + operationNumber + "sn:" + serialNumber;
         Object value = redisTemplate.opsForValue().get(key);
-        // TODO 判断是否为空
         return ResultVOUtils.checkAndReturn(value);
     }
 }
