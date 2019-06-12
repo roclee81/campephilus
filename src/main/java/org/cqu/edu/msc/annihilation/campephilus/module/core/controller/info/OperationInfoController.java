@@ -6,7 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +36,7 @@ public class OperationInfoController extends BaseController<OperationInfo> {
     }
 
     @GetMapping("/state")
-    ResultVO getOperationState(@RequestParam(value = "operationNumber", defaultValue = "0") int operationNumber) {
+    ResultVOUtils getOperationState(@RequestParam(value = "operationNumber", defaultValue = "0") int operationNumber) {
         int operationState = operationInfoService.getOperationStateByOperationNumber(operationNumber);
         return ControllerCrudUtils.listResponseEntity(operationState);
     }

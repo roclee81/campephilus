@@ -10,7 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.Device
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -71,16 +70,16 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      *
      * @param instrumentForm 初次解析的DTO
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Override
     public void processCode(InstrumentForm instrumentForm) {
         switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(instrumentForm.getCode()))) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
             case OPERATION_READY: {
                 // TODO 需要添加事务
                 instrumentForm.setOperationNumber(getNewOperationNumber());
+                patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
                 operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
                 operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
-                patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
                 beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
                 break;
             }

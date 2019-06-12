@@ -4,7 +4,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseContr
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +33,7 @@ public class OperationDeviceInfoController extends BaseController<OperationDevic
     }
 
     @GetMapping("/")
-    public ResultVO listByOperationNumber(@RequestParam(name = "operationNumber") int operationNumber) {
-        return ResultVO.checkAndReturn(operationDeviceInfoService.listByOperationNumber(operationNumber));
+    public ResultVOUtils listByOperationNumber(@RequestParam(name = "operationNumber") int operationNumber) {
+        return ResultVOUtils.checkAndReturn(operationDeviceInfoService.listByOperationNumber(operationNumber));
     }
 }

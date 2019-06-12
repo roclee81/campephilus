@@ -31,4 +31,6 @@ public interface InstrumentRequestProcessService {
      * @return 下一个新的手术顺序号
      */
     Integer getNewOperationNumber();
+
+    void processCode(InstrumentForm instrumentForm);
 }

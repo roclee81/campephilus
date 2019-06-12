@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +24,11 @@ public class DataController {
     }
 
     @GetMapping("/")
-    public ResultVO list(@RequestParam("operationNumber") String operationNumber,
-                         @RequestParam("serialNumber") String serialNumber) {
+    public ResultVOUtils list(@RequestParam("operationNumber") String operationNumber,
+                              @RequestParam("serialNumber") String serialNumber) {
         String key = "on:" + operationNumber + "sn:" + serialNumber;
         Object value = redisTemplate.opsForValue().get(key);
         // TODO 判断是否为空
-        return ResultVO.checkAndReturn(value);
+        return ResultVOUtils.checkAndReturn(value);
     }
 }

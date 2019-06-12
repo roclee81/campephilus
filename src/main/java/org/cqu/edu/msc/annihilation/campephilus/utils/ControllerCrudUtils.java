@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.utils;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVO listAllResponseEntity(List<T> searchResult) {
-        return searchResult.size() != 0 ? ResultVO.success(searchResult) : ResultVO.notFound();
+    public static <T> ResultVOUtils listAllResponseEntity(List<T> searchResult) {
+        return searchResult.size() != 0 ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
     /**
@@ -32,8 +32,8 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static ResultVO listResponseEntity(Object searchResult) {
-        return null != searchResult ? ResultVO.success(searchResult) : ResultVO.notFound();
+    public static ResultVOUtils listResponseEntity(Object searchResult) {
+        return null != searchResult ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
     /**
@@ -44,9 +44,9 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVO saveResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils saveResponseEntity(CrudService<T> crudService, T t) {
         crudService.save(t);
-        return ResultVO.success(t);
+        return ResultVOUtils.success(t);
     }
 
     /**
@@ -57,9 +57,9 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVO updateResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils updateResponseEntity(CrudService<T> crudService, T t) {
         crudService.update(t);
-        return ResultVO.success(t);
+        return ResultVOUtils.success(t);
     }
 
     /**
@@ -70,8 +70,8 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVO deleteResponseEntity(CrudService<T> crudService, T t) {
+    public static <T> ResultVOUtils deleteResponseEntity(CrudService<T> crudService, T t) {
         crudService.delete(t);
-        return ResultVO.success(t);
+        return ResultVOUtils.success(t);
     }
 }
