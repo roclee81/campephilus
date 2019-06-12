@@ -53,13 +53,6 @@ public class OperationMarkInfo implements Serializable {
     /**
      * 事件类型
      */
-    @NotBlank(message = "eventType must cannot empty")
-    @Column(name = "event_type")
-    private String eventType;
-
-    /**
-     * 事件
-     */
     @NotBlank(message = "mark_event must cannot empty")
     @Column(name = "mark_event")
     private String markEvent;
