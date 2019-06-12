@@ -37,6 +37,6 @@ public class DataAspect<T extends BaseSuperclass> {
         t.setGmtCreate(new Date());
         String key = "on:" + t.getOperationNumber() + "sn:" + t.getSerialNumber();
         redisTemplate.opsForValue().set(key, t);
-        redisTemplate.expire(key,30, TimeUnit.SECONDS);
+        redisTemplate.expire(key, 5, TimeUnit.MINUTES);
     }
 }

@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -45,13 +46,13 @@ public class OperationInfo implements Serializable {
      * 手术开始时间
      */
     @Column(name = "operation_start_time")
-    private Date operationStartTime;
+    private Timestamp operationStartTime;
 
     /**
      * 手术结束时间
      */
     @Column(name = "operation_end_time")
-    private Date operationEndTime;
+    private Timestamp operationEndTime;
 
     /**
      * 手术状态

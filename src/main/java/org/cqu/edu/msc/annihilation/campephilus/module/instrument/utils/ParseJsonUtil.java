@@ -9,6 +9,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveExcept
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
@@ -56,9 +57,9 @@ public class ParseJsonUtil {
         OperationInfo operationInfo = new OperationInfo();
         for (String key : map.keySet()) {
             if ("operationEndTime".equals(key)) {
-                operationInfo.setOperationEndTime(new Date(Long.parseLong((String) map.get("operationEndTime"))));
+                operationInfo.setOperationEndTime(new Timestamp(Long.parseLong((String) map.get("operationEndTime"))));
             } else if ("operationStartTime".equals(key)) {
-                operationInfo.setOperationStartTime(new Date(Long.parseLong((String) map.get("operationStartTime"))));
+                operationInfo.setOperationStartTime(new Timestamp(Long.parseLong((String) map.get("operationStartTime"))));
             }
         }
         return operationInfo;

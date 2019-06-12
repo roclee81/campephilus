@@ -36,17 +36,18 @@ CREATE TABLE `info_operation`
 
 CREATE TABLE `info_operation_mark`
 (
-    `pk_id`             INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
-    `mark_type`         TINYINT      NOT NULL COMMENT '标记类型',
-    `event_type`        VARCHAR(32)  NOT NULL COMMENT '事件类型',
-    `event`             VARCHAR(32)  NOT NULL COMMENT '事件',
-    `way`               VARCHAR(32)  NOT NULL COMMENT '途径',
-    `dose`              VARCHAR(32)  NOT NULL COMMENT '剂量',
-    `special_situation` VARCHAR(32) COMMENT '不良反应/特殊情况',
-    `mark_time`         DATETIME     NOT NULL COMMENT '标记信息标记的时间',
-    `gmt_create`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `operation_number`  INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
+    `pk_id`                INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
+    `mark_main_type`       VARCHAR(32)  NOT NULL COMMENT '标记大类型',
+    `mark_sub_Type`        VARCHAR(32)  NOT NULL COMMENT '标记小类型',
+    `event_type`           VARCHAR(32)  NOT NULL COMMENT '事件类型',
+    `mark_event`           VARCHAR(32)  NOT NULL COMMENT '事件',
+    `give_medicine_method` VARCHAR(32)  NOT NULL COMMENT '途径',
+    `give_medicine_volume` VARCHAR(32)  NOT NULL COMMENT '剂量',
+    `side_effect`          VARCHAR(256) NOT NULL COMMENT '不良反应/特殊情况',
+    `mark_time`            DATETIME     NOT NULL COMMENT '标记信息标记的时间',
+    `gmt_create`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `operation_number`     INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
     PRIMARY KEY (pk_id)
 ) COMMENT '标记信息表7';
 

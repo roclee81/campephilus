@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -36,11 +37,18 @@ public class OperationMarkInfo implements Serializable {
     private Integer id;
 
     /**
+     * 标记大类型
+     */
+    @NotBlank(message = "mark_main_type must cannot empty")
+    @Column(name = "mark_main_type")
+    private String markMainType;
+
+    /**
      * 标记类型
      */
-    @NotBlank(message = "markType must cannot empty")
-    @Column(name = "mark_type")
-    private Integer markType;
+    @NotBlank(message = "`mark_sub_Type` must cannot empty")
+    @Column(name = "`mark_sub_Type`")
+    private String markSubType;
 
     /**
      * 事件类型
@@ -52,37 +60,37 @@ public class OperationMarkInfo implements Serializable {
     /**
      * 事件
      */
-    @NotBlank(message = "event must cannot empty")
-    @Column(name = "event")
-    private String event;
+    @NotBlank(message = "mark_event must cannot empty")
+    @Column(name = "mark_event")
+    private String markEvent;
 
     /**
      * 途径
      */
-    @NotBlank(message = "way must cannot empty")
-    @Column(name = "way")
-    private String way;
+    @NotBlank(message = "give_medicine_method must cannot empty")
+    @Column(name = "give_medicine_method")
+    private String giveMedicineMethod;
 
     /**
      * 剂量
      */
-    @NotBlank(message = "dose must cannot empty")
-    @Column(name = "dose")
-    private String dose;
+    @NotBlank(message = "give_medicine_volume must cannot empty")
+    @Column(name = "give_medicine_volume")
+    private String giveMedicineVolume;
 
     /**
      * 不良反应/特殊情况
      */
-    @NotBlank(message = "specialSituation must cannot empty")
-    @Column(name = "special_situation")
-    private String specialSituation;
+    @NotBlank(message = "side_effect must cannot empty")
+    @Column(name = "side_effect")
+    private String sideEffect;
 
     /**
      * 标记信息标记的时间
      */
     @NotNull(message = "mark_time must cannot empty")
     @Column(name = "mark_time")
-    private Date markTime;
+    private Timestamp markTime;
 
     /**
      * 数据创建时间
@@ -99,6 +107,6 @@ public class OperationMarkInfo implements Serializable {
     /**
      * 手术顺序号
      */
-    @Column(name = "operation_id")
-    private Integer operationId;
+    @Column(name = "operation_Number")
+    private Integer operationNumber;
 }

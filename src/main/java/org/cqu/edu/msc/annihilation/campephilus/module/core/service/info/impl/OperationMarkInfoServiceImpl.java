@@ -51,6 +51,9 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     @Override
     public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo.class);
+        if (null != parseObject) {
+            parseObject.setOperationNumber(instrumentForm.getOperationNumber());
+        }
         this.saveOperationMarkInfo(parseObject);
     }
 
