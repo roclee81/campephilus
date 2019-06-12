@@ -163,3 +163,11 @@ CREATE TABLE `info_operation_device`
     `gmt_modified`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_operation_number)
 ) COMMENT '手术使用的设备表';
+
+CREATE TABLE `info_log`
+(
+    `pk_id`      SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+    `error`      TEXT                 NOT NULL COMMENT '错误日志信息',
+    `gmt_create` DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (pk_id)
+) COMMENT '错误日志信息表';
