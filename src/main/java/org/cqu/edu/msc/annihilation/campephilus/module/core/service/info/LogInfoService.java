@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.LogInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 /**
  * @author lx
@@ -12,4 +13,5 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
  */
 public interface LogInfoService extends CrudService<LogInfo> {
 
+    void saveLogInfoFromInstrumentFrom(InstrumentForm instrumentForm);
 }

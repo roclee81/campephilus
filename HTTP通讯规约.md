@@ -41,8 +41,8 @@
 * POSTOPERATIVE_PATIENT_INFO_READY_SUCCESS(182, "可以发送术后患者信息，服务器已经准备好了"),
 * POSTOPERATIVE_PATIENT_INFO(183, "是术后患者信息"),
 * POSTOPERATIVE_PATIENT_INFO_SUCCESS(184, "收到术后患者信息"),
-* FEEDBACK_INFO(185, "是反馈数据"),
-* FEEDBACK_INFO_SUCCESS(186, "反馈数据接收成功"),
+* FEEDBACK_INFO(185, "是反馈错误数据"),
+* FEEDBACK_INFO_SUCCESS(186, "反馈错误数据接收成功"),
 
 
 ## response code

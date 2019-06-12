@@ -3,6 +3,8 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.LogInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.LogInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.LogInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,5 +48,11 @@ public class LogInfoServiceImpl implements LogInfoService {
     @Override
     public void delete(LogInfo logInfo) {
 
+    }
+
+    @Override
+    public void saveLogInfoFromInstrumentFrom(InstrumentForm instrumentForm) {
+        LogInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, LogInfo.class);
+        this.save(parseObject);
     }
 }

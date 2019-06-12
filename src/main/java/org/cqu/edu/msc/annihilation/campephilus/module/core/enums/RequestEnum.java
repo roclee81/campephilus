@@ -110,9 +110,9 @@ public enum RequestEnum {
     POSTOPERATIVE_PATIENT_INFO(183),
 
     /**
-     * 是反馈数据
+     * 是反馈错误数据
      */
-    FEEDBACK_INFO(185);
+    FEEDBACK_ERROR_INFO(185);
 
     private Integer code;
 

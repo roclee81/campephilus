@@ -11,8 +11,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.Instru
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 /**
  * campephilus
  *
@@ -34,8 +32,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final PatientInfoService patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
     private final DeviceDataService deviceDataService;
+    private final LogInfoService logInfoService;
 
-    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService) {
+    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
@@ -44,6 +43,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.patientInfoService = patientInfoService;
         this.operationDeviceInfoService = operationDeviceInfoService;
         this.deviceDataService = deviceDataService;
+        this.logInfoService = logInfoService;
     }
 
     @Override
@@ -72,7 +72,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      */
     @Override
     public void processCode(InstrumentForm instrumentForm) {
-        switch (Objects.requireNonNull(RequestEnum.matchRequestEnum(instrumentForm.getCode()))) {
+        RequestEnum requestEnum = RequestEnum.matchRequestEnum(instrumentForm.getCode());
+        if (null == requestEnum) {
+            throw new ParseException(ResponseEnum.CODE_ERROR);
+        }
+        switch (requestEnum) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
             case OPERATION_READY: {
                 // TODO 需要添加事务
@@ -106,9 +110,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 operationMarkInfoService.saveOperationMarkInfoFromInstrumentForm(instrumentForm);
                 break;
             }
-            // 处理上传的反馈数据
-            case FEEDBACK_INFO: {
-                // TODO 是外包还是接入数据库，待定
+            // 处理上传的反馈错误数据
+            case FEEDBACK_ERROR_INFO: {
+                logInfoService.saveLogInfoFromInstrumentFrom(instrumentForm);
                 break;
             }
             // 处理获取版本的请求
@@ -117,7 +121,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 break;
             }
             default: {
-                throw new ParseException(ResponseEnum.CODE_ERROR);
+
             }
         }
     }
