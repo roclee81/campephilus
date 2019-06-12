@@ -1,14 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,32 +45,32 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
-    public void updateOperationTimeFromInstrumentForm(InstrumentForm instrumentForm) {
-        // 首先查询是否存在该条数据，根据OperationNumber查询
-        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
-        // 判断到数据不存在则抛出错误
-        SaveException.checkDataIsNotExist(queryResult);
-        // TODO 代码重复性较高
-        OperationInfo parseObject = ParseJsonUtil.parseTimeJsonString(instrumentForm);
-        if (null != parseObject.getOperationStartTime()) {
-            queryResult.setOperationStartTime(parseObject.getOperationStartTime());
-            queryResult.setOperationState(1);
-        } else if (null != parseObject.getOperationEndTime()) {
-            queryResult.setOperationEndTime(parseObject.getOperationEndTime());
-            queryResult.setOperationState(2);
-        } else {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
-        }
-        this.update(queryResult);
-    }
-
-    @Override
     public int getOperationStateByOperationNumber(int operationNumber) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(operationNumber);
         // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsNotExist(queryResult);
         return queryResult.getOperationState();
+    }
+
+    @Override
+    public void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm) {
+        // 首先查询是否存在该条数据，根据OperationNumber查询
+        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
+        // 判断到数据不存在则抛出错误
+        SaveException.checkDataIsNotExist(queryResult);
+        queryResult.setOperationStartTime(TimeStampUtils.getCurrentTimeStamp());
+        this.update(queryResult);
+    }
+
+    @Override
+    public void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm) {
+        // 首先查询是否存在该条数据，根据OperationNumber查询
+        OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
+        // 判断到数据不存在则抛出错误
+        SaveException.checkDataIsNotExist(queryResult);
+        queryResult.setOperationEndTime(TimeStampUtils.getCurrentTimeStamp());
+        this.update(queryResult);
     }
 
     @Override

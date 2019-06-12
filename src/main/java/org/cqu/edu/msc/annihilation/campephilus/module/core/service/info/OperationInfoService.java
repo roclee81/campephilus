@@ -17,8 +17,9 @@ public interface OperationInfoService extends CrudService<OperationInfo> {
 
     Integer countOperationInfo();
 
-    void updateOperationTimeFromInstrumentForm(InstrumentForm instrumentForm);
-
     int getOperationStateByOperationNumber(int operationNumber);
 
+    void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm);
+
+    void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm);
 }
