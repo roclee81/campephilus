@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -9,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author lx
@@ -18,12 +18,13 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_operation_device")
-public class OperationDeviceInfo implements Serializable {
+public class OperationDeviceInfo extends BaseInfoSuperclass implements Serializable {
 
     private static final long serialVersionUID = -7456701585085979233L;
     /**
@@ -68,16 +69,4 @@ public class OperationDeviceInfo implements Serializable {
 
     @Column(name = "device_serial_number5")
     private String deviceSerialNumber5;
-
-    /**
-     * 数据创建时间
-     */
-    @Column(name = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Column(name = "gmt_modified")
-    private Date gmtModified;
 }

@@ -1,10 +1,4 @@
 spring:
-  data:
-    redis:
-      repositories:
-        enabled: false
-  application:
-    name: campephilus
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: campephilus
@@ -14,7 +8,3 @@ spring:
   redis:
     host: r-wz97709w2x1bqvu9tn.redis.rds.aliyuncs.com
     password: 7@V8nwnFUKtzBaB6
-
-server:
-  servlet:
-    context-path: /campephilus

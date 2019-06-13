@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
-public class BaseSuperclass {
+public class BaseDataSuperclass {
 
     /**
      * 自动增长

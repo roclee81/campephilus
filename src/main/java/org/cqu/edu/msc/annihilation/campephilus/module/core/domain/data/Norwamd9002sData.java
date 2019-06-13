@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "data_norwamd_9002s")
-public class Norwamd9002sData extends BaseSuperclass implements Serializable {
+public class Norwamd9002sData extends BaseDataSuperclass implements Serializable {
 
     private static final long serialVersionUID = -3302167041948046696L;
     /**

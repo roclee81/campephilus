@@ -1,13 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
-import java.util.Date;
 
 /**
  * @author lx
@@ -16,12 +16,13 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_device_hospital_relation")
-public class DeviceHospitalRelationInfo implements Serializable {
+public class DeviceHospitalRelationInfo extends BaseInfoSuperclass implements Serializable {
 
     private static final long serialVersionUID = 4495024344464908326L;
     /**
@@ -67,16 +68,4 @@ public class DeviceHospitalRelationInfo implements Serializable {
      */
     @Column(name = "device_comment")
     private String deviceComment;
-
-    /**
-     * 数据创建时间
-     */
-    @Column(name = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Column(name = "gmt_modified")
-    private Date gmtModified;
 }

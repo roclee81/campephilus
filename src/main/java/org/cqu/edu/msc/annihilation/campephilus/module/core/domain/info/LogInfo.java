@@ -1,13 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author lx
@@ -16,12 +16,13 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_log")
-public class LogInfo implements Serializable {
+public class LogInfo extends BaseInfoSuperclass implements Serializable {
 
     private static final long serialVersionUID = 4009046787822594239L;
     /**
@@ -35,16 +36,4 @@ public class LogInfo implements Serializable {
     @NotBlank(message = "error must cannot empty")
     @Column(name = "error")
     private String error;
-
-    /**
-     * 数据创建时间
-     */
-    @Column(name = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Column(name = "gmt_modified")
-    private Date gmtModified;
 }

@@ -3,3 +3,14 @@ spring:
     name: campephilus
   profiles:
     active: test
+  data:
+    redis:
+      repositories:
+        enabled: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+
+server:
+  servlet:
+    context-path: /campephilus

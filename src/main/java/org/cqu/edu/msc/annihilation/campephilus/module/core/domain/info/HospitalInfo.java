@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author lx
@@ -19,12 +19,13 @@ import java.util.Date;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_hospital")
-public class HospitalInfo implements Serializable {
+public class HospitalInfo extends BaseInfoSuperclass implements Serializable {
 
     private static final long serialVersionUID = 1754584679477101566L;
 
@@ -55,16 +56,4 @@ public class HospitalInfo implements Serializable {
     @NotBlank(message = "hospitalLevel must cannot empty")
     @Column(name = "hospital_level")
     private String hospitalLevel;
-
-    /**
-     * 数据创建时间
-     */
-    @Column(name = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Column(name = "gmt_modified")
-    private Date gmtModified;
 }

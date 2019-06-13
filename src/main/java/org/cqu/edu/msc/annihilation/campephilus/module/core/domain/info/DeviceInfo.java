@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -9,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
-import java.util.Date;
 
 /**
  * @author lx
@@ -19,12 +19,13 @@ import java.util.Date;
  * Description:
  * 医疗仪器的基础属性
  */
+@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_device")
-public class DeviceInfo implements Serializable {
+public class DeviceInfo extends BaseInfoSuperclass implements Serializable {
 
     private static final long serialVersionUID = 233410313766289238L;
     /**
@@ -62,16 +63,4 @@ public class DeviceInfo implements Serializable {
     @NotNull(message = "deviceServiceLife must cannot empty")
     @Column(name = "device_service_life")
     private Float deviceServiceLife;
-
-    /**
-     * 数据创建时间
-     */
-    @Column(name = "gmt_create")
-    private Date gmtCreate;
-
-    /**
-     * 数据修改时间
-     */
-    @Column(name = "gmt_modified")
-    private Date gmtModified;
 }

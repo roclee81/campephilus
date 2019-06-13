@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Vinicolor
@@ -10,6 +11,14 @@ import java.sql.Timestamp;
  * 时间戳工具类
  */
 public class TimeStampUtils {
+
+    public static Long convertLongTimeStamp(Date date) {
+        return date.getTime();
+    }
+
+    public static Long getCurrentLongTimeStamp() {
+        return System.currentTimeMillis() / 1000;
+    }
 
     public static Timestamp getCurrentTimeStamp() {
         return new Timestamp(System.currentTimeMillis());

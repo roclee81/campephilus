@@ -1,9 +1,11 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.aspect;
+package org.cqu.edu.msc.annihilation.campephilus.module.message.aspect;
 
+import com.google.gson.Gson;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.BaseSuperclass;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.BaseDataSuperclass;
+import org.cqu.edu.msc.annihilation.campephilus.module.message.WebSocketServer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Aspect
-public class DataAspect<T extends BaseSuperclass> {
+public class DataAspect<T extends BaseDataSuperclass> {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -35,8 +37,19 @@ public class DataAspect<T extends BaseSuperclass> {
         Object[] objects = point.getArgs();
         T t = (T) objects[0];
         t.setGmtCreate(new Date());
+        t.setGmtModified(new Date());
         String key = "on:" + t.getOperationNumber() + "sn:" + t.getSerialNumber();
         redisTemplate.opsForValue().set(key, t);
         redisTemplate.expire(key, 5, TimeUnit.MINUTES);
+    }
+
+    @SuppressWarnings("unchecked")
+    @AfterReturning(value = saveDataPoint)
+    public void pushMessage(JoinPoint point) {
+        Object[] objects = point.getArgs();
+        T t = (T) objects[0];
+        t.setGmtCreate(new Date());
+        t.setGmtModified(new Date());
+        WebSocketServer.sendInfo(new Gson().toJson(t));
     }
 }
