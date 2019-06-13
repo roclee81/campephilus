@@ -42,7 +42,7 @@ public class OperationMarkInfoController extends BaseController<OperationMarkInf
                         .listAll(page, size)
                         .parallelStream()
                         .peek(t -> {
-                            t.setLongMarkTime(t.getMarkTime().getTime());
+                            t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime()));
                             t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
                             t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
                         })

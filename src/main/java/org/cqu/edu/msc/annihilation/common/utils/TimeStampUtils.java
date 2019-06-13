@@ -105,4 +105,8 @@ public class TimeStampUtils {
     public static Integer getDayBeforeTimeStampValue(int days) {
         return getCurrentTimeStampValue() - 86400 * days;
     }
+
+    public static Long getTimeStampOfTimeStampObject(Timestamp markTime) {
+        return markTime.getTime() / 1000;
+    }
 }
