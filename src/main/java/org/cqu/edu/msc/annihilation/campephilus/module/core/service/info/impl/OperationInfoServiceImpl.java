@@ -7,12 +7,12 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
-import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -59,7 +59,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
         SaveException.checkDataIsNotExist(queryResult);
-        queryResult.setOperationStartTime(TimeStampUtils.getCurrentTimeStamp());
+        queryResult.setOperationStartTime(LocalDateTime.now());
         queryResult.setOperationState(1);
         this.update(queryResult);
     }
@@ -70,7 +70,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
         SaveException.checkDataIsNotExist(queryResult);
-        queryResult.setOperationEndTime(TimeStampUtils.getCurrentTimeStamp());
+        queryResult.setOperationEndTime(LocalDateTime.now());
         queryResult.setOperationState(2);
         this.update(queryResult);
     }

@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * campephilus
@@ -43,17 +44,25 @@ public class OperationInfo extends BaseInfoSuperclass implements Serializable {
     @Column(name = "operation_name")
     private String operationName;
 
+    @Transient
+    private Long longOperationStartTime;
+
+    @Transient
+    private Long longOperationEndTime;
+
     /**
      * 手术开始时间
      */
+    @JsonIgnore
     @Column(name = "operation_start_time")
-    private Timestamp operationStartTime;
+    private LocalDateTime operationStartTime;
 
     /**
      * 手术结束时间
      */
+    @JsonIgnore
     @Column(name = "operation_end_time")
-    private Timestamp operationEndTime;
+    private LocalDateTime operationEndTime;
 
     /**
      * 手术状态

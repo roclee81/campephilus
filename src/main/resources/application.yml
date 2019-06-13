@@ -7,9 +7,6 @@ spring:
     redis:
       repositories:
         enabled: false
-  jackson:
-    serialization:
-      write-dates-as-timestamps: true
 
 server:
   servlet:

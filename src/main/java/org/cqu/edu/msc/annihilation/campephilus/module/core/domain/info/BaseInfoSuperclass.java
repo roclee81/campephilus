@@ -1,10 +1,12 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import java.util.Date;
+import javax.persistence.Transient;
+import java.time.LocalDateTime;
 
 /**
  * @author lx
@@ -15,16 +17,26 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
+public
 class BaseInfoSuperclass {
+
+    @Transient
+    private Long longModified;
+
+    @Transient
+    private Long longCreate;
+
     /**
      * 数据创建时间
      */
+    @JsonIgnore
     @Column(name = "gmt_create")
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
 
     /**
      * 数据修改时间
      */
+    @JsonIgnore
     @Column(name = "gmt_modified")
-    private Date gmtModified;
+    private LocalDateTime gmtModified;
 }

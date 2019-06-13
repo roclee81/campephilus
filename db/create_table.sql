@@ -3,7 +3,7 @@ CREATE TABLE `info_device`
     `pk_id`                SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
     `device_serial_number` VARCHAR(32)       NOT NULL COMMENT '设备序列号，不一定唯一',
-    `device_produce_date`  TIME              NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
+    `device_produce_date`  DATE              NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
     `device_service_life`  FLOAT             NOT NULL COMMENT '设备使用年限',
     `gmt_create`           DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified`         DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -165,9 +165,9 @@ CREATE TABLE `info_operation_device`
 
 CREATE TABLE `info_log`
 (
-    `pk_id`      SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `error`      TEXT                 NOT NULL COMMENT '错误日志信息',
-    `gmt_create` DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `pk_id`        SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+    `error`        TEXT                 NOT NULL COMMENT '错误日志信息',
+    `gmt_create`   DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified` DATETIME             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_id)
 ) COMMENT '错误日志信息表';

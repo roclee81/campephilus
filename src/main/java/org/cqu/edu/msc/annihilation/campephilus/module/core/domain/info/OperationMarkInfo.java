@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -79,9 +80,13 @@ public class OperationMarkInfo extends BaseInfoSuperclass implements Serializabl
     @Column(name = "side_effect")
     private String sideEffect;
 
+    @Transient
+    private Long longMarkTime;
+
     /**
      * 标记信息标记的时间
      */
+    @JsonIgnore
     @NotNull(message = "mark_time must cannot empty")
     @Column(name = "mark_time")
     private Timestamp markTime;

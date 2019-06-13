@@ -13,7 +13,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ControllerCrudUtils{
+public class ControllerCrudUtils {
 
     /**
      * 包装返回类
@@ -30,7 +30,6 @@ public class ControllerCrudUtils{
      * 包装返回类
      *
      * @param searchResult
-     * @param <T>
      * @return
      */
     public static ResultVO list(Object searchResult) {

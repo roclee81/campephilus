@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
+import java.time.LocalTime;
 
 /**
  * @author lx
@@ -55,7 +55,7 @@ public class DeviceHospitalRelationInfo extends BaseInfoSuperclass implements Se
      * 设备购买时间 eg: 2017-08-01
      */
     @Column(name = "device_produce_date")
-    private Time deviceProduceDate;
+    private LocalTime deviceProduceDate;
 
     /**
      * 购买地址

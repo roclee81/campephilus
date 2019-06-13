@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Time;
+import java.time.LocalDate;
 
 /**
  * @author lx
@@ -55,7 +55,7 @@ public class DeviceInfo extends BaseInfoSuperclass implements Serializable {
      */
     @NotBlank(message = "deviceProduceDate must cannot empty")
     @Column(name = "device_produce_date")
-    private Time deviceProduceDate;
+    private LocalDate deviceProduceDate;
 
     /**
      * 仪器的使用年限
