@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.statistics.aop;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
