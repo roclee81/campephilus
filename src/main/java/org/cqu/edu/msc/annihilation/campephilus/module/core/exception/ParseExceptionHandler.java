@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +24,7 @@ public class ParseExceptionHandler {
      */
     @ExceptionHandler(value = ParseException.class)
     @ResponseBody
-    public ResultVOUtils handleDeviceException(ParseException e) {
+    public ResultVO handleDeviceException(ParseException e) {
         return ResultVOUtils.error(e.getCode(), e.getMsg());
     }
 }

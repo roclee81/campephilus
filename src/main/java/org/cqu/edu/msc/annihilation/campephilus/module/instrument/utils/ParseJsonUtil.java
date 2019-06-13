@@ -4,12 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSyntaxException;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
@@ -22,47 +21,36 @@ import java.util.Map;
  */
 public class ParseJsonUtil {
 
-    @SuppressWarnings("unchecked")
     public static <T> T parseJsonString(InstrumentForm instrumentForm, Class<T> classOfT) {
         String json = instrumentForm.getData();
-        T object;
-        try {
-            object = getGsonObject().fromJson(json, classOfT);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), json);
-        }
-        return object;
+        return getTObject(classOfT, json);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T parseJsonString(InstrumentForm instrumentForm, Class<T> classOfT, String className) {
         // 首先将JSON字符串转换为MAP
         Map<String, Object> map = getJsonMap(instrumentForm);
 
         // 将MAP转换为类
         String json = getGsonObject().toJson(map.get(className));
+        return getTObject(classOfT, json);
+    }
+
+    /**
+     * 解析json字符串并转换成类
+     *
+     * @param classOfT 转换的类
+     * @param json     带解析的json字符串
+     * @param <T>      泛型
+     * @return 泛型类
+     */
+    private static <T> T getTObject(Class<T> classOfT, String json) {
         T object;
         try {
             object = getGsonObject().fromJson(json, classOfT);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), json);
+        } catch (JsonSyntaxException | NumberFormatException exception) {
+            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), json);
         }
         return object;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static OperationInfo parseTimeJsonString(InstrumentForm instrumentForm) {
-        // 首先将JSON字符串转换为MAP
-        Map<String, Object> map = getJsonMap(instrumentForm);
-        OperationInfo operationInfo = new OperationInfo();
-        for (String key : map.keySet()) {
-            if ("operationEndTime".equals(key)) {
-                operationInfo.setOperationEndTime(new Timestamp(Long.parseLong((String) map.get("operationEndTime"))));
-            } else if ("operationStartTime".equals(key)) {
-                operationInfo.setOperationStartTime(new Timestamp(Long.parseLong((String) map.get("operationStartTime"))));
-            }
-        }
-        return operationInfo;
     }
 
     private static Gson getGsonObject() {

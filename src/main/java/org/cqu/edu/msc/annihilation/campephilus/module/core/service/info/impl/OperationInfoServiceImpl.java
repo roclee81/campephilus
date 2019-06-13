@@ -60,6 +60,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         // 判断到数据不存在则抛出错误
         SaveException.checkDataIsNotExist(queryResult);
         queryResult.setOperationStartTime(TimeStampUtils.getCurrentTimeStamp());
+        queryResult.setOperationState(1);
         this.update(queryResult);
     }
 
@@ -70,6 +71,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         // 判断到数据不存在则抛出错误
         SaveException.checkDataIsNotExist(queryResult);
         queryResult.setOperationEndTime(TimeStampUtils.getCurrentTimeStamp());
+        queryResult.setOperationState(2);
         this.update(queryResult);
     }
 

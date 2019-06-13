@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.utils;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ControllerCrudUtils {
+public class ControllerCrudUtils{
 
     /**
      * 包装返回类
@@ -21,7 +22,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils listAll(List<T> searchResult) {
+    public static <T> ResultVO listAll(List<T> searchResult) {
         return searchResult.size() != 0 ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
@@ -32,7 +33,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static ResultVOUtils list(Object searchResult) {
+    public static ResultVO list(Object searchResult) {
         return null != searchResult ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
@@ -44,7 +45,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils save(CrudService<T> crudService, T t) {
+    public static <T> ResultVO save(CrudService<T> crudService, T t) {
         crudService.save(t);
         return ResultVOUtils.success(t);
     }
@@ -57,7 +58,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils update(CrudService<T> crudService, T t) {
+    public static <T> ResultVO update(CrudService<T> crudService, T t) {
         crudService.update(t);
         return ResultVOUtils.success(t);
     }
@@ -70,7 +71,7 @@ public class ControllerCrudUtils {
      * @param <T>
      * @return
      */
-    public static <T> ResultVOUtils delete(CrudService<T> crudService, T t) {
+    public static <T> ResultVO delete(CrudService<T> crudService, T t) {
         crudService.delete(t);
         return ResultVOUtils.success(t);
     }
