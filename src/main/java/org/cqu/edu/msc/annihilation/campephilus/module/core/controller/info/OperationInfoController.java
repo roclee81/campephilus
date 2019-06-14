@@ -42,6 +42,7 @@ public class OperationInfoController extends BaseController<OperationInfo> {
 
     @Override
     @GetMapping("")
+    @Cacheable()
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                   @RequestParam(value = "size", defaultValue = "20") int size) {
         return ControllerCrudUtils.listAll(

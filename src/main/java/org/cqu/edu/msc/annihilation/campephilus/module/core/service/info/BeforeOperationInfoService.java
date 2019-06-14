@@ -4,8 +4,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOp
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
-import java.util.List;
-
 /**
  * @author lx
  * @version V1.0
@@ -14,11 +12,5 @@ import java.util.List;
  * Description:
  */
 public interface BeforeOperationInfoService extends CrudService<BeforeOperationInfo> {
-    void saveBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo);
-
-    void updateBeforeOperationInfo(BeforeOperationInfo beforeOperationInfo);
-
-    List<BeforeOperationInfo> listAllBeforeOperationInfo(int page, int size);
-
     BeforeOperationInfo saveBeforeOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }

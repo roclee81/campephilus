@@ -3,8 +3,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 
-import java.util.List;
-
 /**
  * @author lx
  * @version V1.0
@@ -16,6 +14,4 @@ public interface DeviceInfoService extends CrudService<DeviceInfo> {
     void saveDeviceInfo(DeviceInfo deviceInfo);
 
     void updateDeviceInfo(DeviceInfo deviceInfo);
-
-    List<DeviceInfo> listAllDeviceInfo(int page, int size);
 }

@@ -1,18 +1,16 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.PatientInfoRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author lx
@@ -22,7 +20,7 @@ import java.util.List;
  * Description:
  */
 @Service
-public class PatientInfoServiceImpl implements PatientInfoService {
+public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Integer> implements PatientInfoService {
 
     private final PatientInfoRepository patientInfoRepository;
 
@@ -32,7 +30,24 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
     @Override
-    public synchronized void savePatientInfo(PatientInfo patientInfo) {
+    public JpaRepository<PatientInfo, Integer> getJpaRepository() {
+        return patientInfoRepository;
+    }
+
+    @Override
+    protected Integer getId(PatientInfo patientInfo) {
+        return patientInfo.getId();
+    }
+
+    @Override
+    public void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+        PatientInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, PatientInfo.class, "patientInfo");
+        parseObject.setOperationNumber(instrumentForm.getOperationNumber());
+        this.save(parseObject);
+    }
+
+    @Override
+    public synchronized void save(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据patientId和admissionNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsExist(patientInfoRepository.findPatientInfoByAdmissionNumber(
@@ -42,42 +57,9 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
     @Override
-    public List<PatientInfo> listAllPatientInfo(int page, int size) {
-        Page<PatientInfo> searchResult = patientInfoRepository.findAll(PageRequest.of(page, size));
-        return searchResult.getContent();
-    }
-
-    @Override
-    public synchronized void updatePatientInfo(PatientInfo patientInfo) {
+    public synchronized void update(PatientInfo patientInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudUtils.updateObjectAndCheckSuccess(
                 patientInfoRepository, patientInfo.getAdmissionNumber(), patientInfo);
-    }
-
-    @Override
-    public void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
-        PatientInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, PatientInfo.class, "patientInfo");
-        parseObject.setOperationNumber(instrumentForm.getOperationNumber());
-        this.savePatientInfo(parseObject);
-    }
-
-    @Override
-    public void save(PatientInfo patientInfo) {
-        this.savePatientInfo(patientInfo);
-    }
-
-    @Override
-    public void update(PatientInfo patientInfo) {
-        this.updatePatientInfo(patientInfo);
-    }
-
-    @Override
-    public List<PatientInfo> listAll(int page, int size) {
-        return this.listAllPatientInfo(page, size);
-    }
-
-    @Override
-    public void delete(PatientInfo patientInfo) {
-
     }
 }

@@ -2,15 +2,13 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.LogInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.LogInfoRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.LogInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author lx
@@ -20,7 +18,7 @@ import java.util.List;
  * Description:
  */
 @Service
-public class LogInfoServiceImpl implements LogInfoService {
+public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> implements LogInfoService {
 
     private final LogInfoRepository logInfoRepository;
 
@@ -29,25 +27,18 @@ public class LogInfoServiceImpl implements LogInfoService {
     }
 
     @Override
+    public JpaRepository<LogInfo, Integer> getJpaRepository() {
+        return logInfoRepository;
+    }
+
+    @Override
+    protected Integer getId(LogInfo logInfo) {
+        return logInfo.getId();
+    }
+
+    @Override
     public void save(LogInfo logInfo) {
         ServiceCrudUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
-    }
-
-    @Override
-    public void update(LogInfo logInfo) {
-        // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudUtils.updateObjectAndCheckSuccess(logInfoRepository, logInfo.getId(), logInfo);
-    }
-
-    @Override
-    public List<LogInfo> listAll(int page, int size) {
-        Page<LogInfo> searchResult = logInfoRepository.findAll(PageRequest.of(page, size));
-        return searchResult.getContent();
-    }
-
-    @Override
-    public void delete(LogInfo logInfo) {
-
     }
 
     @Override

@@ -3,8 +3,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 
-import java.util.List;
-
 /**
  * @author lx
  * @version V1.0
@@ -13,9 +11,4 @@ import java.util.List;
  * Description:
  */
 public interface DeviceHospitalRelationInfoService extends CrudService<DeviceHospitalRelationInfo> {
-    void saveDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo);
-
-    void updateDeviceHospitalRelationInfo(DeviceHospitalRelationInfo deviceHospitalRelationInfo);
-
-    List<DeviceHospitalRelationInfo> listAllDeviceHospitalRelationInfo(int page, int size);
 }

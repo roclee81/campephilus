@@ -4,8 +4,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientI
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
-import java.util.List;
-
 /**
  * @author lx
  * @version V1.0
@@ -14,11 +12,5 @@ import java.util.List;
  * Description:
  */
 public interface PatientInfoService extends CrudService<PatientInfo> {
-    void savePatientInfo(PatientInfo patientInfo);
-
-    List<PatientInfo> listAllPatientInfo(int page, int size);
-
-    void updatePatientInfo(PatientInfo patientInfo);
-
     void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }

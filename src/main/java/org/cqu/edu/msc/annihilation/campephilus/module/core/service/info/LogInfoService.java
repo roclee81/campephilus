@@ -12,6 +12,5 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
  * Description:
  */
 public interface LogInfoService extends CrudService<LogInfo> {
-
     void saveLogInfoFromInstrumentFrom(InstrumentForm instrumentForm);
 }

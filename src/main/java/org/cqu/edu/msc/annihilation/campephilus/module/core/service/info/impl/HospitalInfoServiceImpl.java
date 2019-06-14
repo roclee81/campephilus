@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.HospitalInfoRepository;
@@ -8,6 +9,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Hospita
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +22,23 @@ import java.util.List;
  * Description:
  */
 @Service
-public class HospitalInfoServiceImpl implements HospitalInfoService {
+public class HospitalInfoServiceImpl extends AbstractInfoService<HospitalInfo,String> implements HospitalInfoService {
 
     private final HospitalInfoRepository hospitalInfoRepository;
 
     @Autowired
     public HospitalInfoServiceImpl(HospitalInfoRepository hospitalInfoRepository) {
         this.hospitalInfoRepository = hospitalInfoRepository;
+    }
+
+    @Override
+    public JpaRepository<HospitalInfo, String> getJpaRepository() {
+        return hospitalInfoRepository;
+    }
+
+    @Override
+    protected String getId(HospitalInfo hospitalInfo) {
+        return hospitalInfo.getHospitalCode();
     }
 
     @Override
@@ -39,34 +51,7 @@ public class HospitalInfoServiceImpl implements HospitalInfoService {
     }
 
     @Override
-    public List<HospitalInfo> listAllOperationInfo(int page, int size) {
-        Page<HospitalInfo> searchResult = hospitalInfoRepository.findAll(PageRequest.of(page, size));
-        return searchResult.getContent();
-    }
-
-    @Override
-    public void updateHospitalInfo(HospitalInfo hospitalInfo) {
-        // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudUtils.updateObjectAndCheckSuccess(hospitalInfoRepository, hospitalInfo.getHospitalCode(), hospitalInfo);
-    }
-
-    @Override
     public void save(HospitalInfo hospitalInfo) {
         this.saveHospitalInfo(hospitalInfo);
-    }
-
-    @Override
-    public void update(HospitalInfo hospitalInfo) {
-        this.updateHospitalInfo(hospitalInfo);
-    }
-
-    @Override
-    public List<HospitalInfo> listAll(int page, int size) {
-        return this.listAllOperationInfo(page, size);
-    }
-
-    @Override
-    public void delete(HospitalInfo hospitalInfo) {
-
     }
 }

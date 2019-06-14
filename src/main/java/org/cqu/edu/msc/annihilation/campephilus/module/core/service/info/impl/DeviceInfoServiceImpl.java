@@ -1,16 +1,14 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceInfoRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author lx
@@ -20,13 +18,23 @@ import java.util.List;
  * Description:
  */
 @Service
-public class DeviceInfoServiceImpl implements DeviceInfoService {
+public class DeviceInfoServiceImpl extends AbstractInfoService<DeviceInfo,Integer> implements DeviceInfoService {
 
     private final DeviceInfoRepository deviceInfoRepository;
 
     @Autowired
     public DeviceInfoServiceImpl(DeviceInfoRepository deviceInfoRepository) {
         this.deviceInfoRepository = deviceInfoRepository;
+    }
+
+    @Override
+    public JpaRepository<DeviceInfo, Integer> getJpaRepository() {
+        return deviceInfoRepository;
+    }
+
+    @Override
+    protected Integer getId(DeviceInfo deviceInfo) {
+        return deviceInfo.getId();
     }
 
     @Override
@@ -45,11 +53,6 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         ServiceCrudUtils.updateObjectAndCheckSuccess(deviceInfoRepository, deviceInfo.getId(), deviceInfo);
     }
 
-    @Override
-    public List<DeviceInfo> listAllDeviceInfo(int page, int size) {
-        Page<DeviceInfo> searchResult = deviceInfoRepository.findAll(PageRequest.of(page, size));
-        return searchResult.getContent();
-    }
 
     @Override
     public void save(DeviceInfo deviceInfo) {
@@ -61,13 +64,5 @@ public class DeviceInfoServiceImpl implements DeviceInfoService {
         this.updateDeviceInfo(deviceInfo);
     }
 
-    @Override
-    public List<DeviceInfo> listAll(int page, int size) {
-        return this.listAllDeviceInfo(page, size);
-    }
 
-    @Override
-    public void delete(DeviceInfo deviceInfo) {
-
-    }
 }
