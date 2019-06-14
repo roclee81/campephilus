@@ -1,5 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
@@ -54,6 +56,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
+    @CacheRemove(value = CacheConstant.CACHE_NAME_INFO_OPERATION)
     public void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
@@ -65,6 +68,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
+//    @CacheRemove(value = CacheConstant.CACHE_NAME_INFO_OPERATION)
     public void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());

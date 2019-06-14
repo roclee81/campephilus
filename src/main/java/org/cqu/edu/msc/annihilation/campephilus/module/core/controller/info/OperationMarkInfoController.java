@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
-import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/operationMark")
-@Slf4j
 public class OperationMarkInfoController extends BaseController<OperationMarkInfo> {
 
     private final OperationMarkInfoService operationMarkInfoService;

@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
-import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/device")
-@Slf4j
 public class DeviceInfoController extends BaseController<DeviceInfo> {
 
     private final DeviceInfoService deviceInfoService;

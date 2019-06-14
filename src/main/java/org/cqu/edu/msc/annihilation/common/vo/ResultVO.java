@@ -1,5 +1,7 @@
 package org.cqu.edu.msc.annihilation.common.vo;
 
+import java.io.Serializable;
+
 /**
  * @author lx
  * @version V1.0
@@ -7,7 +9,9 @@ package org.cqu.edu.msc.annihilation.common.vo;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public class ResultVO {
+public class ResultVO implements Serializable {
+
+    private static final long serialVersionUID = -6307758086932966263L;
 
     private Integer code;
 
