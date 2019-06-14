@@ -9,12 +9,14 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Abstrac
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -89,10 +91,13 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     }
 
     @Override
-    public synchronized void save(OperationInfo operationInfo) {
-        // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(operationInfoRepository.findById(operationInfo.getOperationNumber()));
-        // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(operationInfoRepository, operationInfo);
+    public List<OperationInfo> listAll(int page, int size) {
+        return super.listAll(page, size)
+                .parallelStream()
+                .peek(t -> {
+                    t.setLongOperationStartTime(TimeStampUtils.getTimestampOfDateTime(t.getOperationStartTime()));
+                    t.setLongOperationEndTime(TimeStampUtils.getTimestampOfDateTime(t.getOperationEndTime()));
+                })
+                .collect(Collectors.toList());
     }
 }

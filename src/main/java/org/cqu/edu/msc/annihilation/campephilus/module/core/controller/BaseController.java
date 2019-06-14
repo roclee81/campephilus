@@ -4,15 +4,12 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BaseInfo
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -29,16 +26,7 @@ public abstract class BaseController<T extends BaseInfoSuperclass> {
     @Cacheable(unless = "#result.getCode() != 200")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAll(
-                getCrudService()
-                        .listAll(page, size)
-                        .parallelStream()
-                        .filter(Objects::nonNull)
-                        .peek(t -> {
-                            t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
-                            t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
-                        })
-                        .collect(Collectors.toList()));
+        return ControllerCrudUtils.listAll(getCrudService().listAll(page, size));
     }
 
     @PostMapping("")

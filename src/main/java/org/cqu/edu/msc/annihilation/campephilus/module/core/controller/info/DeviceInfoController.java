@@ -1,10 +1,12 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/device")
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_DEVICE)
 public class DeviceInfoController extends BaseController<DeviceInfo> {
 
     private final DeviceInfoService deviceInfoService;
@@ -32,4 +35,6 @@ public class DeviceInfoController extends BaseController<DeviceInfo> {
     protected CrudService<DeviceInfo> getCrudService() {
         return deviceInfoService;
     }
+
+
 }

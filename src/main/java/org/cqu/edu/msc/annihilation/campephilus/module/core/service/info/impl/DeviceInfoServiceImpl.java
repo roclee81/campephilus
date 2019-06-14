@@ -48,20 +48,8 @@ public class DeviceInfoServiceImpl extends AbstractInfoService<DeviceInfo,Intege
     }
 
     @Override
-    public synchronized void updateDeviceInfo(DeviceInfo deviceInfo) {
-        // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudUtils.updateObjectAndCheckSuccess(deviceInfoRepository, deviceInfo.getId(), deviceInfo);
-    }
-
-
-    @Override
     public void save(DeviceInfo deviceInfo) {
         this.saveDeviceInfo(deviceInfo);
-    }
-
-    @Override
-    public void update(DeviceInfo deviceInfo) {
-        this.updateDeviceInfo(deviceInfo);
     }
 
 

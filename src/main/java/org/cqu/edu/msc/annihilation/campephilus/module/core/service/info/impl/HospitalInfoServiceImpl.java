@@ -40,18 +40,4 @@ public class HospitalInfoServiceImpl extends AbstractInfoService<HospitalInfo,St
     protected String getId(HospitalInfo hospitalInfo) {
         return hospitalInfo.getHospitalCode();
     }
-
-    @Override
-    public synchronized void saveHospitalInfo(HospitalInfo hospitalInfo) {
-        // 首先查询是否存在该条数据，根据hospitalId查询
-        // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(hospitalInfoRepository.findById(hospitalInfo.getHospitalCode()));
-        // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(hospitalInfoRepository, hospitalInfo);
-    }
-
-    @Override
-    public void save(HospitalInfo hospitalInfo) {
-        this.saveHospitalInfo(hospitalInfo);
-    }
 }

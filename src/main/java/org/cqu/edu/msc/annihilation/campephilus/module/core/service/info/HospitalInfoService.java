@@ -11,5 +11,4 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
  * Description:
  */
 public interface HospitalInfoService extends CrudService<HospitalInfo> {
-    void saveHospitalInfo(HospitalInfo hospitalInfo);
 }

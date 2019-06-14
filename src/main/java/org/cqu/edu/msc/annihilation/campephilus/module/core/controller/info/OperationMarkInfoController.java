@@ -1,16 +1,15 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
-import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.Collectors;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author lx
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/operationMark")
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 public class OperationMarkInfoController extends BaseController<OperationMarkInfo> {
 
     private final OperationMarkInfoService operationMarkInfoService;
@@ -29,22 +29,6 @@ public class OperationMarkInfoController extends BaseController<OperationMarkInf
     @Autowired
     public OperationMarkInfoController(OperationMarkInfoService operationMarkInfoService) {
         this.operationMarkInfoService = operationMarkInfoService;
-    }
-
-    @Override
-    @GetMapping("")
-    public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
-                         @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAll(
-                getCrudService()
-                        .listAll(page, size)
-                        .parallelStream()
-                        .peek(t -> {
-                            t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime()));
-                            t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
-                            t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
-                        })
-                        .collect(Collectors.toList()));
     }
 
     @Override

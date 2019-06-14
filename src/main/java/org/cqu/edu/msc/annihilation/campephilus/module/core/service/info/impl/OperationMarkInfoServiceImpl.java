@@ -7,9 +7,13 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -51,5 +55,12 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     public void save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
         ServiceCrudUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+    }
+
+    @Override
+    public List<OperationMarkInfo> listAll(int page, int size) {
+        return super.listAll(page, size).parallelStream()
+                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
+                .collect(Collectors.toList());
     }
 }

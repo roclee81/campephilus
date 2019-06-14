@@ -12,6 +12,4 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
  */
 public interface DeviceInfoService extends CrudService<DeviceInfo> {
     void saveDeviceInfo(DeviceInfo deviceInfo);
-
-    void updateDeviceInfo(DeviceInfo deviceInfo);
 }

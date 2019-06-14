@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
@@ -7,6 +8,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/operationDevice")
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_DEVICE)
 public class OperationDeviceInfoController extends BaseController<OperationDeviceInfo> {
 
     private final OperationDeviceInfoService operationDeviceInfoService;

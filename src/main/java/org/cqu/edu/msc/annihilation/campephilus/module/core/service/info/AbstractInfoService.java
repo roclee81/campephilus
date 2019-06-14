@@ -27,7 +27,7 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> impl
     protected abstract ID getId(T t);
 
     @Override
-    public void save(T t) {
+    public synchronized void save(T t) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsExist(getJpaRepository().findById(getId(t)));
@@ -36,7 +36,7 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> impl
     }
 
     @Override
-    public void update(T t) {
+    public synchronized void update(T t) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudUtils.updateObjectAndCheckSuccess(getJpaRepository(), getId(t), t);
     }
