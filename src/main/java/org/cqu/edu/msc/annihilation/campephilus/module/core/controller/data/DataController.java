@@ -24,7 +24,7 @@ public class DataController {
         this.redisTemplate = redisTemplate;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResultVO list(@RequestParam("operationNumber") String operationNumber,
                          @RequestParam("serialNumber") String serialNumber) {
         String key = "on:" + operationNumber + "sn:" + serialNumber;
