@@ -24,7 +24,7 @@ import java.util.List;
  * Description:
  */
 @Service
-public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOperationInfo,Integer> implements BeforeOperationInfoService {
+public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOperationInfo, Integer> implements BeforeOperationInfoService {
 
     private final BeforeOperationInfoRepository beforeOperationInfoRepository;
 
@@ -40,6 +40,15 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
     @Override
     protected Integer getId(BeforeOperationInfo beforeOperationInfo) {
         return beforeOperationInfo.getId();
+    }
+
+    @Override
+    public synchronized void save(BeforeOperationInfo beforeOperationInfo) {
+        // 首先查询是否存在该条数据
+        // 判断到存在该仪器存在，则直接返回，抛出异常
+        SaveException.checkDataIsExist(beforeOperationInfoRepository.findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
+        // 判断保存是否成功，不成功将抛出异常
+        ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
     }
 
     @Override

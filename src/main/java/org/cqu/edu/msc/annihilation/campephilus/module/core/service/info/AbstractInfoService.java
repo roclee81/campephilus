@@ -28,7 +28,7 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
 
     @CacheRemove()
     public synchronized void save(T t) {
-        // 首先查询是否存在该条数据，根据OperationNumber查询
+        // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
         SaveException.checkDataIsExist(getJpaRepository().findById(getId(t)));
         // 判断保存是否成功，不成功将抛出异常

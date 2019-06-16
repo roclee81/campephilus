@@ -48,7 +48,17 @@ public class ParseException extends RuntimeException implements Serializable {
      *
      * @param saveObject 保存的对象
      */
-    public static void errorParseSuccess(Object saveObject) {
+    public static void error(Object saveObject) {
         throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, DataConstants.DATA_FORMAT_ERROR, saveObject.toString());
+    }
+
+    /**
+     * 检查保存的结果
+     * 如果保存失败，将抛出异常
+     *
+     * @param saveObject 保存的对象
+     */
+    public void error(String saveObject) {
+        throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, DataConstants.DATA_FORMAT_ERROR, saveObject);
     }
 }

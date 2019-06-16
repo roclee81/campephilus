@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;

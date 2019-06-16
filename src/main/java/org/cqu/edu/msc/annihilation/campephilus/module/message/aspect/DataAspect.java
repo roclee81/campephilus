@@ -36,8 +36,8 @@ public class DataAspect<T extends BaseDataSuperclass> {
     public void saveDataPoint(JoinPoint point) {
         Object[] objects = point.getArgs();
         T t = (T) objects[0];
-        t.setLongCreate(TimeStampUtils.getCurrentLongTimeStamp());
-        t.setLongModified(TimeStampUtils.getCurrentLongTimeStamp());
+        t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
+        t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
         String key = "on:" + t.getOperationNumber() + "sn:" + t.getSerialNumber();
         redisTemplate.opsForValue().set(key, t);
         redisTemplate.expire(key, 5, TimeUnit.MINUTES);
@@ -48,7 +48,7 @@ public class DataAspect<T extends BaseDataSuperclass> {
     public void pushMessage(JoinPoint point) {
         Object[] objects = point.getArgs();
         T t = (T) objects[0];
-        t.setLongCreate(TimeStampUtils.getCurrentLongTimeStamp());
+        t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
         t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
         WebSocketServer.sendInfo(new Gson().toJson(t));
     }

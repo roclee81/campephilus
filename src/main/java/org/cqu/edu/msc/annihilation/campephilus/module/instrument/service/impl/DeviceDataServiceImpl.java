@@ -35,7 +35,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     public void saveDeviceData(Integer operationNumber, String jsonData) {
         HashMap<String, Object> result = DeviceDataParser.parseDeviceData(jsonData);
         if (result.size() == 0) {
-            ParseException.errorParseSuccess(result);
+            ParseException.error(result);
         }
         for (String key : result.keySet()) {
             if ("30".equals(key)) {
