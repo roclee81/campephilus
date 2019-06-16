@@ -47,6 +47,9 @@ public class TimeStampUtils {
      * @return
      */
     public static long getTimestampOfDateTime(LocalDateTime localDateTime) {
+        if (null == localDateTime) {
+            return getCurrentLongTimeStamp();
+        }
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = localDateTime.atZone(zone).toInstant();
         return instant.toEpochMilli() / 1000;
