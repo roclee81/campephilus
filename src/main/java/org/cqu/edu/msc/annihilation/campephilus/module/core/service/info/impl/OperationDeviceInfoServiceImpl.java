@@ -39,7 +39,7 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
 
     @Override
     public void saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
-        OperationDeviceInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationDeviceInfo.class, "operationDeviceInfo");
+        OperationDeviceInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationDeviceInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         this.save(parseObject);
     }

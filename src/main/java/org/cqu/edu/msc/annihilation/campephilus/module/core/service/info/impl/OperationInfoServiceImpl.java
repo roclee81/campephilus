@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.OperationStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -47,7 +50,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
 
     @Override
     public void saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
-        OperationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationInfo.class, "operationInfo");
+        OperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         this.save(parseObject);
     }
@@ -88,6 +91,18 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         queryResult.setOperationEndTime(LocalDateTime.now());
         queryResult.setOperationState(2);
         this.update(queryResult);
+    }
+
+    @Override
+    public Map<Integer, Integer> getOperationInfoByCurrent() {
+        Map<Integer, Integer> result = new ConcurrentHashMap<>(16);
+        List<OperationInfo> operationInfoList = operationInfoRepository.findByOperationStateIs(OperationStateEnum.IN_PREPARATION.getCode());
+        operationInfoList.parallelStream()
+                .forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PREPARATION.getCode()));
+        operationInfoList = operationInfoRepository.findByOperationStateIs(OperationStateEnum.IN_PROGRESS.getCode());
+        operationInfoList.parallelStream()
+                .forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PROGRESS.getCode()));
+        return result;
     }
 
     @Override

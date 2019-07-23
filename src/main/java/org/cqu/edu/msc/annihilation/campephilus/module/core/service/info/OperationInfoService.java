@@ -4,6 +4,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
+import java.util.Map;
+
 /**
  * @author lx
  * @version V1.0
@@ -22,4 +24,12 @@ public interface OperationInfoService extends CrudService<OperationInfo> {
     void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm);
 
     void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm);
+
+    /**
+     * 得到当前正在进行的手术的场次号和状态
+     * 就是包括未开始的和正在进行的
+     *
+     * @return Map<Integer, Integer>
+     */
+    Map<Integer, Integer> getOperationInfoByCurrent();
 }

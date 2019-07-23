@@ -4,6 +4,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author lx
  * @version V1.0
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OperationInfoRepository extends JpaRepository<OperationInfo, Integer> {
+
+    List<OperationInfo> findByOperationStateIs(int state);
 
     OperationInfo findByOperationNumber(int operationNumber);
 }

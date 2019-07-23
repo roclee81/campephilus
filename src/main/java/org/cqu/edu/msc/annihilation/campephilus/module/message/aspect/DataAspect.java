@@ -1,11 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.message.aspect;
 
-import com.google.gson.Gson;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.BaseDataSuperclass;
-import org.cqu.edu.msc.annihilation.campephilus.module.message.WebSocketServer;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -43,13 +41,13 @@ public class DataAspect<T extends BaseDataSuperclass> {
         redisTemplate.expire(key, 5, TimeUnit.MINUTES);
     }
 
-    @SuppressWarnings("unchecked")
-    @AfterReturning(value = saveDataPoint)
-    public void pushMessage(JoinPoint point) {
-        Object[] objects = point.getArgs();
-        T t = (T) objects[0];
-        t.setLongCreate(TimeStampUtils.getCurrentLongTimeStamp());
-        t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
-        WebSocketServer.sendInfo(new Gson().toJson(t));
-    }
+//    @SuppressWarnings("unchecked")
+//    @AfterReturning(value = saveDataPoint)
+//    public void pushMessage(JoinPoint point) {
+//        Object[] objects = point.getArgs();
+//        T t = (T) objects[0];
+//        t.setLongCreate(TimeStampUtils.getCurrentLongTimeStamp());
+//        t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
+//        WebSocketServer.sendInfo(new Gson().toJson(t));
+//    }
 }

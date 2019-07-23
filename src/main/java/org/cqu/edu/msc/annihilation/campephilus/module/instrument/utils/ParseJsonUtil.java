@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSyntaxException;
+import org.apache.commons.lang3.ClassUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
@@ -26,13 +27,20 @@ public class ParseJsonUtil {
         return getTObject(classOfT, json);
     }
 
-    public static <T> T parseJsonString(InstrumentForm instrumentForm, Class<T> classOfT, String className) {
+    public static <T> T parseClassName2JsonString(InstrumentForm instrumentForm, Class<T> classOfT) {
+        String className = getClassName(classOfT);
         // 首先将JSON字符串转换为MAP
         Map<String, Object> map = getJsonMap(instrumentForm);
 
         // 将MAP转换为类
         String json = getGsonObject().toJson(map.get(className));
         return getTObject(classOfT, json);
+    }
+
+    private static <T> String getClassName(Class<T> classOfT) {
+        String className = ClassUtils.getShortClassName(classOfT);
+        String firstCharacter = className.substring(0, 1).toLowerCase();
+        return firstCharacter + className.substring(1);
     }
 
     /**

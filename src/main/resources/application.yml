@@ -4,6 +4,9 @@ spring:
   profiles:
     active: test
   data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
     redis:
       repositories:
         enabled: false

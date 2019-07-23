@@ -9,6 +9,6 @@ public interface DataCons {
     /**
     无效的数据值
      */
-    String INVALID_DATA = "-100";
+    String INVALID_DATA = "-5";
 
 }

@@ -12,6 +12,8 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @author lx
  * @version V1.0
@@ -42,5 +44,11 @@ public class OperationInfoController extends BaseController<OperationInfo> {
     public ResultVO getOperationState(@RequestParam(value = "operationNumber", defaultValue = "1") int operationNumber) {
         int operationState = operationInfoService.getOperationStateByOperationNumber(operationNumber);
         return ControllerCrudUtils.list(operationState);
+    }
+
+    @GetMapping("/current")
+    public ResultVO get(){
+        Map<Integer, Integer> map = operationInfoService.getOperationInfoByCurrent();
+        return ControllerCrudUtils.list(map);
     }
 }

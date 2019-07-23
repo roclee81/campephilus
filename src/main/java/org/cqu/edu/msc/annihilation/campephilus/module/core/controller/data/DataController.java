@@ -25,10 +25,19 @@ public class DataController {
     }
 
     @GetMapping("")
-    public ResultVO list(@RequestParam("operationNumber") String operationNumber,
-                         @RequestParam("serialNumber") String serialNumber) {
+    public ResultVO getNewestByOperationNumberAndSerialNumber(@RequestParam("operationNumber") String operationNumber,
+                                                              @RequestParam("serialNumber") String serialNumber) {
         String key = "on:" + operationNumber + "sn:" + serialNumber;
         Object value = redisTemplate.opsForValue().get(key);
         return ResultVOUtils.checkAndReturn(value);
     }
+
+    @GetMapping("/list/")
+    public ResultVO listByOperationNumberAndSerialNumber(@RequestParam("operationNumber") String operationNumber,
+                                                         @RequestParam("serialNumber") String serialNumber) {
+        // TODO 没写
+        return null;
+    }
+
+
 }

@@ -41,7 +41,7 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Inte
 
     @Override
     public void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
-        PatientInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, PatientInfo.class, "patientInfo");
+        PatientInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         this.save(parseObject);
     }

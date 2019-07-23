@@ -9,12 +9,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeO
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author lx
@@ -53,8 +49,8 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
 
     @Override
     public BeforeOperationInfo saveBeforeOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
-        PatientInfo parsePatientInfo = ParseJsonUtil.parseJsonString(instrumentForm, PatientInfo.class, "patientInfo");
-        BeforeOperationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, BeforeOperationInfo.class, "beforeOperationInfo");
+        PatientInfo parsePatientInfo = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
+        BeforeOperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, BeforeOperationInfo.class);
         parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
         this.save(parseObject);
         return parseObject;
