@@ -48,4 +48,9 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
     public OperationDeviceInfo listByOperationNumber(int operationNumber) {
         return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

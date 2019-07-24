@@ -62,4 +62,9 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Inte
         ServiceCrudUtils.updateObjectAndCheckSuccess(
                 patientInfoRepository, patientInfo.getAdmissionNumber(), patientInfo);
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

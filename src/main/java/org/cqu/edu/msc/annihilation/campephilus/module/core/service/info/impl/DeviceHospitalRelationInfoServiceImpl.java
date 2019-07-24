@@ -45,4 +45,9 @@ public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<D
         // 判断保存是否成功，不成功将抛出异常
         ServiceCrudUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

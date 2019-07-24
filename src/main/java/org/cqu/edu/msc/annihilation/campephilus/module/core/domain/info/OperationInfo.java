@@ -76,5 +76,13 @@ public class OperationInfo extends BaseInfoSuperclass implements Serializable {
     @NotBlank(message = "hospitalCode must cannot empty")
     @Column(name = "hospital_code")
     private String hospitalCode;
+
+    /**
+     * 医院的手术顺序号
+     * 每个医院的都不一样
+     */
+    @NotBlank(message = "hospital_operation_number must cannot empty")
+    @Column(name = "hospital_operation_number")
+    private String hospitalOperationNumber;
 }
 

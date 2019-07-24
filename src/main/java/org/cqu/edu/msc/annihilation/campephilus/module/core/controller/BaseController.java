@@ -27,6 +27,11 @@ public abstract class BaseController<T extends BaseInfoSuperclass> {
         return ControllerCrudUtils.listAll(getCrudService().listAll(page, size));
     }
 
+    @GetMapping("/count")
+    public ResultVO countAll() {
+        return ControllerCrudUtils.list(getCrudService().countAll());
+    }
+
     @PostMapping("")
     public ResultVO save(@Valid T t, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);

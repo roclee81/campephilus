@@ -63,4 +63,9 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
                 .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

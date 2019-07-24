@@ -97,7 +97,8 @@ operationNumber: -1
 data: {
     "operationInfo": {
         "hospitalCode": "0156161",
-        "operationName": "胸腔开孔"
+        "operationName": "胸腔开孔",
+        "hospitalOperationNumber": "777777"
     },
     "operationDeviceInfo": {
         "deviceCode0": "12",

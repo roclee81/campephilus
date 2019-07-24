@@ -23,14 +23,15 @@ CREATE TABLE `info_hospital`
 
 CREATE TABLE `info_operation`
 (
-    `pk_operation_number`  INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '手术顺序号',
-    `operation_name`       VARCHAR(64)  NOT NULL COMMENT '手术名称',
-    `operation_start_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术开始时间',
-    `operation_end_time`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术结束时间',
-    `operation_state`      TINYINT      NOT NULL DEFAULT 0 COMMENT '手术状态，0未开始，1正在进行，2已经结束',
-    `gmt_create`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `hospital_code`        VARCHAR(32)  NOT NULL COMMENT '医院国内代号，外键连接医院信息表',
+    `pk_operation_number`       INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '手术顺序号',
+    `operation_name`            VARCHAR(64)  NOT NULL COMMENT '手术名称',
+    `operation_start_time`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术开始时间',
+    `operation_end_time`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术结束时间',
+    `operation_state`           TINYINT      NOT NULL DEFAULT 0 COMMENT '手术状态，0未开始，1正在进行，2已经结束',
+    `gmt_create`                DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified`              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `hospital_code`             VARCHAR(32)  NOT NULL COMMENT '医院国内代号，外键连接医院信息表',
+    `hospital_operation_number` VARCHAR(32)  NOT NULL COMMENT '医院的手术顺序号',
     PRIMARY KEY (pk_operation_number)
 ) COMMENT '手术信息表4';
 

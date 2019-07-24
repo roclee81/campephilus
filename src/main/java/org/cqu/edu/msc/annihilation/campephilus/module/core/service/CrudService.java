@@ -40,4 +40,6 @@ public interface CrudService<T> {
      * @param t
      */
     void delete(T t);
+
+    long countAll();
 }

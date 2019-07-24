@@ -115,4 +115,9 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

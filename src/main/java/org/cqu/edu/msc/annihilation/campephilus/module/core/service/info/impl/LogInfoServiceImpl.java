@@ -46,4 +46,9 @@ public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> im
         LogInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, LogInfo.class);
         this.save(parseObject);
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
 }

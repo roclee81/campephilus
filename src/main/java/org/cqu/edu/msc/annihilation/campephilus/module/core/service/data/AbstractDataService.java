@@ -45,4 +45,10 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
     public void delete(T t) {
         ServiceCrudUtils.deleteObjectAndCheckSuccess(getJpaRepository(), getId(t), t);
     }
+
+    @Override
+    public long countAll() {
+        return getJpaRepository().count();
+    }
+
 }

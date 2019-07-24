@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
+public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID>  {
 
     public abstract JpaRepository<T, ID> getJpaRepository();
 
@@ -58,4 +58,6 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
                 .collect(Collectors.toList())
                 ;
     }
+
+
 }
