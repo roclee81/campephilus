@@ -6,7 +6,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSyntaxException;
 import org.apache.commons.lang3.ClassUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
@@ -72,8 +71,9 @@ public class ParseJsonUtil {
     private static Map<String, Object> getJsonMap(InstrumentForm instrumentForm) {
         try {
             return new Gson().fromJson(instrumentForm.getData(), Map.class);
-        } catch (JsonSyntaxException exception) {
-            throw new SaveException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), instrumentForm.toString());
+        } catch (JsonSyntaxException e) {
+            ParseException.dataFormatException(e, instrumentForm);
         }
+        return null;
     }
 }

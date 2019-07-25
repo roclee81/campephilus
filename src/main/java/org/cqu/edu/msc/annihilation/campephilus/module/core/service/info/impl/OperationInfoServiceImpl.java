@@ -65,7 +65,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(operationNumber);
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        CheckUtils.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExisted(queryResult);
         return queryResult.getOperationState();
     }
 
@@ -75,7 +75,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
-        CheckUtils.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExisted(queryResult);
         queryResult.setOperationStartTime(LocalDateTime.now());
         queryResult.setOperationState(1);
         this.update(queryResult);
@@ -87,7 +87,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
-        CheckUtils.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExisted(queryResult);
         queryResult.setOperationEndTime(LocalDateTime.now());
         queryResult.setOperationState(2);
         this.update(queryResult);

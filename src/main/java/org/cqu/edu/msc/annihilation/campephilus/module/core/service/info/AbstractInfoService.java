@@ -30,7 +30,7 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID>  {
     public synchronized void save(T t) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        CheckUtils.checkDataIsExist(getJpaRepository().findById(getId(t)).orElse(null));
+        CheckUtils.checkDataIsExisted(getJpaRepository().findById(getId(t)).orElse(null));
         // 判断保存是否成功，不成功将抛出异常
         ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
     }

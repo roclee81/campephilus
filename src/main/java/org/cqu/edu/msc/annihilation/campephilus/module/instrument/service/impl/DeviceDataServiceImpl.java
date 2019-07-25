@@ -2,13 +2,13 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.PearlcareYy106Data;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.Norwamd9002sDataServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.PearlcareYy106DataServiceImpl;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.*;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.DeviceDataParser;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataNuoHe;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataPuKe;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -34,9 +34,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     @Override
     public void saveDeviceData(Integer operationNumber, String jsonData) {
         HashMap<String, Object> result = DeviceDataParser.parseDeviceData(jsonData);
-        if (result.size() == 0) {
-            ParseException.error(result);
-        }
+        CheckUtils.checkParseResult(result, jsonData);
         for (String key : result.keySet()) {
             if ("30".equals(key)) {
                 DataNuoHe dataNuoHe = (DataNuoHe) result.get("30");

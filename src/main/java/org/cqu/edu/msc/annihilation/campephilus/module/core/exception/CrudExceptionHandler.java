@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Objects;
+
 /**
  * campephilus
  *
@@ -25,10 +27,10 @@ public class CrudExceptionHandler {
      */
     @ExceptionHandler(value = CrudException.class)
     @ResponseBody
-    public ResultVO handleDeviceException(SaveException e) {
+    public ResultVO handleDeviceException(CrudException e) {
         // 传递的值有错误信息，才将日志保存
-        if (null != e.getErrorMeg() && null != e.getErrorData()) {
-            log.error("SaveException: errorMeg = {}, errorData = {}", e.getErrorMeg(), e.getErrorData());
+        if (Objects.nonNull(e.getErrorMsg()) && Objects.nonNull(e.getErrorData()) && Objects.nonNull(e.getCrudTypeEnum())) {
+            log.error(e.getCrudTypeEnum().getMsg() + "Exception: errorMeg = {}, errorData = {}", e.getErrorMsg(), e.getErrorData());
         }
         return ResultVOUtils.error(e.getCode(), e.getMsg());
     }
