@@ -7,7 +7,6 @@ import com.google.gson.JsonSyntaxException;
 import org.apache.commons.lang3.ClassUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
 import java.util.Date;
 import java.util.Map;
@@ -51,11 +50,11 @@ public class ParseJsonUtil {
      * @return 泛型类
      */
     private static <T> T getTObject(Class<T> classOfT, String json) {
-        T object;
+        T object = null;
         try {
             object = getGsonObject().fromJson(json, classOfT);
         } catch (JsonSyntaxException | NumberFormatException exception) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, exception.toString(), json);
+            ParseException.dataFormatException(exception, json);
         }
         return object;
     }

@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
 import java.io.Serializable;
@@ -26,13 +25,13 @@ public class ParseException extends RuntimeException implements Serializable {
     private String errorMsg;
     private String errorData;
 
-    public ParseException(ResponseEnum responseEnum) {
+    private ParseException(ResponseEnum responseEnum) {
         super();
         this.msg = responseEnum.getMsg();
         this.code = responseEnum.getCode();
     }
 
-    public ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
+    private ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
         super();
         this.msg = responseEnum.getMsg();
         this.code = responseEnum.getCode();
@@ -40,11 +39,23 @@ public class ParseException extends RuntimeException implements Serializable {
         this.errorData = errorData;
     }
 
-    public static void dataFormatException(Exception e, InstrumentForm instrumentForm) {
-        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), instrumentForm.toString());
+    public static void dataFormatException(Exception e, Object errorData) {
+        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), errorData.toString());
     }
 
-    public static void dataFormatException(String jsonData) {
-        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, "ParseException", jsonData);
+    public static void dataFormatException(String errorData) {
+        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, "ParseException", errorData);
+    }
+
+    public static void dataFormatException() {
+        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
+    }
+
+    public static void codeException() {
+        throw new ParseException(ResponseEnum.CODE_ERROR);
+    }
+
+    public static void dataFormatException(String errorMsg, String errorData) {
+        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, errorMsg, errorData);
     }
 }

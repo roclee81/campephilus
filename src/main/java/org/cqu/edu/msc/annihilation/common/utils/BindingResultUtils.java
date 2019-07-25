@@ -1,8 +1,7 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
-import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
+import org.cqu.edu.msc.annihilation.common.constant.DataConstants;
 import org.springframework.validation.BindingResult;
 
 import java.util.Objects;
@@ -24,7 +23,7 @@ public class BindingResultUtils {
     public static void checkBindingResult(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, DataConstants.DATA_FIELD_FORMAT_ERROR, msg);
+            ParseException.dataFormatException(DataConstants.DATA_FIELD_FORMAT_ERROR, msg);
         }
     }
 }

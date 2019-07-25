@@ -8,7 +8,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.D
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataWeiHaoKang;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.parser.ParseNuoHe;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.parser.ParsePuKe;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,16 +33,16 @@ public class DeviceDataParser {
         HashMap<String, Object> dataMap = new HashMap<>();
         // result[0] = ""   result[1] = "deviceCode"    result[2] = "deviceData"    result[3] = "serialNumber"
         String[] result = rawData.split("#");
-        String deviceCode;
-        String deviceData;
-        String serialNumber;
+        String deviceCode = null;
+        String deviceData = null;
+        String serialNumber = null;
         try {
             deviceCode = result[1];
             deviceData = result[2];
             serialNumber = result[3];
         } catch (Exception e) {
-            String errorMessage = "rawData: " + rawData + "split:" + Arrays.toString(result);
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), errorMessage);
+            String errorData = "rawData: " + rawData + "split:" + Arrays.toString(result);
+            ParseException.dataFormatException(e.toString(), errorData);
         }
 
         // Check the validation of data

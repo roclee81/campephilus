@@ -8,8 +8,9 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultData
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * campephilus
@@ -48,8 +49,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
 
     @Override
     public ResultDataDTO processInstrumentData(InstrumentForm instrumentForm) {
-        if (null == instrumentForm) {
-            throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
+        if (Objects.isNull(instrumentForm)) {
+            ParseException.dataFormatException();
         }
 
         processCode(instrumentForm);
@@ -73,8 +74,8 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     @Override
     public void processCode(InstrumentForm instrumentForm) {
         RequestEnum requestEnum = RequestEnum.matchRequestEnum(instrumentForm.getCode());
-        if (null == requestEnum) {
-            throw new ParseException(ResponseEnum.CODE_ERROR);
+        if (Objects.isNull(requestEnum)) {
+            ParseException.codeException();
         }
         switch (requestEnum) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
