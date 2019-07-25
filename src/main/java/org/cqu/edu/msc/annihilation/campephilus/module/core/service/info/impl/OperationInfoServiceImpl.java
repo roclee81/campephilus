@@ -4,12 +4,12 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.OperationStateEnum;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -65,7 +65,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(operationNumber);
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExist(queryResult);
         return queryResult.getOperationState();
     }
 
@@ -75,7 +75,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
-        SaveException.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExist(queryResult);
         queryResult.setOperationStartTime(LocalDateTime.now());
         queryResult.setOperationState(1);
         this.update(queryResult);
@@ -87,7 +87,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
         // 判断到数据不存在则抛出错误
-        SaveException.checkDataIsNotExist(queryResult);
+        CheckUtils.checkDataIsNotExist(queryResult);
         queryResult.setOperationEndTime(LocalDateTime.now());
         queryResult.setOperationState(2);
         this.update(queryResult);

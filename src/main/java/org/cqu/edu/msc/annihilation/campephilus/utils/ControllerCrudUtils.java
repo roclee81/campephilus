@@ -74,4 +74,9 @@ public class ControllerCrudUtils {
         crudService.delete(t);
         return ResultVOUtils.success(t);
     }
+
+    public static <T> ResultVO delete(CrudService<T> crudService, int id) {
+        crudService.delete(id);
+        return ResultVOUtils.success(id);
+    }
 }

@@ -1,10 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,7 +41,7 @@ public class DeviceInfoServiceImpl extends AbstractInfoService<DeviceInfo,Intege
     public synchronized void saveDeviceInfo(DeviceInfo deviceInfo) {
         // 首先查询是否存在该条数据，根据deviceProducer和deviceSerialNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
+        CheckUtils.checkDataIsExist(deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
                 deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceCrudUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);

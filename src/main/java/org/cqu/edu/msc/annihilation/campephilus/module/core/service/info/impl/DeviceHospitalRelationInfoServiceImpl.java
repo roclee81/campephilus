@@ -1,10 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceHospitalRelationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<D
     public void save(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
         // 首先查询是否存在该条数据，根据AdmissionNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(deviceHospitalRelationInfoRepository
+        CheckUtils.checkDataIsExist(deviceHospitalRelationInfoRepository
                 .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
                         deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常

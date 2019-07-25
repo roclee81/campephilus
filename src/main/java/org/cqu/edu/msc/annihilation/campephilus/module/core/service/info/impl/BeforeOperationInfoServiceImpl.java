@@ -2,12 +2,12 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.BeforeOperationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
     public synchronized void save(BeforeOperationInfo beforeOperationInfo) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        SaveException.checkDataIsExist(beforeOperationInfoRepository.findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
+        CheckUtils.checkDataIsExist(beforeOperationInfoRepository.findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
         ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
     }

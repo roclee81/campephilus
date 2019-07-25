@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.utils;
 
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.SaveException;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.validation.ValidationException;
@@ -32,7 +32,7 @@ public class ServiceCrudUtils {
         } catch (Exception e) {
             throw new SaveException(ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
         }
-        SaveException.checkSaveSuccess(result, object);
+        CheckUtils.checkSaveSuccess(result, object);
     }
 
     /**
@@ -55,17 +55,28 @@ public class ServiceCrudUtils {
             throw new SaveException(ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
         }
 
-        SaveException.checkSaveSuccess(result, object);
+        CheckUtils.checkSaveSuccess(result, object);
     }
 
     @SuppressWarnings("unchecked")
     public static void deleteObjectAndCheckSuccess(JpaRepository jpaRepository, Object id, Object object) {
         // 首先需要查询数据是否存在
-        SaveException.checkDataIsNotExist(jpaRepository.findById(id));
+        CheckUtils.checkDataIsNotExist(jpaRepository.findById(id).orElse(null));
         try {
             jpaRepository.delete(id);
         } catch (Exception e) {
             throw new SaveException(ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void deleteObjectAndCheckSuccess(JpaRepository jpaRepository, Object id) {
+        // 首先需要查询数据是否存在
+        CheckUtils.checkDataIsNotExist(jpaRepository.findById(id).orElse(null));
+        try {
+            jpaRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new SaveException(ResponseEnum.UNKNOWN_ERROR, e.toString(), id.toString());
         }
     }
 }

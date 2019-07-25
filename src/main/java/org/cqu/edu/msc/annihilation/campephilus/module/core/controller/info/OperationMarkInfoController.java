@@ -5,11 +5,11 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseContr
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lx
@@ -34,5 +34,10 @@ public class OperationMarkInfoController extends BaseController<OperationMarkInf
     @Override
     protected CrudService<OperationMarkInfo> getCrudService() {
         return operationMarkInfoService;
+    }
+
+    @DeleteMapping("/id")
+    public ResultVO delete(@RequestParam(value = "id", defaultValue = "-1") int id) {
+        return ControllerCrudUtils.delete(getCrudService(), id);
     }
 }
