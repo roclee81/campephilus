@@ -4,6 +4,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
+import java.util.List;
+
 /**
  * @author lx
  * @version V1.0
@@ -13,4 +15,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
  */
 public interface OperationMarkInfoService extends CrudService<OperationMarkInfo> {
     void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm);
+
+    List<OperationMarkInfo> listByOperationNumber(int operationNumber);
 }

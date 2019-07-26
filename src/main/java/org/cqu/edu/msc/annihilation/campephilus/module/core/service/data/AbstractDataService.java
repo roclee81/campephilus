@@ -36,6 +36,11 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
     }
 
     @Override
+    public List<T> listById(Object id) {
+        return null;
+    }
+
+    @Override
     public void update(T t) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudUtils.updateObjectAndCheckSuccess(getJpaRepository(), getId(t), t);

@@ -6,6 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Abstrac
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,20 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
 
     @Override
     public List<OperationMarkInfo> listAll(int page, int size) {
-        return super.listAll(page, size).parallelStream()
-                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
+        return convertMarkTime(super.listAll(page, size));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<OperationMarkInfo> listByOperationNumber(int operationNumber) {
+        return convertMarkTime((List<OperationMarkInfo>) ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));
+    }
+
+    private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {
+        return list
+                .parallelStream()
+                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimestampOfDateTime(t.getMarkTime())))
                 .collect(Collectors.toList());
     }
+
 }

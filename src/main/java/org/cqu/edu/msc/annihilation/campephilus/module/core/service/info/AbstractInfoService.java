@@ -3,15 +3,13 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BaseInfoSuperclass;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
-import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -51,17 +49,14 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
         ServiceCrudUtils.deleteObjectAndCheckSuccess(getJpaRepository(), id);
     }
 
+    public List<T> listById(Object id) {
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
     public List<T> listAll(int page, int size) {
         Page<T> searchResult = getJpaRepository().findAll(PageRequest.of(page, size));
-        return searchResult.getContent()
-                .parallelStream()
-                .filter(Objects::nonNull)
-                .peek(t -> {
-                    t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
-                    t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
-                })
-                .collect(Collectors.toList())
-                ;
+        return (List<T>) ConvertUtils.convertObjectTimeStamp(searchResult.getContent());
     }
 
     public long countAll() {

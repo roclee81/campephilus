@@ -25,6 +25,8 @@ public interface CrudService<T> {
      */
     void update(T t);
 
+    List<T> listById(Object id);
+
     /**
      * 列出所有的数据，根据分页信息
      *
