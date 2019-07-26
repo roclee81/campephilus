@@ -10,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * campephilus
@@ -89,7 +89,7 @@ public class OperationMarkInfo extends BaseInfoSuperclass implements Serializabl
     @JsonIgnore
     @NotNull(message = "mark_time must cannot empty")
     @Column(name = "mark_time")
-    private LocalDateTime markTime;
+    private Timestamp markTime;
 
     /**
      * 手术顺序号

@@ -72,7 +72,7 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {
         return list
                 .parallelStream()
-                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimestampOfDateTime(t.getMarkTime())))
+                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
                 .collect(Collectors.toList());
     }
 
