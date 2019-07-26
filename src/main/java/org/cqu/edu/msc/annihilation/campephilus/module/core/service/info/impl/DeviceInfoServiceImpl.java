@@ -52,9 +52,4 @@ public class DeviceInfoServiceImpl extends AbstractInfoService<DeviceInfo,Intege
         this.saveDeviceInfo(deviceInfo);
     }
 
-    @Override
-    public long countAll() {
-        return getJpaRepository().count();
-    }
-
 }

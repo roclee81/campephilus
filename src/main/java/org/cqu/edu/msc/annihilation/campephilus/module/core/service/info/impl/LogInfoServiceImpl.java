@@ -47,8 +47,4 @@ public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> im
         this.save(parseObject);
     }
 
-    @Override
-    public long countAll() {
-        return getJpaRepository().count();
-    }
 }

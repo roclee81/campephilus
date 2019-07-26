@@ -35,8 +35,4 @@ public class HospitalInfoServiceImpl extends AbstractInfoService<HospitalInfo,St
         return hospitalInfo.getHospitalCode();
     }
 
-    @Override
-    public long countAll() {
-        return getJpaRepository().count();
-    }
 }

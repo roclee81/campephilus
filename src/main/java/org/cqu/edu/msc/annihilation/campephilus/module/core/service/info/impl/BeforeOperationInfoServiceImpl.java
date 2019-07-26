@@ -56,9 +56,4 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
         return parseObject;
     }
 
-    @Override
-    public long countAll() {
-        return getJpaRepository().count();
-    }
-
 }

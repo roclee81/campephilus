@@ -32,9 +32,4 @@ public class AfterOperationInfoServiceImpl extends AbstractInfoService<AfterOper
     protected Integer getId(AfterOperationInfo afterOperationInfo) {
         return afterOperationInfo.getId();
     }
-
-    @Override
-    public long countAll() {
-        return getJpaRepository().count();
-    }
 }
