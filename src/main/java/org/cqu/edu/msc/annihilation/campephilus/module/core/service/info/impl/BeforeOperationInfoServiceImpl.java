@@ -39,12 +39,12 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
     }
 
     @Override
-    public synchronized void save(BeforeOperationInfo beforeOperationInfo) {
+    public synchronized BeforeOperationInfo save(BeforeOperationInfo beforeOperationInfo) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        CheckUtils.checkDataIsExisted(beforeOperationInfoRepository.findBeforeOperationInfoByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
+        CheckUtils.checkDataIsExisted(beforeOperationInfoRepository.findByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
+        return (BeforeOperationInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
     }
 
     @Override
@@ -56,4 +56,14 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
         return parseObject;
     }
 
+    /**
+     * 通过T中的数据查询数据库中完整的字段
+     *
+     * @param beforeOperationInfo 泛型
+     * @return 数据库中完整的字段
+     */
+    @Override
+    public BeforeOperationInfo getDataBaseEntity(BeforeOperationInfo beforeOperationInfo) {
+        return beforeOperationInfoRepository.findByAdmissionNumber(beforeOperationInfo.getAdmissionNumber());
+    }
 }

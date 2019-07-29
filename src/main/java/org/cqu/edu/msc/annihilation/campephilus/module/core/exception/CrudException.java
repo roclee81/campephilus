@@ -46,7 +46,7 @@ public class CrudException extends RuntimeException implements Serializable {
         DELETE(4, "DELETE");
 
         private Integer code;
-        private String msg;
+        private String  msg;
 
         CrudTypeEnum(Integer code, String msg) {
             this.code = code;
@@ -64,10 +64,10 @@ public class CrudException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = -1343312269172404301L;
 
-    private String msg;
-    private int code;
-    private String errorMsg;
-    private String errorData;
+    private String       msg;
+    private int          code;
+    private String       errorMsg;
+    private String       errorData;
     private CrudTypeEnum crudTypeEnum;
 
     private CrudException(CrudTypeEnum crudTypeEnum, ResponseEnum responseEnum) {
@@ -86,11 +86,24 @@ public class CrudException extends RuntimeException implements Serializable {
         this.errorData = errorData;
     }
 
+    private CrudException(CrudTypeEnum crudTypeEnum, String msg, int code, String errorMsg, String errorData) {
+        super();
+        this.crudTypeEnum = crudTypeEnum;
+        this.msg = msg;
+        this.code = code;
+        this.errorMsg = errorMsg;
+        this.errorData = errorData;
+    }
+
     /**
      * 抛出数据已经存在的异常
      */
     public static void dataIsExisted() {
         throw new CrudException(CrudTypeEnum.NON, ResponseEnum.DATA_EXISTED);
+    }
+
+    public static void throwException(CrudException e) {
+        throw new CrudException(CrudTypeEnum.NON, e.getMsg(), e.getCode(), e.errorMsg, e.errorData);
     }
 
     /**

@@ -12,5 +12,5 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
  * Description:
  */
 public interface PatientInfoService extends CrudService<PatientInfo> {
-    void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
+    PatientInfo savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }

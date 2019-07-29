@@ -49,10 +49,10 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     }
 
     @Override
-    public void saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+    public OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
-        this.save(parseObject);
+        return this.save(parseObject);
     }
 
     @Override
@@ -116,4 +116,14 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 通过T中的数据查询数据库中完整的字段
+     *
+     * @param operationInfo 泛型
+     * @return 数据库中完整的字段
+     */
+    @Override
+    public OperationInfo getDataBaseEntity(OperationInfo operationInfo) {
+        return operationInfoRepository.findByOperationNumber(operationInfo.getOperationNumber());
+    }
 }

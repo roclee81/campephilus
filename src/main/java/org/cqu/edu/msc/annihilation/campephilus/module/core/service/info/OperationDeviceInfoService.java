@@ -12,7 +12,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
  * Description:
  */
 public interface OperationDeviceInfoService extends CrudService<OperationDeviceInfo> {
-    void saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm);
+    OperationDeviceInfo saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
     OperationDeviceInfo listByOperationNumber(int operationNumber);
 }

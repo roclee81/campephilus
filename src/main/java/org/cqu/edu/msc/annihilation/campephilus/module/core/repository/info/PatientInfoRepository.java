@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientInfoRepository extends JpaRepository<PatientInfo, Integer> {
 
-    PatientInfo findPatientInfoByAdmissionNumber(String admissionNumber);
+    PatientInfo findByAdmissionNumber(String admissionNumber);
+
+    PatientInfo deleteByAdmissionNumber(String admissionNumber);
 
 }

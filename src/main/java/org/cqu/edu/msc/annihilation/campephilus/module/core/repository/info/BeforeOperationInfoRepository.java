@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BeforeOperationInfoRepository extends JpaRepository<BeforeOperationInfo, Integer> {
-    BeforeOperationInfo findBeforeOperationInfoByAdmissionNumber(String admissionNumber);
+    BeforeOperationInfo findByAdmissionNumber(String admissionNumber);
 }

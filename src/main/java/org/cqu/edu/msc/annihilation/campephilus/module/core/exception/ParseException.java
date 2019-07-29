@@ -20,31 +20,16 @@ import java.io.Serializable;
 public class ParseException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String msg;
-    private int code;
-    private String errorMsg;
-    private String errorData;
-
-    private ParseException(ResponseEnum responseEnum) {
-        super();
-        this.msg = responseEnum.getMsg();
-        this.code = responseEnum.getCode();
-    }
-
-    private ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
-        super();
-        this.msg = responseEnum.getMsg();
-        this.code = responseEnum.getCode();
-        this.errorMsg = errorMsg;
-        this.errorData = errorData;
-    }
-
     public static void dataFormatException(Exception e, Object errorData) {
         throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, e.toString(), errorData.toString());
     }
 
     public static void dataFormatException(String errorData) {
         throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, "ParseException", errorData);
+    }
+
+    public static void throwException(ParseException e) {
+        throw new ParseException(e.getMsg(), e.getCode(), e.errorMsg, e.errorData);
     }
 
     public static void dataFormatException() {
@@ -57,5 +42,32 @@ public class ParseException extends RuntimeException implements Serializable {
 
     public static void dataFormatException(String errorMsg, String errorData) {
         throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, errorMsg, errorData);
+    }
+
+    private String msg;
+    private int    code;
+    private String errorMsg;
+    private String errorData;
+
+    private ParseException(ResponseEnum responseEnum) {
+        super();
+        this.msg = responseEnum.getMsg();
+        this.code = responseEnum.getCode();
+    }
+
+    private ParseException(String msg, int code, String errorMsg, String errorData) {
+        super();
+        this.msg = msg;
+        this.code = code;
+        this.errorMsg = errorMsg;
+        this.errorData = errorData;
+    }
+
+    private ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
+        super();
+        this.msg = responseEnum.getMsg();
+        this.code = responseEnum.getCode();
+        this.errorMsg = errorMsg;
+        this.errorData = errorData;
     }
 }

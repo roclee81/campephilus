@@ -16,7 +16,7 @@ public interface CrudService<T> {
      *
      * @param t
      */
-    void save(T t);
+    T save(T t);
 
     /**
      * 更新

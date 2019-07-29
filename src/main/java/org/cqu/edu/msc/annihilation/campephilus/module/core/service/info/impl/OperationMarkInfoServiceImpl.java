@@ -53,9 +53,9 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     }
 
     @Override
-    public void save(OperationMarkInfo operationMarkInfo) {
+    public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+        return (OperationMarkInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
     @Override

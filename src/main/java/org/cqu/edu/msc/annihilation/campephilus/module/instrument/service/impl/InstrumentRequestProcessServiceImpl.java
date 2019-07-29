@@ -1,7 +1,12 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.CrudException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
@@ -26,14 +31,14 @@ import java.util.Objects;
 public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
     private final BeforeOperationInfoService beforeOperationInfoService;
-    private final DeviceInfoService deviceInfoService;
-    private final HospitalInfoService hospitalInfoService;
-    private final OperationInfoService operationInfoService;
-    private final OperationMarkInfoService operationMarkInfoService;
-    private final PatientInfoService patientInfoService;
+    private final DeviceInfoService          deviceInfoService;
+    private final HospitalInfoService        hospitalInfoService;
+    private final OperationInfoService       operationInfoService;
+    private final OperationMarkInfoService   operationMarkInfoService;
+    private final PatientInfoService         patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
-    private final DeviceDataService deviceDataService;
-    private final LogInfoService logInfoService;
+    private final DeviceDataService          deviceDataService;
+    private final LogInfoService             logInfoService;
 
     public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
@@ -80,12 +85,28 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         switch (requestEnum) {
             // 准备开始手术，获取手术顺序号的情况，同时处理上传病人Id和手术号以及手术过程中的设备信息的情况
             case OPERATION_READY: {
-                // TODO 需要添加事务
-                instrumentForm.setOperationNumber(getNewOperationNumber());
-                patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
-                operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
-                operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
-                beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
+                // 事务，手动回滚
+                PatientInfo patientInfo = null;
+                OperationInfo operationInfo = null;
+                OperationDeviceInfo operationDeviceInfo = null;
+                BeforeOperationInfo beforeOperationInfo = null;
+                try {
+                    instrumentForm.setOperationNumber(getNewOperationNumber());
+                    patientInfo = patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
+                    operationInfo = operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
+                    operationDeviceInfo = operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
+                    beforeOperationInfo = beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
+                } catch (Exception e) {
+                    patientInfoService.delete(patientInfo);
+                    operationInfoService.delete(operationInfo);
+                    operationDeviceInfoService.delete(operationDeviceInfo);
+                    beforeOperationInfoService.delete(beforeOperationInfo);
+                    if (e instanceof ParseException) {
+                        ParseException.throwException((ParseException) e);
+                    } else if (e instanceof CrudException) {
+                        CrudException.throwException((CrudException) e);
+                    }
+                }
                 break;
             }
             // 更新手术过程基本信息，即手术结束的信息

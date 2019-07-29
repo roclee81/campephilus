@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * Description:
  */
 @Service
-public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Integer> implements PatientInfoService {
+public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Integer> implements PatientInfoService {
 
     private final PatientInfoRepository patientInfoRepository;
 
@@ -40,20 +40,20 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Inte
     }
 
     @Override
-    public void savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+    public PatientInfo savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         PatientInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
-        this.save(parseObject);
+        return this.save(parseObject);
     }
 
     @Override
-    public synchronized void save(PatientInfo patientInfo) {
+    public synchronized PatientInfo save(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据admissionNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
-        CheckUtils.checkDataIsExisted(patientInfoRepository.findPatientInfoByAdmissionNumber(
+        CheckUtils.checkDataIsExisted(patientInfoRepository.findByAdmissionNumber(
                 patientInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
+        return (PatientInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
     }
 
     @Override
@@ -63,4 +63,14 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo,Inte
                 patientInfoRepository, patientInfo.getAdmissionNumber(), patientInfo);
     }
 
+    /**
+     * 通过T中的数据查询数据库中完整的字段
+     *
+     * @param patientInfo 泛型
+     * @return 数据库中完整的字段
+     */
+    @Override
+    public PatientInfo getDataBaseEntity(PatientInfo patientInfo) {
+        return patientInfoRepository.findByAdmissionNumber(patientInfo.getAdmissionNumber());
+    }
 }

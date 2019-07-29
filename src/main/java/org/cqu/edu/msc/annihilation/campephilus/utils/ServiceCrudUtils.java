@@ -22,7 +22,7 @@ public class ServiceCrudUtils {
      * @param jpaRepository 待保存的对象仓库
      * @param object        待保存的对象
      */
-    public static void saveObjectAndCheckSuccess(JpaRepository jpaRepository, Object object) {
+    public static Object saveObjectAndCheckSuccess(JpaRepository jpaRepository, Object object) {
         Object result = null;
         try {
             result = jpaRepository.save(object);
@@ -33,6 +33,7 @@ public class ServiceCrudUtils {
             CrudException.saveUnknownException(e, object);
         }
         CheckUtils.checkSaveSuccess(result, object);
+        return result;
     }
 
     /**
@@ -69,13 +70,18 @@ public class ServiceCrudUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static void deleteObjectAndCheckSuccess(JpaRepository jpaRepository, Object id) {
+    public static boolean deleteObjectAndCheckSuccess(JpaRepository jpaRepository, Object id) {
         // 首先需要查询数据是否存在
-        CheckUtils.checkDataIsNotExisted(jpaRepository.findById(id).orElse(null));
+        try {
+            CheckUtils.checkDataIsNotExisted(jpaRepository.findById(id).orElse(null));
+        } catch (Exception e) {
+            return false;
+        }
         try {
             jpaRepository.deleteById(id);
         } catch (Exception e) {
             CrudException.deleteUnknownException(e, id);
         }
+        return true;
     }
 }

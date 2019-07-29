@@ -37,8 +37,8 @@ public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> im
     }
 
     @Override
-    public void save(LogInfo logInfo) {
-        ServiceCrudUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
+    public LogInfo save(LogInfo logInfo) {
+        return (LogInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
     }
 
     @Override

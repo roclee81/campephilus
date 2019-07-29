@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface OperationInfoService extends CrudService<OperationInfo> {
 
-    void saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
+    OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
     Integer countOperationInfo();
 

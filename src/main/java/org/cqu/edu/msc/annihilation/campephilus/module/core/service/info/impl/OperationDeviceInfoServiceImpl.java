@@ -38,10 +38,10 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
     }
 
     @Override
-    public void saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+    public OperationDeviceInfo saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationDeviceInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationDeviceInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
-        this.save(parseObject);
+        return this.save(parseObject);
     }
 
     @Override
@@ -49,4 +49,14 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
         return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
     }
 
+    /**
+     * 通过T中的数据查询数据库中完整的字段
+     *
+     * @param operationDeviceInfo 泛型
+     * @return 数据库中完整的字段
+     */
+    @Override
+    public OperationDeviceInfo getDataBaseEntity(OperationDeviceInfo operationDeviceInfo) {
+        return operationDeviceInfoRepository.findByOperationNumber(operationDeviceInfo.getOperationNumber());
+    }
 }

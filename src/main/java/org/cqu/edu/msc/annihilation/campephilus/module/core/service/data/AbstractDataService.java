@@ -28,11 +28,12 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
     }
 
     @Override
-    public void save(T t) {
+    @SuppressWarnings("unchecked")
+    public T save(T t) {
         // 不需要查询数据是否存在，因为是医疗仪器数据，数据有可能会重复
         // 只需要通过保存时间来判断即可
         // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
+        return (T) ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
     }
 
     @Override
