@@ -44,6 +44,4 @@ public interface CrudService<T> {
     void delete(T t);
 
     long countAll();
-
-    void delete(int i);
 }

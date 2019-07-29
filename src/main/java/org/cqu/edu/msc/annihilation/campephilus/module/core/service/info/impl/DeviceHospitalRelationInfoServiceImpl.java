@@ -5,7 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.Devi
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +43,7 @@ public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<D
                 .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
                         deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
-       return (DeviceHospitalRelationInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
+       return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
     }
 
 }

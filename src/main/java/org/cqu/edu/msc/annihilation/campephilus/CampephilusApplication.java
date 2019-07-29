@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * campephilus
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EnableTransactionManagement
 @SpringBootApplication
 @EnableCaching
 public class CampephilusApplication {

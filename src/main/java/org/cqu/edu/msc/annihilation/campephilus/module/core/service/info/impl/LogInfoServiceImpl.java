@@ -6,7 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Abstrac
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.LogInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> im
 
     @Override
     public LogInfo save(LogInfo logInfo) {
-        return (LogInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
     }
 
     @Override

@@ -36,10 +36,10 @@ public class OperationMarkInfoController extends BaseController<OperationMarkInf
         return operationMarkInfoService;
     }
 
-    @DeleteMapping("/id")
-    public ResultVO delete(@RequestParam(value = "id", defaultValue = "-1") int id) {
-        return ControllerCrudUtils.delete(getCrudService(), id);
-    }
+//    @DeleteMapping("/id")
+//    public ResultVO delete(@RequestParam(value = "id", defaultValue = "-1") int id) {
+//        return ControllerCrudUtils.delete(getCrudService(), id);
+//    }
 
     @GetMapping("/operationNumber")
     public ResultVO list(@RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber) {

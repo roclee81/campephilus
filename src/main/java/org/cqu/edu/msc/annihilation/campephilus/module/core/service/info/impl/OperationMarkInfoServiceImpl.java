@@ -7,7 +7,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -55,7 +55,7 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     @Override
     public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
-        return (OperationMarkInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     @SuppressWarnings("unchecked")
     @Override
     public List<OperationMarkInfo> listByOperationNumber(int operationNumber) {
-        return convertMarkTime((List<OperationMarkInfo>) ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));
+        return convertMarkTime(ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));
     }
 
     private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {

@@ -13,6 +13,8 @@ import java.util.Objects;
  * @date 2019/7/25 23:27
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 提供检查工具类
+ * 将会检查CRUD操作是否成功，如果失败将抛出对应的异常
  */
 @Slf4j
 public class CheckUtils {

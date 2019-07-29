@@ -5,7 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.Devi
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class DeviceInfoServiceImpl extends AbstractInfoService<DeviceInfo,Intege
         CheckUtils.checkDataIsExisted(deviceInfoRepository.findDeviceInfoByDeviceCodeAndDeviceSerialNumber(
                 deviceInfo.getDeviceCode(), deviceInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        return (DeviceInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
+        return (DeviceInfo) ServiceCrudCheckUtils.saveObjectAndCheckSuccess(deviceInfoRepository, deviceInfo);
     }
 
     @Override

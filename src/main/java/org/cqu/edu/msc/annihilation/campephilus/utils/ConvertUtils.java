@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class ConvertUtils {
 
-    public static List<? extends BaseInfoSuperclass> convertObjectTimeStamp(List<? extends BaseInfoSuperclass> list) {
+    public static <T extends BaseInfoSuperclass> List<T> convertObjectTimeStamp(List<T> list) {
         return list.parallelStream()
                 .filter(Objects::nonNull)
                 .peek(t -> {

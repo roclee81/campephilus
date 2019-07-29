@@ -79,6 +79,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     @Override
     public void processCode(InstrumentForm instrumentForm) {
         RequestEnum requestEnum = RequestEnum.matchRequestEnum(instrumentForm.getCode());
+        // 如果没有找到请求码，抛出错误
         if (Objects.isNull(requestEnum)) {
             ParseException.codeException();
         }

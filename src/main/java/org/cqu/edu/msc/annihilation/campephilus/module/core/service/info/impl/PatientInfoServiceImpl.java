@@ -7,7 +7,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Patient
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -53,14 +53,14 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Int
         CheckUtils.checkDataIsExisted(patientInfoRepository.findByAdmissionNumber(
                 patientInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        return (PatientInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(patientInfoRepository, patientInfo);
     }
 
     @Override
     public synchronized void update(PatientInfo patientInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudUtils.updateObjectAndCheckSuccess(
-                patientInfoRepository, patientInfo.getAdmissionNumber(), patientInfo);
+        ServiceCrudCheckUtils.updateObjectAndCheckSuccess(
+                patientInfoRepository, patientInfo.getId(), patientInfo);
     }
 
     /**

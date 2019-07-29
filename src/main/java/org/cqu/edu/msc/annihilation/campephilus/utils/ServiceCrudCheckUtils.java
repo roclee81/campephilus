@@ -12,27 +12,29 @@ import java.util.Objects;
  * @date 2019/5/31 16:07
  * @email vinicolor.violet.end@gmail.com
  * Description:
+ * 提供Service层的CRUD操作的检查工具类
+ * 将会检查CRUD操作是否成功，如果失败将抛出对应的异常
  */
-public class ServiceCrudUtils {
+public class ServiceCrudCheckUtils {
 
     /**
      * 保存数据库对象
      * 保存失败将抛出<code>CrudException</code>异常
      *
-     * @param jpaRepository 待保存的对象仓库
-     * @param object        待保存的对象
+     * @param jpaRepository 待保存的对象仓库t
+     * @param t             待保存的对象
      */
-    public static Object saveObjectAndCheckSuccess(JpaRepository jpaRepository, Object object) {
-        Object result = null;
+    public static <T, ID> T saveObjectAndCheckSuccess(JpaRepository<T, ID> jpaRepository, T t) {
+        T result = null;
         try {
-            result = jpaRepository.save(object);
+            result = jpaRepository.save(t);
         } catch (ValidationException e) {
             // 获取到校验错误，即数据字段可能为空，或错误
-            CrudException.saveDataFormatException(e, object);
+            CrudException.saveDataFormatException(e, t);
         } catch (Exception e) {
-            CrudException.saveUnknownException(e, object);
+            CrudException.saveUnknownException(e, t);
         }
-        CheckUtils.checkSaveSuccess(result, object);
+        CheckUtils.checkSaveSuccess(result, t);
         return result;
     }
 
@@ -42,20 +44,22 @@ public class ServiceCrudUtils {
      *
      * @param jpaRepository 待保存的对象仓库
      * @param id            数据字段主键
-     * @param object        待保存的对象
+     * @param t             待保存的对象
      */
     @SuppressWarnings("unchecked")
-    public static void updateObjectAndCheckSuccess(JpaRepository jpaRepository, Object id, Object object) {
+    public static <T, ID> T updateObjectAndCheckSuccess(JpaRepository<T, ID> jpaRepository, ID id, T t) {
+        // 检查是否ID是否为null，同时查询数据库中是否有该数据
         if (Objects.isNull(id) || jpaRepository.findById(id).isEmpty()) {
             CrudException.updateIdException();
         }
-        Object result = null;
+        T result = null;
         try {
-            result = jpaRepository.save(object);
+            result = jpaRepository.save(t);
         } catch (Exception e) {
-            CrudException.updateUnknownException(e, object);
+            CrudException.updateUnknownException(e, t);
         }
-        CheckUtils.checkSaveSuccess(result, object);
+        CheckUtils.checkSaveSuccess(result, t);
+        return result;
     }
 
     @SuppressWarnings("unchecked")

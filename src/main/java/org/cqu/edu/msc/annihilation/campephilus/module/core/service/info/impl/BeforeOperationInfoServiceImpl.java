@@ -8,7 +8,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.BeforeO
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudUtils;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +44,7 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
         // 判断到存在该仪器存在，则直接返回，抛出异常
         CheckUtils.checkDataIsExisted(beforeOperationInfoRepository.findByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
         // 判断保存是否成功，不成功将抛出异常
-        return (BeforeOperationInfo) ServiceCrudUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(getJpaRepository(), beforeOperationInfo);
     }
 
     @Override
