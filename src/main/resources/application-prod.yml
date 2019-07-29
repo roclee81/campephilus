@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: campephilus
-    password: yplBTG6yeu6pw61k
-    url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus-prod?characterEncoding=utf-8&useSSL=false
+    username: campephilus_prod
+    password: VSKrH#eY1*WRY9eB
+    url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus?characterEncoding=utf-8&useSSL=false
 
   redis:
     host: r-wz97709w2x1bqvu9tn.redis.rds.aliyuncs.com

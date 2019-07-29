@@ -46,12 +46,6 @@ public class BeforeOperationInfo extends BaseInfoSuperclass implements Serializa
     private Boolean isUrgent;
 
     /**
-     * 是否增强
-     */
-    @Column(name = "is_strong")
-    private Boolean isStrong;
-
-    /**
      * ASA等级
      */
     @Column(name = "ASA_level")

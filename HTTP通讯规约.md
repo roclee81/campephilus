@@ -125,7 +125,6 @@ data: {
     "beforeOperationInfo": {
         "anesthesiaMode": "麻醉方式",
         "isUrgent": true,
-        "isStrong": true,
         "ASALevel": 0,
         "medicalHistory": "既往病史",
         "specialCase": "特殊情况"

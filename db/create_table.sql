@@ -71,7 +71,6 @@ CREATE TABLE `info_before_operation`
     `pk_id`            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `anesthesia_mode`  VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
     `is_urgent`        TINYINT           NOT NULL COMMENT '是否急诊',
-    `is_strong`        TINYINT           NOT NULL COMMENT '是否增强',
     `ASA_level`        TINYINT           NOT NULL COMMENT 'ASA等级',
     `medical_history`  TEXT              NOT NULL COMMENT '既往病史',
     `special_case`     TEXT              NOT NULL COMMENT '特殊情况',
