@@ -69,7 +69,7 @@ public class PatientInfo extends BaseInfoSuperclass implements Serializable {
      */
     @NotNull(message = "weight must cannot empty")
     @Column(name = "weight")
-    private Integer weight;
+    private Float weight;
 
     /**
      * 年龄

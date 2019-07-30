@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -23,8 +22,7 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
 
     @Override
     public List<T> listAll(int page, int size) {
-        Page<T> searchResult = getJpaRepository().findAll(PageRequest.of(page, size));
-        return searchResult.getContent();
+        return getJpaRepository().findAll(PageRequest.of(page, size)).getContent();
     }
 
     @Override
@@ -33,7 +31,7 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
         // 不需要查询数据是否存在，因为是医疗仪器数据，数据有可能会重复
         // 只需要通过保存时间来判断即可
         // 判断保存是否成功，不成功将抛出异常
-        return (T) ServiceCrudCheckUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
     }
 
     @Override
