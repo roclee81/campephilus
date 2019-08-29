@@ -13,6 +13,9 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultData
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
+import org.cqu.edu.msc.annihilation.campephilus.module.message.InstrumentMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -31,14 +34,17 @@ import java.util.Objects;
 public class InstrumentRequestProcessServiceImpl implements InstrumentRequestProcessService {
 
     private final BeforeOperationInfoService beforeOperationInfoService;
-    private final DeviceInfoService          deviceInfoService;
-    private final HospitalInfoService        hospitalInfoService;
-    private final OperationInfoService       operationInfoService;
-    private final OperationMarkInfoService   operationMarkInfoService;
-    private final PatientInfoService         patientInfoService;
+    private final DeviceInfoService deviceInfoService;
+    private final HospitalInfoService hospitalInfoService;
+    private final OperationInfoService operationInfoService;
+    private final OperationMarkInfoService operationMarkInfoService;
+    private final PatientInfoService patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
-    private final DeviceDataService          deviceDataService;
-    private final LogInfoService             logInfoService;
+    private final DeviceDataService deviceDataService;
+    private final LogInfoService logInfoService;
+
+    @Autowired
+    private InstrumentMessage instrumentMessage;
 
     public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
@@ -58,11 +64,17 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             ParseException.dataFormatException();
         }
 
-        processCode(instrumentForm);
+        sendMessage(instrumentForm);
+//        processCode(instrumentForm);
 
         return ResultDataDTO.convert(instrumentForm.getCode() + 1,
                 instrumentForm.getMac(),
                 instrumentForm.getOperationNumber());
+    }
+
+    private void sendMessage(InstrumentForm instrumentForm) {
+
+        instrumentMessage.input().send(MessageBuilder.withPayload(instrumentForm).build());
     }
 
     /**

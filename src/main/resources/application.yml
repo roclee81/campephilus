@@ -10,6 +10,26 @@ spring:
     redis:
       repositories:
         enabled: false
+  cloud:
+    stream:
+      bindings:
+        input_campephilus:
+          destination: message-campephilus-exchange
+        #          content-type: application/x-protobuf
+        output_campephilus:
+          destination: message-campephilus-exchange
+      #          content-type: application/x-protobuf
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: campephilus
+                password: campephilus
+                virtual-host: /campephilus
 
 server:
   servlet:
