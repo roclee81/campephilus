@@ -14,7 +14,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
 import org.cqu.edu.msc.annihilation.campephilus.module.message.InstrumentMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +41,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationDeviceInfoService operationDeviceInfoService;
     private final DeviceDataService deviceDataService;
     private final LogInfoService logInfoService;
+    private final InstrumentMessage instrumentMessage;
 
-    @Autowired
-    private InstrumentMessage instrumentMessage;
-
-    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
+    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService, InstrumentMessage instrumentMessage) {
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
@@ -56,6 +53,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.operationDeviceInfoService = operationDeviceInfoService;
         this.deviceDataService = deviceDataService;
         this.logInfoService = logInfoService;
+        this.instrumentMessage = instrumentMessage;
     }
 
     @Override
@@ -66,8 +64,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
 
         verifyParameter(instrumentForm);
 
-        sendMessage(instrumentForm);
-//        processCode(instrumentForm);
+        if (instrumentForm.getCode().equals(RequestEnum.DEVICE_DATA.getCode())) {
+            sendMessage(instrumentForm);
+        } else {
+            processCode(instrumentForm);
+        }
 
         return ResultDataDTO.convert(instrumentForm.getCode() + 1,
                 instrumentForm.getMac(),
@@ -85,6 +86,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
 
     }
 
+    /**
+     * 目前只有仪器输出数据才发送到MQ
+     *
+     * @param instrumentForm
+     */
     private void sendMessage(InstrumentForm instrumentForm) {
 
         instrumentMessage.input().send(MessageBuilder.withPayload(instrumentForm).build());

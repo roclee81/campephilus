@@ -29,7 +29,7 @@ public class InstrumentForm {
     /**
      * 采集器的MAC地址
      */
-    @NotNull(message = "The mac cannot be empty")
+    @Pattern(regexp = "([A-F0-9]{2}:){5}[A-F0-9]{2}", message = "The mac cannot be empty")
     private String mac;
 
     /**
