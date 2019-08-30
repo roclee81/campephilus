@@ -64,12 +64,25 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             ParseException.dataFormatException();
         }
 
+        verifyParameter(instrumentForm);
+
         sendMessage(instrumentForm);
 //        processCode(instrumentForm);
 
         return ResultDataDTO.convert(instrumentForm.getCode() + 1,
                 instrumentForm.getMac(),
                 instrumentForm.getOperationNumber());
+    }
+
+    /**
+     * 检查表单的参数
+     * 只有通过检查才能发送到MQ
+     * 否则抛出异常
+     *
+     * @param instrumentForm
+     */
+    private void verifyParameter(InstrumentForm instrumentForm) {
+
     }
 
     private void sendMessage(InstrumentForm instrumentForm) {

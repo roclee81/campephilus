@@ -21,8 +21,8 @@ public class InstrumentMessageProcessor {
     @Autowired
     private InstrumentRequestProcessService instrumentRequestProcessService;
 
-    private static final int CORE_SIZE = 2;
-    private static final int MAXIMUM_POOL_SIZE = 4;
+    private static final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
+    private static final int MAXIMUM_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2 + 1;
     private static final int KEEP_ALIVE_TIME = 30;
 
     private static final ThreadPoolExecutor INSTANCE =
@@ -32,7 +32,7 @@ public class InstrumentMessageProcessor {
                     KEEP_ALIVE_TIME,
                     TimeUnit.SECONDS,
                     new LinkedBlockingQueue<>(),
-                    new InstrumentMessageProcessThreadFactory(),
+                    Executors.defaultThreadFactory(),
                     new InstrumentMessageProcessRejectHandler());
 
     private static ThreadPoolExecutor getDataProcessThreadPoolInstance() {
@@ -42,22 +42,8 @@ public class InstrumentMessageProcessor {
     private static class InstrumentMessageProcessRejectHandler implements RejectedExecutionHandler {
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-            log.info("====== DataProcessThreadPool Rejected ======");
+            log.info("====== InstrumentMessageProcessThreadPool Rejected ======");
         }
-    }
-
-    private static class InstrumentMessageProcessThreadFactory implements ThreadFactory {
-
-        @Override
-        public Thread newThread(Runnable r) {
-            String name = "InstrumentMessageProcessThreadPool-";
-            return new Thread(null, r, name);
-        }
-    }
-
-    @StreamListener(InstrumentMessage.INPUT)
-    public void process(Object message) {
-        getDataProcessThreadPoolInstance().execute(new ProcessInstrumentMessage((InstrumentForm) message));
     }
 
     private class ProcessInstrumentMessage implements Runnable {
@@ -73,5 +59,10 @@ public class InstrumentMessageProcessor {
             instrumentRequestProcessService.processCode(instrumentForm);
             System.out.println(Thread.currentThread());
         }
+    }
+
+    @StreamListener(InstrumentMessage.INPUT)
+    public void process(Object message) {
+        getDataProcessThreadPoolInstance().execute(new ProcessInstrumentMessage((InstrumentForm) message));
     }
 }
