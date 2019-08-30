@@ -57,7 +57,6 @@ public class InstrumentMessageProcessor {
         @Override
         public void run() {
             instrumentRequestProcessService.processCode(instrumentForm);
-            System.out.println(Thread.currentThread());
         }
     }
 
