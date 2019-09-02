@@ -33,7 +33,6 @@ public class OperationInfo extends BaseInfoSuperclass implements Serializable {
      * 手术顺序号
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_operation_number")
     private Integer operationNumber;
 
