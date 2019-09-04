@@ -2,7 +2,7 @@ spring:
   application:
     name: campephilus
   profiles:
-    active: prod
+    active: test
   data:
     jpa:
       repositories:

@@ -6,7 +6,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.Operatio
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.CrudException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
@@ -122,23 +121,17 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 OperationInfo operationInfo = null;
                 OperationDeviceInfo operationDeviceInfo = null;
                 BeforeOperationInfo beforeOperationInfo = null;
-                try {
+//                try {
                     instrumentForm.setOperationNumber(getNewOperationNumber());
                     patientInfo = patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
                     operationInfo = operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
                     operationDeviceInfo = operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
                     beforeOperationInfo = beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
-                } catch (Exception e) {
+//                } catch (Exception e) {
                     patientInfoService.delete(patientInfo);
-                    operationInfoService.delete(operationInfo);
-                    operationDeviceInfoService.delete(operationDeviceInfo);
-                    beforeOperationInfoService.delete(beforeOperationInfo);
-                    if (e instanceof ParseException) {
-                        ParseException.throwException((ParseException) e);
-                    } else if (e instanceof CrudException) {
-                        CrudException.throwException((CrudException) e);
-                    }
-                }
+//                    operationInfoService.delete(operationInfo);
+//                    operationDeviceInfoService.delete(operationDeviceInfo);
+//                    beforeOperationInfoService.delete(beforeOperationInfo);
                 break;
             }
             // 更新手术过程基本信息，即手术结束的信息

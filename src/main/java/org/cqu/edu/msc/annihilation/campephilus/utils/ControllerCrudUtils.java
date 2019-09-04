@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lx
@@ -33,7 +34,7 @@ public class ControllerCrudUtils {
      * @return
      */
     public static ResultVO list(Object searchResult) {
-        return null != searchResult ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
+        return Objects.nonNull(searchResult) ? ResultVOUtils.success(searchResult) : ResultVOUtils.notFound();
     }
 
     /**

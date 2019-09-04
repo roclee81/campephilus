@@ -31,7 +31,9 @@ public class CacheRemoveAspect {
         this.redisTemplate = redisTemplate;
     }
 
-    //截获标有@CacheRemove的方法
+    /**
+     * 截获标有@CacheRemove的方法
+     */
     @Pointcut(value = "(execution(* *.*(..)) && @annotation(org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove))")
     private void pointcut() {
     }
@@ -66,7 +68,7 @@ public class CacheRemoveAspect {
                 //缓存的项目所有redis业务部缓存
                 cleanRedisCache("*" + value + "*");
             }
-            //需要移除的正则key
+            // 需要移除的正则key
             String[] keys = cacheRemove.key();
             for (String key : keys) {
                 //指定清除的key的缓存
@@ -78,7 +80,8 @@ public class CacheRemoveAspect {
     private void cleanRedisCache(String key) {
         if (key != null) {
             Set<String> stringSet = redisTemplate.keys(key);
-            redisTemplate.delete(stringSet);//删除缓存
+            // 删除缓存
+            redisTemplate.delete(stringSet);
             log.info("清除 " + key + " 缓存");
         }
     }

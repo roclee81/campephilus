@@ -23,7 +23,6 @@ public @interface CacheRemove {
      */
     String value() default "";
 
-
     /**
      * 需要清除的具体的额类型
      *
