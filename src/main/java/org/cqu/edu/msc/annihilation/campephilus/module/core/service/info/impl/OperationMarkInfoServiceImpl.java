@@ -13,6 +13,7 @@ import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -29,16 +30,12 @@ import java.util.stream.Collectors;
  * Description:
  */
 @Slf4j
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 @Service
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
-    private final OperationMarkInfoRepository operationMarkInfoRepository;
-
     @Autowired
-    public OperationMarkInfoServiceImpl(OperationMarkInfoRepository operationMarkInfoRepository) {
-        this.operationMarkInfoRepository = operationMarkInfoRepository;
-    }
+    private OperationMarkInfoRepository operationMarkInfoRepository;
 
     @Override
     public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
@@ -51,17 +48,19 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @CacheEvict(allEntries = true)
     @Override
-    public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
+    public void save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
-        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
+    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
     @Override
     public List<OperationMarkInfo> listAll(int page, int size) {
         Page<OperationMarkInfo> searchResult = operationMarkInfoRepository.findAll(PageRequest.of(page, size));
         return convertMarkTime(ConvertUtils.convertObjectTimeStamp(searchResult.getContent()));
     }
 
+    @Cacheable(key = "'method:'+#root.methodName+',operationNumber:'+#p0")
     @Override
     public List<OperationMarkInfo> listByOperationNumber(int operationNumber) {
         return convertMarkTime(ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));
@@ -76,7 +75,7 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @CacheEvict(allEntries = true)
     @Override
-    public synchronized void update(OperationMarkInfo operationMarkInfo) {
+    public void update(OperationMarkInfo operationMarkInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudCheckUtils.updateObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo.getId(), operationMarkInfo);
     }
@@ -99,6 +98,7 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
         }
     }
 
+    @Cacheable(key = "'method:'+#root.methodName")
     @Override
     public long countAll() {
         return operationMarkInfoRepository.count();

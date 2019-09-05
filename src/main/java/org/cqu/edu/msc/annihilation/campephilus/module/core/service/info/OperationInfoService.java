@@ -1,9 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +13,42 @@ import java.util.Map;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface OperationInfoService extends CrudService<OperationInfo> {
+public interface OperationInfoService {
+
+    /**
+     * 保存
+     *
+     * @param operationInfo
+     * @return
+     */
+    OperationInfo save(OperationInfo operationInfo);
+
+    /**
+     * 更新
+     *
+     * @param operationInfo
+     */
+    void update(OperationInfo operationInfo);
+
+    List<OperationInfo> listById(Object id);
+
+    /**
+     * 列出所有的数据，根据分页信息
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    List<OperationInfo> listAll(int page, int size);
+
+    /**
+     * 删除
+     *
+     * @param operationInfo
+     */
+    void delete(OperationInfo operationInfo);
+
+    long countAll();
 
     OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
@@ -31,5 +66,5 @@ public interface OperationInfoService extends CrudService<OperationInfo> {
      *
      * @return Map<Integer, Integer>
      */
-    Map<Integer, Integer> getOperationInfoByCurrent();
+    Map<Integer, Integer> getCurrentOperationInfo();
 }

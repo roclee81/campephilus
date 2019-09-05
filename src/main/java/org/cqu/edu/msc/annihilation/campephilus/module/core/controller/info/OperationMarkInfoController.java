@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
@@ -8,8 +7,6 @@ import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +22,6 @@ import javax.validation.Valid;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/info/operationMark")
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 public class OperationMarkInfoController {
 
     private final OperationMarkInfoService operationMarkInfoService;
@@ -35,14 +31,12 @@ public class OperationMarkInfoController {
         this.operationMarkInfoService = operationMarkInfoService;
     }
 
-    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
     @GetMapping("")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
         return ControllerCrudUtils.listAll(operationMarkInfoService.listAll(page, size));
     }
 
-    @Cacheable(key = "'method:'+#root.methodName")
     @GetMapping("/count")
     public ResultVO countAll() {
         return ControllerCrudUtils.list(operationMarkInfoService.countAll());
@@ -75,7 +69,6 @@ public class OperationMarkInfoController {
         return ResultVOUtils.success();
     }
 
-    @Cacheable(key = "'method:'+#root.methodName")
     @GetMapping("/operationNumber")
     public ResultVO listByOperationNumber(
             @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber) {

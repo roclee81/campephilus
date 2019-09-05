@@ -19,7 +19,7 @@ public interface OperationMarkInfoService {
      *
      * @param operationMarkInfo
      */
-    OperationMarkInfo save(OperationMarkInfo operationMarkInfo);
+    void save(OperationMarkInfo operationMarkInfo);
 
     /**
      * 更新

@@ -1,15 +1,19 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.BaseController;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
+import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author lx
@@ -22,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/info/operationDevice")
 @CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_DEVICE)
-public class OperationDeviceInfoController extends BaseController<OperationDeviceInfo> {
+public class OperationDeviceInfoController {
 
     private final OperationDeviceInfoService operationDeviceInfoService;
 
@@ -31,13 +35,44 @@ public class OperationDeviceInfoController extends BaseController<OperationDevic
         this.operationDeviceInfoService = operationDeviceInfoService;
     }
 
-    @Override
-    protected CrudService<OperationDeviceInfo> getCrudService() {
-        return operationDeviceInfoService;
+    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
+    @GetMapping("")
+    public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
+                         @RequestParam(value = "size", defaultValue = "20") int size) {
+        return ControllerCrudUtils.listAll(operationDeviceInfoService.listAll(page, size));
     }
 
+    @Cacheable(key = "'method:'+#root.methodName")
+    @GetMapping("/count")
+    public ResultVO countAll() {
+        return ControllerCrudUtils.list(operationDeviceInfoService.countAll());
+    }
+
+    @PostMapping("")
+    public ResultVO save(@Valid OperationDeviceInfo t, BindingResult bindingResult) {
+        BindingResultUtils.checkBindingResult(bindingResult);
+        operationDeviceInfoService.save(t);
+        return ResultVOUtils.success(t);
+    }
+
+    @PutMapping("")
+    public ResultVO update(@Valid OperationDeviceInfo t, BindingResult bindingResult) {
+        BindingResultUtils.checkBindingResult(bindingResult);
+        operationDeviceInfoService.update(t);
+        return ResultVOUtils.success(t);
+    }
+
+    @DeleteMapping("")
+    public ResultVO delete(@Valid OperationDeviceInfo t, BindingResult bindingResult) {
+        BindingResultUtils.checkBindingResult(bindingResult);
+        operationDeviceInfoService.delete(t);
+        return ResultVOUtils.success(t);
+    }
+
+    @Cacheable(key = "'method:'+#root.methodName")
     @GetMapping("/")
-    public ResultVO listByOperationNumber(@RequestParam(name = "operationNumber") int operationNumber) {
+    public ResultVO listByOperationNumber(
+            @RequestParam(name = "operationNumber", defaultValue = "-1") int operationNumber) {
         return ResultVOUtils.checkAndReturn(operationDeviceInfoService.listByOperationNumber(operationNumber));
     }
 }

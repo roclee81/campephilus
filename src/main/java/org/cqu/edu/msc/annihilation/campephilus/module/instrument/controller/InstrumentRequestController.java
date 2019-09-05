@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
@@ -25,7 +24,6 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(value = "/instrument")
-@Slf4j
 public class InstrumentRequestController {
 
     private final InstrumentRequestProcessService instrumentRequestProcessService;

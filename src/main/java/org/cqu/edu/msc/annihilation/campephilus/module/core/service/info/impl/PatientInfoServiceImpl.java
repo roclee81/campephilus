@@ -13,6 +13,7 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
                 patientInfoRepository, patientInfo.getId(), patientInfo);
     }
 
+    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
     @Override
     public List<PatientInfo> listAll(int page, int size) {
         Page<PatientInfo> searchResult = patientInfoRepository.findAll(PageRequest.of(page, size));
@@ -82,6 +84,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         }
     }
 
+    @Cacheable(key = "'method:'+#root.methodName")
     @Override
     public long countAll() {
         return patientInfoRepository.count();

@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public abstract class BaseController<T extends BaseInfoSuperclass> {
 
     protected abstract CrudService<T> getCrudService();
 
+    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
     @GetMapping("")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
