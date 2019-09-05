@@ -40,6 +40,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         this.patientInfoRepository = patientInfoRepository;
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public PatientInfo savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         PatientInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
@@ -47,7 +48,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         return this.save(parseObject);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public PatientInfo save(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据admissionNumber查询

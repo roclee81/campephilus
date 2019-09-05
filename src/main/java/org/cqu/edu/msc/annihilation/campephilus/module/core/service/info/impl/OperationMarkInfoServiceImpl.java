@@ -37,20 +37,20 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
     @Autowired
     private OperationMarkInfoRepository operationMarkInfoRepository;
 
+    @CacheEvict(allEntries = true)
     @Override
-    public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+    public OperationMarkInfo saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo.class);
         if (null != parseObject) {
             parseObject.setOperationNumber(instrumentForm.getOperationNumber());
         }
-        this.save(parseObject);
+        return this.save(parseObject);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
-    public void save(OperationMarkInfo operationMarkInfo) {
+    public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
-        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
     }
 
     @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")

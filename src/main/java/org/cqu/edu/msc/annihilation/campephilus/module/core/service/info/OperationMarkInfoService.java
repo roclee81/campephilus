@@ -18,8 +18,9 @@ public interface OperationMarkInfoService {
      * 保存
      *
      * @param operationMarkInfo
+     * @return
      */
-    void save(OperationMarkInfo operationMarkInfo);
+    OperationMarkInfo save(OperationMarkInfo operationMarkInfo);
 
     /**
      * 更新
@@ -46,7 +47,7 @@ public interface OperationMarkInfoService {
 
     long countAll();
 
-    void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm);
+    OperationMarkInfo saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
     /**
      * @param operationNumber

@@ -18,6 +18,7 @@ public interface PatientInfoService {
      * 保存
      *
      * @param patientInfo
+     * @return
      */
     PatientInfo save(PatientInfo patientInfo);
 
@@ -44,8 +45,12 @@ public interface PatientInfoService {
      */
     void delete(PatientInfo patientInfo);
 
+    /**
+     * 统计所有
+     *
+     * @return
+     */
     long countAll();
-
 
     /**
      * @param instrumentForm

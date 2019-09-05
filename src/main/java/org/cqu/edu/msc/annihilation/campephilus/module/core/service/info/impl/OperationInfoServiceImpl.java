@@ -50,6 +50,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return operationInfo.getOperationNumber();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationInfo.class);
@@ -58,7 +59,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
     }
 
     @Override
-    public Integer countOperationInfo() {
+    public int countOperationInfo() {
         return Math.toIntExact(operationInfoRepository.count());
     }
 
@@ -72,6 +73,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return queryResult.getOperationState();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
@@ -83,6 +85,7 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         this.update(queryResult);
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
@@ -130,9 +133,8 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return operationInfoRepository.findByOperationNumber(operationInfo.getOperationNumber());
     }
 
-    @CacheEvict(allEntries = true)
     @Override
-    public synchronized OperationInfo save(OperationInfo operationInfo) {
+    public OperationInfo save(OperationInfo operationInfo) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
         CheckUtils.checkDataIsExisted(operationInfoRepository.findById(getId(operationInfo)).orElse(null));
@@ -140,11 +142,10 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationInfoRepository, operationInfo);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
-    public synchronized void update(OperationInfo operationInfo) {
+    public OperationInfo update(OperationInfo operationInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
-        ServiceCrudCheckUtils.updateObjectAndCheckSuccess(operationInfoRepository, getId(operationInfo), operationInfo);
+        return ServiceCrudCheckUtils.updateObjectAndCheckSuccess(operationInfoRepository, getId(operationInfo), operationInfo);
     }
 
     @CacheEvict(allEntries = true)

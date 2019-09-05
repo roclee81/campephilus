@@ -28,7 +28,7 @@ public interface OperationInfoService {
      *
      * @param operationInfo
      */
-    void update(OperationInfo operationInfo);
+    OperationInfo update(OperationInfo operationInfo);
 
     List<OperationInfo> listById(Object id);
 
@@ -52,7 +52,7 @@ public interface OperationInfoService {
 
     OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
-    Integer countOperationInfo();
+    int countOperationInfo();
 
     int getOperationStateByOperationNumber(int operationNumber);
 

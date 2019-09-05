@@ -13,12 +13,12 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author lx
@@ -43,6 +43,7 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
         return operationDeviceInfo.getOperationNumber();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public OperationDeviceInfo saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationDeviceInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationDeviceInfo.class);
@@ -55,8 +56,6 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
         return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
     }
 
-
-    @CacheEvict(allEntries = true)
     @Override
     public OperationDeviceInfo save(OperationDeviceInfo t) {
         // 首先查询是否存在该条数据
@@ -81,21 +80,17 @@ public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoServic
 
     @Override
     public void delete(OperationDeviceInfo t) {
-        // 判断t是否为null，同时查询t是否存在在数据库中，如果存在则删除
-        if (Objects.nonNull(t) && Objects.nonNull(t = getDataBaseEntity(t))) {
-            operationDeviceInfoRepository.delete(t);
-            // TODO 打印需不需要提取出来
-            log.info("delete:{}", t.toString());
-        }
+        // TODO
     }
 
+    @Cacheable(key = "'method:'+#root.methodName+',page:'+#p0+',size:'+#p1")
     @Override
     public List<OperationDeviceInfo> listAll(int page, int size) {
         Page<OperationDeviceInfo> searchResult = operationDeviceInfoRepository.findAll(PageRequest.of(page, size));
         return ConvertUtils.convertObjectTimeStamp(searchResult.getContent());
     }
 
-
+    @Cacheable(key = "'method:'+#root.methodName")
     @Override
     public long countAll() {
         return operationDeviceInfoRepository.count();
