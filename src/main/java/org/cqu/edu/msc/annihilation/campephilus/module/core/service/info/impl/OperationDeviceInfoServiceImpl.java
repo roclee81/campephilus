@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationDeviceInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -7,6 +8,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_DEVICE)
 @Service
 public class OperationDeviceInfoServiceImpl extends AbstractInfoService<OperationDeviceInfo, Integer> implements OperationDeviceInfoService {
 
@@ -37,6 +41,7 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
         return operationDeviceInfo.getOperationNumber();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public OperationDeviceInfo saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationDeviceInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationDeviceInfo.class);

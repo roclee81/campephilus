@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.OperationStateEnum;
@@ -12,6 +11,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJso
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION)
 @Service
 public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo, Integer> implements OperationInfoService {
 
@@ -48,6 +50,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         return operationInfo.getOperationNumber();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public OperationInfo saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationInfo.class);
@@ -69,8 +72,8 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         return queryResult.getOperationState();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
-    @CacheRemove(value = CacheConstant.CACHE_NAME_INFO_OPERATION)
     public void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
@@ -81,8 +84,8 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         this.update(queryResult);
     }
 
+    @CacheEvict(allEntries = true)
     @Override
-    @CacheRemove(value = CacheConstant.CACHE_NAME_INFO_OPERATION)
     public void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
         OperationInfo queryResult = operationInfoRepository.findByOperationNumber(instrumentForm.getOperationNumber());
@@ -94,7 +97,7 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     }
 
     @Override
-    public Map<Integer, Integer> getOperationInfoByCurrent() {
+    public Map<Integer, Integer> getCurrentOperationInfo() {
         Map<Integer, Integer> result = new ConcurrentHashMap<>(16);
         List<OperationInfo> operationInfoList = operationInfoRepository.findByOperationStateIs(OperationStateEnum.IN_PREPARATION.getCode());
         operationInfoList.parallelStream()

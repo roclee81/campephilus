@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -10,6 +11,8 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 @Service
 public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationMarkInfo, Integer> implements OperationMarkInfoService {
 
@@ -43,6 +47,7 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
         return operationMarkInfo.getId();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo.class);
@@ -63,7 +68,6 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
         return convertMarkTime(super.listAll(page, size));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<OperationMarkInfo> listByOperationNumber(int operationNumber) {
         return convertMarkTime(ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));

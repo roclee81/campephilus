@@ -31,5 +31,5 @@ public interface OperationInfoService extends CrudService<OperationInfo> {
      *
      * @return Map<Integer, Integer>
      */
-    Map<Integer, Integer> getOperationInfoByCurrent();
+    Map<Integer, Integer> getCurrentOperationInfo();
 }

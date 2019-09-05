@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.BeforeOperationInfoRepository;
@@ -9,6 +10,9 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +23,13 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_BEFORE_OPERATION)
 @Service
 public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOperationInfo, Integer> implements BeforeOperationInfoService {
 
     private final BeforeOperationInfoRepository beforeOperationInfoRepository;
 
+    @Autowired
     public BeforeOperationInfoServiceImpl(BeforeOperationInfoRepository beforeOperationInfoRepository) {
         this.beforeOperationInfoRepository = beforeOperationInfoRepository;
     }
@@ -38,8 +44,9 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
         return beforeOperationInfo.getId();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
-    public synchronized BeforeOperationInfo save(BeforeOperationInfo beforeOperationInfo) {
+    public BeforeOperationInfo save(BeforeOperationInfo beforeOperationInfo) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
         CheckUtils.checkDataIsExisted(beforeOperationInfoRepository.findByAdmissionNumber(beforeOperationInfo.getAdmissionNumber()));
@@ -52,8 +59,7 @@ public class BeforeOperationInfoServiceImpl extends AbstractInfoService<BeforeOp
         PatientInfo parsePatientInfo = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
         BeforeOperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, BeforeOperationInfo.class);
         parseObject.setAdmissionNumber(parsePatientInfo.getAdmissionNumber());
-        this.save(parseObject);
-        return parseObject;
+        return this.save(parseObject);
     }
 
     /**

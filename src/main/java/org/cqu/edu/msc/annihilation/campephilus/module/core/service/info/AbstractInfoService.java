@@ -1,7 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.cache.CacheRemove;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BaseInfoSuperclass;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
@@ -23,13 +22,16 @@ import java.util.Objects;
 @Slf4j
 public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
 
+    /**
+     * 获得
+     *
+     * @return
+     */
     public abstract JpaRepository<T, ID> getJpaRepository();
 
     protected abstract ID getId(T t);
 
-    @CacheRemove()
-    @SuppressWarnings("unchecked")
-    public synchronized T save(T t) {
+    public T save(T t) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
         CheckUtils.checkDataIsExisted(getJpaRepository().findById(getId(t)).orElse(null));
@@ -37,8 +39,7 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(getJpaRepository(), t);
     }
 
-    @CacheRemove()
-    public synchronized void update(T t) {
+    public void update(T t) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudCheckUtils.updateObjectAndCheckSuccess(getJpaRepository(), getId(t), t);
     }
@@ -53,7 +54,6 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
         return null;
     }
 
-    @CacheRemove()
     public void delete(T t) {
         // 判断t是否为null，同时查询t是否存在在数据库中，如果存在则删除
         if (Objects.nonNull(t) && Objects.nonNull(t = getDataBaseEntity(t))) {
@@ -67,7 +67,6 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public List<T> listAll(int page, int size) {
         Page<T> searchResult = getJpaRepository().findAll(PageRequest.of(page, size));
         return ConvertUtils.convertObjectTimeStamp(searchResult.getContent());

@@ -1,11 +1,15 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceHospitalRelationInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +20,13 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_DEVICE_HOSPITAL_RELATION)
 @Service
 public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<DeviceHospitalRelationInfo, Integer> implements DeviceHospitalRelationInfoService {
 
     private final DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository;
 
+    @Autowired
     public DeviceHospitalRelationInfoServiceImpl(DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository) {
         this.deviceHospitalRelationInfoRepository = deviceHospitalRelationInfoRepository;
     }
@@ -35,6 +41,7 @@ public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<D
         return deviceHospitalRelationInfo.getId();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public DeviceHospitalRelationInfo save(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
         // 首先查询是否存在该条数据，根据AdmissionNumber查询
@@ -43,7 +50,7 @@ public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<D
                 .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
                         deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
         // 判断保存是否成功，不成功将抛出异常
-       return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
     }
 
 }

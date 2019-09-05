@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.LogInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.LogInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -7,6 +8,9 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.LogInfo
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +21,13 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_LOG)
 @Service
 public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> implements LogInfoService {
 
     private final LogInfoRepository logInfoRepository;
 
+    @Autowired
     public LogInfoServiceImpl(LogInfoRepository logInfoRepository) {
         this.logInfoRepository = logInfoRepository;
     }
@@ -41,6 +47,7 @@ public class LogInfoServiceImpl extends AbstractInfoService<LogInfo, Integer> im
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(logInfoRepository, logInfo);
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public void saveLogInfoFromInstrumentFrom(InstrumentForm instrumentForm) {
         LogInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, LogInfo.class);

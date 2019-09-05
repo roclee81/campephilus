@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -9,6 +10,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJso
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_PATIENT)
 @Service
 public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Integer> implements PatientInfoService {
 
@@ -39,6 +43,7 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Int
         return patientInfo.getId();
     }
 
+    @CacheEvict(allEntries = true)
     @Override
     public PatientInfo savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         PatientInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);
@@ -47,7 +52,7 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Int
     }
 
     @Override
-    public synchronized PatientInfo save(PatientInfo patientInfo) {
+    public PatientInfo save(PatientInfo patientInfo) {
         // 首先查询是否存在该条数据，根据admissionNumber查询
         // 判断到存在该仪器存在，则直接返回，抛出异常
         CheckUtils.checkDataIsExisted(patientInfoRepository.findByAdmissionNumber(
@@ -57,7 +62,7 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Int
     }
 
     @Override
-    public synchronized void update(PatientInfo patientInfo) {
+    public void update(PatientInfo patientInfo) {
         // 更新字段，同时检查是否更新成功，不成功则抛出异常
         ServiceCrudCheckUtils.updateObjectAndCheckSuccess(
                 patientInfoRepository, patientInfo.getId(), patientInfo);
