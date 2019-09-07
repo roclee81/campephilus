@@ -28,6 +28,10 @@ public class ResultVOUtils {
         return new ResultVO(ResponseEnum.SUCCESS.getCode(), msg);
     }
 
+    public static ResultVO success() {
+        return new ResultVO(ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getMsg());
+    }
+
     public static ResultVO isExisted(Object msg) {
         return new ResultVO(ResponseEnum.DATA_EXISTED.getCode(), msg);
     }
