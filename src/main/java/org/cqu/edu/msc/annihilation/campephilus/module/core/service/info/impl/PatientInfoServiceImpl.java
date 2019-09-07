@@ -1,7 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.PatientInfoDTO;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
@@ -9,11 +10,16 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -41,6 +47,14 @@ public class PatientInfoServiceImpl extends AbstractInfoService<PatientInfo, Int
     @Override
     protected Integer getId(PatientInfo patientInfo) {
         return patientInfo.getId();
+    }
+
+    @Override
+    public List<PatientInfoDTO> listPatientInfoDTO(int page, int size) {
+        return super.listAll(page, size)
+                .parallelStream()
+                .map(PatientInfoDTO::structurePatientInfoDTO)
+                .collect(Collectors.toList());
     }
 
     @CacheEvict(allEntries = true)

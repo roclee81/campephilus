@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sDataRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.AbstractDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.Norwamd9002sDataService;

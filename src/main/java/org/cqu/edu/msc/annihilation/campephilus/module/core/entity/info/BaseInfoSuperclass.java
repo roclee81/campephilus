@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.PearlcareYy106Data;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.Norwamd9002sDataServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.PearlcareYy106DataServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.DeviceDataParser;

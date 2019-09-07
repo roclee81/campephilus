@@ -1,10 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BeforeOperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationDeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.OperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.BeforeOperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationDeviceInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.RequestEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.CrudException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
@@ -13,8 +13,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultData
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
-import org.cqu.edu.msc.annihilation.campephilus.module.message.InstrumentMessage;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -41,9 +40,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationDeviceInfoService operationDeviceInfoService;
     private final DeviceDataService deviceDataService;
     private final LogInfoService logInfoService;
-    private final InstrumentMessage instrumentMessage;
 
-    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService, InstrumentMessage instrumentMessage) {
+    @Autowired
+    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
@@ -53,7 +52,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.operationDeviceInfoService = operationDeviceInfoService;
         this.deviceDataService = deviceDataService;
         this.logInfoService = logInfoService;
-        this.instrumentMessage = instrumentMessage;
     }
 
     @Override
@@ -63,12 +61,13 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         }
 
         verifyParameter(instrumentForm);
+        processCode(instrumentForm);
 
-        if (instrumentForm.getCode().equals(RequestEnum.DEVICE_DATA.getCode())) {
-            sendMessage(instrumentForm);
-        } else {
-            processCode(instrumentForm);
-        }
+//        if (instrumentForm.getCode().equals(RequestEnum.DEVICE_DATA.getCode())) {
+//            sendMessage(instrumentForm);
+//        } else {
+//            processCode(instrumentForm);
+//        }
 
         return ResultDataDTO.convert(instrumentForm.getCode() + 1,
                 instrumentForm.getMac(),
@@ -92,8 +91,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
      * @param instrumentForm
      */
     private void sendMessage(InstrumentForm instrumentForm) {
-
-        instrumentMessage.input().send(MessageBuilder.withPayload(instrumentForm).build());
     }
 
     /**

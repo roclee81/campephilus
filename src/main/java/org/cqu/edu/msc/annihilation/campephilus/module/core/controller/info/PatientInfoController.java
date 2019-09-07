@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.PatientInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
@@ -38,7 +38,7 @@ public class PatientInfoController {
     @GetMapping("")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAll(patientInfoService.listAll(page, size));
+        return ControllerCrudUtils.listAll(patientInfoService.listPatientInfoDTO(page, size));
     }
 
     @Cacheable(key = "'method:'+#root.methodName")

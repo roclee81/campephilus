@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.BaseInfoSuperclass;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.BaseInfoSuperclass;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
 import java.util.List;

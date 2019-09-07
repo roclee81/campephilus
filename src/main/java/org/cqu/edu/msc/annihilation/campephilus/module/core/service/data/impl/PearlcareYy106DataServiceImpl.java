@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.PearlcareYy106Data;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.PearlcareYy106DataRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.AbstractDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.PearlcareYy106DataService;

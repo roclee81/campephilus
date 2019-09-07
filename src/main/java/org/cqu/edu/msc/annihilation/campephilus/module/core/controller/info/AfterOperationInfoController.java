@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.AfterOperationInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.AfterOperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AfterOperationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;

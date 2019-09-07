@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info.HospitalInfo;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.HospitalInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 
 /**

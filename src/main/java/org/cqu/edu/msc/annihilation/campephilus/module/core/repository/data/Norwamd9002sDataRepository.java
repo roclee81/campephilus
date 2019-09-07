@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data.Norwamd9002sData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

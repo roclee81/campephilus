@@ -1,19 +1,17 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.data;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author lx
  * @version V1.0
- * @date 2019/4/11 17:26
+ * @date 2019/4/11 17:37
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
@@ -22,15 +20,15 @@ import java.io.Serializable;
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_norwamd_9002s")
-public class Norwamd9002sData extends BaseDataSuperclass implements Serializable {
+@Table(name = "data_pearlcare_yy106")
+public class PearlcareYy106Data extends BaseDataSuperclass implements Serializable {
 
-    private static final long serialVersionUID = -3302167041948046696L;
+    private static final long serialVersionUID = -6622470603257802385L;
     /**
      *
      */
-    @Column(name = "BS")
-    private Integer BS;
+    @Column(name = "AI")
+    private Integer AI;
 
     /**
      *
@@ -47,6 +45,6 @@ public class Norwamd9002sData extends BaseDataSuperclass implements Serializable
     /**
      *
      */
-    @Column(name = "CSI")
-    private Integer CSI;
+    @Column(name = "BSR")
+    private Integer BSR;
 }

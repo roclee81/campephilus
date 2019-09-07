@@ -1,5 +1,6 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.domain.info;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -32,6 +33,7 @@ public class PatientInfo extends BaseInfoSuperclass implements Serializable {
      * 标记id，自动增长
      */
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_id")
     private Integer id;
