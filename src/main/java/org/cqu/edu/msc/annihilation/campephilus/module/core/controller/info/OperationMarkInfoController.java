@@ -38,7 +38,7 @@ public class OperationMarkInfoController {
     @GetMapping("")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAll(operationMarkInfoService.listAll(page, size));
+        return ControllerCrudUtils.listAll(operationMarkInfoService.listOperationMarkInfoDTO(page, size));
     }
 
     @Cacheable(key = "'method:'+#root.methodName")
@@ -69,7 +69,7 @@ public class OperationMarkInfoController {
     @GetMapping("/operationNumber")
     public ResultVO listByOperationNumber(
             @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber) {
-        return ControllerCrudUtils.list(operationMarkInfoService.listByOperationNumber(operationNumber));
+        return ControllerCrudUtils.list(operationMarkInfoService.listOperationMarkInfoDTOByOperationNumber(operationNumber));
     }
 
     //    @DeleteMapping("/id")

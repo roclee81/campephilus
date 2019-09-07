@@ -118,18 +118,18 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 OperationInfo operationInfo = null;
                 OperationDeviceInfo operationDeviceInfo = null;
                 BeforeOperationInfo beforeOperationInfo = null;
-//                try {
-                instrumentForm.setOperationNumber(getNewOperationNumber());
-                patientInfo = patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
-                operationInfo = operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
-                operationDeviceInfo = operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
-                beforeOperationInfo = beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
-//                } catch (Exception e) {
-                patientInfoService.delete(patientInfo);
-                operationInfoService.delete(operationInfo);
-                operationDeviceInfoService.delete(operationDeviceInfo);
-                beforeOperationInfoService.delete(beforeOperationInfo);
-                break;
+                try {
+                    instrumentForm.setOperationNumber(getNewOperationNumber());
+                    patientInfo = patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
+                    operationInfo = operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
+                    operationDeviceInfo = operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
+                    beforeOperationInfo = beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
+                } catch (Exception e) {
+                    patientInfoService.delete(patientInfo);
+                    operationInfoService.delete(operationInfo);
+                    operationDeviceInfoService.delete(operationDeviceInfo);
+                    throw e;
+                }
             }
             // 更新手术过程基本信息，即手术结束的信息
             case OPERATION_END: {

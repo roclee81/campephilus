@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.OperationMarkInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
@@ -58,6 +59,11 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     }
 
     @Override
+    public List<OperationMarkInfoDTO> listOperationMarkInfoDTO(int page, int size) {
+        return convertOperationMarkInfoDTOList(this.listAll(page, size));
+    }
+
+    @Override
     public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
         // 判断保存是否成功，不成功将抛出异常
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
@@ -69,14 +75,25 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     }
 
     @Override
-    public List<OperationMarkInfo> listByOperationNumber(int operationNumber) {
-        return convertMarkTime(ConvertUtils.convertObjectTimeStamp(operationMarkInfoRepository.findByOperationNumber(operationNumber)));
+    public List<OperationMarkInfoDTO> listOperationMarkInfoDTOByOperationNumber(int operationNumber) {
+        List<OperationMarkInfo> operationMarkInfoList =
+                convertMarkTime(
+                        ConvertUtils.convertObjectTimeStamp(
+                                operationMarkInfoRepository.findByOperationNumber(operationNumber)));
+
+        return convertOperationMarkInfoDTOList(operationMarkInfoList);
     }
 
     private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {
-        return list
-                .parallelStream()
+        return list.parallelStream()
                 .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
+                .collect(Collectors.toList());
+    }
+
+    private static List<OperationMarkInfoDTO> convertOperationMarkInfoDTOList(List<OperationMarkInfo> operationMarkInfoList) {
+        return operationMarkInfoList
+                .parallelStream()
+                .map(OperationMarkInfoDTO::convertOperationMarkInfoDTO)
                 .collect(Collectors.toList());
     }
 

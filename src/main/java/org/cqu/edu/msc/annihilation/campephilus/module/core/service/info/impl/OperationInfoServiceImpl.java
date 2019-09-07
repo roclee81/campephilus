@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.OperationInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.OperationStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
@@ -48,6 +49,11 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     @Override
     protected Integer getId(OperationInfo operationInfo) {
         return operationInfo.getOperationNumber();
+    }
+
+    @Override
+    public List<OperationInfoDTO> listOperationInfoDTO(int page, int size) {
+        return convertOperationMarkInfoDTOList(this.listAll(page, size));
     }
 
     @CacheEvict(allEntries = true)
@@ -99,12 +105,12 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     @Override
     public Map<Integer, Integer> getCurrentOperationInfo() {
         Map<Integer, Integer> result = new ConcurrentHashMap<>(16);
+        // 首先查询手术还未开始，还在准备中的信息
         List<OperationInfo> operationInfoList = operationInfoRepository.findByOperationStateIs(OperationStateEnum.IN_PREPARATION.getCode());
-        operationInfoList.parallelStream()
-                .forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PREPARATION.getCode()));
+        operationInfoList.forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PREPARATION.getCode()));
+        // 查询手术进行中的信息
         operationInfoList = operationInfoRepository.findByOperationStateIs(OperationStateEnum.IN_PROGRESS.getCode());
-        operationInfoList.parallelStream()
-                .forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PROGRESS.getCode()));
+        operationInfoList.forEach(operationInfo -> result.put(operationInfo.getOperationNumber(), OperationStateEnum.IN_PROGRESS.getCode()));
         return result;
     }
 
@@ -128,5 +134,12 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
     @Override
     public OperationInfo getDataBaseEntity(OperationInfo operationInfo) {
         return operationInfoRepository.findByOperationNumber(operationInfo.getOperationNumber());
+    }
+
+    private static List<OperationInfoDTO> convertOperationMarkInfoDTOList(List<OperationInfo> operationInfo) {
+        return operationInfo
+                .parallelStream()
+                .map(OperationInfoDTO::convertOperationInfoDTO)
+                .collect(Collectors.toList());
     }
 }

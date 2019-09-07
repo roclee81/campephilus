@@ -39,7 +39,7 @@ public class OperationInfoController {
     @GetMapping("")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "20") int size) {
-        return ControllerCrudUtils.listAll(operationInfoService.listAll(page, size));
+        return ControllerCrudUtils.listAll(operationInfoService.listOperationInfoDTO(page, size));
     }
 
     @Cacheable(key = "'method:'+#root.methodName")

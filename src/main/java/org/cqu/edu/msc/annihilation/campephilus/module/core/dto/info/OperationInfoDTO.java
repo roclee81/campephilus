@@ -1,15 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationInfo;
+import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * campephilus
@@ -20,42 +16,28 @@ import java.time.LocalDateTime;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class OperationInfoDTO implements Serializable {
+public class OperationInfoDTO extends OperationInfo implements Serializable {
 
-    private static final long serialVersionUID = -5085503116296589504L;
-    /**
-     * 手术顺序号
-     */
-    private Integer operationNumber;
-
-    /**
-     * 手术名称
-     */
-    private String operationName;
+    private static final long serialVersionUID = -3133528677913293064L;
 
     private Long longOperationStartTime;
 
     private Long longOperationEndTime;
 
-    /**
-     * 手术状态
-     */
-    private Integer operationState;
-
-    /**
-     * 全国医院序列号，唯一
-     */
-    private String hospitalCode;
-
-    /**
-     * 医院的手术顺序号
-     * 每个医院的都不一样
-     */
-    private String hospitalOperationNumber;
-
     private Long longModified;
 
     private Long longCreate;
+
+    private OperationInfoDTO() {
+
+    }
+
+    public static OperationInfoDTO convertOperationInfoDTO(OperationInfo operationInfo) {
+        OperationInfoDTO operationInfoDTO = new OperationInfoDTO();
+        BeanUtils.copyPropertiesTargetNotNull(operationInfo, operationInfoDTO);
+        return operationInfoDTO;
+    }
 }
 

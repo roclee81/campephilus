@@ -1,16 +1,11 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
+import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * campephilus
@@ -21,53 +16,26 @@ import java.sql.Timestamp;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class OperationMarkInfoDTO implements Serializable {
+public class OperationMarkInfoDTO extends OperationMarkInfo implements Serializable {
 
-    private static final long serialVersionUID = -4892589808381433198L;
-    /**
-     * 标记id，自动增长
-     */
-    private Integer id;
-
-    /**
-     * 标记大类型
-     */
-    private String markMainType;
-
-    /**
-     * 标记类型
-     */
-    private String markSubType;
-
-    /**
-     * 事件类型
-     */
-    private String markEvent;
-
-    /**
-     * 途径
-     */
-    private String giveMedicineMethod;
-
-    /**
-     * 剂量
-     */
-    private String giveMedicineVolume;
-
-    /**
-     * 不良反应/特殊情况
-     */
-    private String sideEffect;
+    private static final long serialVersionUID = -6950792304462088283L;
 
     private Long longMarkTime;
-
-    /**
-     * 手术顺序号
-     */
-    private Integer operationNumber;
 
     private Long longModified;
 
     private Long longCreate;
+
+    private OperationMarkInfoDTO() {
+
+    }
+
+    public static OperationMarkInfoDTO convertOperationMarkInfoDTO(OperationMarkInfo operationMarkInfo) {
+        OperationMarkInfoDTO operationMarkInfoDTO = new OperationMarkInfoDTO();
+        BeanUtils.copyPropertiesTargetNotNull(operationMarkInfo, operationMarkInfoDTO);
+        return operationMarkInfoDTO;
+    }
+
 }
