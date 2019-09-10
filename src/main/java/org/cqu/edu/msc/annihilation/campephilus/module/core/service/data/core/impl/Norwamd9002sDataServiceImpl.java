@@ -1,9 +1,9 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sDataRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.AbstractDataService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.Norwamd9002sDataService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core.AbstractDataService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core.Norwamd9002sDataService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

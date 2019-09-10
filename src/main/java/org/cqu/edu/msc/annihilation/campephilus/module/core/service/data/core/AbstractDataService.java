@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
@@ -26,7 +26,6 @@ public abstract class AbstractDataService<T, ID> implements CrudService<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public T save(T t) {
         // 不需要查询数据是否存在，因为是医疗仪器数据，数据有可能会重复
         // 只需要通过保存时间来判断即可

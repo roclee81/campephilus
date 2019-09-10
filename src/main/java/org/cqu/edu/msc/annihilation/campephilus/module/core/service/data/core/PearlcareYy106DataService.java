@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core;
 
 /**
  * @author lx

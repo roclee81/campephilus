@@ -2,13 +2,14 @@ package org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.Norwamd9002sDataServiceImpl;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.impl.PearlcareYy106DataServiceImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core.impl.Norwamd9002sDataServiceImpl;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.core.impl.PearlcareYy106DataServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.DeviceDataParser;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataNuoHe;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.parse.entity.DataPuKe;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     private final Norwamd9002sDataServiceImpl norwamd9002sDataService;
     private final PearlcareYy106DataServiceImpl pearlcareYy106DataService;
 
+    @Autowired
     public DeviceDataServiceImpl(Norwamd9002sDataServiceImpl norwamd9002sDataService, PearlcareYy106DataServiceImpl pearlcareYy106DataService) {
         this.norwamd9002sDataService = norwamd9002sDataService;
         this.pearlcareYy106DataService = pearlcareYy106DataService;
