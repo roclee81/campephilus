@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveService;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,10 @@ import org.springframework.stereotype.Service;
  * Description:
  */
 @Service
-public class PearlcareYy106DataSaveServiceImpl implements DataSaveService<PearlcareYy106Data> {
+public class PearlcareYy106DataSaveServiceImpl implements DataSaveService {
 
     @Override
-    public void save(PearlcareYy106Data pearlcareYy106Data) {
+    public void save(Object pearlcareYy106Data) {
 
     }
 }

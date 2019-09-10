@@ -22,7 +22,7 @@ public class DataController {
             @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
             @RequestParam(value = "operationNumber", defaultValue = "-1") String operationNumber,
             @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
-        return ResultVOUtils.checkAndReturn(null);
+        return
     }
 
     @GetMapping("/list")
@@ -33,6 +33,4 @@ public class DataController {
         // TODO 没写
         return null;
     }
-
-
 }
