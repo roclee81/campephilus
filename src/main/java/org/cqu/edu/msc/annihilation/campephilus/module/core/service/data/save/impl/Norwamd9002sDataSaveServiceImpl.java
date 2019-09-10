@@ -1,7 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.impl;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,11 +12,9 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_DATA_NORWAMD9002S)
 @Service
 public class Norwamd9002sDataSaveServiceImpl implements DataSaveService {
-
-    @Autowired
-
 
     @Override
     public void save(Object norwamd9002sData) {

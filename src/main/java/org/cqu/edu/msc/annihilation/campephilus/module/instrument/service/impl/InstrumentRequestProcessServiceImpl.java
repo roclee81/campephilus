@@ -10,7 +10,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseExcep
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.dto.ResultDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
+//import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.DeviceDataService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.service.InstrumentRequestProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +37,11 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationMarkInfoService operationMarkInfoService;
     private final PatientInfoService patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
-    private final DeviceDataService deviceDataService;
+    //    private final DeviceDataService deviceDataService;
     private final LogInfoService logInfoService;
 
     @Autowired
-    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, DeviceDataService deviceDataService, LogInfoService logInfoService) {
+    public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceInfoService = deviceInfoService;
         this.hospitalInfoService = hospitalInfoService;
@@ -49,7 +49,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
         this.operationMarkInfoService = operationMarkInfoService;
         this.patientInfoService = patientInfoService;
         this.operationDeviceInfoService = operationDeviceInfoService;
-        this.deviceDataService = deviceDataService;
+//        this.deviceDataService = deviceDataService;
         this.logInfoService = logInfoService;
     }
 
@@ -142,7 +142,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
             }
             // 处理传输的医疗仪器数据的情况
             case DEVICE_DATA: {
-                deviceDataService.saveDeviceData(instrumentForm.getOperationNumber(), instrumentForm.getData());
+//                deviceDataService.saveDeviceData(instrumentForm.getOperationNumber(), instrumentForm.getData());
                 break;
             }
             case POSTOPERATIVE_PATIENT_INFO: {

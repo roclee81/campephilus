@@ -37,4 +37,5 @@ public enum OperationStateEnum {
 
     OperationStateEnum(Integer code) {
         this.code = code;
-    }}
+    }
+}

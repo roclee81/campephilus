@@ -27,4 +27,5 @@ public enum CollectorStateEnum {
 
     CollectorStateEnum(Integer code) {
         this.code = code;
-    }}
+    }
+}

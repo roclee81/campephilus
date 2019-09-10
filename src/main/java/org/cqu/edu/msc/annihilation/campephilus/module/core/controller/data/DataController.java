@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +18,28 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class DataController {
 
-    @GetMapping("")
-    public ResultVO getNewestByOperationNumberAndSerialNumber(
-            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
-            @RequestParam(value = "operationNumber", defaultValue = "-1") String operationNumber,
-            @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
-        return
-    }
+//    @GetMapping("/newest")
+//    public ResultVO getNewestByOperationNumberAndSerialNumber(
+//            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
+//            @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
+//            @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
+//        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode)
+//                .list()
+//    }
 
     @GetMapping("/list")
-    public ResultVO listByOperationNumberAndSerialNumber(
-            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
-            @RequestParam(value = "operationNumber", defaultValue = "-1") String operationNumber,
-            @RequestParam(value = "serialNumber", defaultValue = "") String serialNumber) {
-        // TODO 没写
-        return null;
+    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") String deviceCode,
+                         @RequestParam(value = "page", defaultValue = "0") int page,
+                         @RequestParam(value = "size", defaultValue = "10") int size) {
+        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode).list(page, size));
     }
+
+//    @GetMapping("/list")
+//    public ResultVO listByOperationNumberAndSerialNumber(
+//            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
+//            @RequestParam(value = "operationNumber", defaultValue = "-1") String operationNumber,
+//            @RequestParam(value = "serialNumber", defaultValue = "") String serialNumber) {
+//        // TODO 没写
+//        return null;
+//    }
 }
