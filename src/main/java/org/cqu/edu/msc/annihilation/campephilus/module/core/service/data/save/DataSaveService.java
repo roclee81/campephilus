@@ -12,7 +12,7 @@ public interface DataSaveService {
 
     /**
      * 数据保存接口
-     *K
+     *
      * @param t 范型数据
      */
     void save(Object t);
