@@ -1,10 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.impl.Norwamd9002sDataSaveServiceImpl;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.impl.PearlcareYy106DataSaveServiceImpl;
-
-import java.util.HashMap;
-
 /**
  * @author luoxin
  * @version V1.0
@@ -14,14 +9,4 @@ import java.util.HashMap;
  */
 public class DataSaveFactory {
 
-    private static HashMap<String, DataSaveService> dataSaveServiceMap = new HashMap<>();
-
-    static {
-        dataSaveServiceMap.put("1", new Norwamd9002sDataSaveServiceImpl());
-        dataSaveServiceMap.put("2", new PearlcareYy106DataSaveServiceImpl());
-    }
-
-    public static DataSaveService getDataSaveService(String deviceCode) {
-        return dataSaveServiceMap.get(deviceCode);
-    }
 }
