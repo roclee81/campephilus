@@ -23,14 +23,26 @@ import java.util.Objects;
 public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
 
     /**
-     * 获得
+     * 获得JpaRepository
      *
      * @return
      */
     public abstract JpaRepository<T, ID> getJpaRepository();
 
+    /**
+     * 指定DO的ID
+     *
+     * @param t 类型
+     * @return
+     */
     protected abstract ID getId(T t);
 
+    /**
+     * 该方法保存数据
+     *
+     * @param t
+     * @return
+     */
     public T save(T t) {
         // 首先查询是否存在该条数据
         // 判断到存在该仪器存在，则直接返回，抛出异常
@@ -72,6 +84,11 @@ public abstract class AbstractInfoService<T extends BaseInfoSuperclass, ID> {
         return ConvertUtils.convertObjectTimeStamp(searchResult.getContent());
     }
 
+    /**
+     * 统计该类型所有数据条数
+     *
+     * @return 数据条数
+     */
     public long countAll() {
         return getJpaRepository().count();
     }

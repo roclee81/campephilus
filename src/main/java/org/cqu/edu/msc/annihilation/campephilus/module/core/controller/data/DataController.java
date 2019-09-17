@@ -1,9 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
-import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author lx
@@ -27,12 +26,12 @@ public class DataController {
 //                .list()
 //    }
 
-    @GetMapping("/list")
-    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") String deviceCode,
-                         @RequestParam(value = "page", defaultValue = "0") int page,
-                         @RequestParam(value = "size", defaultValue = "10") int size) {
-        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode).list(page, size));
-    }
+//    @GetMapping("/list")
+//    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") String deviceCode,
+//                         @RequestParam(value = "page", defaultValue = "0") int page,
+//                         @RequestParam(value = "size", defaultValue = "10") int size) {
+//        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode).list(page, size));
+//    }
 
 //    @GetMapping("/list")
 //    public ResultVO listByOperationNumberAndSerialNumber(

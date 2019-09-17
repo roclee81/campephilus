@@ -112,7 +112,12 @@ public enum RequestEnum {
     /**
      * 是反馈错误数据
      */
-    FEEDBACK_ERROR_INFO(185);
+    FEEDBACK_ERROR_INFO(185),
+
+    /**
+     * 仪器评价的数据
+     */
+    EVALUATION_INFO(187);
 
     private Integer code;
 

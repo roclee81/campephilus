@@ -41,6 +41,9 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final LogInfoService logInfoService;
 
     @Autowired
+    private EvaluationInfoService evaluationInfoService;
+
+    @Autowired
     public InstrumentRequestProcessServiceImpl(BeforeOperationInfoService beforeOperationInfoService, DeviceInfoService deviceInfoService, HospitalInfoService hospitalInfoService, OperationInfoService operationInfoService, OperationMarkInfoService operationMarkInfoService, PatientInfoService patientInfoService, OperationDeviceInfoService operationDeviceInfoService, LogInfoService logInfoService) {
         this.beforeOperationInfoService = beforeOperationInfoService;
         this.deviceInfoService = deviceInfoService;
@@ -164,8 +167,12 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 // TODO 目前先不管，返回空即可，可能会变为http restful方式实现
                 break;
             }
+            case EVALUATION_INFO: {
+                evaluationInfoService.saveEvaluationInfoFromInstrumentForm(instrumentForm);
+                break;
+            }
             default: {
-
+                break;
             }
         }
     }

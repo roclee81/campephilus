@@ -32,4 +32,7 @@ public class CacheConstant {
     public static final String CACHE_NAME_DATA_NORWAMD9002S = "DATA_NORWAMD9002S";
 
     public static final String CACHE_NAME_DATA_PEARLCAREYY106 = "DATA_PEARLCAREYY106";
+
+    public static final String CACHE_NAME_INFO_EVALUATION = "INFO_EVALUATION";
+
 }
