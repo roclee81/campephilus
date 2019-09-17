@@ -93,8 +93,8 @@ create TABLE `info_after_operation`
 CREATE TABLE `info_evaluation` (
     `pk_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `operation_number` INT NOT NULL COMMENT '反馈信息',
-    `device_code` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `serial_number` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `device_code` INT NOT NULL COMMENT '创建时间',
+    `serial_number` VARCHAR(64) NOT NULL COMMENT '修改时间',
     `device_department` VARCHAR(256) NOT NULL COMMENT '使用科室',
     `experience_level` VARCHAR(256) NOT NULL COMMENT '使用评价等级',
     `reliability_level` VARCHAR(256) NOT NULL COMMENT '可靠性等级',

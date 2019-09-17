@@ -7,6 +7,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Abstrac
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.EvaluationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,11 @@ public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInf
     @Override
     public List<EvaluationInfoDTO> listEvaluationInfoDTO(int page, int size) {
         return EvaluationInfoDTO.structureEvaluationInfoDTOs(this.listAll(page, size));
+    }
+
+    @Override
+    public EvaluationInfo save(EvaluationInfo evaluationInfo) {
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(evaluationInfoRepository, evaluationInfo);
     }
 
     @Override
