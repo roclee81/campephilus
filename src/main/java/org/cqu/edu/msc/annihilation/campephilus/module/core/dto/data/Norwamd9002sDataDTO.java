@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.dto.data;
 import lombok.Data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
 import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
+import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -61,6 +62,8 @@ public class Norwamd9002sDataDTO implements Serializable {
     public static Norwamd9002sDataDTO structureNorwamd9002sDataDTO(Norwamd9002sData norwamd9002sData) {
         Norwamd9002sDataDTO norwamd9002sDataDTO = new Norwamd9002sDataDTO();
         BeanUtils.copyPropertiesTargetNotNull(norwamd9002sData, norwamd9002sDataDTO);
+        norwamd9002sDataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(norwamd9002sData.getGmtCreate()));
+        norwamd9002sDataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(norwamd9002sData.getGmtModified()));
         return norwamd9002sDataDTO;
     }
 

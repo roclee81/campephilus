@@ -40,7 +40,7 @@ public class EvaluationInfo extends BaseInfoSuperclass implements Serializable {
      * 仪器代号
      */
     @Column(name = "device_code")
-    private String deviceCode;
+    private Integer deviceCode;
 
     /**
      * 仪器序列号

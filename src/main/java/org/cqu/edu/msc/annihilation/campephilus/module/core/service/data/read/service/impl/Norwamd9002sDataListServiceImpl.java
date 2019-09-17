@@ -27,6 +27,5 @@ public class Norwamd9002sDataListServiceImpl implements DataListService {
         Page<Norwamd9002sData> norwamd9002sDataList =
                 norwamd9002sDataRepository.findAll(PageRequest.of(page, size));
         return Norwamd9002sDataDTO.structureNorwamd9002sDataDTOList(norwamd9002sDataList.getContent());
-
     }
 }

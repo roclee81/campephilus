@@ -1,8 +1,12 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * @author lx
@@ -17,21 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class DataController {
 
-//    @GetMapping("/newest")
-//    public ResultVO getNewestByOperationNumberAndSerialNumber(
-//            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
-//            @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
-//            @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
-//        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode)
-//                .list()
-//    }
+    @GetMapping("/newest")
+    public ResultVO getNewestByOperationNumberAndSerialNumber(
+            @RequestParam(value = "deviceCode", defaultValue = "") int deviceCode,
+            @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
+            @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
+        return null;
+    }
 
-//    @GetMapping("/list")
-//    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") String deviceCode,
-//                         @RequestParam(value = "page", defaultValue = "0") int page,
-//                         @RequestParam(value = "size", defaultValue = "10") int size) {
-//        return ResultVOUtils.checkAndReturn(DataListFactory.getDataSaveService(deviceCode).list(page, size));
-//    }
+    @GetMapping("/list")
+    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
+                         @RequestParam(value = "page", defaultValue = "0") int page,
+                         @RequestParam(value = "size", defaultValue = "10") int size) {
+        DataListService dataListService = DataListFactory.getDataSaveService(deviceCode);
+        Object result = Objects.isNull(dataListService) ? null : dataListService.list(page, size);
+        return ControllerCrudUtils.list(result);
+    }
 
 //    @GetMapping("/list")
 //    public ResultVO listByOperationNumberAndSerialNumber(

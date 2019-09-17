@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.DeviceCodeEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.impl.Norwamd9002sDataListServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.impl.PearlcareYy106DataListServiceImpl;
@@ -18,28 +19,20 @@ import java.util.HashMap;
 @Component
 public class DataListFactory {
 
-    @Autowired
-    private Norwamd9002sDataListServiceImpl norwamd9002sDataListService;
+    private final Norwamd9002sDataListServiceImpl norwamd9002sDataListService;
+    private final PearlcareYy106DataListServiceImpl pearlcareYy106DataListService;
+
+    private static final HashMap<Integer, DataListService> dataListServiceMap = new HashMap<>();
 
     @Autowired
-    private PearlcareYy106DataListServiceImpl pearlcareYy106DataListService;
-    
-    HashMap<String, DataListService> dataListServiceMap;
-
-
     public DataListFactory(Norwamd9002sDataListServiceImpl norwamd9002sDataListService, PearlcareYy106DataListServiceImpl pearlcareYy106DataListService) {
         this.norwamd9002sDataListService = norwamd9002sDataListService;
         this.pearlcareYy106DataListService = pearlcareYy106DataListService;
+        dataListServiceMap.put(DeviceCodeEnum.NUO_HE.getCode(), this.norwamd9002sDataListService);
+        dataListServiceMap.put(DeviceCodeEnum.PU_KE.getCode(), this.pearlcareYy106DataListService);
     }
 
-    private static HashMap<String, DataListService> dataListServiceMap = new HashMap<>();
-
-    static {
-        dataListServiceMap.put("1", new Norwamd9002sDataListServiceImpl());
-        dataListServiceMap.put("2", new PearlcareYy106DataListServiceImpl());
-    }
-
-    public static DataListService getDataSaveService(String deviceCode) {
-        return dataListServiceMap.get(deviceCode);
+    public static DataListService getDataSaveService(int deviceCode) {
+        return dataListServiceMap.getOrDefault(deviceCode, null);
     }
 }

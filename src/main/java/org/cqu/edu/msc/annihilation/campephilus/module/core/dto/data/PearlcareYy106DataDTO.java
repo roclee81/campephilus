@@ -1,8 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.dto.data;
 
 import lombok.Data;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
+import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
+import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -49,4 +54,18 @@ public class PearlcareYy106DataDTO implements Serializable {
     private Long longModified;
 
     private Long longCreate;
+
+    public static PearlcareYy106DataDTO structurePearlcareYy106DataDTO(PearlcareYy106Data pearlcareYy106Data) {
+        PearlcareYy106DataDTO pearlcareYy106DataDTO = new PearlcareYy106DataDTO();
+        BeanUtils.copyPropertiesTargetNotNull(pearlcareYy106Data, pearlcareYy106DataDTO);
+        pearlcareYy106DataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(pearlcareYy106Data.getGmtCreate()));
+        pearlcareYy106DataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(pearlcareYy106Data.getGmtCreate()));
+        return pearlcareYy106DataDTO;
+    }
+
+    public static List<PearlcareYy106DataDTO> structurePearlcareYy106DataDTOList(List<PearlcareYy106Data> pearlcareYy106Data) {
+        return pearlcareYy106Data.parallelStream()
+                .map(PearlcareYy106DataDTO::structurePearlcareYy106DataDTO)
+                .collect(Collectors.toList());
+    }
 }

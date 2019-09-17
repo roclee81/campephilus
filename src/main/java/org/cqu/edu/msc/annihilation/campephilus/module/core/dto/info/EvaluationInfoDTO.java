@@ -90,6 +90,8 @@ public class EvaluationInfoDTO implements Serializable {
     public static EvaluationInfoDTO structureEvaluationInfoDTO(EvaluationInfo evaluationInfo) {
         EvaluationInfoDTO evaluationInfoDTO = new EvaluationInfoDTO();
         BeanUtils.copyPropertiesTargetNotNull(evaluationInfo, evaluationInfoDTO);
+        evaluationInfoDTO.setLongCreate(evaluationInfo.getLongCreate());
+        evaluationInfoDTO.setLongModified(evaluationInfo.getLongModified());
         return evaluationInfoDTO;
     }
 

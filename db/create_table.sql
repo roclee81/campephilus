@@ -90,6 +90,24 @@ create TABLE `info_after_operation`
     PRIMARY KEY (pk_id)
 ) COMMENT '病人术后反馈表11';
 
+CREATE TABLE `info_evaluation` (
+    `pk_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
+    `operation_number` INT NOT NULL COMMENT '反馈信息',
+    `device_code` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `serial_number` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `device_department` VARCHAR(256) NOT NULL COMMENT '使用科室',
+    `experience_level` VARCHAR(256) NOT NULL COMMENT '使用评价等级',
+    `reliability_level` VARCHAR(256) NOT NULL COMMENT '可靠性等级',
+    `has_error` BOOL NOT NULL COMMENT '是否有错误信息',
+    `known_error` VARCHAR(256) NOT NULL COMMENT '错误原因',
+    `other_error` VARCHAR(256) NOT NULL COMMENT '其他错误',
+    `remark` VARCHAR(256) NOT NULL COMMENT '记录人签名',
+    `record_name` VARCHAR(32) NOT NULL COMMENT '错误原因',
+    `gmt_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (pk_id)
+)
+
 # create TABLE `collector_info`
 # # (
 # #     `pk_collector_id`  INT UNSIGNED NOT NULL PRIMARY KEY,
