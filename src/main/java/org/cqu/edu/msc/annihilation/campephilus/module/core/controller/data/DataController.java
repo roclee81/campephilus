@@ -1,6 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataGetNewestFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
@@ -25,14 +27,15 @@ import java.util.Objects;
 public class DataController {
 
     @GetMapping("/newest")
-    public ResultVO getNewestByOperationNumberAndSerialNumber(
-            @RequestParam(value = "deviceCode", defaultValue = "") int deviceCode,
-            @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
-            @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
-        return null;
+    public ResultVO getNewest(@RequestParam(value = "deviceCode", defaultValue = "-1") int deviceCode,
+                              @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
+                              @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
+        DataGetNewestService service = DataGetNewestFactory.getDataGetNewestService(deviceCode);
+        Object result = Objects.isNull(service) ? null : service.getNewest(operationNumber, serialNumber);
+        return ControllerCrudUtils.list(result);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
                          @RequestParam(value = "page", defaultValue = "0") int page,
                          @RequestParam(value = "size", defaultValue = "10") int size) {

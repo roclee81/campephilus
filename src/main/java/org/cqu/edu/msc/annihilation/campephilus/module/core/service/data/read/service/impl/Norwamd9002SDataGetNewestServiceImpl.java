@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.s
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.data.Norwamd9002sDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sDataRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataNewestByOperationNumberAndSerialNumberService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
  * Description:
  */
 @Service
-public class Norwamd9002SDataNewestByOperationNumberAndSerialNumberServiceImpl implements DataNewestByOperationNumberAndSerialNumberService {
+public class Norwamd9002SDataGetNewestServiceImpl implements DataGetNewestService {
 
     @Autowired
     private Norwamd9002sDataRepository norwamd9002sDataRepository;
 
     @Override
-    public Object getNewestOperationNumberAndSerialNumber(int operationNumber, String serialNumber) {
+    public Object getNewest(int operationNumber, String serialNumber) {
         return Norwamd9002sDataDTO.structureNorwamd9002sDataDTO(norwamd9002sDataRepository
                 .findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(
                         operationNumber, serialNumber));

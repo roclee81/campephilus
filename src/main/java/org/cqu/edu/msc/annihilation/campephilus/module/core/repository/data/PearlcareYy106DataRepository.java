@@ -14,4 +14,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PearlcareYy106DataRepository extends JpaRepository<PearlcareYy106Data, Integer> {
 
+    /**
+     * 查询指定operationNumber和serialNumber的最新的一条数据
+     *
+     * @param operationNumber
+     * @param serialNumber
+     * @return
+     */
+    PearlcareYy106Data findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(int operationNumber, String serialNumber);
 }
