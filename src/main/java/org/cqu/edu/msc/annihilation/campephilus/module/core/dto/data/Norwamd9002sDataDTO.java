@@ -7,6 +7,7 @@ import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -60,6 +61,9 @@ public class Norwamd9002sDataDTO implements Serializable {
     }
 
     public static Norwamd9002sDataDTO structureNorwamd9002sDataDTO(Norwamd9002sData norwamd9002sData) {
+        if (Objects.isNull(norwamd9002sData)) {
+            return null;
+        }
         Norwamd9002sDataDTO norwamd9002sDataDTO = new Norwamd9002sDataDTO();
         BeanUtils.copyPropertiesTargetNotNull(norwamd9002sData, norwamd9002sDataDTO);
         norwamd9002sDataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(norwamd9002sData.getGmtCreate()));

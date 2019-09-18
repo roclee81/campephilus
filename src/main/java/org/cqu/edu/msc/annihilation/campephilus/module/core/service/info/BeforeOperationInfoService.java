@@ -1,7 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.BeforeOperationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 /**

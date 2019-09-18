@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author luoxin
@@ -27,8 +28,12 @@ public class DataSaveFactory {
         DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.PU_KE.getCode(), pearlcareYy106DataSaveService);
     }
 
-    public static DataSaveService getDataSaveService(Integer deviceCode) {
-        return DATA_LIST_SAVE_MAP.getOrDefault(deviceCode, null);
+    public static int save(Integer deviceCode, String data) {
+        DataSaveService dataSaveService = DATA_LIST_SAVE_MAP.getOrDefault(deviceCode, null);
+        if (Objects.isNull(dataSaveService)) {
+            return -1;
+        }
+        return dataSaveService.save(data);
     }
 
 }

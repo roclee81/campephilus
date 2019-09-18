@@ -7,6 +7,7 @@ import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -56,6 +57,9 @@ public class PearlcareYy106DataDTO implements Serializable {
     private Long longCreate;
 
     public static PearlcareYy106DataDTO structurePearlcareYy106DataDTO(PearlcareYy106Data pearlcareYy106Data) {
+        if (Objects.isNull(pearlcareYy106Data)) {
+            return null;
+        }
         PearlcareYy106DataDTO pearlcareYy106DataDTO = new PearlcareYy106DataDTO();
         BeanUtils.copyPropertiesTargetNotNull(pearlcareYy106Data, pearlcareYy106DataDTO);
         pearlcareYy106DataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(pearlcareYy106Data.getGmtCreate()));

@@ -1,7 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.DeviceInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 
 /**
  * @author lx

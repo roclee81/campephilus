@@ -1,14 +1,16 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataGetNewestFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -24,6 +26,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/data")
 @CrossOrigin
+@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_DATA_DEVICE_CODE)
 public class DataController {
 
     @GetMapping("/newest")
@@ -44,23 +47,11 @@ public class DataController {
         return ControllerCrudUtils.list(result);
     }
 
+    @CacheEvict(key = "")
     @PostMapping("")
     public ResultVO save(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
                          @RequestParam(value = "data", defaultValue = "{}") String data) {
-        DataSaveService dataSaveService = DataSaveFactory.getDataSaveService(deviceCode);
-        if (Objects.isNull(dataSaveService)) {
-            return ResultVOUtils.unknowError();
-        }
-        dataSaveService.save(data);
-        return ResultVOUtils.success();
+        int state = DataSaveFactory.save(deviceCode, data);
+        return state != -1 ? ResultVOUtils.success() : ResultVOUtils.unknowError();
     }
-
-//    @GetMapping("/list")
-//    public ResultVO listByOperationNumberAndSerialNumber(
-//            @RequestParam(value = "deviceCode", defaultValue = "") String deviceCode,
-//            @RequestParam(value = "operationNumber", defaultValue = "-1") String operationNumber,
-//            @RequestParam(value = "serialNumber", defaultValue = "") String serialNumber) {
-//        // TODO 没写
-//        return null;
-//    }
 }

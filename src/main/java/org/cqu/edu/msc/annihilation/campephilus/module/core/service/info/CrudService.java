@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import java.util.List;
 

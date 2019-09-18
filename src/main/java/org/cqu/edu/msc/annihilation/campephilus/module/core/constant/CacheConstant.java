@@ -35,4 +35,6 @@ public class CacheConstant {
 
     public static final String CACHE_NAME_INFO_EVALUATION = "INFO_EVALUATION";
 
+    public static final String CACHE_NAME_DATA_DEVICE_CODE = "DATA_DEVICE_CODE";
+
 }

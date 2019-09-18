@@ -14,6 +14,7 @@ public interface DataSaveService {
      * 数据保存接口
      *
      * @param t 范型数据
+     * @return 返回operationNumber
      */
-    void save(Object t);
+    int save(Object t);
 }

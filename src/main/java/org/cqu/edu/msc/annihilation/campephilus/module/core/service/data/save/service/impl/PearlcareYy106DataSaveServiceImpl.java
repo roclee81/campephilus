@@ -8,6 +8,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJso
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,9 +25,11 @@ public class PearlcareYy106DataSaveServiceImpl implements DataSaveService {
     @Autowired
     private PearlcareYy106DataRepository pearlcareYy106DataRepository;
 
+    @CacheEvict(value = "#result")
     @Override
-    public void save(Object object) {
+    public int save(Object object) {
         PearlcareYy106Data pearlcareYy106Data = ParseJsonUtil.getTObject(PearlcareYy106Data.class, (String) object);
         ServiceCrudCheckUtils.saveObjectAndCheckSuccess(pearlcareYy106DataRepository, pearlcareYy106Data);
+        return pearlcareYy106Data.getOperationNumber();
     }
 }

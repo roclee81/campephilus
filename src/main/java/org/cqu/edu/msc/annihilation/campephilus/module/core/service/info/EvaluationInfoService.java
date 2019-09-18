@@ -2,7 +2,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.EvaluationInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.EvaluationInfo;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.CrudService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
 import java.util.List;
