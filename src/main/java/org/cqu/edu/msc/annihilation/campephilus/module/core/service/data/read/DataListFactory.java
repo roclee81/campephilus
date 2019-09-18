@@ -19,20 +19,15 @@ import java.util.HashMap;
 @Component
 public class DataListFactory {
 
-    private final Norwamd9002sDataListServiceImpl norwamd9002sDataListService;
-    private final PearlcareYy106DataListServiceImpl pearlcareYy106DataListService;
-
-    private static final HashMap<Integer, DataListService> dataListServiceMap = new HashMap<>();
+    private static final HashMap<Integer, DataListService> DATA_LIST_SERVICE_MAP = new HashMap<>();
 
     @Autowired
     public DataListFactory(Norwamd9002sDataListServiceImpl norwamd9002sDataListService, PearlcareYy106DataListServiceImpl pearlcareYy106DataListService) {
-        this.norwamd9002sDataListService = norwamd9002sDataListService;
-        this.pearlcareYy106DataListService = pearlcareYy106DataListService;
-        dataListServiceMap.put(DeviceCodeEnum.NUO_HE.getCode(), this.norwamd9002sDataListService);
-        dataListServiceMap.put(DeviceCodeEnum.PU_KE.getCode(), this.pearlcareYy106DataListService);
+        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.NUO_HE.getCode(), norwamd9002sDataListService);
+        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.PU_KE.getCode(), pearlcareYy106DataListService);
     }
 
-    public static DataListService getDataSaveService(int deviceCode) {
-        return dataListServiceMap.getOrDefault(deviceCode, null);
+    public static DataListService getDataListService(int deviceCode) {
+        return DATA_LIST_SERVICE_MAP.getOrDefault(deviceCode, null);
     }
 }

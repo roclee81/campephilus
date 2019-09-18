@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service;
 
 /**
  * @author luoxin

@@ -8,7 +8,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.s
  * Description:
  */
 @FunctionalInterface
-public interface DataGetNewestOperationNumberAndSerialNumberService {
+public interface DataNewestByOperationNumberAndSerialNumberService {
 
     /**
      * 得到最新的一条数据

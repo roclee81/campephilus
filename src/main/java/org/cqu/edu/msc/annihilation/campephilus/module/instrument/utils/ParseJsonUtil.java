@@ -49,7 +49,7 @@ public class ParseJsonUtil {
      * @param <T>      泛型
      * @return 泛型类
      */
-    private static <T> T getTObject(Class<T> classOfT, String json) {
+    public static <T> T getTObject(Class<T> classOfT, String json) {
         T object = null;
         try {
             object = getGsonObject().fromJson(json, classOfT);

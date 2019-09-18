@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.s
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.data.Norwamd9002sDataDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sDataRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestOperationNumberAndSerialNumberService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataNewestByOperationNumberAndSerialNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * Description:
  */
 @Service
-public class Norwamd9002sDataGetNewestOperationNumberAndSerialNumberServiceImpl implements DataGetNewestOperationNumberAndSerialNumberService {
+public class Norwamd9002SDataNewestByOperationNumberAndSerialNumberServiceImpl implements DataNewestByOperationNumberAndSerialNumberService {
 
     @Autowired
     private Norwamd9002sDataRepository norwamd9002sDataRepository;

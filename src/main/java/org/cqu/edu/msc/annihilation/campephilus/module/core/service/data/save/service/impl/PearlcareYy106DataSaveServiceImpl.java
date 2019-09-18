@@ -1,9 +1,10 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.impl;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.PearlcareYy106Data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.PearlcareYy106DataRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveService;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -24,8 +25,8 @@ public class PearlcareYy106DataSaveServiceImpl implements DataSaveService {
     private PearlcareYy106DataRepository pearlcareYy106DataRepository;
 
     @Override
-    public void save(Object pearlcareYy106Data) {
-        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(
-                 pearlcareYy106DataRepository, (PearlcareYy106Data) pearlcareYy106Data);
+    public void save(Object object) {
+        PearlcareYy106Data pearlcareYy106Data = ParseJsonUtil.getTObject(PearlcareYy106Data.class, (String) object);
+        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(pearlcareYy106DataRepository, pearlcareYy106Data);
     }
 }
