@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * campephilus
@@ -51,6 +52,9 @@ public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInf
     @Override
     public void saveEvaluationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         EvaluationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, EvaluationInfo.class);
-        this.save(parseObject);
+        if (Objects.nonNull(parseObject)) {
+            parseObject.setOperationNumber(instrumentForm.getOperationNumber());
+            this.save(parseObject);
+        }
     }
 }
