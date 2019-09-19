@@ -10,7 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -47,7 +46,6 @@ public class DataController {
         return ControllerCrudUtils.list(result);
     }
 
-    @CacheEvict(key = "")
     @PostMapping("")
     public ResultVO save(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
                          @RequestParam(value = "data", defaultValue = "{}") String data) {
