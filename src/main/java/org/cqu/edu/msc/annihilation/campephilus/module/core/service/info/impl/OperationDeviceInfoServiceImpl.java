@@ -50,7 +50,7 @@ public class OperationDeviceInfoServiceImpl extends AbstractInfoService<Operatio
     }
 
     @Override
-    public OperationDeviceInfo listByOperationNumber(int operationNumber) {
+    public OperationDeviceInfo getByOperationNumber(int operationNumber) {
         return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
     }
 

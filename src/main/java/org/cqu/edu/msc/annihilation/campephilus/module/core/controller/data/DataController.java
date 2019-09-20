@@ -2,13 +2,13 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataGetNewestFactory;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.temp.TempService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +28,9 @@ import java.util.Objects;
 @CacheConfig(cacheNames = CacheConstant.CACHE_NAME_DATA_DEVICE_CODE)
 public class DataController {
 
+    @Autowired
+    private TempService tempService;
+
     @GetMapping("/newest")
     public ResultVO getNewest(@RequestParam(value = "deviceCode", defaultValue = "-1") int deviceCode,
                               @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
@@ -37,13 +40,20 @@ public class DataController {
         return ControllerCrudUtils.list(result);
     }
 
+//    @GetMapping("")
+//    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
+//                         @RequestParam(value = "page", defaultValue = "0") int page,
+//                         @RequestParam(value = "size", defaultValue = "10") int size) {
+//        DataListService dataListService = DataListFactory.getDataListService(deviceCode);
+//        Object result = Objects.isNull(dataListService) ? null : dataListService.list(page, size);
+//        return ControllerCrudUtils.list(result);
+//    }
+
+    @Deprecated
     @GetMapping("")
-    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
-                         @RequestParam(value = "page", defaultValue = "0") int page,
-                         @RequestParam(value = "size", defaultValue = "10") int size) {
-        DataListService dataListService = DataListFactory.getDataListService(deviceCode);
-        Object result = Objects.isNull(dataListService) ? null : dataListService.list(page, size);
-        return ControllerCrudUtils.list(result);
+    public ResultVO list(@RequestParam(value = "operationNumber", defaultValue = "1") int operationNumber,
+                         @RequestParam(value = "serialNumber", defaultValue = "0") String serialNumber) {
+        return ControllerCrudUtils.list(tempService.get(operationNumber, serialNumber));
     }
 
     @PostMapping("")

@@ -70,6 +70,6 @@ public class OperationDeviceInfoController {
     @GetMapping("/operationNumber")
     public ResultVO listByOperationNumber(
             @RequestParam(name = "operationNumber") int operationNumber) {
-        return ResultVOUtils.checkAndReturn(operationDeviceInfoService.listByOperationNumber(operationNumber));
+        return ResultVOUtils.checkAndReturn(operationDeviceInfoService.getByOperationNumber(operationNumber));
     }
 }
