@@ -106,18 +106,7 @@ CREATE TABLE `info_evaluation` (
     `gmt_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_id)
-)
-
-# create TABLE `collector_info`
-# # (
-# #     `pk_collector_id`  INT UNSIGNED NOT NULL PRIMARY KEY,
-# #     `app_version`      VARCHAR(45)  NOT NULL COMMENT '',
-# #     `hardware_version` VARCHAR(45)  NOT NULL,
-# #     `gmt_create`       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-# #     `gmt_modified`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT '修改时间',
-# #     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术顺序号，外键连接手术信息表',
-# #     PRIMARY KEY (pk_collector_id)
-# # ) COMMENT '采集器信息表8';
+)COMMENT '评估表';
 
 create TABLE `info_device_hospital_relation`
 (

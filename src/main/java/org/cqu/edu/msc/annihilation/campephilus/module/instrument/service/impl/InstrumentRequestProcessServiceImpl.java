@@ -133,6 +133,7 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                     operationDeviceInfoService.delete(operationDeviceInfo);
                     throw e;
                 }
+                break;
             }
             // 更新手术过程基本信息，即手术结束的信息
             case OPERATION_END: {
