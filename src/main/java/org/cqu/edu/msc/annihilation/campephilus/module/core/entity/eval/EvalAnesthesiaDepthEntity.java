@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,7 +7,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /***
  * campephilus
@@ -276,18 +274,6 @@ public class EvalAnesthesiaDepthEntity extends BaseEvalSuperclass implements Ser
      * [优劣势]您觉得该仪器相比其他品牌最大的不足是什么
      */
     private String disadvantageCompareOtherBrand;
-
-    /**
-     * 创建时间
-     */
-    @JsonIgnore
-    private LocalDateTime gmtCreate;
-
-    /**
-     * 修改时间
-     */
-    @JsonIgnore
-    private LocalDateTime gmtModified;
 
     public EvalAnesthesiaDepthEntity(String companyName, String deviceType, String otherDeviceType, String doctorName, String doctorCompany, String doctorDepartment, String doctorDuty, String doctorProfessionalTitle, String doctorWorkYear, String doctorFamiliarWithDevice, String controlPanelDesignReasonable, String controlPanelOperationConvenient, String displayScreenDesignReasonable, String displayScreenOperationConvenient, String leadWireDesignReasonable, String leadWireOperationConvenient, String moveAndFixDeviceDesignReasonable, String moveAndFixDeviceOperationConvenient, String backupPowerUseTimeDesignReasonable, String backupPowerUseTimeOperationConvenient, String monitorParameterSetAndDesignReasonableValue, String monitorParameterSetAndValueOperationConvenient, String monitorParameterDisplayWayDesignReasonable, String monitorParameterDisplayWayOperationConvenient, String turnOnSelfTestDesignReasonable, String turnOnSelfTestOperationConvenient, String monitorParameterComprehensiveDesignReasonable, String monitorParameterComprehensiveOperationConvenient, String dataStoreFunctionDesignReasonable, String dataStoreFunctionOperationConvenient, String dataExportFunctionDesignReasonable, String dataExportFunctionOperationConvenient, String parameterAccuracyWithAnesthesiaDepth, String parameterAccuracyWithComaDepth, String parameterAccuracyWithBrainDamage, String parameterAccuracyWithResponseTime, String jamproofCapabilityWithMonitor, String alertDeviceInTime, String faultRateWithMainframe, String faultRateWithMonitorModule, String faultRateWithLeadWireAndSensor, String anesthesiaInductionSatisfaction, String anesthesiaMaintainSatisfaction, String anesthesiaRecoverySatisfaction, String consciousJudgeSatisfaction, String brainDamageJudgeSatisfaction, String advantageCompareOtherBrand, String disadvantageCompareOtherBrand) {
         this.companyName = companyName;
