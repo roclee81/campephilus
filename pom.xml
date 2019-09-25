@@ -21,7 +21,6 @@
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.M2</spring-cloud.version>
         <commons-lang3.version>3.9</commons-lang3.version>
-        <guava.version>28.1-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -48,13 +47,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
