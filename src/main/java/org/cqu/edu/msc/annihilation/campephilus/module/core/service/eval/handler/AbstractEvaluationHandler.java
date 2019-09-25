@@ -9,6 +9,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.handle
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public abstract class AbstractHandler {
+public abstract class AbstractEvaluationHandler {
     abstract public String handler();
 }
