@@ -15,8 +15,19 @@ public enum EvalEntityEnum {
     /**
      *
      */
-    EVAL_ANESTHESIA_DEPTH(1);
+    EVAL_ANESTHESIA_DEPTH(1),
 
+    /**
+     *
+     */
+    EVAL_CEREBRAL_OXYGEN(2),
+
+
+    EVAL_ANESTHESIA_MACHINE(3),
+
+    EVAL_CEREBRAL_OXIMETRY(4),
+
+    ;
 
     private Integer code;
 
