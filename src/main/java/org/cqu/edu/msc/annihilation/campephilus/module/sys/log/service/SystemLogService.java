@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.log;
+package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog;
 

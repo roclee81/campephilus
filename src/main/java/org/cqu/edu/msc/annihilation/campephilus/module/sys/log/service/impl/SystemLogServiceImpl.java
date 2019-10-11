@@ -1,8 +1,8 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.log.impl;
+package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog;
-import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.repository.log.SystemLogRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.log.SystemLogService;
+import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.repository.SystemLogRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.SystemLogService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;

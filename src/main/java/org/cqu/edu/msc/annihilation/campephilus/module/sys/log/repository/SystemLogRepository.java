@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.repository.log;
+package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.repository;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog;
 import org.springframework.data.domain.Pageable;

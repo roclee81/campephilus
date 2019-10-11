@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.sys.log.controller;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.log.SystemLogService;
+import org.cqu.edu.msc.annihilation.campephilus.module.sys.log.service.SystemLogService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
