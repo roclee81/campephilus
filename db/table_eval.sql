@@ -41,7 +41,7 @@ CREATE TABLE `eval_anesthesia_depth` (
     VARCHAR(64) NOT NULL COMMENT '[硬件]备用电源使用时间',
     `backup_power_use_time_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '[硬件]备用电源使用时间',
-    `monitor_parameter_set_and_design_reasonable_value`
+    `monitor_parameter_set_and_value_design_reasonable`
     VARCHAR(64) NOT NULL COMMENT '[软件]监护参数指标设置与价值',
     `monitor_parameter_set_and_value_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '[软件]监护参数指标设置与价值',
