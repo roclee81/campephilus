@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.common.utils;
 
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -17,6 +16,9 @@ import java.util.Date;
  */
 public class TimeStampUtils {
 
+
+    public static String commonDataFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").toString();
+
     /**
      * 将LocalDateTime转为自定义的时间格式的字符串
      *
@@ -27,6 +29,10 @@ public class TimeStampUtils {
     public static String getDateTimeAsString(LocalDateTime localDateTime, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return localDateTime.format(formatter);
+    }
+
+    public static String getCurrentAsString() {
+        return getDateTimeAsString(getDateTimeOfTimestamp(getCurrentLongTimeStamp()), commonDataFormat);
     }
 
     /**
@@ -112,5 +118,19 @@ public class TimeStampUtils {
 
     public static Long getTimeStampOfTimeStampObject(Timestamp markTime) {
         return markTime.getTime() / 1000;
+    }
+
+    /**
+     * 得到当天的零时的LocalDateTime
+     * 例如当前时间为11:10，得到的为0:00的时间戳
+     * java自带获得当前毫秒时间戳的方法是System.currentTimeMillis()，零点是24小时轮回的零界点。
+     * 所以我们把当前时间戳取24小时毫秒数取余，然后用当前毫秒时间戳减这个余就行。
+     *
+     * @return 对应的LocalDateTime
+     */
+    public static LocalDateTime getCurrentDayZeroLocalDateTime() {
+        long currentTimestamps = System.currentTimeMillis();
+        long oneDayTimestamps = 60 * 60 * 24 * 1000;
+        return getDateTimeOfTimestamp(currentTimestamps - (currentTimestamps + 60 * 60 * 8 * 1000) % oneDayTimestamps);
     }
 }

@@ -46,7 +46,6 @@ public class ServiceCrudCheckUtils {
      * @param id            数据字段主键
      * @param t             待保存的对象
      */
-    @SuppressWarnings("unchecked")
     public static <T, ID> T updateObjectAndCheckSuccess(JpaRepository<T, ID> jpaRepository, ID id, T t) {
         // 检查是否ID是否为null，同时查询数据库中是否有该数据
         if (Objects.isNull(id) || jpaRepository.findById(id).isEmpty()) {

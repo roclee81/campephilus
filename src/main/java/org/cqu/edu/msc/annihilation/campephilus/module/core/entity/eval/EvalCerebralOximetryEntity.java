@@ -5,8 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -24,6 +23,16 @@ import java.io.Serializable;
 @Data
 @Table(name = "eval_cerebral_oximetry")
 public class EvalCerebralOximetryEntity  extends BaseEvalSuperclass implements Serializable {
+
+    private static final long serialVersionUID = 6900175813327752269L;
+
+    /**
+     * 自增ID
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_id")
+    private Integer id;
 
     /**1.公司名称**/
     private  String  companyName;
