@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler;
 
 import com.google.gson.Gson;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaDepthEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaDepth;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ class EvalSaveHandlerContextTest {
 
     @Test
     void getSaveInstance() {
-        EvalAnesthesiaDepthEntity entity =
-                new EvalAnesthesiaDepthEntity(
+        EvalAnesthesiaDepth entity =
+                new EvalAnesthesiaDepth(
                         "test", "test", "test",
                         "test", "test", "test", "test",
                         "test", "test", "test",

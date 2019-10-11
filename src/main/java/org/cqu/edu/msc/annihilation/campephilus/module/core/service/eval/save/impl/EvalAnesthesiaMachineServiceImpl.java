@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaMachineEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaMachine;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.EvalAnesthesiaMachineRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler.EvalSaveService;
@@ -26,7 +26,7 @@ public class EvalAnesthesiaMachineServiceImpl implements EvalSaveService, Handle
 
     @Override
     public Object save(Object object) {
-        EvalAnesthesiaMachineEntity entity = ParseJsonUtil.getTObject(EvalAnesthesiaMachineEntity.class, (String) object);
+        EvalAnesthesiaMachine entity = ParseJsonUtil.getTObject(EvalAnesthesiaMachine.class, (String) object);
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(repository, entity);
     }
 

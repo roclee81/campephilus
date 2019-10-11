@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "eval_cerebral_oximetry")
-public class EvalCerebralOximetryEntity  extends BaseEvalSuperclass implements Serializable {
+public class EvalCerebralOximetry extends BaseEvalSuperclass implements Serializable {
 
     private static final long serialVersionUID = 6900175813327752269L;
 

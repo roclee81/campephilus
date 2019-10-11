@@ -36,7 +36,7 @@ public class EvalSaveHandlerContext implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         for (Map.Entry<String, HandlerType> e : handlerTypeMapMap.entrySet()) {
             evalSaveServiceMap.put(e.getValue().getType(), evalSaveHandlerMap.get(e.getKey()));
         }

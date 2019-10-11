@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalCerebralOximetryEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalCerebralOximetry;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.EvalCerebralOximetryRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler.EvalSaveService;
@@ -26,7 +26,7 @@ public class EvalCerebralOximetryServiceImpl implements EvalSaveService, Handler
 
     @Override
     public Object save(Object object) {
-        EvalCerebralOximetryEntity entity = ParseJsonUtil.getTObject(EvalCerebralOximetryEntity.class, (String) object);
+        EvalCerebralOximetry entity = ParseJsonUtil.getTObject(EvalCerebralOximetry.class, (String) object);
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(repository, entity);
     }
 

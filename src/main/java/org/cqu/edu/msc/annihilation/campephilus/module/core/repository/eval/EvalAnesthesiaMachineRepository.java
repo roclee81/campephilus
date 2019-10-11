@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaMachineEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaMachine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface EvalAnesthesiaMachineRepository extends JpaRepository<EvalAnesthesiaMachineEntity, Integer> {
+public interface EvalAnesthesiaMachineRepository extends JpaRepository<EvalAnesthesiaMachine, Integer> {
 
 }

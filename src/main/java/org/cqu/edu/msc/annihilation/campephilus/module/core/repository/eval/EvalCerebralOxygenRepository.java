@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalCerebralOxygenEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalCerebralOxygen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * Description:
  */
 @Repository
-public interface EvalCerebralOxygenRepository extends JpaRepository<EvalCerebralOxygenEntity, Integer> {
+public interface EvalCerebralOxygenRepository extends JpaRepository<EvalCerebralOxygen, Integer> {
 
 }
