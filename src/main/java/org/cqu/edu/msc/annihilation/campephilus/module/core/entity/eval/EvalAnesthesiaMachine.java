@@ -155,10 +155,12 @@ public class EvalAnesthesiaMachine extends BaseEvalSuperclass implements Seriali
     private  String  breathPatternType_operationConvenient;
 
     /**呼气末CO2浓度监测模块**/
-    private  String  ETCO2Module_designReasonable;
+    @Column(name = "etco2_module_design_reasonable")
+    private  String  ETCO2_Module_designReasonable;
 
     /****/
-    private  String  ETCO2Module_operationConvenient;
+    @Column(name = "etco2_module_operation_convenient")
+    private  String  ETCO2_Module_operationConvenient;
 
     /**吸入麻醉剂浓度监测模块**/
     private  String  anestheticMolMonitorModule_designReasonable;
@@ -200,16 +202,18 @@ public class EvalAnesthesiaMachine extends BaseEvalSuperclass implements Seriali
     private  String  parameterAccuracyWithVolatilizeTanksMolControl;
 
     /**监测参数：吸入麻醉药浓度或MAC**/
+    @Column(name = "parameter_accuracy_with_mac")
     private  String  parameterAccuracyWithMAC;
 
     /**监测参数：呼末CO2**/
+    @Column(name = "parameter_accuracy_with_etc02")
     private  String  parameterAccuracyWithETC02;
 
     /**钠石灰罐**/
     private  String  loopClosureWithSodaLimeTank;
 
     /**呼吸回路**/
-    private  String  loopClosureWithBretheLoop;
+    private  String  loopClosureWithBreathLoop;
 
     /**废气排放回路**/
     private  String  loopClosureWithFlueGasLetOutLoop;

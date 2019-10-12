@@ -275,6 +275,10 @@ public class EvalAnesthesiaDepth extends BaseEvalSuperclass implements Serializa
      */
     private String disadvantageCompareOtherBrand;
 
+    public EvalAnesthesiaDepth(){
+
+    }
+
     public EvalAnesthesiaDepth(String companyName, String deviceType, String otherDeviceType, String doctorName, String doctorCompany, String doctorDepartment, String doctorDuty, String doctorProfessionalTitle, String doctorWorkYear, String doctorFamiliarWithDevice, String controlPanelDesignReasonable, String controlPanelOperationConvenient, String displayScreenDesignReasonable, String displayScreenOperationConvenient, String leadWireDesignReasonable, String leadWireOperationConvenient, String moveAndFixDeviceDesignReasonable, String moveAndFixDeviceOperationConvenient, String backupPowerUseTimeDesignReasonable, String backupPowerUseTimeOperationConvenient, String monitorParameterSetAndValueDesignReasonable, String monitorParameterSetAndValueOperationConvenient, String monitorParameterDisplayWayDesignReasonable, String monitorParameterDisplayWayOperationConvenient, String turnOnSelfTestDesignReasonable, String turnOnSelfTestOperationConvenient, String monitorParameterComprehensiveDesignReasonable, String monitorParameterComprehensiveOperationConvenient, String dataStoreFunctionDesignReasonable, String dataStoreFunctionOperationConvenient, String dataExportFunctionDesignReasonable, String dataExportFunctionOperationConvenient, String parameterAccuracyWithAnesthesiaDepth, String parameterAccuracyWithComaDepth, String parameterAccuracyWithBrainDamage, String parameterAccuracyWithResponseTime, String jamproofCapabilityWithMonitor, String alertDeviceInTime, String faultRateWithMainframe, String faultRateWithMonitorModule, String faultRateWithLeadWireAndSensor, String anesthesiaInductionSatisfaction, String anesthesiaMaintainSatisfaction, String anesthesiaRecoverySatisfaction, String consciousJudgeSatisfaction, String brainDamageJudgeSatisfaction, String advantageCompareOtherBrand, String disadvantageCompareOtherBrand) {
         this.companyName = companyName;
         this.deviceType = deviceType;

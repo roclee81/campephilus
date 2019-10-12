@@ -1,6 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -14,7 +17,9 @@ import java.util.Map;
  * Description:
  */
 @Component
-public class EvalSaveHandlerContext implements InitializingBean {
+public class EvalSaveHandlerContext implements InitializingBean, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
 
     private Map<String, HandlerType> handlerTypeMapMap;
     private Map<String, EvalSaveService> evalSaveHandlerMap;
@@ -37,8 +42,16 @@ public class EvalSaveHandlerContext implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+
         for (Map.Entry<String, HandlerType> e : handlerTypeMapMap.entrySet()) {
             evalSaveServiceMap.put(e.getValue().getType(), evalSaveHandlerMap.get(e.getKey()));
+        }
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        if (this.applicationContext == null) {
+            this.applicationContext = applicationContext;
         }
     }
 }

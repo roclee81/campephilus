@@ -145,12 +145,14 @@ public class EvalMonitor extends BaseEvalSuperclass implements Serializable {
     /**
      * 呼气末co2监测模块
      */
-    private String etcO2ModuleDesignReasonable;
+    @Column(name = "ETCO2_module_design_reasonable")
+    private String ETCO2ModuleDesignReasonable;
 
     /**
      *
      */
-    private String etcO2ModuleOperationConvenient;
+    @Column(name = "ETCO2_module_operation_convenient")
+    private String ETCO2ModuleOperationConvenient;
 
     /**
      * 备用电源使用时间
@@ -250,7 +252,8 @@ public class EvalMonitor extends BaseEvalSuperclass implements Serializable {
     /**
      * 监护参数：呼气末co2
      */
-    private String parameterAccuracyWithEtCo2;
+    @Column(name = "parameter_accuracy_with_ETCO2")
+    private String parameterAccuracyWithETCO2;
 
     /**
      * 监护参数：呼气末吸入麻醉剂浓度
@@ -315,7 +318,8 @@ public class EvalMonitor extends BaseEvalSuperclass implements Serializable {
     /**
      * 患者co2蓄积识别准确率
      */
-    private String monitorEtCo2WithSatisfaction;
+    @Column(name = "monitor_ECTO2_with_satisfaction")
+    private String monitorETCO2WithSatisfaction;
 
     /**
      * 您觉得该仪器相比其他品牌最大的优势是什么

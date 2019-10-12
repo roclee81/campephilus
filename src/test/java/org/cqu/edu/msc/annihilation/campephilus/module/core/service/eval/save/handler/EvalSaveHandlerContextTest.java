@@ -6,6 +6,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 /**
  * @author luoxin
@@ -41,5 +42,6 @@ class EvalSaveHandlerContextTest {
                         "test", "test");
         String object = new Gson().toJson(entity);
         Object result = evalSaveHandlerContext.getSaveInstance(EvalEntityEnum.EVAL_ANESTHESIA_DEPTH.getCode()).save(object);
+        Assert.notNull(result, "no");
     }
 }

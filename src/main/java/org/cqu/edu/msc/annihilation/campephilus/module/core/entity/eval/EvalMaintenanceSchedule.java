@@ -54,6 +54,11 @@ public class EvalMaintenanceSchedule extends BaseEvalSuperclass implements Seria
     private String deviceName;
 
     /**
+     * 仪器编号
+     */
+    private String deviceUniqueId;
+
+    /**
      * 已使用年限
      */
     private String hasBeenUsedYears;

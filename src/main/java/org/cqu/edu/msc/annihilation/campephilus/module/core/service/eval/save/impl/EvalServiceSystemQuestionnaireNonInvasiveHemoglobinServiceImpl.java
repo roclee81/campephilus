@@ -31,6 +31,6 @@ public class EvalServiceSystemQuestionnaireNonInvasiveHemoglobinServiceImpl impl
 
     @Override
     public Integer getType() {
-        return EvalEntityEnum.EVAL_SERVICE_SYSTEM_QUESTIONNAIRE_MONITOR.getCode();
+        return EvalEntityEnum.EVAL_SERVICE_SYSTEM_QUESTIONNAIRE_NON_INVASIVE_HEMOGLOBIN.getCode();
     }
 }

@@ -283,9 +283,9 @@ CREATE table `eval_anesthesia_machine` (
     VARCHAR(64) NOT NULL COMMENT '呼吸模式种类',
     `breath_pattern_type_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '',
-    `_e_t_c_o2_module_design_reasonable`
+    `etco2_module_design_reasonable`
     VARCHAR(64) NOT NULL COMMENT '呼气末CO2浓度监测模块',
-    `_e_t_c_o2_module_operation_convenient`
+    `etco2_module_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '',
     `anesthetic_mol_monitor_module_design_reasonable`
     VARCHAR(64) NOT NULL COMMENT '吸入麻醉剂浓度监测模块',
@@ -313,13 +313,13 @@ CREATE table `eval_anesthesia_machine` (
     VARCHAR(64) NOT NULL COMMENT '呼吸参数：氧浓度',
     `parameter_accuracy_with_volatilize_tanks_mol_control`
     VARCHAR(64) NOT NULL COMMENT '挥发罐浓度控制',
-    `parameter_accuracy_with_m_a_c`
+    `parameter_accuracy_with_mac`
     VARCHAR(64) NOT NULL COMMENT '监测参数：吸入麻醉药浓度或MAC',
-    `parameter_accuracy_with_e_t_c02`
+    `parameter_accuracy_with_etc02`
     VARCHAR(64) NOT NULL COMMENT '监测参数：呼末CO2',
     `loop_closure_with_soda_lime_tank`
     VARCHAR(64) NOT NULL COMMENT '钠石灰罐',
-    `loop_closure_with_brethe_loop`
+    `loop_closure_with_breath_loop`
     VARCHAR(64) NOT NULL COMMENT '呼吸回路',
     `loop_closure_with_flue_gas_let_out_loop`
     VARCHAR(64) NOT NULL COMMENT '废气排放回路',
@@ -489,9 +489,9 @@ CREATE table `eval_monitor` (
     VARCHAR(64) NOT NULL COMMENT '有创血压监测模块',
     `ibp_module_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '',
-    `etc_o2_module_design_reasonable`
+    `ETCO2_module_design_reasonable`
     VARCHAR(64) NOT NULL COMMENT '呼气末CO2监测模块',
-    `etc_o2_module_operation_convenient`
+    `ETCO2_module_operation_convenient`
     VARCHAR(64) NOT NULL COMMENT '',
     `backup_power_use_time_design_reasonable`
     VARCHAR(64) NOT NULL COMMENT '备用电源使用时间',
@@ -531,7 +531,7 @@ CREATE table `eval_monitor` (
     VARCHAR(64) NOT NULL COMMENT '监护参数：脉搏氧饱和度',
     `parameter_accuracy_with_body_temperature`
     VARCHAR(64) NOT NULL COMMENT '监护参数：体温',
-    `parameter_accuracy_with_et_co2`
+    `parameter_accuracy_with_ETCO2`
     VARCHAR(64) NOT NULL COMMENT '监护参数：呼气末CO2',
     `parameter_accuracy_with_et_anesthetics_mol`
     VARCHAR(64) NOT NULL COMMENT '监护参数：呼气末吸入麻醉剂浓度',
@@ -557,7 +557,7 @@ CREATE table `eval_monitor` (
     VARCHAR(64) NOT NULL COMMENT '心率变化、心律失常识别准确率',
     `monitor_pulse_oxygen_saturation_with_satisfaction`
     VARCHAR(64) NOT NULL COMMENT '患者缺氧识别准确率',
-    `monitor_et_co2_with_satisfaction`
+    `monitor_ECTO2_with_satisfaction`
     VARCHAR(64) NOT NULL COMMENT '患者CO2蓄积识别准确率',
     `advantage_compare_other_brand`
     VARCHAR(64) NOT NULL COMMENT '您觉得该仪器相比其他品牌最大的优势是什么',
@@ -671,7 +671,7 @@ CREATE table `eval_maintenance_schedule` (
     VARCHAR(64) NOT NULL COMMENT '仪器厂家',
     `device_name`
     VARCHAR(64) NOT NULL COMMENT '仪器名称',
-    `device_unique_i_d`
+    `device_unique_id`
     VARCHAR(64) NOT NULL COMMENT '仪器编号',
     `has_been_used_years`
     VARCHAR(64) NOT NULL COMMENT '已使用年限',

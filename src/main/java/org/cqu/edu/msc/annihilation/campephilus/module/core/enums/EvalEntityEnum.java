@@ -39,6 +39,9 @@ public enum EvalEntityEnum {
     EVAL_SERVICE_SYSTEM_QUESTIONNAIRE_NON_INVASIVE_HEMOGLOBIN(13),
     ;
 
+    /**
+     * 访问时的code
+     */
     private Integer code;
 
     EvalEntityEnum(Integer code) {
