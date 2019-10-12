@@ -47,4 +47,13 @@ public enum EvalEntityEnum {
     EvalEntityEnum(Integer code) {
         this.code = code;
     }
+
+    public static EvalEntityEnum matchEvalEntityEnum(Integer code) {
+        for (EvalEntityEnum evalEntityEnum : EvalEntityEnum.values()) {
+            if (evalEntityEnum.getCode().equals(code)) {
+                return evalEntityEnum;
+            }
+        }
+        return null;
+    }
 }

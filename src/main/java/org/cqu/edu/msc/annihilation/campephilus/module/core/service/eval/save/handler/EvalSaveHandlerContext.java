@@ -1,9 +1,14 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
+import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.utils.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -19,32 +24,58 @@ import java.util.Map;
 @Component
 public class EvalSaveHandlerContext implements InitializingBean, ApplicationContextAware {
 
+    private static final String EVAL_REPOSITORY_PACKAGE_NAME = "org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.";
+
+    private static final String EVAL_ENTITY_PACKAGE_NAME = "org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.";
+
+    private static final String REPOSITORY = "Repository";
+
     private ApplicationContext applicationContext;
 
-    private Map<String, HandlerType> handlerTypeMapMap;
-    private Map<String, EvalSaveService> evalSaveHandlerMap;
-    private Map<Integer, EvalSaveService> evalSaveServiceMap;
+    /**
+     * 存储code，repository映射的map
+     */
+    private Map<Integer, JpaRepository<Object, Integer>> evalRepositoryMap;
 
-    public EvalSaveHandlerContext(Map<String, HandlerType> handlerTypeMapMap,
-                                  Map<String, EvalSaveService> evalSaveHandlerMap) {
-        this.handlerTypeMapMap = handlerTypeMapMap;
-        this.evalSaveHandlerMap = evalSaveHandlerMap;
-        this.evalSaveServiceMap = new HashMap<>();
+    /**
+     * 存放实体code，entityClass映射的map
+     */
+    private Map<Integer, Class<?>> evalEntityMap;
+
+    public EvalSaveHandlerContext() {
     }
 
-    public EvalSaveService getSaveInstance(Integer type) {
-        EvalSaveService clazz = evalSaveServiceMap.getOrDefault(type, null);
-        if (clazz == null) {
-            throw new IllegalArgumentException("not found handler for type: " + type);
+    public Object evalSaveService(Integer type, String data) {
+        // 匹配是否存在code
+        if (EvalEntityEnum.matchEvalEntityEnum(type) == null) {
+            return null;
         }
-        return clazz;
+        Object entity = ParseJsonUtil.getTObject(evalEntityMap.get(type), data);
+        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(evalRepositoryMap.get(type), entity);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void afterPropertiesSet() {
-
-        for (Map.Entry<String, HandlerType> e : handlerTypeMapMap.entrySet()) {
-            evalSaveServiceMap.put(e.getValue().getType(), evalSaveHandlerMap.get(e.getKey()));
+        evalRepositoryMap = new HashMap<>(EvalEntityEnum.values().length);
+        evalEntityMap = new HashMap<>(EvalEntityEnum.values().length);
+        for (EvalEntityEnum entityEnum : EvalEntityEnum.values()) {
+            String entityName = StringUtils.constantNameConvertClassName(entityEnum.name());
+            // 组合成EntityClass的包路径
+            String entityClassName = EVAL_ENTITY_PACKAGE_NAME + entityName;
+            // 组合成EntityRepositoryClass的包路径
+            String repositoryClassName = EVAL_REPOSITORY_PACKAGE_NAME + entityName + REPOSITORY;
+            Class<?> repositoryClass = null;
+            Class entityClass = null;
+            try {
+                entityClass = Class.forName(entityClassName);
+                repositoryClass = Class.forName(repositoryClassName);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            JpaRepository<Object, Integer> repository = (JpaRepository<Object, Integer>) applicationContext.getBean(repositoryClass);
+            evalRepositoryMap.put(entityEnum.getCode(), repository);
+            evalEntityMap.put(entityEnum.getCode(), entityClass);
         }
     }
 

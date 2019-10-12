@@ -24,7 +24,7 @@ public class EvalController {
     @PostMapping("")
     public ResultVO save(@RequestParam(value = "evalCode", defaultValue = "1") int evalCode,
                          @RequestParam(value = "data", defaultValue = "{}") String data) {
-        evalSaveHandlerContext.getSaveInstance(evalCode).save(data);
+        evalSaveHandlerContext.evalSaveService(evalCode,data);
         return ResultVOUtils.success();
     }
 }

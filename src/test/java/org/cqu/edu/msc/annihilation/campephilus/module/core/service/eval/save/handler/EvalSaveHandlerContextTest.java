@@ -41,7 +41,7 @@ class EvalSaveHandlerContextTest {
                         "test", "test", "test", "test", "test",
                         "test", "test");
         String object = new Gson().toJson(entity);
-        Object result = evalSaveHandlerContext.getSaveInstance(EvalEntityEnum.EVAL_ANESTHESIA_DEPTH.getCode()).save(object);
+        Object result = evalSaveHandlerContext.evalSaveService(EvalEntityEnum.EVAL_ANESTHESIA_DEPTH.getCode(), object);
         Assert.notNull(result, "no");
     }
 }
