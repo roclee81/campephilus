@@ -183,9 +183,9 @@ CREATE TABLE `info_log`
 CREATE TABLE `system_log`
 (
     `pk_id`        SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `logLevel`     TINYINT              NOT NULL COMMENT '日志级别',
+    `log_level`     TINYINT              NOT NULL COMMENT '日志级别',
     `message`      TEXT                 NOT NULL COMMENT '日志信息',
-    `record_date`  VARCHAR(16)          NOT NULL COMMENT '日志记录时间',
+    `record_date`  VARCHAR(32)          NOT NULL COMMENT '日志记录时间',
     `gmt_create`   TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified` TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_id)

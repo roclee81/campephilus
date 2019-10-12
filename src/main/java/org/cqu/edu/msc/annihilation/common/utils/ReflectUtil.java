@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -15,14 +16,15 @@ import java.util.Set;
  */
 public class ReflectUtil {
 
-    public static Object randomFillAllFieldExclude(String className, String... arg) {
-        Object t = null;
-        Class<?> tClass = null;
+    public static Object randomFillAllStringFieldExclude(String className, String... arg) {
+        Object t;
+        Class<?> tClass;
         try {
             tClass = Class.forName(className);
             t = tClass.getConstructor().newInstance();
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
 
         Set<String> excludeFieldSet = new HashSet<>(Arrays.asList(arg));
@@ -52,7 +54,10 @@ public class ReflectUtil {
         return t;
     }
 
-    public static <T> T randomFillAllFieldExclude(Class<T> tClass, String... arg) {
+    public static <T> T randomFillAllStringFieldExclude(Class<T> tClass, String... arg) {
+        if (Objects.isNull(tClass)) {
+            return null;
+        }
         T t = null;
         try {
             t = tClass.getConstructor().newInstance();
@@ -86,4 +91,6 @@ public class ReflectUtil {
         }
         return t;
     }
+
 }
+

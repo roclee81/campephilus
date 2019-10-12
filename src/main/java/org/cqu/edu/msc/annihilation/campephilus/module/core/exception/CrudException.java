@@ -46,7 +46,7 @@ public class CrudException extends RuntimeException implements Serializable {
         DELETE(4, "DELETE");
 
         private Integer code;
-        private String  msg;
+        private String msg;
 
         CrudTypeEnum(Integer code, String msg) {
             this.code = code;
@@ -64,10 +64,10 @@ public class CrudException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = -1343312269172404301L;
 
-    private String       msg;
-    private int          code;
-    private String       errorMsg;
-    private String       errorData;
+    private String msg;
+    private int code;
+    private String errorMsg;
+    private String errorData;
     private CrudTypeEnum crudTypeEnum;
 
     private CrudException(CrudTypeEnum crudTypeEnum, ResponseEnum responseEnum) {

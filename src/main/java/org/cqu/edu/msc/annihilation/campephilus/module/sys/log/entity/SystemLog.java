@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "log_system")
+@Table(name = "system_log")
 public class SystemLog implements Serializable {
 
     private static final long serialVersionUID = 1633536198072422737L;

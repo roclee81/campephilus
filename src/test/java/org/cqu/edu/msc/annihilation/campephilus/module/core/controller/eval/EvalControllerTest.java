@@ -27,7 +27,7 @@ class EvalControllerTest {
         for (int i = 0; i < 100; i++) {
             for (EvalEntityEnum eval : EvalEntityEnum.values()) {
                 String className = StringUtils.constantNameConvertClassName(eval.name());
-                Object object = ReflectUtil.randomFillAllFieldExclude(evalPackageName + className);
+                Object object = ReflectUtil.randomFillAllStringFieldExclude(evalPackageName + className);
                 String s = new Gson().toJson(object);
                 System.out.println(s);
                 evalController.save(eval.getCode(), s);

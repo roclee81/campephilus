@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sDataRepository;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002s;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norwamd9002sRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
@@ -19,12 +19,12 @@ import org.springframework.stereotype.Service;
 public class Norwamd9002sDataSaveServiceImpl implements DataSaveService {
 
     @Autowired
-    private Norwamd9002sDataRepository norwamd9002sDataRepository;
+    private Norwamd9002sRepository norwamd9002SRepository;
 
     @Override
     public int save(Object object) {
-        Norwamd9002sData norwamd9002sData = ParseJsonUtil.getTObject(Norwamd9002sData.class, (String) object);
-        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(norwamd9002sDataRepository, norwamd9002sData);
-        return norwamd9002sData.getOperationNumber();
+        Norwamd9002s NORWAMD9002S = ParseJsonUtil.getTObject(Norwamd9002s.class, (String) object);
+        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(norwamd9002SRepository, NORWAMD9002S);
+        return NORWAMD9002S.getOperationNumber();
     }
 }

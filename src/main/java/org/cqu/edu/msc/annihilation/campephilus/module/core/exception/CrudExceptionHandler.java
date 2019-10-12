@@ -33,10 +33,10 @@ public class CrudExceptionHandler {
      */
     @ExceptionHandler(value = CrudException.class)
     @ResponseBody
-    public ResultVO handleDeviceException(CrudException e) {
+    public ResultVO handleCrudException(CrudException e) {
         // 传递的值有错误信息，才将日志保存
         if (Objects.nonNull(e.getErrorMsg()) && Objects.nonNull(e.getErrorData()) && Objects.nonNull(e.getCrudTypeEnum())) {
-            systemLogService.save(SystemLog.structureSystemErrorLog("Exception: errorMeg = " + e.getErrorMsg() + "errorData = {}" + e.getErrorData()));
+            systemLogService.save(SystemLog.structureSystemErrorLog("Exception: errorMeg = " + e.toString()));
             log.error(e.getCrudTypeEnum().getMsg() + "Exception: errorMeg = {}, errorData = {}", e.getErrorMsg(), e.getErrorData());
         }
         return ResultVOUtils.error(e.getCode(), e.getMsg());

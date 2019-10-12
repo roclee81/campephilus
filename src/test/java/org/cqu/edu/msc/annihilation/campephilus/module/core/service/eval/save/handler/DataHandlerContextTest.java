@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.h
 import com.google.gson.Gson;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.EvalAnesthesiaDepth;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.EvalHandlerContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +17,10 @@ import org.springframework.util.Assert;
  * Description:
  */
 @SpringBootTest
-class EvalSaveHandlerContextTest {
+class DataHandlerContextTest {
 
     @Autowired
-    private EvalSaveHandlerContext evalSaveHandlerContext;
+    private EvalHandlerContext evalHandlerContext;
 
     @Test
     void getSaveInstance() {
@@ -41,7 +42,7 @@ class EvalSaveHandlerContextTest {
                         "test", "test", "test", "test", "test",
                         "test", "test");
         String object = new Gson().toJson(entity);
-        Object result = evalSaveHandlerContext.evalSaveService(EvalEntityEnum.EVAL_ANESTHESIA_DEPTH.getCode(), object);
+        Object result = evalHandlerContext.evalSaveService(EvalEntityEnum.EVAL_ANESTHESIA_DEPTH.getCode(), object);
         Assert.notNull(result, "no");
     }
 }

@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "data_pearlcare_yy106")
-public class PearlcareYy106Data extends BaseDataSuperclass implements Serializable {
+public class PearlcareYy106 extends BaseDataSuperclass implements Serializable {
 
     private static final long serialVersionUID = -6622470603257802385L;
     /**

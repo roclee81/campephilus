@@ -29,7 +29,7 @@ public class ServiceCrudCheckUtils {
         try {
             result = jpaRepository.save(t);
         } catch (ValidationException e) {
-            // 获取到校验错误，即数据字段可能为空，或错误
+            // 获取到校验错误，即数据字段可能为空或错误
             CrudException.saveDataFormatException(e, t);
         } catch (Exception e) {
             CrudException.saveUnknownException(e, t);

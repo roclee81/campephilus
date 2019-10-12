@@ -1,4 +1,4 @@
-package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.save.handler;
+package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.EvalEntityEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
@@ -22,7 +22,7 @@ import java.util.Map;
  * Description:
  */
 @Component
-public class EvalSaveHandlerContext implements InitializingBean, ApplicationContextAware {
+public class EvalHandlerContext implements InitializingBean, ApplicationContextAware {
 
     private static final String EVAL_REPOSITORY_PACKAGE_NAME = "org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.";
 
@@ -42,7 +42,7 @@ public class EvalSaveHandlerContext implements InitializingBean, ApplicationCont
      */
     private Map<Integer, Class<?>> evalEntityMap;
 
-    public EvalSaveHandlerContext() {
+    public EvalHandlerContext() {
         evalRepositoryMap = new HashMap<>(EvalEntityEnum.values().length);
         evalEntityMap = new HashMap<>(EvalEntityEnum.values().length);
     }
@@ -52,6 +52,7 @@ public class EvalSaveHandlerContext implements InitializingBean, ApplicationCont
         if (EvalEntityEnum.matchEvalEntityEnum(type) == null) {
             return null;
         }
+        // TODO 返回错误判断
         Object entity = ParseJsonUtil.getTObject(evalEntityMap.get(type), data);
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(evalRepositoryMap.get(type), entity);
     }

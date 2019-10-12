@@ -24,8 +24,8 @@ public class DataSaveFactory {
 
     @Autowired
     public DataSaveFactory(Norwamd9002sDataSaveServiceImpl norwamd9002sDataSaveService, PearlcareYy106DataSaveServiceImpl pearlcareYy106DataSaveService) {
-        DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.NUO_HE.getCode(), norwamd9002sDataSaveService);
-        DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.PU_KE.getCode(), pearlcareYy106DataSaveService);
+        DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), norwamd9002sDataSaveService);
+        DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), pearlcareYy106DataSaveService);
     }
 
     public static int save(Integer deviceCode, String data) {

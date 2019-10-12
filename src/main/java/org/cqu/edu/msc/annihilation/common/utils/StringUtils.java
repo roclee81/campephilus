@@ -16,10 +16,10 @@ public class StringUtils {
     private static final Pattern linePattern = Pattern.compile("_(\\w)");
 
     /**
-     * 生成
+     * 生成随机字符串
      *
      * @param lengths 用户要求产生字符串的长度
-     * @return
+     * @return 生成的随机字符串
      */
     public static String getRandomString(int... lengths) {
         int length = 16;
@@ -46,7 +46,7 @@ public class StringUtils {
      * @param constantName 待转换的常量名
      * @return 标准驼峰格式的命名
      */
-    public static String constantNameConvertHumpName(String constantName) {
+    private static String constantNameConvertHumpName(String constantName) {
         constantName = constantName.toLowerCase();
         Matcher matcher = linePattern.matcher(constantName);
         StringBuffer sb = new StringBuffer();
@@ -72,5 +72,9 @@ public class StringUtils {
         // 处理第一个字符，将其替换为大写
         sb.replace(0, 1, constantName.substring(0, 1).toUpperCase());
         return sb.toString();
+    }
+
+    public static String constantNameRemoveUnderscores(String constantName) {
+        return constantName.replaceAll("_", "");
     }
 }

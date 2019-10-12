@@ -1,7 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.dto.data;
 
 import lombok.Data;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002s;
 import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 
@@ -60,19 +60,19 @@ public class Norwamd9002sDataDTO implements Serializable {
 
     }
 
-    public static Norwamd9002sDataDTO structureNorwamd9002sDataDTO(Norwamd9002sData norwamd9002sData) {
-        if (Objects.isNull(norwamd9002sData)) {
+    public static Norwamd9002sDataDTO structureNorwamd9002sDataDTO(Norwamd9002s NORWAMD9002S) {
+        if (Objects.isNull(NORWAMD9002S)) {
             return null;
         }
         Norwamd9002sDataDTO norwamd9002sDataDTO = new Norwamd9002sDataDTO();
-        BeanUtils.copyPropertiesTargetNotNull(norwamd9002sData, norwamd9002sDataDTO);
-        norwamd9002sDataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(norwamd9002sData.getGmtCreate()));
-        norwamd9002sDataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(norwamd9002sData.getGmtModified()));
+        BeanUtils.copyPropertiesTargetNotNull(NORWAMD9002S, norwamd9002sDataDTO);
+        norwamd9002sDataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(NORWAMD9002S.getGmtCreate()));
+        norwamd9002sDataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(NORWAMD9002S.getGmtModified()));
         return norwamd9002sDataDTO;
     }
 
-    public static List<Norwamd9002sDataDTO> structureNorwamd9002sDataDTOList(List<Norwamd9002sData> norwamd9002sData) {
-        return norwamd9002sData.parallelStream()
+    public static List<Norwamd9002sDataDTO> structureNorwamd9002sDataDTOList(List<Norwamd9002s> NORWAMD9002S) {
+        return NORWAMD9002S.parallelStream()
                 .map(Norwamd9002sDataDTO::structureNorwamd9002sDataDTO)
                 .collect(Collectors.toList());
     }
