@@ -23,8 +23,8 @@ public class DataListFactory {
 
     @Autowired
     public DataListFactory(Norwamd9002sDataListServiceImpl norwamd9002sDataListService, PearlcareYy106DataListServiceImpl pearlcareYy106DataListService) {
-        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.NUO_HE.getCode(), norwamd9002sDataListService);
-        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.PU_KE.getCode(), pearlcareYy106DataListService);
+        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), norwamd9002sDataListService);
+        DATA_LIST_SERVICE_MAP.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), pearlcareYy106DataListService);
     }
 
     public static DataListService getDataListService(int deviceCode) {

@@ -170,7 +170,7 @@ create TABLE `info_operation_device`
     PRIMARY KEY (pk_operation_number)
 ) COMMENT '手术使用的设备表';
 
-create TABLE `info_log`
+CREATE TABLE `info_log`
 (
     `pk_id`        SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `error`        TEXT                 NOT NULL COMMENT '错误日志信息',
@@ -178,3 +178,15 @@ create TABLE `info_log`
     `gmt_modified` TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (pk_id)
 ) COMMENT '错误日志信息表';
+
+
+CREATE TABLE `system_log`
+(
+    `pk_id`        SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+    `log_level`     TINYINT              NOT NULL COMMENT '日志级别',
+    `message`      TEXT                 NOT NULL COMMENT '日志信息',
+    `record_date`  VARCHAR(32)          NOT NULL COMMENT '日志记录时间',
+    `gmt_create`   TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified` TIMESTAMP            NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (pk_id)
+) COMMENT '日志信息表';

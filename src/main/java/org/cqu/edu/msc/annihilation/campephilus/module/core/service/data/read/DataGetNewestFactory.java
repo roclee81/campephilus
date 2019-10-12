@@ -25,8 +25,8 @@ public class DataGetNewestFactory {
     public DataGetNewestFactory(
             PearlcareYy106DataGetNewestServiceImpl pearlcareYy106DataGetNewestService,
             Norwamd9002SDataGetNewestServiceImpl norwamd9002SDataGetNewestService) {
-        DATA_GET_NEWEST_SERVICE_MAP.put(DeviceCodeEnum.NUO_HE.getCode(), norwamd9002SDataGetNewestService);
-        DATA_GET_NEWEST_SERVICE_MAP.put(DeviceCodeEnum.PU_KE.getCode(), pearlcareYy106DataGetNewestService);
+        DATA_GET_NEWEST_SERVICE_MAP.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), norwamd9002SDataGetNewestService);
+        DATA_GET_NEWEST_SERVICE_MAP.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), pearlcareYy106DataGetNewestService);
     }
 
     public static DataGetNewestService getDataGetNewestService(int deviceCode) {

@@ -1,6 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002sData;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.Norwamd9002s;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import java.util.List;
  * Description:
  */
 @Repository
-public interface Norwamd9002sDataRepository extends JpaRepository<Norwamd9002sData, Integer> {
+public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Integer> {
 
     /**
      * 通过operationNumber和serialNumber查询指定手术的仪器输出数据
@@ -25,7 +25,7 @@ public interface Norwamd9002sDataRepository extends JpaRepository<Norwamd9002sDa
      * @param pageable        分页信息
      * @return List DTO对象
      */
-    List<Norwamd9002sData> findByOperationNumberAndSerialNumber(
+    List<Norwamd9002s> findByOperationNumberAndSerialNumber(
             int operationNumber, String serialNumber, Pageable pageable);
 
     /**
@@ -35,6 +35,6 @@ public interface Norwamd9002sDataRepository extends JpaRepository<Norwamd9002sDa
      * @param serialNumber    仪器序列号
      * @return DTO对象
      */
-    Norwamd9002sData findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(int operationNumber, String serialNumber);
+    Norwamd9002s findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(int operationNumber, String serialNumber);
 }
 

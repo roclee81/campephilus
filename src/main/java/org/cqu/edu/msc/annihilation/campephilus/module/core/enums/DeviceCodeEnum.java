@@ -32,16 +32,15 @@ public enum DeviceCodeEnum {
      */
     MEIDUNLI_5100C(23),
 
-
     /**
      * 合肥诺和NW9002S
      */
-    NUO_HE(30),
+    NORWAMD_9002S(30),
 
     /**
      * 浙江普可YY-106
      */
-    PU_KE(31),
+    PEARLCARE_YY106(31),
 
     /**
      * 广东宝莱特Q6
@@ -81,7 +80,7 @@ public enum DeviceCodeEnum {
         this.code = code;
     }
 
-    public static DeviceCodeEnum matchRequestEnum(Integer code) {
+    public static DeviceCodeEnum matchDeviceCodeEnum(Integer code) {
         for (DeviceCodeEnum deviceCodeEnum : DeviceCodeEnum.values()) {
             if (deviceCodeEnum.getCode().equals(code)) {
                 return deviceCodeEnum;
