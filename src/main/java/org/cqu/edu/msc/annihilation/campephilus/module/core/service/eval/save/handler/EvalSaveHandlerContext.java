@@ -43,6 +43,8 @@ public class EvalSaveHandlerContext implements InitializingBean, ApplicationCont
     private Map<Integer, Class<?>> evalEntityMap;
 
     public EvalSaveHandlerContext() {
+        evalRepositoryMap = new HashMap<>(EvalEntityEnum.values().length);
+        evalEntityMap = new HashMap<>(EvalEntityEnum.values().length);
     }
 
     public Object evalSaveService(Integer type, String data) {
@@ -54,11 +56,16 @@ public class EvalSaveHandlerContext implements InitializingBean, ApplicationCont
         return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(evalRepositoryMap.get(type), entity);
     }
 
+    /**
+     * 根据EvalEntityEnum命名扫描并组合所有包名.类名
+     * 同时反射生成类
+     * 再通过ApplicationContext得到单例
+     * 类维护两个MAP
+     * evalRepositoryMap存放repository
+     * evalEntityMap存放entity
+     */
     @SuppressWarnings("unchecked")
-    @Override
-    public void afterPropertiesSet() {
-        evalRepositoryMap = new HashMap<>(EvalEntityEnum.values().length);
-        evalEntityMap = new HashMap<>(EvalEntityEnum.values().length);
+    private void scannerEvalStructureMap() {
         for (EvalEntityEnum entityEnum : EvalEntityEnum.values()) {
             String entityName = StringUtils.constantNameConvertClassName(entityEnum.name());
             // 组合成EntityClass的包路径
@@ -77,6 +84,11 @@ public class EvalSaveHandlerContext implements InitializingBean, ApplicationCont
             evalRepositoryMap.put(entityEnum.getCode(), repository);
             evalEntityMap.put(entityEnum.getCode(), entityClass);
         }
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        scannerEvalStructureMap();
     }
 
     @Override
