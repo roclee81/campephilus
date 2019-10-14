@@ -66,8 +66,8 @@ public class Norwamd9002sDataDTO implements Serializable {
         }
         Norwamd9002sDataDTO norwamd9002sDataDTO = new Norwamd9002sDataDTO();
         BeanUtils.copyPropertiesTargetNotNull(NORWAMD9002S, norwamd9002sDataDTO);
-        norwamd9002sDataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(NORWAMD9002S.getGmtCreate()));
-        norwamd9002sDataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(NORWAMD9002S.getGmtModified()));
+        norwamd9002sDataDTO.setLongCreate(TimeStampUtils.parseLocalDateTimeToTimeStamp(NORWAMD9002S.getGmtCreate()));
+        norwamd9002sDataDTO.setLongModified(TimeStampUtils.parseLocalDateTimeToTimeStamp(NORWAMD9002S.getGmtModified()));
         return norwamd9002sDataDTO;
     }
 

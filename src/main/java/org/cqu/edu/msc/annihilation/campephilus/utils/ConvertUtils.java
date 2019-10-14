@@ -20,8 +20,8 @@ public class ConvertUtils {
         return list.parallelStream()
                 .filter(Objects::nonNull)
                 .peek(t -> {
-                    t.setLongCreate(TimeStampUtils.getTimestampOfDateTime(t.getGmtCreate()));
-                    t.setLongModified(TimeStampUtils.getTimestampOfDateTime(t.getGmtModified()));
+                    t.setLongCreate(TimeStampUtils.parseLocalDateTimeToTimeStamp(t.getGmtCreate()));
+                    t.setLongModified(TimeStampUtils.parseLocalDateTimeToTimeStamp(t.getGmtModified()));
                 })
                 .collect(Collectors.toList())
                 ;

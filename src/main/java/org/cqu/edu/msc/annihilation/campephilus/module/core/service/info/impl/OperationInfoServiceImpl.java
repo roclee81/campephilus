@@ -119,8 +119,8 @@ public class OperationInfoServiceImpl extends AbstractInfoService<OperationInfo,
         return super.listAll(page, size)
                 .parallelStream()
                 .peek(t -> {
-                    t.setLongOperationStartTime(TimeStampUtils.getTimestampOfDateTime(t.getOperationStartTime()));
-                    t.setLongOperationEndTime(TimeStampUtils.getTimestampOfDateTime(t.getOperationEndTime()));
+                    t.setLongOperationStartTime(TimeStampUtils.parseLocalDateTimeToTimeStamp(t.getOperationStartTime()));
+                    t.setLongOperationEndTime(TimeStampUtils.parseLocalDateTimeToTimeStamp(t.getOperationEndTime()));
                 })
                 .collect(Collectors.toList());
     }
