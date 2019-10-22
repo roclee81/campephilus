@@ -1,4 +1,8 @@
-CREATE TABLE `eval_anesthesia_depth` (
+
+
+# 麻醉深度监测仪评价表
+DROP TABLE IF EXISTS `eval_device_anesthesia_depth_monitor`;
+CREATE TABLE `eval_device_anesthesia_depth_monitor` (
     `pk_id`
     SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `company_name`
@@ -104,11 +108,11 @@ CREATE TABLE `eval_anesthesia_depth` (
     PRIMARY KEY(`pk_id`)
 ) COMMENT '设备信息表，信息需要手动输入';
 
+
+
 CREATE table `eval_cerebral_oxygen` (
     `pk_id`
     SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `company_name`
-    VARCHAR(64) NOT NULL COMMENT '1.公司名称',
     `device_type`
     VARCHAR(64) NOT NULL COMMENT '2.设备型号',
     `other_device_type`
