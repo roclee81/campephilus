@@ -8,4 +8,3 @@ spring:
   redis:
     host: r-wz97709w2x1bqvu9tn.redis.rds.aliyuncs.com
     password: 7@V8nwnFUKtzBaB6
-
