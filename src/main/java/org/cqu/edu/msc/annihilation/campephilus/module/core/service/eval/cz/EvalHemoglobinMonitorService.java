@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalApplicationHemoglobinMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 
 /**
  * 血红蛋白评价服务
@@ -16,6 +17,6 @@ public interface EvalHemoglobinMonitorService {
      * @param evalApplicationHemoglobinMonitor 评价信息
      * @return 是否成功
      */
-    ResponseEntity<String> saveHemoglobinMonitorEvaluation(EvalApplicationHemoglobinMonitor evalApplicationHemoglobinMonitor);
+    ResultVO saveHemoglobinMonitorEvaluation(EvalApplicationHemoglobinMonitor evalApplicationHemoglobinMonitor);
 
 }

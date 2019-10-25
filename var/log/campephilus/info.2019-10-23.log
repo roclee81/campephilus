@@ -1,0 +1,46 @@
+2019-10-23 16:53:58,456 - Starting CampephilusApplication on nano with PID 38688 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-23 16:53:58,458 - The following profiles are active: dev
+2019-10-23 16:54:01,075 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-23 16:54:01,077 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-23 16:54:01,714 - Finished Spring Data repository scanning in 624ms. Found 35 repository interfaces.
+2019-10-23 16:54:02,224 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-23 16:54:02,511 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$5e3bf818] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-23 16:54:03,527 - Tomcat initialized with port(s): 8080 (http)
+2019-10-23 16:54:03,555 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-23 16:54:03,556 - Starting service [Tomcat]
+2019-10-23 16:54:03,556 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-23 16:54:03,915 - Initializing Spring embedded WebApplicationContext
+2019-10-23 16:54:03,915 - Root WebApplicationContext: initialization completed in 5324 ms
+2019-10-23 16:54:04,824 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-23 16:54:04,844 - HikariPool-1 - Starting...
+2019-10-23 16:54:05,634 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-23 16:54:05,934 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-23 16:54:06,270 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-23 16:54:06,508 - HikariPool-1 - Starting...
+2019-10-23 16:54:06,516 - HHH000342: Could not obtain connection to query metadata : Public Key Retrieval is not allowed
+2019-10-23 16:54:06,521 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'evalController': Unsatisfied dependency expressed through field 'evalHandlerContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalHandlerContext' defined in file [D:\project\campephilus\target\classes\org\cqu\edu\msc\annihilation\campephilus\module\core\service\eval\EvalHandlerContext.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalAnesthesiaDepthRepository': Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-23 16:54:06,522 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-23 16:54:06,522 - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-23 16:54:06,522 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-23 16:54:06,596 - Stopping service [Tomcat]
+2019-10-23 16:54:06,605 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-23 16:54:51,272 - Starting CampephilusApplication on nano with PID 35740 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-23 16:54:51,276 - The following profiles are active: cz
+2019-10-23 16:54:52,669 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-23 16:54:52,671 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-23 16:54:53,190 - Finished Spring Data repository scanning in 510ms. Found 35 repository interfaces.
+2019-10-23 16:54:53,598 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-23 16:54:53,770 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$7b67c301] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-23 16:54:54,499 - Tomcat initialized with port(s): 8080 (http)
+2019-10-23 16:54:54,514 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-23 16:54:54,515 - Starting service [Tomcat]
+2019-10-23 16:54:54,515 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-23 16:54:54,689 - Initializing Spring embedded WebApplicationContext
+2019-10-23 16:54:54,690 - Root WebApplicationContext: initialization completed in 3342 ms
+2019-10-23 16:54:55,087 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2019-10-23 16:54:55,111 - Stopping service [Tomcat]
+2019-10-23 16:54:55,142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.

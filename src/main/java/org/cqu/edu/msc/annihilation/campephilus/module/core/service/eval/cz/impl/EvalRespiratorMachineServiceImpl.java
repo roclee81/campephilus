@@ -1,10 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.impl;
 
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalApplicationRespiratorMachine;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.cz.EvaluationRespiratorMachineRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalRespiratorMachineService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +28,13 @@ public class EvalRespiratorMachineServiceImpl implements EvalRespiratorMachineSe
      * @return 是否成功
      */
     @Override
-    public ResponseEntity<String> saveRespiratorMachineEvaluation(EvalApplicationRespiratorMachine evalApplicationRespiratorMachine) {
+    public ResultVO saveRespiratorMachineEvaluation(EvalApplicationRespiratorMachine evalApplicationRespiratorMachine) {
 
         EvalApplicationRespiratorMachine result = evaluationRespiratorMachineRepository.save(evalApplicationRespiratorMachine);
         if (result != null) {
-            return ResponseEntity.success("OK");
+            return ResultVOUtils.success("OK");
         } else {
-            return ResponseEntity.error("NO");
+            return ResultVOUtils.error(EvaluationRequestCode.RESPIRATOR_MACHINE, "NO");
         }
     }
 }

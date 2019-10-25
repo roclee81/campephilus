@@ -1,10 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.impl;
 
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalBrainOxygenMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.cz.EvaluationBrainOxygenMonitorRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalBrainOxygenMonitorService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +31,14 @@ public class EvalBrainOxygenMonitorServiceImpl implements EvalBrainOxygenMonitor
      * @return 是否成功
      */
     @Override
-    public ResponseEntity<String> saveBrainOxygenMonitorEvaluation(EvalBrainOxygenMonitor evalBrainOxygenMonitor) {
+    public ResultVO saveBrainOxygenMonitorEvaluation(EvalBrainOxygenMonitor evalBrainOxygenMonitor) {
 
         EvalBrainOxygenMonitor result = evaluationBrainOxygenMonitorRepository.save(evalBrainOxygenMonitor);
 
         if (result != null) {
-            return ResponseEntity.success("OK");
+            return ResultVOUtils.success("OK");
         } else {
-            return ResponseEntity.error("NO");
+            return ResultVOUtils.error(EvaluationRequestCode.BRAIN_OXYGEN_MONITOR, "NO");
         }
     }
 }

@@ -4,7 +4,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.
  * 请求码
  * @author cz
  */
-public interface RequestCode {
+public interface EvaluationRequestCode {
 
     /**
      * 麻醉深度监护仪

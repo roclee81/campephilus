@@ -1,10 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.impl;
 
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaDepthMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.cz.EvaluationAnesthesiaDepthMonitorRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalAnesthesiaDepthMonitorService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +29,14 @@ public class EvalAnesthesiaDepthMonitorServiceImpl implements EvalAnesthesiaDept
      * @return 是否成功
      */
     @Override
-    public ResponseEntity<String> saveAnesthesiaDepthMonitorEvaluation(EvalAnesthesiaDepthMonitor evalAnesthesiaDepthMonitor) {
+    public ResultVO saveAnesthesiaDepthMonitorEvaluation(EvalAnesthesiaDepthMonitor evalAnesthesiaDepthMonitor) {
 
         EvalAnesthesiaDepthMonitor result = evaluationAnesthesiaDepthMonitorRepository.save(evalAnesthesiaDepthMonitor);
 
         if (result != null) {
-            return ResponseEntity.success("OK");
+            return ResultVOUtils.success("OK");
         } else {
-            return ResponseEntity.error("NO");
+            return ResultVOUtils.error(EvaluationRequestCode.ANESTHESIA_DEPTH_MONITOR, "NO");
         }
 
     }

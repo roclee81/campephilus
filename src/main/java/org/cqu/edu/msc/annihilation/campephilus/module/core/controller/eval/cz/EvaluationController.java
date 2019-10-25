@@ -2,7 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz;
 
 import com.alibaba.fastjson.JSONObject;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.RequestCode;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaDepthMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaMachine;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalBrainOxygenMonitor;
@@ -21,6 +21,8 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.Eval
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalServiceSystemService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.CommitEntity;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * 问卷评价控制器
  * @author cz
  */
-@RequestMapping("/questionnaire")
+@RequestMapping("/evaluation")
 @Slf4j
 @CrossOrigin
 @RestController
@@ -94,58 +96,58 @@ public class EvaluationController {
      * @param commitEntity 评价表实体
      * @return 是否成功
      */
-    @PostMapping(value = "/maintenance_record")
-    public ResponseEntity<String> commitMaintenanceRecord(CommitEntity commitEntity) {
+    @PostMapping(value = "/post_record")
+    public ResultVO commitMaintenanceRecord(CommitEntity commitEntity) {
 
         if (commitEntity == null) {
-            return ResponseEntity.error("无效请求");
+            return ResultVOUtils.error(500, "无效请求");
         }
 
         if (commitEntity.getData() == null) {
-            return ResponseEntity.error("无效数据");
+            return ResultVOUtils.error(500, "无效数据");
         }
 
         log.info("收到请求:" + commitEntity.toString());
 
-        if(commitEntity.getCode() == RequestCode.MAINTENANCE_RECORD) {
+        if(commitEntity.getCode() == EvaluationRequestCode.MAINTENANCE_RECORD) {
             EvalMaintenanceRecord maintenanceRecord = JSONObject.parseObject(commitEntity.getData(), EvalMaintenanceRecord.class);
             log.info("插入数据:" + maintenanceRecord.toString());
             return evalMaintenanceRecordService.saveMaintenanceRecord(maintenanceRecord);
-        } else if (commitEntity.getCode() == RequestCode.SERVICE_SYSTEM) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.SERVICE_SYSTEM) {
             EvalServiceSystem evalServiceSystem = JSONObject.parseObject(commitEntity.getData(), EvalServiceSystem.class);
             log.info("插入数据:" + evalServiceSystem.toString());
             return evalServiceSystemService.saveServiceSystemEvaluation(evalServiceSystem);
 
-        } else if (commitEntity.getCode() == RequestCode.ANESTHESIA_DEPTH_MONITOR) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.ANESTHESIA_DEPTH_MONITOR) {
 
             EvalAnesthesiaDepthMonitor evalAnesthesiaDepthMonitor = JSONObject.parseObject(commitEntity.getData(), EvalAnesthesiaDepthMonitor.class);
             log.info("插入数据:" + evalAnesthesiaDepthMonitor.toString());
             return evalAnesthesiaDepthMonitorService.saveAnesthesiaDepthMonitorEvaluation(evalAnesthesiaDepthMonitor);
 
-        } else if (commitEntity.getCode() == RequestCode.HEMOGLOBIN_MONITOR) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.HEMOGLOBIN_MONITOR) {
 
             EvalApplicationHemoglobinMonitor evalApplicationHemoglobinMonitor = JSONObject.parseObject(commitEntity.getData(), EvalApplicationHemoglobinMonitor.class);
             log.info("插入数据:" + evalApplicationHemoglobinMonitor.toString());
             return evalHemoglobinMonitorService.saveHemoglobinMonitorEvaluation(evalApplicationHemoglobinMonitor);
 
-        } else if (commitEntity.getCode() == RequestCode.BRAIN_OXYGEN_MONITOR) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.BRAIN_OXYGEN_MONITOR) {
             EvalBrainOxygenMonitor evalBrainOxygenMonitor = JSONObject.parseObject(commitEntity.getData(), EvalBrainOxygenMonitor.class);
             log.info("插入数据:" + evalBrainOxygenMonitor.toString());
             return evalBrainOxygenMonitorService.saveBrainOxygenMonitorEvaluation(evalBrainOxygenMonitor);
 
-        } else if (commitEntity.getCode() == RequestCode.NORMAL_MONITOR) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.NORMAL_MONITOR) {
 
             EvalNormalMonitor evalNormalMonitor = JSONObject.parseObject(commitEntity.getData(), EvalNormalMonitor.class);
             log.info("插入数据:" + evalNormalMonitor.toString());
             return evalNormalMonitorService.saveNormalMonitorEvaluation(evalNormalMonitor);
 
-        } else if (commitEntity.getCode() == RequestCode.ANESTHESIA_MACHINE) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.ANESTHESIA_MACHINE) {
 
             EvalAnesthesiaMachine evalAnesthesiaMachine = JSONObject.parseObject(commitEntity.getData(), EvalAnesthesiaMachine.class);
             log.info("插入数据:" + evalAnesthesiaMachine.toString());
             return evalAnesthesiaMachineService.saveAnesthesiaMachineEvaluation(evalAnesthesiaMachine);
 
-        } else if (commitEntity.getCode() == RequestCode.RESPIRATOR_MACHINE) {
+        } else if (commitEntity.getCode() == EvaluationRequestCode.RESPIRATOR_MACHINE) {
 
             EvalApplicationRespiratorMachine evalApplicationRespiratorMachine = JSONObject.parseObject(commitEntity.getData(), EvalApplicationRespiratorMachine.class);
             log.info("插入数据:" + evalApplicationRespiratorMachine.toString());
@@ -153,10 +155,13 @@ public class EvaluationController {
         } else {
 
             log.error("出错:" + commitEntity.toString());
-            return ResponseEntity.error("请求码有误");
+            return ResultVOUtils.error(500, "请求码有误");
         }
 
     }
+
+
+
 
 
 }

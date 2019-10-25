@@ -1,10 +1,13 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.impl;
 
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalApplicationHemoglobinMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.eval.cz.EvaluationHemoglobinMonitorRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalHemoglobinMonitorService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
+import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +28,13 @@ public class EvalHemoglobinMonitorServiceImpl implements EvalHemoglobinMonitorSe
      * @return 是否成功
      */
     @Override
-    public ResponseEntity<String> saveHemoglobinMonitorEvaluation(EvalApplicationHemoglobinMonitor evalApplicationHemoglobinMonitor) {
+    public ResultVO saveHemoglobinMonitorEvaluation(EvalApplicationHemoglobinMonitor evalApplicationHemoglobinMonitor) {
         EvalApplicationHemoglobinMonitor result = evaluationHemoglobinMonitorRepository.save(evalApplicationHemoglobinMonitor);
+
         if (result != null) {
-            return ResponseEntity.success("OK");
+            return ResultVOUtils.success("OK");
         } else {
-            return ResponseEntity.error("NO");
+            return ResultVOUtils.error(EvaluationRequestCode.HEMOGLOBIN_MONITOR, "NO");
         }
     }
 }
