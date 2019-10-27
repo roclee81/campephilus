@@ -36,7 +36,7 @@ public class EvalServiceSystemImpl implements EvalServiceSystemService {
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.SERVICE_SYSTEM, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.SERVICE_SYSTEM, "Error");
         }
     }
 }

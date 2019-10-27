@@ -36,7 +36,7 @@ public class EvalNormalMonitorServiceImpl implements EvalNormalMonitorService {
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.NORMAL_MONITOR, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.NORMAL_MONITOR, "Error");
         }
     }
 }

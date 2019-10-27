@@ -38,7 +38,7 @@ public class EvalBrainOxygenMonitorServiceImpl implements EvalBrainOxygenMonitor
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.BRAIN_OXYGEN_MONITOR, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.BRAIN_OXYGEN_MONITOR, "Error");
         }
     }
 }

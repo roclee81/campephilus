@@ -34,7 +34,7 @@ public class EvalHemoglobinMonitorServiceImpl implements EvalHemoglobinMonitorSe
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.HEMOGLOBIN_MONITOR, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.HEMOGLOBIN_MONITOR, "Error");
         }
     }
 }

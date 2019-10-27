@@ -34,7 +34,7 @@ public class EvalRespiratorMachineServiceImpl implements EvalRespiratorMachineSe
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.RESPIRATOR_MACHINE, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.RESPIRATOR_MACHINE, "Error");
         }
     }
 }

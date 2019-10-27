@@ -35,7 +35,7 @@ public class EvalAnesthesiaMachineServiceImpl implements EvalAnesthesiaMachineSe
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.ANESTHESIA_MACHINE, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.ANESTHESIA_MACHINE, "Error");
         }
 
     }

@@ -36,7 +36,7 @@ public class EvalMaintenanceRecordServiceImpl implements EvalMaintenanceRecordSe
         if (result != null) {
             return ResultVOUtils.success("OK");
         } else {
-            return ResultVOUtils.error(EvaluationRequestCode.MAINTENANCE_RECORD, "NO");
+            return ResultVOUtils.error(EvaluationRequestCode.MAINTENANCE_RECORD, "Error");
         }
     }
 
