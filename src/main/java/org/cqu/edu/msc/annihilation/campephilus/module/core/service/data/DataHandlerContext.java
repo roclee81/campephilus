@@ -74,7 +74,7 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
             // 组合成EntityRepositoryClass的包路径
             String repositoryClassName = DEVICE_REPOSITORY_PACKAGE_NAME + entityName + REPOSITORY;
             Class<?> repositoryClass;
-            Class entityClass;
+            Class<?> entityClass;
             try {
                 entityClass = Class.forName(entityClassName);
                 repositoryClass = Class.forName(repositoryClassName);

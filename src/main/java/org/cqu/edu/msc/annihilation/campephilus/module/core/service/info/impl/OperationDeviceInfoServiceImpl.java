@@ -24,12 +24,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OperationDeviceInfoServiceImpl extends AbstractInfoService<OperationDeviceInfo, Integer> implements OperationDeviceInfoService {
 
-    private final OperationDeviceInfoRepository operationDeviceInfoRepository;
-
     @Autowired
-    public OperationDeviceInfoServiceImpl(OperationDeviceInfoRepository operationDeviceInfoRepository) {
-        this.operationDeviceInfoRepository = operationDeviceInfoRepository;
-    }
+    private OperationDeviceInfoRepository operationDeviceInfoRepository;
 
     @Override
     public JpaRepository<OperationDeviceInfo, Integer> getJpaRepository() {

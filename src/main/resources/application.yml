@@ -2,7 +2,7 @@ spring:
   application:
     name: campephilus
   profiles:
-    active: dev
+    active: aliyun
   data:
     jpa:
       repositories:
