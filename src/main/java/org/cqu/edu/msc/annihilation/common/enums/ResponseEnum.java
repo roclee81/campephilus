@@ -49,9 +49,9 @@ public enum ResponseEnum {
     DATA_STATE_FINISHED(-7, "该数据已经处于结束状态"),
 
     /**
-     * 手术没有开始，没有前置数据
+     * 没有前置数据
      */
-    OPERATION_NOT_READY(-8, "手术没有开始，没有前置数据"),
+    OPERATION_NOT_READY(-8, "没有前置数据"),
 
     /**
      * 更新失败，ID字段错误或为空

@@ -1,8 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,13 +21,12 @@ import java.time.LocalDateTime;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_operation")
-public class OperationInfo extends BaseInfoSuperclass implements Serializable {
+public class OperationInfo implements Serializable {
 
     private static final long serialVersionUID = -5085503116296589504L;
     /**
@@ -83,5 +83,19 @@ public class OperationInfo extends BaseInfoSuperclass implements Serializable {
     @NotBlank(message = "hospital_operation_number must cannot empty")
     @Column(name = "hospital_operation_number")
     private String hospitalOperationNumber;
+
+    /**
+     * 数据创建时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_create")
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_modified")
+    private LocalDateTime gmtModified;
 }
 

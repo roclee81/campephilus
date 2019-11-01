@@ -1,25 +1,26 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 评价表单
  *
  * @author cz
  */
-@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_evaluation")
-public class EvaluationInfo extends BaseInfoSuperclass implements Serializable {
+public class EvaluationInfo implements Serializable {
 
     private static final long serialVersionUID = -4113168698465125393L;
     /**
@@ -95,4 +96,18 @@ public class EvaluationInfo extends BaseInfoSuperclass implements Serializable {
      */
     @Column(name = "record_name")
     private String recordName;
+
+    /**
+     * 数据创建时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_create")
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_modified")
+    private LocalDateTime gmtModified;
 }

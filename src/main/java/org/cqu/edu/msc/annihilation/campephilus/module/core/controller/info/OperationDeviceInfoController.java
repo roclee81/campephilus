@@ -5,7 +5,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.Operatio
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

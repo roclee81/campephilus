@@ -3,7 +3,6 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz;
 import com.alibaba.fastjson.JSONObject;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseCode;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaDepthMonitor;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaMachine;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalBrainOxygenMonitor;
@@ -21,8 +20,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.Eval
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalRespiratorMachineService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalServiceSystemService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.CommitEntity;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.ResponseEntity;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

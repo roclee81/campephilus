@@ -1,12 +1,14 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -16,13 +18,12 @@ import java.time.LocalTime;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_device_hospital_relation")
-public class DeviceHospitalRelationInfo extends BaseInfoSuperclass implements Serializable {
+public class DeviceHospitalRelationInfo implements Serializable {
 
     private static final long serialVersionUID = 4495024344464908326L;
     /**
@@ -68,4 +69,18 @@ public class DeviceHospitalRelationInfo extends BaseInfoSuperclass implements Se
      */
     @Column(name = "device_comment")
     private String deviceComment;
+
+    /**
+     * 数据创建时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_create")
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_modified")
+    private LocalDateTime gmtModified;
 }
