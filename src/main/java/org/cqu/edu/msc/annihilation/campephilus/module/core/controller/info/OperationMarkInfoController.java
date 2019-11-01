@@ -6,7 +6,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Operati
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -54,7 +53,8 @@ public class OperationMarkInfoController {
     @PostMapping(value = "/list")
     public ResultVO saveList(@Valid InstrumentForm instrumentForm, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return ResultVOUtils.checkAndReturn(operationMarkInfoService.saveList(instrumentForm));
+        return new ResultVO(instrumentForm.getCode() + 1, "success");
+//        return ResultVOUtils.checkAndReturn(operationMarkInfoService.saveList(instrumentForm));
     }
 
     @PutMapping("")

@@ -4,7 +4,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConsta
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.EvaluationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.common.utils.BindingResultUtils;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -36,6 +35,7 @@ public class EvaluationInfoController {
     @PostMapping(value = "/list")
     public ResultVO saveList(@Valid InstrumentForm instrumentForm, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return ResultVOUtils.checkAndReturn(evaluationInfoService.saveList(instrumentForm));
+        return new ResultVO(instrumentForm.getCode() + 1, "success");
+//        return ResultVOUtils.checkAndReturn(evaluationInfoService.saveList(instrumentForm));
     }
 }
