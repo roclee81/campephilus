@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.OperationMarkInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface OperationMarkInfoService extends CrudService<OperationMarkInfo>
     List<OperationMarkInfoDTO> listOperationMarkInfoDTO(int page, int size);
 
     List<OperationMarkInfoDTO> listOperationMarkInfoDTOByOperationNumber(int operationNumber);
+
+    ResponseEnum saveList(InstrumentForm instrumentForm);
 }

@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.EvaluationInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.EvaluationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface EvaluationInfoService extends CrudService<EvaluationInfo> {
      * @param instrumentForm
      */
     void saveEvaluationInfoFromInstrumentForm(InstrumentForm instrumentForm);
+
+    ResponseEnum saveList(InstrumentForm instrumentForm);
 }

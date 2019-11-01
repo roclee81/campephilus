@@ -10,13 +10,16 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +85,27 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
                                 operationMarkInfoRepository.findByOperationNumber(operationNumber)));
 
         return convertOperationMarkInfoDTOList(operationMarkInfoList);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ResponseEnum saveList(InstrumentForm instrumentForm) {
+        OperationMarkInfo[] operationMarkInfos =
+                ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo[].class);
+        fillDefaultValue(instrumentForm, operationMarkInfos);
+        saveList(operationMarkInfos);
+        return ResponseEnum.SUCCESS;
+    }
+
+    public ResponseEnum saveList(OperationMarkInfo[] operationMarkInfoList) {
+        operationMarkInfoRepository.saveAll(Arrays.asList(operationMarkInfoList));
+        return ResponseEnum.SUCCESS;
+    }
+
+    private static void fillDefaultValue(InstrumentForm instrumentForm, OperationMarkInfo[] operationMarkInfoList) {
+        for (OperationMarkInfo operationMarkInfo : operationMarkInfoList) {
+            operationMarkInfo.setOperationNumber(instrumentForm.getOperationNumber());
+        }
     }
 
     private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {

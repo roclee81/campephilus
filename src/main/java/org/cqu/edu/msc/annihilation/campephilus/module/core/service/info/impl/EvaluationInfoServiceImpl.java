@@ -8,10 +8,12 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.Evaluat
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,5 +58,25 @@ public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInf
             parseObject.setOperationNumber(instrumentForm.getOperationNumber());
             this.save(parseObject);
         }
+    }
+
+    @Override
+    public ResponseEnum saveList(InstrumentForm instrumentForm) {
+        EvaluationInfo[] evaluationInfos =
+                ParseJsonUtil.parseJsonString(instrumentForm, EvaluationInfo[].class);
+        fillDefaultValue(instrumentForm, evaluationInfos);
+        saveList(evaluationInfos);
+        return ResponseEnum.SUCCESS;
+    }
+
+    private static void fillDefaultValue(InstrumentForm instrumentForm, EvaluationInfo[] evaluationInfos) {
+        for (EvaluationInfo evaluationInfo : evaluationInfos) {
+            evaluationInfo.setOperationNumber(instrumentForm.getOperationNumber());
+        }
+    }
+
+    public ResponseEnum saveList(EvaluationInfo[] evaluationInfos) {
+        evaluationInfoRepository.saveAll(Arrays.asList(evaluationInfos));
+        return ResponseEnum.SUCCESS;
     }
 }
