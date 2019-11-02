@@ -1,20 +1,17 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.EvaluationInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.EvaluationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.EvaluationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.EvaluationInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,31 +23,27 @@ import java.util.Objects;
  * Description:
  */
 @Service
-public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInfo, Integer> implements EvaluationInfoService {
+public class EvaluationInfoServiceImpl implements EvaluationInfoService {
 
     @Autowired
-    private EvaluationInfoRepository evaluationInfoRepository;
+    private EvaluationInfoRepository repository;
 
     @Override
-    public JpaRepository<EvaluationInfo, Integer> getJpaRepository() {
-        return evaluationInfoRepository;
+    public ResultDTO save(EvaluationInfo evaluationInfo) {
+        return ServiceCrudCheckUtils.saveObjectAndCheck(repository, evaluationInfo);
     }
 
     @Override
-    protected Integer getId(EvaluationInfo evaluationInfo) {
-        return evaluationInfo.getId();
+    public ResultDTO delete(EvaluationInfo t) {
+        return ServiceCrudCheckUtils.deleteObjectAndCheck(repository, t);
     }
 
     @Override
-    public List<EvaluationInfoDTO> listEvaluationInfoDTO(int page, int size) {
-        return EvaluationInfoDTO.structureEvaluationInfoDTOs(this.listAll(page, size));
+    public ResultDTO update(EvaluationInfo t) {
+        return ServiceCrudCheckUtils.updateObjectAndCheck(repository, t);
     }
 
-    @Override
-    public EvaluationInfo save(EvaluationInfo evaluationInfo) {
-        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(evaluationInfoRepository, evaluationInfo);
-    }
-
+    @Deprecated
     @Override
     public void saveEvaluationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         EvaluationInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, EvaluationInfo.class);
@@ -61,12 +54,11 @@ public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInf
     }
 
     @Override
-    public ResponseEnum saveList(InstrumentForm instrumentForm) {
+    public ResultDTO saveList(InstrumentForm instrumentForm) {
         EvaluationInfo[] evaluationInfos =
                 ParseJsonUtil.parseJsonString(instrumentForm, EvaluationInfo[].class);
         fillDefaultValue(instrumentForm, evaluationInfos);
-        saveList(evaluationInfos);
-        return ResponseEnum.SUCCESS;
+        return ServiceCrudCheckUtils.saveObjectAndCheck(repository, evaluationInfos);
     }
 
     private static void fillDefaultValue(InstrumentForm instrumentForm, EvaluationInfo[] evaluationInfos) {
@@ -76,7 +68,7 @@ public class EvaluationInfoServiceImpl extends AbstractInfoService<EvaluationInf
     }
 
     public ResponseEnum saveList(EvaluationInfo[] evaluationInfos) {
-        evaluationInfoRepository.saveAll(Arrays.asList(evaluationInfos));
+        repository.saveAll(Arrays.asList(evaluationInfos));
         return ResponseEnum.SUCCESS;
     }
 }

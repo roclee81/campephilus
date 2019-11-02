@@ -1,5 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.AfterOperationInfo;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
+
 /**
  * @author lx
  * @version V1.0
@@ -9,5 +12,9 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
  */
 public interface AfterOperationInfoService {
 
+    ResultDTO save(AfterOperationInfo t);
 
+    ResultDTO delete(AfterOperationInfo t);
+
+    ResultDTO update(AfterOperationInfo t);
 }

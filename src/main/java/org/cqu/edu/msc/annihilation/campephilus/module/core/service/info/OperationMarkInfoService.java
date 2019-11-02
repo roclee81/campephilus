@@ -1,9 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.OperationMarkInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 
 import java.util.List;
 
@@ -14,12 +13,15 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface OperationMarkInfoService extends CrudService<OperationMarkInfo> {
+public interface OperationMarkInfoService {
+
+    ResultDTO save(OperationMarkInfo t);
+
     void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm);
 
-    List<OperationMarkInfoDTO> listOperationMarkInfoDTO(int page, int size);
+    ResultDTO list(int page, int size);
 
-    List<OperationMarkInfoDTO> listOperationMarkInfoDTOByOperationNumber(int operationNumber);
+    List<OperationMarkInfo> listOperationMarkInfoDTOByOperationNumber(int operationNumber);
 
-    ResponseEnum saveList(InstrumentForm instrumentForm);
+    ResultDTO saveList(InstrumentForm instrumentForm);
 }

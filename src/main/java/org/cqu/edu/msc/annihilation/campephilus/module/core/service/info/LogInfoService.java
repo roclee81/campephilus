@@ -2,6 +2,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.LogInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 
 /**
  * @author lx
@@ -10,6 +11,9 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.Instrumen
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface LogInfoService extends CrudService<LogInfo> {
+public interface LogInfoService {
+
+    ResultDTO save(LogInfo t);
+
     void saveLogInfoFromInstrumentFrom(InstrumentForm instrumentForm);
 }

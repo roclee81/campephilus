@@ -3,14 +3,14 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationDeviceInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationDeviceInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationDeviceInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
+import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,42 +22,26 @@ import org.springframework.stereotype.Service;
  */
 @CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_DEVICE)
 @Service
-public class OperationDeviceInfoServiceImpl extends AbstractInfoService<OperationDeviceInfo, Integer> implements OperationDeviceInfoService {
+public class OperationDeviceInfoServiceImpl implements OperationDeviceInfoService {
 
     @Autowired
-    private OperationDeviceInfoRepository operationDeviceInfoRepository;
+    private OperationDeviceInfoRepository repository;
 
     @Override
-    public JpaRepository<OperationDeviceInfo, Integer> getJpaRepository() {
-        return operationDeviceInfoRepository;
-    }
-
-    @Override
-    protected Integer getId(OperationDeviceInfo operationDeviceInfo) {
-        return operationDeviceInfo.getOperationNumber();
+    public ResultDTO save(OperationDeviceInfo t) {
+        return ServiceCrudCheckUtils.saveObjectAndCheck(repository, t);
     }
 
     @CacheEvict(allEntries = true)
     @Override
-    public OperationDeviceInfo saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
+    public ResultDTO saveOperationDeviceInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationDeviceInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationDeviceInfo.class);
         parseObject.setOperationNumber(instrumentForm.getOperationNumber());
-        return this.save(parseObject);
+        return save(parseObject);
     }
 
     @Override
     public OperationDeviceInfo getByOperationNumber(int operationNumber) {
-        return operationDeviceInfoRepository.findByOperationNumber(operationNumber);
-    }
-
-    /**
-     * 通过T中的数据查询数据库中完整的字段
-     *
-     * @param operationDeviceInfo 泛型
-     * @return 数据库中完整的字段
-     */
-    @Override
-    public OperationDeviceInfo getDataBaseEntity(OperationDeviceInfo operationDeviceInfo) {
-        return operationDeviceInfoRepository.findByOperationNumber(operationDeviceInfo.getOperationNumber());
+        return repository.findByOperationNumber(operationNumber);
     }
 }

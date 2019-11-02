@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
@@ -43,23 +42,17 @@ public class OperationInfo implements Serializable {
     @Column(name = "operation_name")
     private String operationName;
 
-    @Transient
-    private Long longOperationStartTime;
-
-    @Transient
-    private Long longOperationEndTime;
-
     /**
      * 手术开始时间
      */
-    @JsonIgnore
+    @JsonSerialize(using = LocalDateTimeConverter.class)
     @Column(name = "operation_start_time")
     private LocalDateTime operationStartTime;
 
     /**
      * 手术结束时间
      */
-    @JsonIgnore
+    @JsonSerialize(using = LocalDateTimeConverter.class)
     @Column(name = "operation_end_time")
     private LocalDateTime operationEndTime;
 

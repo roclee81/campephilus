@@ -1,8 +1,10 @@
 package org.cqu.edu.msc.annihilation.common.dto;
 
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
+import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author luoxin
@@ -37,13 +39,18 @@ public class ResultDTO implements Serializable {
         return new ResultDTO(ResponseEnum.SUCCESS);
     }
 
+    public static ResultDTO success(Object o) {
+        return new ResultDTO(ResponseEnum.SUCCESS, o);
+    }
+
+
     public static ResultDTO unknownError(Object o) {
         return new ResultDTO(ResponseEnum.UNKNOWN_ERROR, o.toString());
     }
 
     public static ResultDTO unknownError(String msg, Object o) {
         return new ResultDTO(ResponseEnum.UNKNOWN_ERROR.getCode(),
-                msg, o.toString());
+                msg, o);
     }
 
     public static ResultDTO dataFormatError() {
@@ -52,15 +59,23 @@ public class ResultDTO implements Serializable {
 
     public static ResultDTO dataFormatError(String msg, Object o) {
         return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(),
-                msg, o.toString());
+                msg, o);
     }
 
     public static ResultDTO dataExisted(Object o) {
-        return new ResultDTO(ResponseEnum.DATA_EXISTED, o.toString());
+        return new ResultDTO(ResponseEnum.DATA_EXISTED, o);
     }
 
     public static ResultDTO dataNotExist() {
         return new ResultDTO(ResponseEnum.DATA_NOT_EXIST);
+    }
+
+    public static ResultDTO checkAndReturn(Object o) {
+        return Objects.isNull(o) ? dataNotExist() : success(o);
+    }
+
+    public static <T> ResultDTO checkAndReturn(Page<T> tPage) {
+        return tPage.getContent().size() == 0 ? dataNotExist() : success(tPage.getContent());
     }
 
     private ResultDTO() {

@@ -37,7 +37,6 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
     private final OperationMarkInfoService operationMarkInfoService;
     private final PatientInfoService patientInfoService;
     private final OperationDeviceInfoService operationDeviceInfoService;
-    //    private final DeviceDataService deviceDataService;
     private final LogInfoService logInfoService;
 
     @Autowired
@@ -123,14 +122,14 @@ public class InstrumentRequestProcessServiceImpl implements InstrumentRequestPro
                 BeforeOperationInfo beforeOperationInfo = null;
                 try {
                     instrumentForm.setOperationNumber(getNewOperationNumber());
-                    patientInfo = patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
-                    operationInfo = operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
-                    operationDeviceInfo = operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
-                    beforeOperationInfo = beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
+                    patientInfoService.savePatientInfoFromInstrumentForm(instrumentForm);
+                    operationInfoService.saveOperationInfoFromInstrumentForm(instrumentForm);
+                    operationDeviceInfoService.saveOperationDeviceInfoFromInstrumentForm(instrumentForm);
+                    beforeOperationInfoService.saveBeforeOperationInfoFromInstrumentForm(instrumentForm);
                 } catch (Exception e) {
-                    patientInfoService.delete(patientInfo);
-                    operationInfoService.delete(operationInfo);
-                    operationDeviceInfoService.delete(operationDeviceInfo);
+//                    patientInfoService.delete(patientInfo);
+//                    operationInfoService.delete(operationInfo);
+//                    operationDeviceInfoService.delete(operationDeviceInfo);
                     throw e;
                 }
                 break;

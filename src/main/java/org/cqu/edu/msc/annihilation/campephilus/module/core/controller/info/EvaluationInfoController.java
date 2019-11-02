@@ -30,12 +30,12 @@ import javax.validation.Valid;
 public class EvaluationInfoController {
 
     @Autowired
-    private EvaluationInfoService evaluationInfoService;
+    private EvaluationInfoService service;
 
     @PostMapping(value = "/list")
     public ResultVO saveList(@Valid InstrumentForm instrumentForm, BindingResult bindingResult) {
         BindingResultUtils.checkBindingResult(bindingResult);
-        return new ResultVO(instrumentForm.getCode() + 1, "success");
-//        return ResultVOUtils.checkAndReturn(evaluationInfoService.saveList(instrumentForm));
+        return ResultVO.checkAndReturn(service.saveList(instrumentForm),
+                instrumentForm.getCode() + 1);
     }
 }

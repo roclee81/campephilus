@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.cqu.edu.msc.annihilation.common.enums.ResponseEnum;
 import org.cqu.edu.msc.annihilation.common.utils.BeanUtils;
 import org.cqu.edu.msc.annihilation.common.utils.ReflectUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.validation.ValidationException;
@@ -24,6 +25,7 @@ import java.util.Objects;
  * 注意，开启事务功能后，CRUD可能将不会进行，等待所有代码运行完后才会抛出异常
  * 所有事务功能的时候我们需要在外层Try catch，或者手动校验参数
  * </p>
+ * <p>ResultDTO将会返回具体错误信息和错误代码</p>
  */
 @Slf4j
 public class ServiceCrudCheckUtils {
@@ -118,13 +120,14 @@ public class ServiceCrudCheckUtils {
 
     /**
      * 保存数据库对象
-     * 保存失败将抛出<code>CrudException</code>异常
      * 首先通过ID字段数据检查是否存在
      * 如果不存在则进行保存
      * 如果存在则抛出异常
      *
-     * @param jpaRepository 待保存的对象仓库
-     * @param t             待保存的对象
+     * @param jpaRepository jpaRepository
+     * @param t             待检查的对象
+     * @param <T>           泛型类型
+     * @param <ID>          类的ID类型
      * @return ResultDTO
      */
     public static <T, ID> ResultDTO saveObjectAndCheck(JpaRepository<T, ID> jpaRepository, T t) {
@@ -147,6 +150,40 @@ public class ServiceCrudCheckUtils {
             return ResultDTO.unknownError(e.toString(), t);
         }
         return checkSaveSuccess(result, t);
+    }
+
+    /**
+     * 批量保存对象
+     *
+     * @param jpaRepository jpaRepository
+     * @param ts            待保存的数组
+     * @param <T>           泛型类型
+     * @param <ID>          类的ID类型
+     * @return ResultDTO
+     * @see #saveObjectAndCheck(JpaRepository, Object)
+     */
+    public static <T, ID> ResultDTO saveObjectAndCheck(JpaRepository<T, ID> jpaRepository, T[] ts) {
+        for (T t : ts) {
+            ResultDTO resultDTO = saveObjectAndCheck(jpaRepository, t);
+            if (!resultDTO.getCode().equals(ResponseEnum.SUCCESS.getCode())) {
+                return resultDTO;
+            }
+        }
+        return ResultDTO.success();
+    }
+
+    /**
+     * 查询所有数据
+     *
+     * @param jpaRepository jpaRepository
+     * @param page          页码
+     * @param size          条数
+     * @param <T>           泛型类型
+     * @param <ID>          类的ID类型
+     * @return ResultDTO
+     */
+    public static <T, ID> ResultDTO listObjectAndCheck(JpaRepository<T, ID> jpaRepository, int page, int size) {
+        return ResultDTO.checkAndReturn(jpaRepository.findAll(PageRequest.of(page, size)));
     }
 
     /**

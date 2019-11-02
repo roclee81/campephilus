@@ -1,16 +1,10 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.DeviceHospitalRelationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.DeviceHospitalRelationInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.DeviceHospitalRelationInfoService;
-import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,35 +16,8 @@ import org.springframework.stereotype.Service;
  */
 @CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_DEVICE_HOSPITAL_RELATION)
 @Service
-public class DeviceHospitalRelationInfoServiceImpl extends AbstractInfoService<DeviceHospitalRelationInfo, Integer> implements DeviceHospitalRelationInfoService {
-
-    private final DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository;
+public class DeviceHospitalRelationInfoServiceImpl implements DeviceHospitalRelationInfoService {
 
     @Autowired
-    public DeviceHospitalRelationInfoServiceImpl(DeviceHospitalRelationInfoRepository deviceHospitalRelationInfoRepository) {
-        this.deviceHospitalRelationInfoRepository = deviceHospitalRelationInfoRepository;
-    }
-
-    @Override
-    public JpaRepository<DeviceHospitalRelationInfo, Integer> getJpaRepository() {
-        return deviceHospitalRelationInfoRepository;
-    }
-
-    @Override
-    protected Integer getId(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
-        return deviceHospitalRelationInfo.getId();
-    }
-
-    @CacheEvict(allEntries = true)
-    @Override
-    public DeviceHospitalRelationInfo save(DeviceHospitalRelationInfo deviceHospitalRelationInfo) {
-        // 首先查询是否存在该条数据，根据AdmissionNumber查询
-        // 判断到存在该仪器存在，则直接返回，抛出异常
-        CheckUtils.checkDataIsExisted(deviceHospitalRelationInfoRepository
-                .findDeviceHospitalRelationInfoByDeviceCodeAndDeviceSerialNumber(
-                        deviceHospitalRelationInfo.getDeviceCode(), deviceHospitalRelationInfo.getDeviceSerialNumber()));
-        // 判断保存是否成功，不成功将抛出异常
-        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(deviceHospitalRelationInfoRepository, deviceHospitalRelationInfo);
-    }
-
+    private DeviceHospitalRelationInfoRepository repository;
 }

@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
@@ -11,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -81,16 +79,13 @@ public class OperationMarkInfo implements Serializable {
     @Column(name = "side_effect")
     private String sideEffect;
 
-    @Transient
-    private Long longMarkTime;
-
     /**
      * 标记信息标记的时间
      */
-    @JsonIgnore
+    @JsonSerialize(using = LocalDateTimeConverter.class)
     @NotNull(message = "mark_time must cannot empty")
     @Column(name = "mark_time")
-    private Timestamp markTime;
+    private LocalDateTime markTime;
 
     /**
      * 手术顺序号
