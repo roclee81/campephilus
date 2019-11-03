@@ -7,7 +7,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.se
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.temp.TempService;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ControllerCrudUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -37,8 +36,7 @@ public class DataController {
                               @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
                               @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
         DataGetNewestService service = DataGetNewestFactory.getDataGetNewestService(deviceCode);
-        Object result = Objects.isNull(service) ? null : service.getNewest(operationNumber, serialNumber);
-        return ControllerCrudUtils.list(result);
+        return ResultVO.checkAndReturn(service.getNewest(operationNumber, serialNumber), -1);
     }
 
     @GetMapping("/list")
@@ -53,7 +51,7 @@ public class DataController {
     @Deprecated
     @GetMapping("")
     public ResultVO getNewest(@RequestParam(value = "operationNumber", defaultValue = "1") int operationNumber,
-                         @RequestParam(value = "serialNumber", defaultValue = "0") String serialNumber) {
+                              @RequestParam(value = "serialNumber", defaultValue = "0") String serialNumber) {
         return ControllerCrudUtils.list(tempService.get(operationNumber, serialNumber));
     }
 
