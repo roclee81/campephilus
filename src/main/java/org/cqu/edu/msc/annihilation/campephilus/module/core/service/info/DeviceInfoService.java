@@ -1,7 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.DeviceInfo;
-
 /**
  * @author lx
  * @version V1.0
@@ -9,5 +7,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.DeviceIn
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface DeviceInfoService extends CrudService<DeviceInfo> {
+public interface DeviceInfoService {
+
 }

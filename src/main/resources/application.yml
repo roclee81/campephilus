@@ -2,7 +2,7 @@ spring:
   application:
     name: campephilus
   profiles:
-    active: dev
+    active: aliyun
   data:
     jpa:
       repositories:
@@ -12,5 +12,6 @@ spring:
         enabled: false
 
 server:
+  port: 8081
   servlet:
     context-path: /campephilus

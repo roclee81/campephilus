@@ -2,8 +2,6 @@ package org.cqu.edu.msc.annihilation.common.utils;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author luoxin
  * @version V1.0
@@ -19,7 +17,7 @@ class TimeStampUtilsTest {
 
     @Test
     void getCurrentAsString() {
-        System.out.println(TimeStampUtils.getCurrentAsString());
+        System.out.println(TimeStampUtils.getCurrentTimeAsString());
     }
 
     @Test

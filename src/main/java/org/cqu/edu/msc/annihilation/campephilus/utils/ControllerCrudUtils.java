@@ -1,7 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.utils;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.CrudService;
-import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 
 import java.util.List;

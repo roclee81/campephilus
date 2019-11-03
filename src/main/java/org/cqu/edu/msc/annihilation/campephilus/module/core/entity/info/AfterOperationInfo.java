@@ -1,13 +1,15 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author lx
@@ -16,13 +18,12 @@ import java.io.Serializable;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@EqualsAndHashCode(callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
 @Table(name = "info_after_operation")
-public class AfterOperationInfo extends BaseInfoSuperclass implements Serializable {
+public class AfterOperationInfo implements Serializable {
 
     private static final long serialVersionUID = -941673018902353283L;
     /**
@@ -45,4 +46,18 @@ public class AfterOperationInfo extends BaseInfoSuperclass implements Serializab
     @NotBlank(message = "admissionNumber must cannot empty")
     @Column(name = "admission_number")
     private String admissionNumber;
+
+    /**
+     * 数据创建时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_create")
+    private LocalDateTime gmtCreate;
+
+    /**
+     * 数据修改时间
+     */
+    @JsonSerialize(using = LocalDateTimeConverter.class)
+    @Column(name = "gmt_modified")
+    private LocalDateTime gmtModified;
 }

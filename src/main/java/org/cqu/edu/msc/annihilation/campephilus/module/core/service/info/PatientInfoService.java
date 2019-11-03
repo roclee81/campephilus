@@ -1,10 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.PatientInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-
-import java.util.List;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 
 /**
  * @author lx
@@ -13,21 +11,17 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface PatientInfoService extends CrudService<PatientInfo> {
+public interface PatientInfoService {
 
-    /**
-     * 查询所有的PatientInfo
-     * 同时封装成PatientInfoDTO
-     *
-     * @param page
-     * @param size
-     * @return
-     */
-    List<PatientInfoDTO> listPatientInfoDTO(int page, int size);
+    ResultDTO save(PatientInfo t);
+
+    ResultDTO update(PatientInfo t);
+
+    ResultDTO delete(PatientInfo t);
 
     /**
      * @param instrumentForm
      * @return
      */
-    PatientInfo savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
+    ResultDTO savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm);
 }

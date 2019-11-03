@@ -72,11 +72,11 @@ public class SystemLog implements Serializable {
 
     public static SystemLog structureSystemErrorLog(String message) {
         return new SystemLog(SystemLogEnum.ERROR.getCode(), message,
-                TimeStampUtils.getCurrentAsString());
+                TimeStampUtils.getCurrentTimeAsString());
     }
 
     public static SystemLog structureSystemInfoLog(String message) {
         return new SystemLog(SystemLogEnum.INFO.getCode(), message,
-                TimeStampUtils.getCurrentAsString());
+                TimeStampUtils.getCurrentTimeAsString());
     }
 }

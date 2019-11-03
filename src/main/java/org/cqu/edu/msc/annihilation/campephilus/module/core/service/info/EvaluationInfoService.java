@@ -1,10 +1,8 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.EvaluationInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.EvaluationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
-
-import java.util.List;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 
 /**
  * campephilus
@@ -14,22 +12,20 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-public interface EvaluationInfoService extends CrudService<EvaluationInfo> {
-
-    /**
-     * 查询所有的EvaluationInfo
-     * 同时封装成EvaluationInfoDTO
-     *
-     * @param page
-     * @param size
-     * @return
-     */
-    List<EvaluationInfoDTO> listEvaluationInfoDTO(int page, int size);
+public interface EvaluationInfoService {
 
     /**
      * 接续instrumentForm数据并保存数据
      *
-     * @param instrumentForm
+     * @param instrumentForm instrumentForm
      */
     void saveEvaluationInfoFromInstrumentForm(InstrumentForm instrumentForm);
+
+    ResultDTO saveList(InstrumentForm instrumentForm);
+
+    ResultDTO save(EvaluationInfo t);
+
+    ResultDTO delete(EvaluationInfo t);
+
+    ResultDTO update(EvaluationInfo t);
 }

@@ -62,8 +62,8 @@ public class PearlcareYy106DataDTO implements Serializable {
         }
         PearlcareYy106DataDTO pearlcareYy106DataDTO = new PearlcareYy106DataDTO();
         BeanUtils.copyPropertiesTargetNotNull(pearlcareYy106, pearlcareYy106DataDTO);
-        pearlcareYy106DataDTO.setLongCreate(TimeStampUtils.getTimestampOfDateTime(pearlcareYy106.getGmtCreate()));
-        pearlcareYy106DataDTO.setLongModified(TimeStampUtils.getTimestampOfDateTime(pearlcareYy106.getGmtCreate()));
+        pearlcareYy106DataDTO.setLongCreate(TimeStampUtils.parseLocalDateTimeToTimeStamp(pearlcareYy106.getGmtCreate()));
+        pearlcareYy106DataDTO.setLongModified(TimeStampUtils.parseLocalDateTimeToTimeStamp(pearlcareYy106.getGmtCreate()));
         return pearlcareYy106DataDTO;
     }
 

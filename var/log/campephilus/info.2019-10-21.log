@@ -1,0 +1,288 @@
+2019-10-21 21:25:32,459 - Starting CampephilusApplication on nano with PID 19244 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 21:25:32,463 - The following profiles are active: dev
+2019-10-21 21:25:34,049 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 21:25:34,051 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 21:25:34,609 - Finished Spring Data repository scanning in 551ms. Found 35 repository interfaces.
+2019-10-21 21:25:34,999 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:25:35,172 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$7b0b0331] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:25:35,975 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 21:25:35,987 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:25:35,987 - Starting service [Tomcat]
+2019-10-21 21:25:35,987 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 21:25:36,178 - Initializing Spring embedded WebApplicationContext
+2019-10-21 21:25:36,178 - Root WebApplicationContext: initialization completed in 3543 ms
+2019-10-21 21:25:36,676 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:25:36,695 - HikariPool-1 - Starting...
+2019-10-21 21:25:37,052 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 21:25:37,196 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 21:25:37,486 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 21:25:37,637 - HikariPool-1 - Starting...
+2019-10-21 21:25:37,642 - HHH000342: Could not obtain connection to query metadata : Public Key Retrieval is not allowed
+2019-10-21 21:25:37,647 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'evalController': Unsatisfied dependency expressed through field 'evalHandlerContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalHandlerContext' defined in file [D:\project\campephilus\target\classes\org\cqu\edu\msc\annihilation\campephilus\module\core\service\eval\EvalHandlerContext.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalAnesthesiaDepthRepository': Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-21 21:25:37,648 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 21:25:37,648 - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-21 21:25:37,648 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:25:37,673 - Stopping service [Tomcat]
+2019-10-21 21:25:37,685 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 21:29:50,211 - Starting CampephilusApplication on nano with PID 13632 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 21:29:50,215 - The following profiles are active: dev
+2019-10-21 21:29:51,628 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 21:29:51,629 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 21:29:52,173 - Finished Spring Data repository scanning in 536ms. Found 35 repository interfaces.
+2019-10-21 21:29:52,575 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:29:52,765 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$5a6fd18c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:29:53,580 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 21:29:53,593 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:29:53,594 - Starting service [Tomcat]
+2019-10-21 21:29:53,594 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 21:29:53,770 - Initializing Spring embedded WebApplicationContext
+2019-10-21 21:29:53,770 - Root WebApplicationContext: initialization completed in 3471 ms
+2019-10-21 21:29:54,252 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:29:54,271 - HikariPool-1 - Starting...
+2019-10-21 21:29:54,618 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 21:29:54,720 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 21:29:55,042 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 21:29:55,181 - HikariPool-1 - Starting...
+2019-10-21 21:29:55,194 - HHH000342: Could not obtain connection to query metadata : The server time zone value '�й���׼ʱ��' is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.
+2019-10-21 21:29:55,198 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'evalController': Unsatisfied dependency expressed through field 'evalHandlerContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalHandlerContext' defined in file [D:\project\campephilus\target\classes\org\cqu\edu\msc\annihilation\campephilus\module\core\service\eval\EvalHandlerContext.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalAnesthesiaDepthRepository': Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-21 21:29:55,198 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 21:29:55,198 - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2019-10-21 21:29:55,198 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:29:55,227 - Stopping service [Tomcat]
+2019-10-21 21:29:55,239 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 21:31:36,002 - Starting CampephilusApplication on nano with PID 23220 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 21:31:36,006 - The following profiles are active: dev
+2019-10-21 21:31:37,434 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 21:31:37,436 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 21:31:37,967 - Finished Spring Data repository scanning in 521ms. Found 35 repository interfaces.
+2019-10-21 21:31:38,347 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:31:38,533 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$f9e9b121] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:31:39,353 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 21:31:39,368 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:31:39,369 - Starting service [Tomcat]
+2019-10-21 21:31:39,369 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 21:31:39,555 - Initializing Spring embedded WebApplicationContext
+2019-10-21 21:31:39,555 - Root WebApplicationContext: initialization completed in 3472 ms
+2019-10-21 21:31:40,093 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:31:40,115 - HikariPool-1 - Starting...
+2019-10-21 21:31:40,314 - HikariPool-1 - Start completed.
+2019-10-21 21:31:40,483 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 21:31:40,583 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 21:31:40,758 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 21:31:40,908 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 21:31:41,238 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'evalController': Unsatisfied dependency expressed through field 'evalHandlerContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalHandlerContext' defined in file [D:\project\campephilus\target\classes\org\cqu\edu\msc\annihilation\campephilus\module\core\service\eval\EvalHandlerContext.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalAnesthesiaDepthRepository': Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.AnnotationException: @Temporal should only be set on a java.util.Date or java.util.Calendar property: org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.AnesthesiaDepthMonitorEvaluation.createTime
+2019-10-21 21:31:41,238 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 21:31:41,239 - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.AnnotationException: @Temporal should only be set on a java.util.Date or java.util.Calendar property: org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.AnesthesiaDepthMonitorEvaluation.createTime
+2019-10-21 21:31:41,239 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:31:41,239 - HikariPool-1 - Shutdown initiated...
+2019-10-21 21:31:41,252 - HikariPool-1 - Shutdown completed.
+2019-10-21 21:31:41,275 - Stopping service [Tomcat]
+2019-10-21 21:31:41,287 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 21:54:55,497 - Starting CampephilusApplication on nano with PID 24804 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 21:54:55,500 - The following profiles are active: dev
+2019-10-21 21:54:56,889 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 21:54:56,891 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 21:54:57,423 - Finished Spring Data repository scanning in 523ms. Found 35 repository interfaces.
+2019-10-21 21:54:57,857 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:54:58,034 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$f3e7089b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:54:58,859 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 21:54:58,874 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:54:58,875 - Starting service [Tomcat]
+2019-10-21 21:54:58,875 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 21:54:59,036 - Initializing Spring embedded WebApplicationContext
+2019-10-21 21:54:59,037 - Root WebApplicationContext: initialization completed in 3462 ms
+2019-10-21 21:54:59,512 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:54:59,551 - HikariPool-1 - Starting...
+2019-10-21 21:54:59,749 - HikariPool-1 - Start completed.
+2019-10-21 21:54:59,894 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 21:54:59,995 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 21:55:00,197 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 21:55:00,354 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 21:55:00,711 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'evalController': Unsatisfied dependency expressed through field 'evalHandlerContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalHandlerContext' defined in file [D:\project\campephilus\target\classes\org\cqu\edu\msc\annihilation\campephilus\module\core\service\eval\EvalHandlerContext.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'evalAnesthesiaDepthRepository': Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.AnnotationException: @Temporal should only be set on a java.util.Date or java.util.Calendar property: org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.AnesthesiaDepthMonitorEvaluation.gmtCreate
+2019-10-21 21:55:00,711 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 21:55:00,711 - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.AnnotationException: @Temporal should only be set on a java.util.Date or java.util.Calendar property: org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.AnesthesiaDepthMonitorEvaluation.gmtCreate
+2019-10-21 21:55:00,711 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:55:00,712 - HikariPool-1 - Shutdown initiated...
+2019-10-21 21:55:00,724 - HikariPool-1 - Shutdown completed.
+2019-10-21 21:55:00,742 - Stopping service [Tomcat]
+2019-10-21 21:55:00,753 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 21:57:37,980 - Starting CampephilusApplication on nano with PID 75676 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 21:57:37,983 - The following profiles are active: dev
+2019-10-21 21:57:39,478 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 21:57:39,481 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 21:57:40,043 - Finished Spring Data repository scanning in 551ms. Found 35 repository interfaces.
+2019-10-21 21:57:40,431 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:57:40,608 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$5a6fd18c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 21:57:41,422 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 21:57:41,435 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:57:41,436 - Starting service [Tomcat]
+2019-10-21 21:57:41,436 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 21:57:41,648 - Initializing Spring embedded WebApplicationContext
+2019-10-21 21:57:41,649 - Root WebApplicationContext: initialization completed in 3591 ms
+2019-10-21 21:57:42,169 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 21:57:42,190 - HikariPool-1 - Starting...
+2019-10-21 21:57:42,384 - HikariPool-1 - Start completed.
+2019-10-21 21:57:42,533 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 21:57:42,627 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 21:57:42,823 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 21:57:42,978 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 21:57:44,687 - HHH000182: No default (no-argument) constructor for class: org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog (class must be instantiated by Interceptor)
+2019-10-21 21:57:45,056 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-10-21 21:57:45,058 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 21:57:46,277 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-21 21:57:47,105 - Triggering deferred initialization of Spring Data repositories…
+2019-10-21 21:57:47,420 - Spring Data repositories initialized!
+2019-10-21 21:57:47,428 - Starting ProtocolHandler ["http-nio-8080"]
+2019-10-21 21:57:47,461 - Tomcat started on port(s): 8080 (http) with context path '/campephilus'
+2019-10-21 21:57:47,463 - Started CampephilusApplication in 10.327 seconds (JVM running for 11.021)
+2019-10-21 21:59:04,631 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-21 21:59:04,632 - Initializing Servlet 'dispatcherServlet'
+2019-10-21 21:59:04,640 - Completed initialization in 8 ms
+2019-10-21 21:59:04,686 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 21:59:04,839 - 插入数据:MaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 21:59:04,901 - SQL Error: 1146, SQLState: 42S02
+2019-10-21 22:01:24,253 - Starting CampephilusApplication on nano with PID 63832 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 22:01:24,257 - The following profiles are active: dev
+2019-10-21 22:01:25,694 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 22:01:25,696 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 22:01:26,238 - Finished Spring Data repository scanning in 533ms. Found 35 repository interfaces.
+2019-10-21 22:01:26,636 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:01:26,814 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$8be9dede] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:01:27,577 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 22:01:27,590 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:01:27,591 - Starting service [Tomcat]
+2019-10-21 22:01:27,591 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 22:01:27,761 - Initializing Spring embedded WebApplicationContext
+2019-10-21 22:01:27,761 - Root WebApplicationContext: initialization completed in 3423 ms
+2019-10-21 22:01:28,234 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 22:01:28,253 - HikariPool-1 - Starting...
+2019-10-21 22:01:28,469 - HikariPool-1 - Start completed.
+2019-10-21 22:01:28,619 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 22:01:28,714 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 22:01:28,901 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 22:01:29,051 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 22:01:30,469 - HHH000182: No default (no-argument) constructor for class: org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog (class must be instantiated by Interceptor)
+2019-10-21 22:01:30,849 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-10-21 22:01:30,852 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 22:01:32,057 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-21 22:01:32,804 - Triggering deferred initialization of Spring Data repositories…
+2019-10-21 22:01:33,098 - Spring Data repositories initialized!
+2019-10-21 22:01:33,107 - Starting ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:01:33,139 - Tomcat started on port(s): 8080 (http) with context path '/campephilus'
+2019-10-21 22:01:33,142 - Started CampephilusApplication in 9.626 seconds (JVM running for 10.31)
+2019-10-21 22:01:53,766 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-21 22:01:53,767 - Initializing Servlet 'dispatcherServlet'
+2019-10-21 22:01:53,774 - Completed initialization in 7 ms
+2019-10-21 22:01:53,822 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:01:53,986 - 插入数据:MaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:01:54,067 - SQL Error: 1146, SQLState: 42S02
+2019-10-21 22:05:13,664 - Starting CampephilusApplication on nano with PID 87244 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 22:05:13,668 - The following profiles are active: dev
+2019-10-21 22:05:15,106 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 22:05:15,107 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 22:05:15,657 - Finished Spring Data repository scanning in 541ms. Found 35 repository interfaces.
+2019-10-21 22:05:16,065 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:05:16,234 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$3a83534c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:05:17,027 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 22:05:17,041 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:05:17,041 - Starting service [Tomcat]
+2019-10-21 22:05:17,042 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 22:05:17,210 - Initializing Spring embedded WebApplicationContext
+2019-10-21 22:05:17,211 - Root WebApplicationContext: initialization completed in 3471 ms
+2019-10-21 22:05:17,710 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 22:05:17,734 - HikariPool-1 - Starting...
+2019-10-21 22:05:17,940 - HikariPool-1 - Start completed.
+2019-10-21 22:05:18,080 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 22:05:18,195 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 22:05:18,392 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 22:05:18,553 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 22:05:19,945 - HHH000182: No default (no-argument) constructor for class: org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog (class must be instantiated by Interceptor)
+2019-10-21 22:05:20,323 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-10-21 22:05:20,326 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 22:05:21,623 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-21 22:05:22,416 - Triggering deferred initialization of Spring Data repositories…
+2019-10-21 22:05:22,721 - Spring Data repositories initialized!
+2019-10-21 22:05:22,727 - Starting ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:05:22,758 - Tomcat started on port(s): 8080 (http) with context path '/campephilus'
+2019-10-21 22:05:22,760 - Started CampephilusApplication in 9.806 seconds (JVM running for 10.48)
+2019-10-21 22:05:34,482 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-21 22:05:34,482 - Initializing Servlet 'dispatcherServlet'
+2019-10-21 22:05:34,493 - Completed initialization in 11 ms
+2019-10-21 22:05:34,544 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:05:34,705 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:15:27,521 - Starting CampephilusApplication on nano with PID 58276 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 22:15:27,524 - The following profiles are active: dev
+2019-10-21 22:15:29,080 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 22:15:29,082 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 22:15:29,657 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'evalAnesthesiaMachineRepository' defined in null: Cannot register bean definition [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] for bean 'evalAnesthesiaMachineRepository': There is already [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] bound.
+2019-10-21 22:15:29,668 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 22:15:55,584 - Starting CampephilusApplication on nano with PID 38320 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 22:15:55,587 - The following profiles are active: dev
+2019-10-21 22:15:56,956 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 22:15:56,958 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 22:15:57,521 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'evalAnesthesiaMachineRepository' defined in null: Cannot register bean definition [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] for bean 'evalAnesthesiaMachineRepository': There is already [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] bound.
+2019-10-21 22:15:57,532 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-21 22:21:26,905 - Starting CampephilusApplication on nano with PID 22280 (D:\project\campephilus\target\classes started by cz in D:\project\campephilus)
+2019-10-21 22:21:26,909 - The following profiles are active: dev
+2019-10-21 22:21:28,319 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-21 22:21:28,321 - Bootstrapping Spring Data repositories in DEFERRED mode.
+2019-10-21 22:21:28,913 - Finished Spring Data repository scanning in 583ms. Found 35 repository interfaces.
+2019-10-21 22:21:29,290 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:21:29,465 - Bean 'redisConfiguration' of type [org.cqu.edu.msc.annihilation.campephilus.config.RedisConfiguration$$EnhancerBySpringCGLIB$$c6132c57] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 22:21:30,276 - Tomcat initialized with port(s): 8080 (http)
+2019-10-21 22:21:30,289 - Initializing ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:21:30,290 - Starting service [Tomcat]
+2019-10-21 22:21:30,290 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-10-21 22:21:30,463 - Initializing Spring embedded WebApplicationContext
+2019-10-21 22:21:30,463 - Root WebApplicationContext: initialization completed in 3477 ms
+2019-10-21 22:21:30,975 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 22:21:30,994 - HikariPool-1 - Starting...
+2019-10-21 22:21:31,205 - HikariPool-1 - Start completed.
+2019-10-21 22:21:31,375 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2019-10-21 22:21:31,472 - HHH000412: Hibernate Core {5.4.4.Final}
+2019-10-21 22:21:31,653 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2019-10-21 22:21:31,802 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2019-10-21 22:21:33,252 - HHH000182: No default (no-argument) constructor for class: org.cqu.edu.msc.annihilation.campephilus.module.sys.log.entity.SystemLog (class must be instantiated by Interceptor)
+2019-10-21 22:21:33,649 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2019-10-21 22:21:33,651 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 22:21:34,961 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-21 22:21:35,763 - Triggering deferred initialization of Spring Data repositories…
+2019-10-21 22:21:36,061 - Spring Data repositories initialized!
+2019-10-21 22:21:36,068 - Starting ProtocolHandler ["http-nio-8080"]
+2019-10-21 22:21:36,102 - Tomcat started on port(s): 8080 (http) with context path '/campephilus'
+2019-10-21 22:21:36,104 - Started CampephilusApplication in 9.866 seconds (JVM running for 10.535)
+2019-10-21 22:21:40,243 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-21 22:21:40,243 - Initializing Servlet 'dispatcherServlet'
+2019-10-21 22:21:40,251 - Completed initialization in 7 ms
+2019-10-21 22:21:40,299 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:40,455 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:41,645 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:41,646 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:42,498 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:42,498 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:43,225 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:43,226 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:43,770 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:43,770 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:44,246 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:44,246 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:44,483 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:44,483 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:44,842 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:44,843 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:45,064 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:45,064 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)
+2019-10-21 22:21:45,419 - 收到请求:CommitEntity(code=31, data={"hospitalName":"123","deviceProducer":"-1","deviceName":"-1","deviceUniqueId":"-1","hasBeenUsedYears":"-1","guaranteePeriod":"-1","extendWarrantyPrice":"-1","chargeMan":"-1","faultHappenTime":"-1","informMaintainTime":"-1","startMaintainTime":"-1","recoverUseTime":"-1","maintainWay":"自修","maintainPerson":"设备科维修人员","isInWarrantyPeriod":"是","faultReason":"其他因素","isChangeAccessory":"是","isFixFault":"否","maintainResponseTimeSatisfaction":"满意","maintainPriceSatisfaction":"-1","maintainServiceAttitudeSatisfaction":"-1","maintainWholeProcessSatisfaction":"-1","accessoryPrice":"test","maintainPrice":"-1","otherPrice":"-1"})
+2019-10-21 22:21:45,420 - 插入数据:EvalMaintenanceRecord(id=0, hospitalName=123, deviceProducer=-1, deviceName=-1, deviceUniqueId=-1, hasBeenUsedYears=-1, guaranteePeriod=-1, extendWarrantyPrice=-1, chargeMan=-1, faultHappenTime=-1, informMaintainTime=-1, startMaintainTime=-1, recoverUseTime=-1, maintainWay=自修, maintainPerson=设备科维修人员, isInWarrantyPeriod=是, faultReason=其他因素, isChangeAccessory=是, isFixFault=否, maintainResponseTimeSatisfaction=满意, maintainPriceSatisfaction=-1, maintainServiceAttitudeSatisfaction=-1, maintainWholeProcessSatisfaction=-1, accessoryPrice=test, maintainPrice=-1, otherPrice=-1, createTime=null, updateTime=null)

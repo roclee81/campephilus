@@ -1,24 +1,20 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
 import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.dto.info.OperationMarkInfoDTO;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationMarkInfoRepository;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.AbstractInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
-import org.cqu.edu.msc.annihilation.campephilus.utils.ConvertUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
-import org.cqu.edu.msc.annihilation.common.utils.TimeStampUtils;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author lx
@@ -29,23 +25,14 @@ import java.util.stream.Collectors;
  */
 @CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 @Service
-public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationMarkInfo, Integer> implements OperationMarkInfoService {
-
-    private final OperationMarkInfoRepository operationMarkInfoRepository;
+public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
     @Autowired
-    public OperationMarkInfoServiceImpl(OperationMarkInfoRepository operationMarkInfoRepository) {
-        this.operationMarkInfoRepository = operationMarkInfoRepository;
-    }
+    private OperationMarkInfoRepository repository;
 
     @Override
-    public JpaRepository<OperationMarkInfo, Integer> getJpaRepository() {
-        return operationMarkInfoRepository;
-    }
-
-    @Override
-    protected Integer getId(OperationMarkInfo operationMarkInfo) {
-        return operationMarkInfo.getId();
+    public ResultDTO save(OperationMarkInfo t) {
+        return ServiceCrudCheckUtils.saveObjectAndCheck(repository, t);
     }
 
     @CacheEvict(allEntries = true)
@@ -59,42 +46,29 @@ public class OperationMarkInfoServiceImpl extends AbstractInfoService<OperationM
     }
 
     @Override
-    public List<OperationMarkInfoDTO> listOperationMarkInfoDTO(int page, int size) {
-        return convertOperationMarkInfoDTOList(this.listAll(page, size));
+    public ResultDTO list(int page, int size) {
+        return ServiceCrudCheckUtils.listObjectAndCheck(repository, page, size);
     }
 
     @Override
-    public OperationMarkInfo save(OperationMarkInfo operationMarkInfo) {
-        // 判断保存是否成功，不成功将抛出异常
-        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(operationMarkInfoRepository, operationMarkInfo);
+    public List<OperationMarkInfo> listOperationMarkInfoDTOByOperationNumber(int operationNumber) {
+        return repository.findByOperationNumber(operationNumber);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public List<OperationMarkInfo> listAll(int page, int size) {
-        return convertMarkTime(super.listAll(page, size));
+    public ResultDTO saveList(InstrumentForm instrumentForm) {
+        OperationMarkInfo[] operationMarkInfos =
+                ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo[].class);
+        fillDefaultValue(instrumentForm, operationMarkInfos);
+        return ServiceCrudCheckUtils.saveObjectAndCheck(
+                repository, operationMarkInfos);
     }
 
-    @Override
-    public List<OperationMarkInfoDTO> listOperationMarkInfoDTOByOperationNumber(int operationNumber) {
-        List<OperationMarkInfo> operationMarkInfoList =
-                convertMarkTime(
-                        ConvertUtils.convertObjectTimeStamp(
-                                operationMarkInfoRepository.findByOperationNumber(operationNumber)));
-
-        return convertOperationMarkInfoDTOList(operationMarkInfoList);
-    }
-
-    private List<OperationMarkInfo> convertMarkTime(List<OperationMarkInfo> list) {
-        return list.parallelStream()
-                .peek(t -> t.setLongMarkTime(TimeStampUtils.getTimeStampOfTimeStampObject(t.getMarkTime())))
-                .collect(Collectors.toList());
-    }
-
-    private static List<OperationMarkInfoDTO> convertOperationMarkInfoDTOList(List<OperationMarkInfo> operationMarkInfoList) {
-        return operationMarkInfoList
-                .parallelStream()
-                .map(OperationMarkInfoDTO::convertOperationMarkInfoDTO)
-                .collect(Collectors.toList());
+    private static void fillDefaultValue(InstrumentForm instrumentForm, OperationMarkInfo[] operationMarkInfoList) {
+        for (OperationMarkInfo operationMarkInfo : operationMarkInfoList) {
+            operationMarkInfo.setOperationNumber(instrumentForm.getOperationNumber());
+        }
     }
 
 }
