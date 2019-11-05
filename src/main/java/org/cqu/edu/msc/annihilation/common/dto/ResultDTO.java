@@ -49,8 +49,7 @@ public class ResultDTO implements Serializable {
     }
 
     public static ResultDTO unknownError(String msg, Object o) {
-        return new ResultDTO(ResponseEnum.UNKNOWN_ERROR.getCode(),
-                msg, o);
+        return new ResultDTO(ResponseEnum.UNKNOWN_ERROR.getCode(), msg, o);
     }
 
     public static ResultDTO dataFormatError() {
@@ -58,8 +57,7 @@ public class ResultDTO implements Serializable {
     }
 
     public static ResultDTO dataFormatError(String msg, Object o) {
-        return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(),
-                msg, o);
+        return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), msg, o);
     }
 
     public static ResultDTO dataExisted(Object o) {
@@ -79,11 +77,11 @@ public class ResultDTO implements Serializable {
     }
 
     private ResultDTO() {
+        this(null, null, null);
     }
 
     private ResultDTO(Integer code, Object msg) {
-        this.code = code;
-        this.msg = msg;
+        this(code, msg, null);
     }
 
     private ResultDTO(Integer code, Object msg, Object data) {
@@ -93,14 +91,11 @@ public class ResultDTO implements Serializable {
     }
 
     private ResultDTO(ResponseEnum responseEnum) {
-        this.code = responseEnum.getCode();
-        this.msg = responseEnum.getMsg();
+        this(responseEnum.getCode(), responseEnum.getMsg(), null);
     }
 
     private ResultDTO(ResponseEnum responseEnum, Object data) {
-        this.code = responseEnum.getCode();
-        this.msg = responseEnum.getMsg();
-        this.data = data;
+        this(responseEnum.getCode(), responseEnum.getMsg(), data);
     }
 
     public Integer getCode() {

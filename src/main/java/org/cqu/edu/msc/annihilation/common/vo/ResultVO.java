@@ -21,7 +21,7 @@ public class ResultVO implements Serializable {
      *
      * @see org.cqu.edu.msc.annihilation.common.enums.ResponseEnum
      */
-    private Integer code;
+    private Integer status;
 
     /**
      * 返回具体错误信息，主要是提示使用该接口的用户具体错误
@@ -41,27 +41,26 @@ public class ResultVO implements Serializable {
     private Object data;
 
     private ResultVO() {
+        this(null, null, null, null);
     }
 
-    private ResultVO(Integer code, Object msg, Object data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
+    private ResultVO(Integer status, Object msg, Object data) {
+        this(status, msg, null, data);
     }
 
-    private ResultVO(Integer code, Object msg, Integer type, Object data) {
-        this.code = code;
+    private ResultVO(Integer status, Object msg, Integer type, Object data) {
+        this.status = status;
         this.msg = msg;
         this.type = type;
         this.data = data;
     }
 
-    public Integer getCode() {
-        return code;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Object getMsg() {
@@ -91,7 +90,7 @@ public class ResultVO implements Serializable {
     @Override
     public String toString() {
         return "ResultVO{" +
-                "code=" + code +
+                "code=" + status +
                 ", msg=" + msg +
                 ", type=" + type +
                 ", data=" + data +
