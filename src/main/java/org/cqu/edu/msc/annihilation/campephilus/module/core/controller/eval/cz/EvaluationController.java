@@ -1,33 +1,20 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz;
 
 import com.alibaba.fastjson.JSONObject;
-
+import lombok.extern.slf4j.Slf4j;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.CommitEntity;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.EvaluationRequestCode;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaDepthMonitor;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalAnesthesiaMachine;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalBrainOxygenMonitor;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalApplicationHemoglobinMonitor;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalNormalMonitor;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.EvalApplicationRespiratorMachine;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.application.*;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.maintenancerecord.EvalMaintenanceRecord;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.eval.cz.servicesystem.EvalServiceSystem;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalAnesthesiaDepthMonitorService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalAnesthesiaMachineService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalBrainOxygenMonitorService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalHemoglobinMonitorService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalMaintenanceRecordService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalNormalMonitorService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalRespiratorMachineService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.EvalServiceSystemService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.controller.eval.cz.entity.CommitEntity;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.eval.cz.*;
+import org.cqu.edu.msc.annihilation.common.utils.ResultVOUtils;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 问卷评价控制器

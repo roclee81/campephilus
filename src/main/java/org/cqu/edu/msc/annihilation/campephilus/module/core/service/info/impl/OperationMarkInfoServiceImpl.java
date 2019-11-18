@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationMarkInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationMarkInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.OperationMarkInfoService;
@@ -9,8 +8,6 @@ import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJso
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +20,6 @@ import java.util.List;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION_MARK)
 @Service
 public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
 
@@ -35,7 +31,6 @@ public class OperationMarkInfoServiceImpl implements OperationMarkInfoService {
         return ServiceCrudCheckUtils.saveObjectAndCheck(repository, t);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public void saveOperationMarkInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationMarkInfo parseObject = ParseJsonUtil.parseJsonString(instrumentForm, OperationMarkInfo.class);

@@ -29,7 +29,7 @@ public class SystemLogServiceImpl implements SystemLogService {
 
     @Override
     public void save(SystemLog systemLog) {
-        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(systemLogRepository, systemLog);
+        ServiceCrudCheckUtils.saveObjectAndCheck(systemLogRepository, systemLog);
     }
 
     @Override

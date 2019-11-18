@@ -97,10 +97,20 @@ public class ResultVO implements Serializable {
                 '}';
     }
 
+    /**
+     * 检查并返回
+     *
+     * @param resultDTO ResultDTO
+     * @param type      接口类型
+     * @return ResultVO
+     */
     public static ResultVO checkAndReturn(ResultDTO resultDTO, Integer type) {
         return new ResultVO(resultDTO.getCode(), resultDTO.getMsg(), type,
                 resultDTO.getMsg());
     }
 
-
+    @Deprecated
+    public static ResultVO checkAndReturn(Object object, Integer type) {
+        return new ResultVO(200, "ok", type, object);
+    }
 }

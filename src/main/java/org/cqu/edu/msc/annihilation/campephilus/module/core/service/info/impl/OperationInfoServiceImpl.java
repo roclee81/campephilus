@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.OperationInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.OperationStateEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.OperationInfoRepository;
@@ -11,8 +10,6 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,7 +24,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_OPERATION)
 @Service
 public class OperationInfoServiceImpl implements OperationInfoService {
 
@@ -59,7 +55,6 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return list(page, size);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public ResultDTO saveOperationInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         OperationInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, OperationInfo.class);
@@ -81,7 +76,6 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         return queryResult.getOperationState();
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public void updateOperationStartTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询
@@ -93,7 +87,6 @@ public class OperationInfoServiceImpl implements OperationInfoService {
         this.update(queryResult);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public void updateOperationEndTimeFromInstrumentForm(InstrumentForm instrumentForm) {
         // 首先查询是否存在该条数据，根据OperationNumber查询

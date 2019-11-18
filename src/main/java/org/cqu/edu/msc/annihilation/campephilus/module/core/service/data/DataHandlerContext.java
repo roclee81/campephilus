@@ -54,7 +54,7 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
         }
         // TODO 返回错误判断
         Object entity = ParseJsonUtil.getTObject(dataEntityMap.get(type), data);
-        return ServiceCrudCheckUtils.saveObjectAndCheckSuccess(dataRepositoryMap.get(type), entity);
+        return ServiceCrudCheckUtils.saveObjectAndCheck(dataRepositoryMap.get(type), entity);
     }
 
     /**

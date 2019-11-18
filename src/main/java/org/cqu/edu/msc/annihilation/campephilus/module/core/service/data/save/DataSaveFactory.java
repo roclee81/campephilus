@@ -4,6 +4,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.DeviceCodeEnum
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.impl.Norwamd9002sDataSaveServiceImpl;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.impl.PearlcareYy106DataSaveServiceImpl;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +29,10 @@ public class DataSaveFactory {
         DATA_LIST_SAVE_MAP.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), pearlcareYy106DataSaveService);
     }
 
-    public static int save(Integer deviceCode, String data) {
+    public static ResultDTO save(Integer deviceCode, String data) {
         DataSaveService dataSaveService = DATA_LIST_SAVE_MAP.getOrDefault(deviceCode, null);
         if (Objects.isNull(dataSaveService)) {
-            return -1;
+            return ResultDTO.unknownDataType();
         }
         return dataSaveService.save(data);
     }

@@ -5,6 +5,7 @@ import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.data.Norw
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.service.DataSaveService;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,8 @@ public class Norwamd9002sDataSaveServiceImpl implements DataSaveService {
     private Norwamd9002sRepository norwamd9002SRepository;
 
     @Override
-    public int save(Object object) {
+    public ResultDTO save(Object object) {
         Norwamd9002s NORWAMD9002S = ParseJsonUtil.getTObject(Norwamd9002s.class, (String) object);
-        ServiceCrudCheckUtils.saveObjectAndCheckSuccess(norwamd9002SRepository, NORWAMD9002S);
-        return NORWAMD9002S.getOperationNumber();
+        return ServiceCrudCheckUtils.saveObjectAndCheck(norwamd9002SRepository, NORWAMD9002S);
     }
 }

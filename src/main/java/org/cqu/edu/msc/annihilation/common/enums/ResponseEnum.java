@@ -59,6 +59,11 @@ public enum ResponseEnum {
     UPDATE_ID_ERROR(-9, "更新失败，ID字段错误或为空"),
 
     /**
+     * 未知数据类型
+     */
+    UNKNOWN_DATA_TYPE(-10, "未知数据类型"),
+
+    /**
      * 成功
      */
     SUCCESS(200, "成功"),

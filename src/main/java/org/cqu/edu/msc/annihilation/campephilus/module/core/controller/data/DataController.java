@@ -1,18 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataGetNewestFactory;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.DataListFactory;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataGetNewestService;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.read.service.DataListService;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.temp.TempService;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 /**
  * @author lx
@@ -25,40 +16,30 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/data")
 @CrossOrigin
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_DATA_DEVICE_CODE)
 public class DataController {
 
-    @Autowired
-    private TempService tempService;
+//    @GetMapping("/newest")
+//    public ResultVO getNewest(@RequestParam(value = "deviceCode", defaultValue = "-1") int deviceCode,
+//                              @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
+//                              @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
+//        DataGetNewestService service = DataGetNewestFactory.getDataGetNewestService(deviceCode);
+//        return ResultVO.checkAndReturn(service.getNewest(operationNumber, serialNumber), -1);
+//    }
 
-    @GetMapping("/newest")
-    public ResultVO getNewest(@RequestParam(value = "deviceCode", defaultValue = "-1") int deviceCode,
-                              @RequestParam(value = "operationNumber", defaultValue = "-1") int operationNumber,
-                              @RequestParam(value = "serialNumber", defaultValue = "-1") String serialNumber) {
-        DataGetNewestService service = DataGetNewestFactory.getDataGetNewestService(deviceCode);
-        return ResultVO.checkAndReturn(service.getNewest(operationNumber, serialNumber), -1);
-    }
-
-    @GetMapping("/list")
-    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
-                         @RequestParam(value = "page", defaultValue = "0") int page,
-                         @RequestParam(value = "size", defaultValue = "10") int size) {
-        DataListService dataListService = DataListFactory.getDataListService(deviceCode);
-        Object result = Objects.isNull(dataListService) ? null : dataListService.list(page, size);
-        return ControllerCrudUtils.list(result);
-    }
-
-    @Deprecated
-    @GetMapping("")
-    public ResultVO getNewest(@RequestParam(value = "operationNumber", defaultValue = "1") int operationNumber,
-                              @RequestParam(value = "serialNumber", defaultValue = "0") String serialNumber) {
-        return ControllerCrudUtils.list(tempService.get(operationNumber, serialNumber));
-    }
+//    @GetMapping("/list")
+//    public ResultVO list(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
+//                         @RequestParam(value = "page", defaultValue = "0") int page,
+//                         @RequestParam(value = "size", defaultValue = "10") int size) {
+//        DataListService dataListService = DataListFactory.getDataListService(deviceCode);
+//        Object result = Objects.isNull(dataListService) ? null : dataListService.list(page, size);
+//        return ControllerCrudUtils.list(result);
+//    }
+//
 
     @PostMapping("")
     public ResultVO save(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
                          @RequestParam(value = "data", defaultValue = "{}") String data) {
-        int state = DataSaveFactory.save(deviceCode, data);
-        return state != -1 ? ResultVOUtils.success() : ResultVOUtils.unknowError();
+        ResultDTO resultDTO = DataSaveFactory.save(deviceCode, data);
+        return ResultVO.checkAndReturn(resultDTO, -1);
     }
 }

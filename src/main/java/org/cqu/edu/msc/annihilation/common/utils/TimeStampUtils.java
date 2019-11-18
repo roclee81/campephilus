@@ -3,7 +3,7 @@ package org.cqu.edu.msc.annihilation.common.utils;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -117,11 +117,6 @@ public class TimeStampUtils {
         return instant.toEpochMilli() / 1000;
     }
 
-
-    public static long parseDateToTimeStamp(Date date) {
-        return date.getTime();
-    }
-
     private static long getCurrentSecondTimeStamp() {
         return System.currentTimeMillis() / 1000;
     }
@@ -141,7 +136,7 @@ public class TimeStampUtils {
      * @return 当前时间前多少分钟的时间戳
      */
     public static long getMinuteBeforeTimeStampValue(int minute) {
-        return getCurrentTimeStampValue() - 60 * minute;
+        return getCurrentTimeStampValue() - 60 * minute * 1000L;
     }
 
     /**
@@ -154,6 +149,7 @@ public class TimeStampUtils {
         return getCurrentTimeStampValue() - 86400 * days;
     }
 
+    @Deprecated
     public static Long getTimeStampOfTimeStampObject(Timestamp markTime) {
         return markTime.getTime() / 1000;
     }
@@ -161,24 +157,166 @@ public class TimeStampUtils {
     /**
      * 得到当天的零时的LocalDateTime
      * 例如当前时间为11:10，得到的为0:00的时间戳
-     * java自带获得当前毫秒时间戳的方法是System.currentTimeMillis()，零点是24小时轮回的零界点。
-     * 所以我们把当前时间戳取24小时毫秒数取余，然后用当前毫秒时间戳减这个余就行。
      *
      * @return 对应的LocalDateTime
      */
     public static LocalDateTime getCurrentDayZeroLocalDateTime() {
-        long currentTimestamps = System.currentTimeMillis();
-        long oneDayTimestamps = 60 * 60 * 24 * 1000;
-        return parseTimeStampToLocalDateTime(currentTimestamps - (currentTimestamps + 60 * 60 * 8 * 1000) % oneDayTimestamps);
+        LocalDateTime current = LocalDateTime.now();
+        return LocalDateTime.of(current.getYear(), current.getMonth(), current.getDayOfMonth(), 0, 0, 0, 0);
     }
 
-
-    public static LocalDateTime getDateTimeOfTimeStampBeforeMonth(int month) {
-        return parseTimeStampToLocalDateTime(getMonthBeforeTimeStampValue(month));
+    /**
+     * 得到指定月份零时的LocalDateTime
+     * 例如指定月时间为2019/11/1 11:11得到的为2019/11/1 0:0的时间戳
+     * <p>如果输入的参数month大于12，将返回第二年的零时</p>
+     *
+     * @param month 指定的月份
+     * @return 对应的LocalDateTime
+     */
+    public static LocalDateTime getMonthZeroLocalDateTime(int month) {
+        if (month >= 1 && month <= 12) {
+            return LocalDateTime.of(LocalDateTime.now().getYear(), month, 1, 0, 0, 0, 0);
+        }
+        return LocalDateTime.of(LocalDateTime.now().getYear() + 1, 1, 1, 0, 0, 0, 0);
     }
 
-    public static LocalDateTime getLocalDateTime4TimeStampBeforeMinute(int minutes) {
-        return parseTimeStampToLocalDateTime(getMinuteBeforeTimeStampValue(minutes));
+    /**
+     * 得到指定月份有多少天
+     *
+     * @param year  年份
+     * @param month 月份
+     * @return 指定月份有多少天
+     */
+    public static int getMaxDayOfMonth(int year, int month) {
+        LocalDate localDate = LocalDate.of(year, month, 1).plusMonths(1).minusDays(1);
+        return localDate.getDayOfMonth();
+    }
+
+    private static boolean checkYearAndMonthAndDay(int year, int month, int day) {
+        if (month > 12 || month < 0 || day < 0 || day > 31) {
+            return true;
+        }
+        if (year == 0) {
+            return false;
+        }
+        if (month == 0) {
+            return false;
+        }
+        return day > getMaxDayOfMonth(year, month);
+    }
+
+    /**
+     * 如果传入0月，将会返回系统所支持的初始日期
+     *
+     * @param year  年份
+     * @param month 月份
+     * @param day   天数
+     * @return LocalDate
+     */
+    public static LocalDate getStartLocalDate(int year, int month, int day) {
+        LocalDate current = LocalDate.now();
+        if (checkYearAndMonthAndDay(year, month, day)) {
+            return current;
+        }
+        // 如果指定了年份
+        if (year != 0) {
+            // 没有指定月份或指定第12个月的
+            if (month == 0) {
+                // 指定年份，没有指定月份（当月），没有指定天数（当天），获取指定的当年1月1日
+                if (day == 0) {
+                    return current.withMonth(1).withDayOfMonth(1);
+                }
+                // 指定年份，没有指定月份（当月），指定天数，获取指定天数的第二天
+                return current.withYear(year).withDayOfMonth(day);
+            } else {
+                // 指定年份，指定月份，没有指定天数（当天），获取指定月份的1日
+                if (day == 0) {
+                    return current.withYear(year).withMonth(month).withDayOfMonth(1);
+                }
+                // 指定年份，指定月份，指定天数，获取指定年月日的当天
+                return current.withYear(year).withMonth(month).withDayOfMonth(day);
+            }
+            // 没有指定年份，获取初始日期
+        } else {
+            return LocalDate.of(0, Month.JANUARY.getValue(), 1);
+        }
+    }
+
+    /**
+     * 获得指定时间的LocalDate的结尾时刻，用下一时刻来表示
+     * 传入0值，统一代表默认值，表示当前时间，传入0也代表没有指定
+     * <p>传入2019/11/0，输出2019/12/1</p>
+     * <p>传入2019/11/2，输出2019/11/3</p>
+     * <p>传入2019/11/30，输出2019/12/1</p>
+     *
+     * @param year  年份
+     * @param month 月份
+     * @param day   天数
+     * @return LocalDate
+     */
+    public static LocalDate getEndLocalDate(int year, int month, int day) {
+        // TODO 检查年月日是否符合规则
+        LocalDate current = LocalDate.now();
+        if (checkYearAndMonthAndDay(year, month, day)) {
+            return current;
+        }
+        // 如果指定了年份
+        if (year != 0) {
+            // 没有指定月份或指定第12个月的
+            if (month == 0) {
+                // 指定年份，没有指定月份（当月），没有指定天数（当天），获取指定的第二年1月1日
+                if (day == 0) {
+                    return current.withYear(year + 1).withMonth(1).withDayOfMonth(1);
+                }
+                // 指定年份，没有指定月份（当月），指定天数，获取指定天数的第二天
+                return current.withYear(year).withDayOfMonth(day).plusDays(1);
+            } else {
+                // 指定年份，指定月份，没有指定天数（当天），获取指定月份的第二个月的1日
+                if (day == 0) {
+                    return current.withYear(year).withMonth(month).plusMonths(1).withDayOfMonth(1);
+                }
+                // 指定年份，指定月份，指定天数，获取指定年月日的第二天
+                return current.withYear(year).withMonth(month).withDayOfMonth(day).plusDays(1);
+            }
+            // 没有指定年份获取当前年份的后10年，因为预期写完工时间不可能高于10年
+        } else {
+            return current.plusYears(10);
+        }
+
+    }
+
+    /**
+     * 得到指定时间之前的时间
+     *
+     * @param number     指定时间数
+     * @param chronoUnit 指定单位
+     * @return LocalDateTime
+     */
+    private static LocalDateTime getLocalDateTimeBefore(int number, ChronoUnit chronoUnit) {
+        return LocalDateTime.now().minus(number, chronoUnit);
+    }
+
+    /**
+     * 得到指定时间之后的时间
+     *
+     * @param number     指定时间数
+     * @param chronoUnit 指定单位
+     * @return LocalDateTime
+     */
+    private static LocalDateTime getLocalDateTimeAfter(int number, ChronoUnit chronoUnit) {
+        return LocalDateTime.now().plus(number, chronoUnit);
+    }
+
+    public static LocalDateTime getLocalDateTimeBeforeYear(int years) {
+        return getLocalDateTimeBefore(years, ChronoUnit.YEARS);
+    }
+
+    public static LocalDateTime getLocalDateTimeBeforeMonth(int months) {
+        return getLocalDateTimeBefore(months, ChronoUnit.MONTHS);
+    }
+
+    public static LocalDateTime getLocalDateTimeBeforeMinute(int minutes) {
+        return getLocalDateTimeBefore(minutes, ChronoUnit.MINUTES);
     }
 
 
@@ -199,8 +337,8 @@ public class TimeStampUtils {
         return getCurrentTimeStampValue() + 60 * minute * 1000L;
     }
 
-    public static LocalDateTime getLocalDateTimeMinuteAfterTimeStampValue(int minute) {
-        return parseTimeStampToLocalDateTime(getMinuteAfterTimeStampValue(minute));
+    public static LocalDateTime getLocalDateTimeAfterMinute(int minutes) {
+        return getLocalDateTimeAfter(minutes, ChronoUnit.MINUTES);
     }
 
     public static long getSpecificLongFromCurrentTime(int months, int days, int hours, int minutes, boolean before) {

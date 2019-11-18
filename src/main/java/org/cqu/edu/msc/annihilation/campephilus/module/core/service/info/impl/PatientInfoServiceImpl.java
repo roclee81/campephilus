@@ -1,6 +1,5 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.impl;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.constant.CacheConstant;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.info.PatientInfo;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.repository.info.PatientInfoRepository;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.service.info.PatientInfoService;
@@ -10,8 +9,6 @@ import org.cqu.edu.msc.annihilation.campephilus.utils.CheckUtils;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
 import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,7 +18,6 @@ import org.springframework.stereotype.Service;
  * @email vinicolor.violet.end@gmail.com
  * Description:
  */
-@CacheConfig(cacheNames = CacheConstant.CACHE_NAME_INFO_PATIENT)
 @Service
 public class PatientInfoServiceImpl implements PatientInfoService {
 
@@ -49,7 +45,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         return ServiceCrudCheckUtils.deleteObjectAndCheck(repository, t);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
     public ResultDTO savePatientInfoFromInstrumentForm(InstrumentForm instrumentForm) {
         PatientInfo parseObject = ParseJsonUtil.parseClassName2JsonString(instrumentForm, PatientInfo.class);

@@ -43,6 +43,9 @@ public class ResultDTO implements Serializable {
         return new ResultDTO(ResponseEnum.SUCCESS, o);
     }
 
+    public static ResultDTO unknownDataType() {
+        return new ResultDTO(ResponseEnum.UNKNOWN_DATA_TYPE);
+    }
 
     public static ResultDTO unknownError(Object o) {
         return new ResultDTO(ResponseEnum.UNKNOWN_ERROR, o.toString());
