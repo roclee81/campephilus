@@ -3,6 +3,7 @@ package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.DeviceCodeEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
+import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.cqu.edu.msc.annihilation.common.utils.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -47,14 +48,21 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
         dataEntityMap = new HashMap<>(DeviceCodeEnum.values().length);
     }
 
-    Object dataSaveService(Integer type, String data) {
+    /**
+     * 保存医疗仪器输出
+     *
+     * @param dataType 数据类型，对应不同的医疗仪器
+     * @param data     解析完成的数据
+     * @return ResultDTO
+     */
+    public ResultDTO dataSaveService(Integer dataType, String data) {
         // 匹配是否存在code
-        if (DeviceCodeEnum.matchDeviceCodeEnum(type) == null) {
-            return null;
+        if (DeviceCodeEnum.matchDeviceCodeEnum(dataType) == null) {
+            return ResultDTO.unknownDataType();
         }
         // TODO 返回错误判断
-        Object entity = ParseJsonUtil.getTObject(dataEntityMap.get(type), data);
-        return ServiceCrudCheckUtils.saveObjectAndCheck(dataRepositoryMap.get(type), entity);
+        Object entity = ParseJsonUtil.getTObject(dataEntityMap.get(dataType), data);
+        return ServiceCrudCheckUtils.saveObjectAndCheck(dataRepositoryMap.get(dataType), entity);
     }
 
     /**
@@ -79,6 +87,7 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
                 entityClass = Class.forName(entityClassName);
                 repositoryClass = Class.forName(repositoryClassName);
             } catch (ClassNotFoundException e) {
+                // TODO 没有处理
                 continue;
             }
             JpaRepository<Object, Integer> repository = (JpaRepository<Object, Integer>) applicationContext.getBean(repositoryClass);

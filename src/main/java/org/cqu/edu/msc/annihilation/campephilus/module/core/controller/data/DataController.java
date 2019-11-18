@@ -1,8 +1,9 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.controller.data;
 
-import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.save.DataSaveFactory;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.service.data.DataHandlerContext;
 import org.cqu.edu.msc.annihilation.common.dto.ResultDTO;
 import org.cqu.edu.msc.annihilation.common.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/data")
 @CrossOrigin
 public class DataController {
+
+    @Autowired
+    private DataHandlerContext dataHandlerContext;
 
 //    @GetMapping("/newest")
 //    public ResultVO getNewest(@RequestParam(value = "deviceCode", defaultValue = "-1") int deviceCode,
@@ -39,7 +43,7 @@ public class DataController {
     @PostMapping("")
     public ResultVO save(@RequestParam(value = "deviceCode", defaultValue = "1") int deviceCode,
                          @RequestParam(value = "data", defaultValue = "{}") String data) {
-        ResultDTO resultDTO = DataSaveFactory.save(deviceCode, data);
+        ResultDTO resultDTO = dataHandlerContext.dataSaveService(deviceCode, data);
         return ResultVO.checkAndReturn(resultDTO, -1);
     }
 }

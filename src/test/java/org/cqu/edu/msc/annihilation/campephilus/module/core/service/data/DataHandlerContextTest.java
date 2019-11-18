@@ -29,7 +29,7 @@ class DataHandlerContextTest {
         for (DeviceCodeEnum deviceCodeEnum : DeviceCodeEnum.values()) {
             String dataName = StringUtils.constantNameConvertClassName(deviceCodeEnum.name());
             String dataClassName = DEVICE_ENTITY_PACKAGE_NAME + dataName;
-            Class c;
+            Class<?> c;
             try {
                 c = Class.forName(dataClassName);
             } catch (ClassNotFoundException e) {
