@@ -63,6 +63,10 @@ public class ResultDTO implements Serializable {
         return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), msg, o);
     }
 
+    public static ResultDTO dataFormatError(RuntimeException exception, Object o) {
+        return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR.getCode(), exception.getCause(), o);
+    }
+
     public static ResultDTO dataExisted(Object o) {
         return new ResultDTO(ResponseEnum.DATA_EXISTED, o);
     }

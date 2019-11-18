@@ -4,8 +4,8 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://172.20.29.5:3306/campephilus-dev?characterEncoding=utf-8&useSSL=false
-
-  redis:
-    host: 172.20.29.5
-
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 

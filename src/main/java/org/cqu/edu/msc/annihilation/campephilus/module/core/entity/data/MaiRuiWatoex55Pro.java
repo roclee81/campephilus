@@ -12,20 +12,47 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @author lx
- * @version V1.0
- * @date 2019/4/11 17:37
- * @email vinicolor.violet.end@gmail.com
- * Description:
+ * 迈瑞WATOEX麻醉机数据实体类
+ * @author msc206
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_pearlcare_yy106")
-public class PearlcareYy106 implements Serializable {
+@Table(name = "data_MaiRuiWatoex55Pro")
+public class MaiRuiWatoex55Pro implements Serializable {
 
-    private static final long serialVersionUID = -6622470603257802385L;
+    private static final long serialVersionUID = -614954426536118913L;
+
+    @Column(name = "PMean")
+    private Integer PMean;
+
+    @Column(name = "PEEP")
+    private Integer PEEP;
+
+    @Column(name = "PPlat")
+    private Integer PPlat;
+
+    @Column(name = "PPeak")
+    private Integer PPeak;
+
+    @Column(name = "MV")
+    private Double MV;
+
+    @Column(name = "TVe")
+    private Integer TVe;
+
+    @Column(name = "IE")
+    private Double IE;
+
+    @Column(name = "Rate")
+    private Integer Rate;
+
+    @Column(name = "C")
+    private Integer C;
+
+    @Column(name = "R")
+    private Integer R;
 
     /**
      * 自动增长
@@ -34,30 +61,6 @@ public class PearlcareYy106 implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_id")
     private Integer id;
-
-    /**
-     *
-     */
-    @Column(name = "AI")
-    private Integer AI;
-
-    /**
-     *
-     */
-    @Column(name = "EMG")
-    private Integer EMG;
-
-    /**
-     *
-     */
-    @Column(name = "SQI")
-    private Integer SQI;
-
-    /**
-     *
-     */
-    @Column(name = "BSR")
-    private Integer BSR;
 
     /**
      * 数据创建时间

@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 
+import com.google.gson.JsonSyntaxException;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.DeviceCodeEnum;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.utils.ParseJsonUtil;
 import org.cqu.edu.msc.annihilation.campephilus.utils.ServiceCrudCheckUtils;
@@ -12,8 +13,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author luoxin
@@ -41,11 +42,11 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
     /**
      * 存放实体code，entityClass映射的map
      */
-    private Map<Integer, Class<?>> dataEntityMap;
+    private Map<Integer, Class<?>> dataEntityClassMap;
 
     public DataHandlerContext() {
-        dataRepositoryMap = new HashMap<>(DeviceCodeEnum.values().length);
-        dataEntityMap = new HashMap<>(DeviceCodeEnum.values().length);
+        dataRepositoryMap = new ConcurrentHashMap<>(DeviceCodeEnum.values().length);
+        dataEntityClassMap = new ConcurrentHashMap<>(DeviceCodeEnum.values().length);
     }
 
     /**
@@ -60,8 +61,12 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
         if (DeviceCodeEnum.matchDeviceCodeEnum(dataType) == null) {
             return ResultDTO.unknownDataType();
         }
-        // TODO 返回错误判断
-        Object entity = ParseJsonUtil.getTObject(dataEntityMap.get(dataType), data);
+        Object entity;
+        try {
+            entity = ParseJsonUtil.getTObject(dataEntityClassMap.get(dataType), data);
+        } catch (JsonSyntaxException e) {
+            return ResultDTO.dataFormatError(e, data);
+        }
         return ServiceCrudCheckUtils.saveObjectAndCheck(dataRepositoryMap.get(dataType), entity);
     }
 
@@ -92,7 +97,7 @@ public class DataHandlerContext implements InitializingBean, ApplicationContextA
             }
             JpaRepository<Object, Integer> repository = (JpaRepository<Object, Integer>) applicationContext.getBean(repositoryClass);
             dataRepositoryMap.put(deviceCodeEnum.getCode(), repository);
-            dataEntityMap.put(deviceCodeEnum.getCode(), entityClass);
+            dataEntityClassMap.put(deviceCodeEnum.getCode(), entityClass);
         }
     }
 

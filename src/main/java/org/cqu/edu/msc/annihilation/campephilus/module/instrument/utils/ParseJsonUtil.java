@@ -8,7 +8,8 @@ import org.apache.commons.lang3.ClassUtils;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.exception.ParseException;
 import org.cqu.edu.msc.annihilation.campephilus.module.instrument.form.InstrumentForm;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 /**
@@ -48,21 +49,18 @@ public class ParseJsonUtil {
      * @param json     带解析的json字符串
      * @param <T>      泛型
      * @return 泛型类
+     * @throws JsonSyntaxException
      */
-    public static <T> T getTObject(Class<T> classOfT, String json) {
-        T object = null;
-        try {
-            object = getGsonObject().fromJson(json, classOfT);
-        } catch (JsonSyntaxException | NumberFormatException exception) {
-            ParseException.dataFormatException(exception, json);
-        }
-        return object;
+    public static <T> T getTObject(Class<T> classOfT, String json) throws JsonSyntaxException {
+        return getGsonObject().fromJson(json, classOfT);
     }
 
     private static Gson getGsonObject() {
         GsonBuilder builder = new GsonBuilder();
         // Register an adapter to manage the date types as long values
-        builder.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()));
+        builder.registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
+                (json, type, context) -> LocalDateTime.ofEpochSecond(json.getAsJsonPrimitive().getAsLong(),
+                        0, ZoneOffset.ofHours(8)));
         return builder.create();
     }
 

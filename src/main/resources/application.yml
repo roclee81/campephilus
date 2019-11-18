@@ -2,14 +2,11 @@ spring:
   application:
     name: campephilus
   profiles:
-    active: aliyun
+    active: local
   data:
     jpa:
       repositories:
         bootstrap-mode: deferred
-    redis:
-      repositories:
-        enabled: false
 
 server:
   port: 8081

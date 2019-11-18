@@ -1,5 +1,6 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data;
 
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.cqu.edu.msc.annihilation.common.converter.LocalDateTimeConverter;
@@ -12,20 +13,68 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @author lx
- * @version V1.0
- * @date 2019/4/11 17:37
- * @email vinicolor.violet.end@gmail.com
- * Description:
+ * 理邦 ELite V8监护仪数据实体
+ * @author cz
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_pearlcare_yy106")
-public class PearlcareYy106 implements Serializable {
+@Table(name = "data_LiBangEliteV8")
+public class LiBangEliteV8 implements Serializable {
 
-    private static final long serialVersionUID = -6622470603257802385L;
+    private static final long serialVersionUID = 1217602298523007590L;
+
+    @Column(name = "weight")
+    private Double weight;
+
+    @Column(name = "height")
+    private Double height;
+
+    @Column(name = "HR")
+    private Integer HR;
+
+    @Column(name = "PVCs")
+    private Integer PVCs;
+
+    @Column(name = "RR")
+    private Integer RR;
+
+    @Column(name = "SpO2")
+    private Integer SpO2;
+
+    @Column(name = "PR")
+    private Integer PR;
+
+    @Column(name = "T1")
+    private Double T1;
+
+    @Column(name = "T2")
+    private Double T2;
+
+    @Column(name = "CVP_MAP")
+    private Integer CVP_MAP;
+
+    @Column(name = "Art_SYS")
+    private Integer Art_SYS;
+
+    @Column(name = "Art_DIA")
+    private Integer Art_DIA;
+
+    @Column(name = "Art_MAP")
+    private Integer Art_MAP;
+
+    @Column(name = "P2_SYS")
+    private Integer P2_SYS;
+
+    @Column(name = "P2_DIA")
+    private Integer P2_DIA;
+
+    @Column(name = "P2_MAP")
+    private Integer P2_MAP;
+
+    @Column(name = "LAP_MAP")
+    private Integer LAP_MAP;
 
     /**
      * 自动增长
@@ -34,30 +83,6 @@ public class PearlcareYy106 implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_id")
     private Integer id;
-
-    /**
-     *
-     */
-    @Column(name = "AI")
-    private Integer AI;
-
-    /**
-     *
-     */
-    @Column(name = "EMG")
-    private Integer EMG;
-
-    /**
-     *
-     */
-    @Column(name = "SQI")
-    private Integer SQI;
-
-    /**
-     *
-     */
-    @Column(name = "BSR")
-    private Integer BSR;
 
     /**
      * 数据创建时间

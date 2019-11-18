@@ -1,6 +1,7 @@
 package org.cqu.edu.msc.annihilation.campephilus.module.core.service.data;
 
 import com.google.gson.Gson;
+import org.cqu.edu.msc.annihilation.campephilus.module.core.entity.data.MaiRuiWatoex65;
 import org.cqu.edu.msc.annihilation.campephilus.module.core.enums.DeviceCodeEnum;
 import org.cqu.edu.msc.annihilation.common.utils.ReflectUtil;
 import org.cqu.edu.msc.annihilation.common.utils.StringUtils;
@@ -40,5 +41,14 @@ class DataHandlerContextTest {
             Object result = context.dataSaveService(deviceCodeEnum.getCode(), data);
             Assert.notNull(result, "Null : " + data);
         }
+    }
+
+    @Test
+    void testDataSaveService() {
+        MaiRuiWatoex65 maiRuiWatoex65 = new MaiRuiWatoex65();
+//        maiRuiWatoex65.setOperationNumber(-1);
+        String data = new Gson().toJson(maiRuiWatoex65);
+        Object result = context.dataSaveService(DeviceCodeEnum.MAI_RUI_WATOEX_65.getCode(), data);
+        Assert.notNull(result, "Null : " + data);
     }
 }
